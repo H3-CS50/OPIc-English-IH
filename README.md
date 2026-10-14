@@ -31,7 +31,21 @@ Tài liệu tự luyện OPIc tiếng Anh, nhắm cấp **IH (Intermediate High)
 
 > ⚠️ **Đừng học thuộc nguyên văn.** Giám khảo OPIc được huấn luyện để nhận ra câu trả lời học thuộc và có thể hạ điểm. Hãy thuộc **khung + cụm từ**, rồi ráp nội dung của chính bạn vào.
 
+## 📱 App luyện nói (Android)
+
+**Tải APK:** vào [Releases](../../releases/latest) → tải file `OPIc-IH.apk` → mở file để cài.
+
+App có:
+- 🎤 **Luyện nói:** câu hỏi ngẫu nhiên theo chủ đề, nghe câu hỏi bằng giọng đọc (có thể ẩn chữ giống thi thật), đếm giờ 2 phút
+- 📝 **Chuyển giọng nói thành chữ** hoặc 🎙️ **ghi âm** để nghe lại
+- 🤖 **AI chấm bài:** ước tính cấp độ, chỉ ra lỗi, gợi ý nâng cấp, viết lại bài ở mức IH
+  - Có API key Anthropic thì chấm ngay trong app (key chỉ lưu trên máy)
+  - Không có key thì bấm **📋 Copy** rồi dán vào app Claude, miễn phí
+- 📚 Đọc toàn bộ tài liệu, 🃏 flashcard, 🕘 lịch sử các bài đã chấm
+
+Mã nguồn ở [`app/`](app/). Nội dung trong app được lấy tự động từ các thư mục tài liệu, nên chỉ cần sửa file `.md` hoặc `.tsv` rồi push là GitHub tự build APK mới.
+
 ## Kế hoạch tiếp theo
 
-- [ ] App luyện nói (câu hỏi ngẫu nhiên, đếm giờ, ghi âm, AI chấm bài)
+- [x] App luyện nói (câu hỏi ngẫu nhiên, đếm giờ, ghi âm, AI chấm bài)
 - [ ] Bổ sung chủ đề theo Background Survey của bạn

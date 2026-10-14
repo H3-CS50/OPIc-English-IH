@@ -1,0 +1,4 @@
+node_modules/
+# Tạo ra khi build (npm run build)
+www/app.js
+src/content.json

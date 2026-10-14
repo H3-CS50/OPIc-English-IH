@@ -1,0 +1,8 @@
+{
+  "appId": "com.h3cs50.opicih",
+  "appName": "OPIc IH",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}

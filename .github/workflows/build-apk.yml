@@ -1,0 +1,78 @@
+name: Build APK
+
+# Mỗi lần push thay đổi app hoặc tài liệu, GitHub tự build APK và đăng ở mục Releases.
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths:
+      - 'app/**'
+      - '01-cau-hoi-bai-mau/**'
+      - '02-templates/**'
+      - '03-flashcards/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Cài thư viện
+        run: npm ci
+
+      - name: Build giao diện và nội dung
+        run: npm run build
+
+      - name: Đồng bộ vào project Android
+        run: npx cap sync android
+
+      - name: Build APK
+        working-directory: app/android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Đổi tên APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk OPIc-IH.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OPIc-IH-apk
+          path: app/OPIc-IH.apk
+
+      - name: Đăng lên Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: OPIc IH v1.0.${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          files: app/OPIc-IH.apk
+          body: |
+            📱 **Tải file `OPIc-IH.apk` ở mục Assets bên dưới**, mở file để cài.
+
+            Lần đầu cài, Android sẽ hỏi cho phép cài ứng dụng không rõ nguồn gốc. Bạn chỉ cần bấm cho phép.
+            Các bản sau cài đè lên bản cũ, lịch sử luyện tập vẫn được giữ.
+
+            Commit: ${{ github.sha }}

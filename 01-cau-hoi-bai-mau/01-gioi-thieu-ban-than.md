@@ -10,6 +10,8 @@ Câu 1 thường không được tính điểm trực tiếp, nhưng giúp bạn
 
 ## Bài mẫu 1 – Nhân viên văn phòng
 
+> **Q:** *"Let's start the interview now. Tell me a little bit about yourself."*
+
 > Hi, nice to meet you. My name is Minh, and I'm twenty-seven years old. I'm from Hanoi, and I've been living here my whole life, so I know the city pretty well.
 >
 > Right now, I'm working as an accountant at a logistics company. Honestly, the job can be a bit stressful, especially at the end of the month when we have to close the books, but I like it because I'm good with numbers and my coworkers are really friendly.
@@ -21,6 +23,8 @@ Câu 1 thường không được tính điểm trực tiếp, nhưng giúp bạn
 > These days, I'm studying English because my company works with a lot of foreign partners, and I want to communicate with them more confidently. So, that's a little bit about me.
 
 ## Bài mẫu 2 – Sinh viên
+
+> **Q:** *"Let's start the interview now. Tell me a little bit about yourself."*
 
 > Hello! My name is Lan, and I'm a third-year student at a university in Ho Chi Minh City. My major is marketing, which I chose because I've always been interested in how brands connect with people.
 >

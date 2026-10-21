@@ -54,7 +54,11 @@ export function buildMock({ topics, diff, oqc }) {
   for (const t of byTopic) {
     if (surveyCombos.length < 2) surveyCombos.push(pick(pool.filter((c) => c.topic === t)));
   }
-  while (surveyCombos.length < 2) surveyCombos.push(pick(pool));
+  // Nếu chỉ chọn 1 chủ đề: lấy combo khác của chủ đề đó, hoặc một chủ đề survey khác.
+  if (surveyCombos.length < 2) {
+    const rest = pool.filter((c) => c !== surveyCombos[0]);
+    surveyCombos.push(pick(rest.length ? rest : survey.filter((c) => c !== surveyCombos[0])));
+  }
   const unexpected = shuffle(info.filter((c) => c.kind === 'combo' && c.category === 'unexpected'));
   const rpSets = info.filter((c) => c.kind === 'rp' && c.id !== 'RP-ava');
   const rp = pick(rpSets);

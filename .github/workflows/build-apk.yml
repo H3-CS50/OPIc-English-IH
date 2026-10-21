@@ -58,6 +58,9 @@ jobs:
       - name: Build giao diện và nội dung
         run: npm run build
 
+      - name: Kiểm thử logic (thi thử, nhập câu hỏi, chuẩn hoá kết quả AI)
+        run: node scripts/run-tests.mjs
+
       - name: Đồng bộ vào project Android
         run: npx cap sync android
 

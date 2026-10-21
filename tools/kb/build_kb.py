@@ -385,6 +385,16 @@ def main():
     (APP_SRC / "coach_schema.json").write_text(json.dumps(schemas.COACH_RESULT, ensure_ascii=False), encoding="utf-8")
     (APP_SRC / "coach_prompt.txt").write_text(prompt, encoding="utf-8")
 
+    # ---- bảng kiểm tra tự động trong 10_QA_AND_GAP_REPORT.md
+    qa = KB / "10_QA_AND_GAP_REPORT.md"
+    if qa.exists():
+        rows = ["| Kiểm tra | Kết quả |", "|---|---|"] + [f"| `{k}` | **{v}** |" for k, v in results.items()]
+        rows.append(f"\nSố lỗi FAIL: {sum(i['severity'] == 'FAIL' for i in issues)} · cần xem lại: {sum(i['severity'] != 'FAIL' for i in issues)}. Chi tiết trong `validation_report.json`.")
+        txt = qa.read_text(encoding="utf-8")
+        txt = re.sub(r"<!-- AUTO-CHECKS START -->.*?<!-- AUTO-CHECKS END -->",
+                     "<!-- AUTO-CHECKS START -->\n" + "\n".join(rows) + "\n<!-- AUTO-CHECKS END -->", txt, flags=re.S)
+        qa.write_text(txt, encoding="utf-8")
+
     # ---- validation report + manifest
     report = {"generated_on": ACCESS_DATE, "checks": results, "issues": issues}
     (KB / "validation_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

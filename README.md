@@ -1,51 +1,39 @@
-# OPIc English – Mục tiêu IH
+# OPIc OQC — luyện nói OPIc tiếng Anh (IM · IH · AL)
 
-Tài liệu tự luyện OPIc tiếng Anh, nhắm cấp **IH (Intermediate High)**.
+App Android và bộ dữ liệu luyện nói **OPIc English**, theo lộ trình **IM → IH → AL**.
 
-## Cấu trúc thư mục
+> Đây là công cụ **luyện tập**. Nhãn IM/IH/AL trong app chỉ là mục tiêu luyện tập hoặc ước tính luyện tập, không phải rating ACTFL chính thức.
+
+## 📱 Tải app
+
+Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở để cài. Bản mới cài đè lên bản cũ (kể cả bản "OPIc IH" v1) và giữ nguyên lịch sử luyện tập.
+
+### App có gì
+
+| Tab | Tính năng |
+|---|---|
+| 🎤 **Luyện** | Chọn mục tiêu IM/IH/AL. Lọc theo nhóm, chủ đề, dạng câu, có nhánh OQC tùy chọn. Nghe câu hỏi, ẩn/hiện chữ, xem gợi ý khung. 📝 Chuyển giọng nói thành chữ hoặc 🎙️ ghi âm. **AI Coach** nhận xét theo FACT, chỉ ra một khoảng trống chính và giao **bài nói lại**. Có 📖 bài mẫu 3 cấp, ✅ tự kiểm tra, 📋 copy nhờ Claude chấm |
+| 📝 **Thi thử** | 15 câu trong 40 phút: giới thiệu → 3 combo → role-play → câu nâng cao. Chọn chủ đề Survey và độ khó. Nghe lại câu hỏi 1 lần. Sau khi nộp: chấm từng câu hoặc cả bài, xem ước tính tổng |
+| 📚 **Học** | 142 câu hỏi; 24 bộ bài mẫu IM/IH/AL; ma trận cấp độ; khung trả lời; tài liệu; flashcard |
+| 📈 **Tiến bộ** | Thống kê, chuỗi ngày luyện, ước tính theo dạng câu, 🎯 luyện điểm yếu, lịch sử |
+| ⚙️ **Cài đặt** | Chọn AI: **Claude** (chấm theo chữ), **Gemini** (nghe được ghi âm, có gói miễn phí) hoặc chỉ copy. Key chỉ lưu trên máy. Nhập bộ câu hỏi riêng (JSON/CSV) |
+
+## 📂 Cấu trúc repo
 
 | Thư mục | Nội dung |
 |---|---|
-| [`01-cau-hoi-bai-mau/`](01-cau-hoi-bai-mau/) | Câu hỏi theo chủ đề + bài mẫu IH + từ vựng đáng học |
-| [`02-templates/`](02-templates/) | Khung trả lời cho từng dạng câu, filler, từ nối, câu "cứu nguy" |
-| [`03-flashcards/`](03-flashcards/) | Flashcard cụm từ (đọc trên máy hoặc import vào Anki) |
+| [`OPIC_OQC_KNOWLEDGE_BASE_V1/`](OPIC_OQC_KNOWLEDGE_BASE_V1/) | Knowledge base: nguồn đã kiểm chứng, phát hiện chính thức từ ACTFL, ma trận IM/IH/AL, taxonomy, ngân hàng câu hỏi, bài mẫu, prompt AI Coach, schema, product spec, báo cáo QA, manifest. Bắt đầu đọc từ [`00_README.md`](OPIC_OQC_KNOWLEDGE_BASE_V1/00_README.md) |
+| [`tools/kb/`](tools/kb/) | Nguồn dữ liệu và script `build_kb.py` sinh + kiểm định dữ liệu (chạy trong CI) |
+| [`app/`](app/) | App Capacitor (Android). `npm run build` → `npx cap sync android` → Gradle |
+| [`01-cau-hoi-bai-mau/`](01-cau-hoi-bai-mau/), [`02-templates/`](02-templates/), [`03-flashcards/`](03-flashcards/) | Thư viện v1 (bài mẫu IH, khung trả lời, flashcard), vẫn hiển thị trong app |
 
-### Danh sách chủ đề
+## 🔧 Cập nhật nội dung
 
-0. [Cấu trúc đề thi & tiêu chí IH](01-cau-hoi-bai-mau/00-cau-truc-de-thi.md)
-1. [Giới thiệu bản thân](01-cau-hoi-bai-mau/01-gioi-thieu-ban-than.md)
-2. [Nhà ở](01-cau-hoi-bai-mau/02-nha-o.md)
-3. [Xem phim](01-cau-hoi-bai-mau/03-xem-phim.md)
-4. [Nghe nhạc](01-cau-hoi-bai-mau/04-nghe-nhac.md)
-5. [Công viên & đi dạo](01-cau-hoi-bai-mau/05-cong-vien-di-dao.md)
-6. [Du lịch trong nước](01-cau-hoi-bai-mau/06-du-lich-trong-nuoc.md)
-7. [Chủ đề bất ngờ (công nghệ, tái chế, thời tiết, ngày lễ, nhà hàng)](01-cau-hoi-bai-mau/07-chu-de-bat-ngo.md)
-8. [Role-play (câu 11–13)](01-cau-hoi-bai-mau/08-role-play.md)
-9. [Câu 14–15: so sánh & vấn đề xã hội](01-cau-hoi-bai-mau/09-cau-14-15.md)
+1. Sửa `tools/kb/questions_src.py` (thêm câu với số id mới), `answers_src_*.py` hoặc `OPIC_OQC_KNOWLEDGE_BASE_V1/07_AI_COACH_GRADING_PROMPT.md`.
+2. Push lên GitHub. CI chạy kiểm định dữ liệu và kiểm thử logic, rồi build APK và đăng lên Releases.
 
-## Cách học gợi ý (2–3 tuần)
+## ⚠️ Lưu ý
 
-1. **Tuần 1 – Học khung:** đọc kỹ `02-templates/`, thuộc 20–30 filler và từ nối. Mỗi ngày ôn flashcard 10 phút.
-2. **Tuần 2 – Cá nhân hoá bài mẫu:** với mỗi chủ đề, đọc bài mẫu rồi **viết lại theo đời sống thật của bạn** (tên quán, tên phim, người bạn đi cùng…). Bài thật của mình nhớ lâu hơn và nói tự nhiên hơn nhiều so với học thuộc.
-3. **Tuần 3 – Nói thành tiếng:** che bài mẫu, bấm giờ **1:30–2:00 / câu**, tự ghi âm bằng điện thoại, nghe lại và so với bài mẫu.
-
-> ⚠️ **Đừng học thuộc nguyên văn.** Giám khảo OPIc được huấn luyện để nhận ra câu trả lời học thuộc và có thể hạ điểm. Hãy thuộc **khung + cụm từ**, rồi ráp nội dung của chính bạn vào.
-
-## 📱 App luyện nói (Android)
-
-**Tải APK:** vào [Releases](../../releases/latest) → tải file `OPIc-IH.apk` → mở file để cài.
-
-App có:
-- 🎤 **Luyện nói:** câu hỏi ngẫu nhiên theo chủ đề, nghe câu hỏi bằng giọng đọc (có thể ẩn chữ giống thi thật), đếm giờ 2 phút
-- 📝 **Chuyển giọng nói thành chữ** hoặc 🎙️ **ghi âm** để nghe lại
-- 🤖 **AI chấm bài:** ước tính cấp độ, chỉ ra lỗi, gợi ý nâng cấp, viết lại bài ở mức IH
-  - Có API key Anthropic thì chấm ngay trong app (key chỉ lưu trên máy)
-  - Không có key thì bấm **📋 Copy** rồi dán vào app Claude, miễn phí
-- 📚 Đọc toàn bộ tài liệu, 🃏 flashcard, 🕘 lịch sử các bài đã chấm
-
-Mã nguồn ở [`app/`](app/). Nội dung trong app được lấy tự động từ các thư mục tài liệu, nên chỉ cần sửa file `.md` hoặc `.tsv` rồi push là GitHub tự build APK mới.
-
-## Kế hoạch tiếp theo
-
-- [x] App luyện nói (câu hỏi ngẫu nhiên, đếm giờ, ghi âm, AI chấm bài)
-- [ ] Bổ sung chủ đề theo Background Survey của bạn
+- Câu hỏi và bài mẫu do AI viết mới, **chưa có giáo viên duyệt**. Xem [`10_QA_AND_GAP_REPORT.md`](OPIC_OQC_KNOWLEDGE_BASE_V1/10_QA_AND_GAP_REPORT.md).
+- **Đừng học thuộc bài mẫu.** ACTFL lưu ý rằng lời nói học thuộc có thể khiến thí sinh không vượt được mức Novice. Hãy học khung và cụm từ, rồi kể chuyện thật của bạn.
+- Khi chấm, câu hỏi và bài nói được gửi tới nhà cung cấp AI bạn chọn. Đừng đưa thông tin nội bộ công ty vào câu trả lời.

@@ -6,6 +6,8 @@ on:
     branches: [main, 'claude/**']
     paths:
       - 'app/**'
+      - 'tools/**'
+      - 'OPIC_OQC_KNOWLEDGE_BASE_V1/**'
       - '01-cau-hoi-bai-mau/**'
       - '02-templates/**'
       - '03-flashcards/**'
@@ -40,6 +42,16 @@ jobs:
           java-version: 21
           cache: gradle
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Kiểm định knowledge base và sinh dữ liệu cho app
+        working-directory: .
+        run: |
+          pip install jsonschema==4.26.0
+          python3 tools/kb/build_kb.py
+
       - name: Cài thư viện
         run: npm ci
 
@@ -54,23 +66,23 @@ jobs:
         run: ./gradlew assembleRelease --no-daemon
 
       - name: Đổi tên APK
-        run: cp android/app/build/outputs/apk/release/app-release.apk OPIc-IH.apk
+        run: cp android/app/build/outputs/apk/release/app-release.apk OPIc-OQC.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: OPIc-IH-apk
-          path: app/OPIc-IH.apk
+          name: OPIc-OQC-apk
+          path: app/OPIc-OQC.apk
 
       - name: Đăng lên Releases
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: OPIc IH v1.0.${{ github.run_number }}
+          tag_name: v2.0.${{ github.run_number }}
+          name: OPIc OQC v2.0.${{ github.run_number }}
           target_commitish: ${{ github.sha }}
           make_latest: true
-          files: app/OPIc-IH.apk
+          files: app/OPIc-OQC.apk
           body: |
-            📱 **Tải file `OPIc-IH.apk` ở mục Assets bên dưới**, mở file để cài.
+            📱 **Tải file `OPIc-OQC.apk` ở mục Assets bên dưới**, mở file để cài.
 
             Lần đầu cài, Android sẽ hỏi cho phép cài ứng dụng không rõ nguồn gốc. Bạn chỉ cần bấm cho phép.
             Các bản sau cài đè lên bản cũ, lịch sử luyện tập vẫn được giữ.

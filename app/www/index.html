@@ -3,30 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#1f6f5c">
-  <title>OPIc IH</title>
+  <meta name="theme-color" content="#164e63">
+  <title>OPIc OQC</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar"><h1 id="screen-title">Luyện nói</h1></header>
+  <header class="topbar">
+    <h1 id="screen-title">Luyện nói</h1>
+    <span class="topbar-brand">OPIc OQC</span>
+  </header>
 
   <main>
-    <!-- Luyện nói -->
+    <!-- ================= Luyện nói ================= -->
     <section id="tab-practice" class="tab active">
-      <label class="field">
-        <span>Chủ đề</span>
-        <select id="topic-select"></select>
-      </label>
+      <div class="level-switch" role="radiogroup" aria-label="Mục tiêu">
+        <span class="muted small">Mục tiêu</span>
+        <button data-level="IM">IM</button>
+        <button data-level="IH">IH</button>
+        <button data-level="AL">AL</button>
+      </div>
+
+      <div class="filters">
+        <select id="f-category" aria-label="Nhóm câu hỏi"></select>
+        <select id="f-topic" aria-label="Chủ đề"></select>
+        <select id="f-ptype" aria-label="Dạng câu"></select>
+      </div>
+
+      <div id="practice-banner" class="banner" hidden></div>
 
       <div class="card question-card">
-        <div class="q-heading" id="q-heading"></div>
+        <div class="q-meta" id="q-meta"></div>
         <p class="q-text" id="q-text"></p>
         <p class="q-hidden muted" id="q-hidden" hidden>Chữ đang ẩn, giống thi thật. Bấm 🔊 để nghe câu hỏi.</p>
         <div class="row">
           <button class="btn" id="btn-listen">🔊 Nghe</button>
-          <button class="btn" id="btn-toggle-text">👁️ Ẩn chữ</button>
-          <button class="btn" id="btn-next">🔀 Câu khác</button>
+          <button class="btn" id="btn-toggle-text">🙈 Ẩn chữ</button>
+          <button class="btn" id="btn-next">🔀 Đổi câu</button>
         </div>
+        <div class="row between">
+          <button class="link-btn" id="btn-hints">💡 Gợi ý</button>
+          <span class="muted small" id="plays"></span>
+        </div>
+        <div id="hints-box" class="hints" hidden></div>
       </div>
 
       <div class="segmented" role="radiogroup" aria-label="Chế độ">
@@ -36,111 +54,244 @@
       <p class="muted small" id="mode-hint"></p>
 
       <div class="recorder">
-        <button class="rec-btn" id="btn-rec" aria-label="Bắt đầu nói">
-          <span class="rec-dot"></span>
-        </button>
-        <div class="timer"><span id="timer">0:00</span><span class="muted"> / 2:00</span></div>
+        <button class="rec-btn" id="btn-rec" aria-label="Bắt đầu nói"><span class="rec-dot"></span></button>
+        <div class="timer"><span id="timer">0:00</span><span class="muted small" id="timer-target"></span></div>
         <div class="progress"><div id="progress-bar"></div></div>
         <p class="muted small" id="rec-status">Bấm nút đỏ để bắt đầu nói</p>
       </div>
 
-      <div id="transcript-box" class="card">
+      <div class="card">
         <div class="row between">
           <strong>Bài nói của bạn</strong>
           <span class="muted small" id="word-count">0 từ</span>
         </div>
-        <textarea id="transcript" rows="6" placeholder="Chữ sẽ hiện ở đây khi bạn nói. Bạn có thể sửa lại những chỗ máy nghe nhầm."></textarea>
+        <textarea id="transcript" rows="6" placeholder="Chữ sẽ hiện ở đây khi bạn nói. Bạn có thể sửa chỗ máy nghe nhầm, hoặc tự gõ câu trả lời."></textarea>
       </div>
 
       <div id="audio-box" class="card" hidden>
         <strong>Nghe lại</strong>
         <audio id="audio" controls></audio>
+        <p class="muted small">Ghi âm chỉ giữ tạm trong phiên này, không lưu vào máy.</p>
       </div>
 
-      <div class="row wrap" id="after-actions">
-        <button class="btn primary" id="btn-grade">🤖 AI chấm</button>
-        <button class="btn" id="btn-copy">📋 Copy nhờ Claude chấm</button>
+      <div class="actions">
+        <button class="btn primary" id="btn-grade">🤖 AI Coach</button>
+        <button class="btn" id="btn-copy">📋 Copy nhờ Claude</button>
         <button class="btn" id="btn-sample">📖 Bài mẫu</button>
+        <button class="btn" id="btn-selfcheck">✅ Tự kiểm tra</button>
       </div>
 
       <div id="sample-box" class="card md" hidden></div>
-      <div id="feedback-box" class="card md" hidden></div>
+      <div id="selfcheck-box" class="card" hidden></div>
+      <div id="feedback-box" class="card" hidden></div>
     </section>
 
-    <!-- Tài liệu -->
-    <section id="tab-docs" class="tab">
-      <div id="doc-list"></div>
-      <div id="doc-view" hidden>
-        <button class="btn" id="btn-doc-back">← Danh sách</button>
-        <article id="doc-content" class="md"></article>
+    <!-- ================= Thi thử ================= -->
+    <section id="tab-mock" class="tab">
+      <div id="mock-setup">
+        <div class="card">
+          <h2>📝 Thi thử 15 câu</h2>
+          <p class="small">Mô phỏng cấu trúc thường gặp trong tài liệu luyện thi: giới thiệu → 3 combo → role-play (11–13) → câu nâng cao (14–15). Tổng 40 phút. Mỗi câu được nghe lại 1 lần. <span class="muted">Đây là thiết kế luyện tập của app, không phải đề thi thật.</span></p>
+        </div>
+        <div class="card">
+          <h3>1. Chủ đề bạn chọn trong Background Survey</h3>
+          <p class="muted small">Chọn các chủ đề bạn sẽ chọn khi đi thi. Đề thi thử lấy 2 combo từ các chủ đề này.</p>
+          <div id="mock-topics" class="chip-grid"></div>
+        </div>
+        <div class="card">
+          <h3>2. Mức đề</h3>
+          <label class="check"><input type="radio" name="mock-diff" value="34"> Độ khó 3–4 · mục tiêu IM–IH (câu 14–15 là combo thường)</label>
+          <label class="check"><input type="radio" name="mock-diff" value="56"> Độ khó 5–6 · mục tiêu IH–AL (câu 14–15 nâng cao)</label>
+          <label class="check"><input type="checkbox" id="mock-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
+        </div>
+        <div class="card">
+          <h3>3. Cách trả lời</h3>
+          <div class="segmented">
+            <button data-mode="transcribe" class="seg">📝 Chuyển thành chữ</button>
+            <button data-mode="record" class="seg">🎙️ Ghi âm (nghe lại được)</button>
+          </div>
+          <p class="muted small">Chấm bằng Gemini thì dùng 🎙️ Ghi âm để AI nghe cả giọng. Chấm bằng Claude thì dùng 📝.</p>
+        </div>
+        <button class="btn primary btn-block" id="btn-mock-start">▶ Bắt đầu thi thử</button>
+      </div>
+
+      <div id="mock-run" hidden>
+        <div class="mock-head">
+          <div><b id="mock-progress">Câu 1/15</b><div class="muted small" id="mock-section"></div></div>
+          <div class="mock-clock" id="mock-clock">40:00</div>
+        </div>
+        <div class="card question-card">
+          <p class="q-text" id="mock-q-text" hidden></p>
+          <p class="q-hidden muted" id="mock-q-hidden">Đang đọc câu hỏi… (chữ ẩn giống thi thật)</p>
+          <div class="row">
+            <button class="btn" id="mock-replay">🔁 Nghe lại (1 lần)</button>
+            <button class="btn" id="mock-toggle-text">👁️ Hiện chữ</button>
+          </div>
+        </div>
+        <div class="recorder">
+          <button class="rec-btn" id="mock-rec" aria-label="Ghi"><span class="rec-dot"></span></button>
+          <div class="timer"><span id="mock-timer">0:00</span></div>
+          <p class="muted small" id="mock-rec-status"></p>
+          <p class="small live" id="mock-live"></p>
+        </div>
+        <button class="btn primary btn-block" id="mock-next">Câu tiếp ▶</button>
+        <button class="btn btn-block" id="mock-end">Kết thúc bài thi</button>
+      </div>
+
+      <div id="mock-review" hidden>
+        <div class="card" id="mock-summary"></div>
+        <div class="row">
+          <button class="btn primary" id="mock-grade-all">🤖 Chấm tất cả</button>
+          <button class="btn" id="mock-new">↺ Làm bài mới</button>
+        </div>
+        <p class="muted small" id="mock-grade-status"></p>
+        <div id="mock-list"></div>
       </div>
     </section>
 
-    <!-- Flashcard -->
-    <section id="tab-cards" class="tab">
-      <div class="row wrap">
-        <select id="card-tag"></select>
-        <label class="check"><input type="checkbox" id="card-unknown"> Chỉ thẻ chưa thuộc</label>
+    <!-- ================= Học ================= -->
+    <section id="tab-learn" class="tab">
+      <nav class="subnav">
+        <button data-sub="bank">Câu hỏi</button>
+        <button data-sub="samples">Bài mẫu 3 cấp</button>
+        <button data-sub="levels">IM·IH·AL</button>
+        <button data-sub="frameworks">Khung trả lời</button>
+        <button data-sub="docs">Tài liệu</button>
+        <button data-sub="cards">Flashcard</button>
+      </nav>
+
+      <div id="learn-bank" class="learn-pane">
+        <div class="filters">
+          <select id="b-category" aria-label="Nhóm"></select>
+          <select id="b-ptype" aria-label="Dạng câu"></select>
+          <select id="b-level" aria-label="Cấp độ">
+            <option value="">Mọi cấp</option><option value="IM">Luyện cho IM</option><option value="IH">Luyện cho IH</option><option value="AL">Luyện cho AL</option>
+          </select>
+        </div>
+        <input type="search" id="b-search" placeholder="🔎 Tìm câu hỏi hoặc chủ đề…">
+        <p class="muted small" id="bank-count"></p>
+        <div id="bank-list"></div>
       </div>
-      <div class="flashcard" id="flashcard" tabindex="0">
-        <div class="fc-front" id="fc-front"></div>
-        <div class="fc-back" id="fc-back" hidden></div>
-        <p class="muted small fc-hint" id="fc-hint">Chạm để lật thẻ</p>
+
+      <div id="learn-samples" class="learn-pane" hidden>
+        <div id="samples-list"></div>
+        <div id="sample-view" hidden></div>
       </div>
-      <p class="center muted" id="card-counter"></p>
-      <div class="row">
-        <button class="btn" id="card-prev">←</button>
-        <button class="btn" id="card-speak">🔊</button>
-        <button class="btn" id="card-shuffle">🔀</button>
-        <button class="btn" id="card-next">→</button>
+
+      <div id="learn-levels" class="learn-pane" hidden>
+        <article class="card md" id="levels-content"></article>
+        <details class="card"><summary><b>Thông tin chính thức về OPIc (ACTFL)</b></summary><article class="md" id="official-content"></article></details>
       </div>
-      <div class="row">
-        <button class="btn" id="card-again">😕 Chưa thuộc</button>
-        <button class="btn primary" id="card-known">✓ Đã thuộc</button>
+
+      <div id="learn-frameworks" class="learn-pane" hidden>
+        <div id="frameworks-list"></div>
+      </div>
+
+      <div id="learn-docs" class="learn-pane" hidden>
+        <div id="doc-list"></div>
+        <div id="doc-view" hidden>
+          <button class="btn" id="btn-doc-back">← Danh sách</button>
+          <article id="doc-content" class="md"></article>
+        </div>
+      </div>
+
+      <div id="learn-cards" class="learn-pane" hidden>
+        <div class="row wrap">
+          <select id="card-tag"></select>
+          <label class="check"><input type="checkbox" id="card-unknown"> Chỉ thẻ chưa thuộc</label>
+        </div>
+        <div class="flashcard" id="flashcard" tabindex="0">
+          <div class="fc-front" id="fc-front"></div>
+          <div class="fc-back" id="fc-back" hidden></div>
+          <p class="muted small fc-hint" id="fc-hint">Chạm để lật thẻ</p>
+        </div>
+        <p class="center muted" id="card-counter"></p>
+        <div class="row">
+          <button class="btn" id="card-prev">←</button>
+          <button class="btn" id="card-speak">🔊</button>
+          <button class="btn" id="card-shuffle">🔀</button>
+          <button class="btn" id="card-next">→</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="card-again">😕 Chưa thuộc</button>
+          <button class="btn primary" id="card-known">✓ Đã thuộc</button>
+        </div>
       </div>
     </section>
 
-    <!-- Lịch sử -->
-    <section id="tab-history" class="tab">
+    <!-- ================= Tiến bộ ================= -->
+    <section id="tab-progress" class="tab">
+      <button class="btn primary btn-block" id="btn-daily">🎯 Luyện điểm yếu hôm nay</button>
+      <div id="progress-stats"></div>
+      <h3>Lịch sử luyện tập</h3>
       <div id="history-list"></div>
-      <button class="btn danger" id="btn-clear-history">Xoá lịch sử</button>
     </section>
 
-    <!-- Cài đặt -->
+    <!-- ================= Cài đặt ================= -->
     <section id="tab-settings" class="tab">
       <div class="card">
-        <h2>🤖 AI chấm bài</h2>
-        <p class="small">Muốn chấm ngay trong app, bạn cần API key của Anthropic. Mỗi lần chấm tốn khoảng vài trăm đồng. Key chỉ lưu trên máy này.</p>
-        <p class="small">Chưa có key? Bạn vẫn dùng được nút <b>📋 Copy nhờ Claude chấm</b> rồi dán vào app Claude, miễn phí.</p>
-        <label class="field">
-          <span>API key</span>
-          <input id="api-key" type="password" autocomplete="off" placeholder="sk-ant-...">
-        </label>
-        <div class="row wrap">
-          <button class="btn primary" id="btn-save-key">Lưu</button>
-          <button class="btn" id="btn-check-key">Kiểm tra key</button>
-          <button class="btn" id="btn-show-key">👁️</button>
+        <h2>🤖 AI Coach</h2>
+        <p class="small">AI Coach nhận xét theo FACT (chức năng, độ chính xác, nội dung, dạng diễn ngôn), chỉ ra một điểm cần sửa và giao bài nói lại. Bạn dùng API key của chính mình. Key chỉ lưu trên máy này.</p>
+        <label class="check"><input type="radio" name="provider" value="claude"> <b>Claude</b> — chấm theo chữ (transcript)</label>
+        <label class="check"><input type="radio" name="provider" value="gemini"> <b>Gemini</b> — chấm theo chữ hoặc nghe file ghi âm, có gói miễn phí</label>
+        <label class="check"><input type="radio" name="provider" value="none"> Không dùng — chỉ <b>📋 Copy</b> rồi dán vào app Claude</label>
+
+        <div id="claude-box" class="sub-box" hidden>
+          <label class="field"><span>Model</span><select id="claude-model"></select></label>
+          <input id="claude-model-custom" type="text" placeholder="Tên model, vd. claude-sonnet-5-5" hidden>
+          <label class="field"><span>API key Claude</span><input id="claude-key" type="password" autocomplete="off" placeholder="sk-ant-..."></label>
+          <div class="row"><button class="btn" id="claude-check">Kiểm tra key</button><button class="btn" id="claude-show">👁️</button></div>
+          <p class="small" id="claude-status"></p>
+          <p class="small"><a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Tạo key tại console.anthropic.com →</a></p>
         </div>
-        <p class="small" id="key-status"></p>
-        <p class="small"><a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Tạo API key tại console.anthropic.com →</a></p>
+
+        <div id="gemini-box" class="sub-box" hidden>
+          <label class="field"><span>Model</span><select id="gemini-model"></select></label>
+          <input id="gemini-model-custom" type="text" placeholder="Tên model, vd. gemini-3.8-flash" hidden>
+          <label class="field"><span>API key Gemini</span><input id="gemini-key" type="password" autocomplete="off" placeholder="AIza..."></label>
+          <div class="row"><button class="btn" id="gemini-check">Kiểm tra key</button><button class="btn" id="gemini-show">👁️</button></div>
+          <p class="small" id="gemini-status"></p>
+          <p class="small"><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Tạo key tại Google AI Studio →</a></p>
+          <p class="muted small">Gói miễn phí có hạn mức thấp và Google có thể dùng dữ liệu gói miễn phí để cải thiện sản phẩm. Không gửi thông tin nội bộ công ty.</p>
+        </div>
+        <p class="muted small">Khi chấm, câu hỏi và bài nói (hoặc ghi âm) được gửi tới nhà cung cấp AI bạn chọn.</p>
       </div>
+
       <div class="card">
-        <h2>🔊 Giọng đọc câu hỏi</h2>
-        <label class="field">
-          <span>Tốc độ: <b id="rate-label"></b></span>
-          <input id="tts-rate" type="range" min="0.6" max="1.2" step="0.05">
-        </label>
+        <h2>🔊 Giọng đọc & luyện tập</h2>
+        <label class="field"><span>Tốc độ đọc câu hỏi: <b id="rate-label"></b></span><input id="tts-rate" type="range" min="0.6" max="1.2" step="0.05"></label>
         <label class="check"><input type="checkbox" id="auto-listen"> Tự đọc câu hỏi khi chuyển câu</label>
+        <label class="check"><input type="checkbox" id="show-hints"> Luôn hiện gợi ý ý tưởng</label>
+        <label class="check"><input type="checkbox" id="include-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
       </div>
-      <p class="muted small center" id="app-version"></p>
+
+      <div class="card">
+        <h2>📥 Nhập bộ câu hỏi của bạn</h2>
+        <p class="small">Thêm câu hỏi riêng (ví dụ từ lớp học) từ file <b>.json</b> hoặc <b>.csv</b>. File CSV cần cột <code>Questions</code>; có thể thêm <code>Topic</code> và <code>Answer (Sample)</code>. Câu tự nhập chỉ nằm trên máy bạn.</p>
+        <input type="file" id="pack-file" accept=".json,.csv,.tsv,.txt,application/json,text/csv">
+        <div id="pack-list"></div>
+      </div>
+
+      <div class="card">
+        <h2>🗂️ Dữ liệu</h2>
+        <p class="small">Lịch sử chỉ lưu chữ và nhận xét trên máy này. App không lưu file ghi âm.</p>
+        <div class="row"><button class="btn" id="btn-export">📤 Copy dữ liệu (JSON)</button><button class="btn danger-text" id="btn-clear-data">🗑️ Xoá lịch sử</button></div>
+      </div>
+
+      <div class="card small">
+        <h2>ℹ️ Về app</h2>
+        <p>OPIc OQC là công cụ <b>luyện tập</b>. Câu hỏi và bài mẫu do AI viết dựa trên mô tả công khai của ACTFL và các dạng câu phổ biến. Đây không phải đề thi thật.</p>
+        <p>Mọi nhận xét IM/IH/AL chỉ là <b>ước tính luyện tập</b>, không phải rating ACTFL. Rating chính thức chỉ có từ bài thi OPIc chính thức.</p>
+        <p class="muted" id="app-version"></p>
+      </div>
     </section>
   </main>
 
   <nav class="tabbar">
-    <button data-tab="practice" class="active"><span>🎤</span>Luyện nói</button>
-    <button data-tab="docs"><span>📚</span>Tài liệu</button>
-    <button data-tab="cards"><span>🃏</span>Flashcard</button>
-    <button data-tab="history"><span>🕘</span>Lịch sử</button>
+    <button data-tab="practice" class="active"><span>🎤</span>Luyện</button>
+    <button data-tab="mock"><span>📝</span>Thi thử</button>
+    <button data-tab="learn"><span>📚</span>Học</button>
+    <button data-tab="progress"><span>📈</span>Tiến bộ</button>
     <button data-tab="settings"><span>⚙️</span>Cài đặt</button>
   </nav>
 

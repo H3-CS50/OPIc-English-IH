@@ -103,7 +103,7 @@ Dùng **khung kể chuyện 5W1H + cảm xúc**:
 
 ## ✅ Checklist sau mỗi lần tự luyện
 
-- [ ] Nói đủ **1:30 – 2:00**?
+- [ ] Đã phát triển đủ ý (thường mất khoảng 1:30–2:00 — gợi ý của lớp luyện thi, không phải quy định)?
 - [ ] Có **trả lời thẳng** ngay câu đầu?
 - [ ] Có ít nhất **2 chi tiết cụ thể** (tên, số, thời gian)?
 - [ ] Câu quá khứ: dùng **đúng thì quá khứ** xuyên suốt?

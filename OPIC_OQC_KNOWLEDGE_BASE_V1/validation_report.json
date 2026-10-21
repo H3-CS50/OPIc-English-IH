@@ -1,0 +1,22 @@
+{
+  "generated_on": "2026-10-22",
+  "checks": {
+    "schema_question": "PASS",
+    "schema_sample_answer": "PASS",
+    "schema_source": "PASS",
+    "unique_question_ids": "PASS",
+    "unique_answer_ids": "PASS",
+    "unique_source_ids": "PASS",
+    "provenance_links": "PASS",
+    "target_language_english_only": "PASS",
+    "level_label_type": "PASS",
+    "question_near_duplicates": "PASS",
+    "answer_sets_complete": "PASS",
+    "levels_rewritten_not_padded": "PASS",
+    "no_secrets_or_company_names": "PASS",
+    "human_review": "NEEDS_REVIEW",
+    "jsonl_parse": "PASS",
+    "coach_prompt_present": "PASS"
+  },
+  "issues": []
+}

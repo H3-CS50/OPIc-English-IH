@@ -1,12 +1,12 @@
 {
   "name": "opic-ih-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "App luyện nói OPIc IH",
+  "description": "OPIc OQC — app luyện nói OPIc tiếng Anh (IM · IH · AL)",
   "type": "module",
   "scripts": {
     "content": "node scripts/build-content.mjs",
-    "bundle": "esbuild src/main.js --bundle --minify --format=iife --target=es2020 --outfile=www/app.js",
+    "bundle": "esbuild src/main.js --bundle --minify --format=iife --target=es2020 --loader:.txt=text --outfile=www/app.js",
     "build": "npm run content && npm run bundle",
     "serve": "npx http-server www -p 8080 -c-1"
   },

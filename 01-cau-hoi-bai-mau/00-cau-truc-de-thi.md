@@ -3,8 +3,8 @@
 ## 1. Đề thi gồm những gì?
 
 - **Background Survey:** bạn chọn nghề nghiệp, nơi ở, sở thích, thể thao, du lịch… → đề sẽ hỏi chủ yếu về những gì bạn chọn.
-- **Self-Assessment:** tự chọn mức độ 1–6. Muốn **IH** nên chọn **mức 5** (hoặc 4 nếu muốn an toàn hơn). Mức càng cao, câu hỏi càng khó và dài.
-- **Thời gian:** khoảng 40 phút cho **15 câu** (12–15 câu tuỳ mức). Mỗi câu được nghe lại **1 lần** (nghe lại trong vòng 5 giây đầu không bị trừ điểm).
+- **Self-Assessment:** tài liệu chính thức của ACTFL mô tả **5 lựa chọn tự đánh giá → 5 dạng đề**; tài liệu luyện thi ở Hàn Quốc/Việt Nam lại hiển thị **6 mức (1–6)** và thường khuyên chọn mức 5–6 nếu nhắm IH–AL, 3–4 nếu nhắm IM. *(Kinh nghiệm cộng đồng, chưa được ACTFL xác nhận.)*
+- **Thời gian:** ACTFL nói bài thi trung bình 20–40 phút. Tài liệu luyện thi mô tả **15 câu** (12 câu ở mức thấp) và được nghe lại câu hỏi **1 lần** trong vài giây đầu — *thông tin cộng đồng, chưa có trong tài liệu chính thức*.
 
 | Câu | Dạng | Ghi chú |
 |---|---|---|
@@ -34,10 +34,10 @@
 
 ## 4. Bí quyết để được IH
 
-- ⏱️ **Nói 1:30 – 2:00 mỗi câu.** Dưới 1 phút gần như không thể đạt IH.
+- ⏱️ **Nói đủ ý thay vì canh giờ.** Nhiều lớp luyện thi gợi ý 1:30–2:00 mỗi câu; ACTFL không đặt mức thời gian hay số từ, mà khuyên *hãy nói nhiều nhất có thể* — nhưng nói dài mà lặp ý, học thuộc thì không giúp tăng level.
 - 🧱 **Theo khung:** Mở (trả lời thẳng) → 2–3 ý chính → chi tiết/ví dụ → kết.
 - 📖 **Câu kinh nghiệm quá khứ là "câu ăn điểm":** kể như kể chuyện cho bạn nghe, có thời gian, địa điểm, ai đi cùng, chuyện gì xảy ra, cảm thấy thế nào, học được gì.
 - 😌 **Tự nhiên > hoàn hảo:** dùng filler (*well, you know, I mean, actually*) để lấp khoảng nghỉ thay vì im lặng.
-- 🔁 **Tự sửa lỗi** là điểm cộng: *"I go– I mean, I went there last year."*
+- 🔁 **Lỡ sai thì sửa nhanh rồi nói tiếp:** *"I go– I mean, I went there last year."* Ngập ngừng và tự sửa là bình thường ở mức Intermediate; quan trọng là giữ được mạch nói.
 - 🎭 **Role-play phải "diễn":** giọng điệu như đang gọi điện thật (*"Hi, I'm calling because…"*).
 - ✅ **Câu 14–15 đừng bỏ trống:** dù khó, cứ nói ý kiến + lý do + ví dụ.

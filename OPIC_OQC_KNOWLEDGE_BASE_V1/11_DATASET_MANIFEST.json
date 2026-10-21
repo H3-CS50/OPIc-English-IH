@@ -1,0 +1,153 @@
+{
+  "dataset": "OPIC_OQC_KNOWLEDGE_BASE_V1",
+  "dataset_version": "1.0.0",
+  "schema_version": "1.0",
+  "created_on": "2026-10-22",
+  "test_language": "English",
+  "record_counts": {
+    "questions": 142,
+    "sample_answers": 72,
+    "sample_answer_sets": 24,
+    "sources": 27
+  },
+  "questions_by_topic": {
+    "self_intro": 3,
+    "work": 6,
+    "oqc_work": 5,
+    "housing": 8,
+    "movies": 6,
+    "music": 3,
+    "parks": 3,
+    "walking": 3,
+    "beach": 3,
+    "domestic_trips": 3,
+    "overseas_trips": 3,
+    "vacation_home": 3,
+    "technology": 5,
+    "phones": 5,
+    "internet": 5,
+    "weather": 3,
+    "transportation": 5,
+    "recycling": 5,
+    "holidays": 5,
+    "health": 5,
+    "family_friends": 3,
+    "restaurants": 3,
+    "banks": 3,
+    "appointments": 3,
+    "furniture": 3,
+    "shopping": 5,
+    "geography": 3,
+    "rp_hotel": 3,
+    "rp_clothing": 3,
+    "rp_cinema": 3,
+    "rp_phone_store": 3,
+    "rp_travel": 3,
+    "rp_furniture": 3,
+    "rp_gym": 3,
+    "rp_restaurant_friend": 3,
+    "rp_work_training": 3,
+    "rp_ask_ava": 3,
+    "industry": 2
+  },
+  "questions_by_prompt_type": {
+    "self_introduction": 3,
+    "description": 28,
+    "routine": 19,
+    "problem_experience": 9,
+    "memorable_experience": 11,
+    "comparison_change": 15,
+    "past_recent": 7,
+    "preference_opinion": 2,
+    "past_first": 6,
+    "roleplay_ask": 9,
+    "roleplay_problem": 9,
+    "roleplay_experience": 9,
+    "roleplay_ask_ava": 3,
+    "issue_concern": 7,
+    "news_report": 3,
+    "comparison_two": 2
+  },
+  "questions_by_category": {
+    "intro": 3,
+    "survey": 42,
+    "unexpected": 45,
+    "role_play": 30,
+    "issue": 22
+  },
+  "questions_by_target_level": {
+    "IM": 102,
+    "IH": 142,
+    "AL": 142
+  },
+  "questions_by_content_origin": {
+    "official_excerpt_reference": 1,
+    "AI_generated_original": 141
+  },
+  "oqc_branch_questions": 8,
+  "sample_answers_by_level": {
+    "IM": 24,
+    "IH": 24,
+    "AL": 24
+  },
+  "sample_answer_word_count_range": {
+    "IM": [
+      29,
+      93
+    ],
+    "IH": [
+      94,
+      176
+    ],
+    "AL": [
+      135,
+      228
+    ]
+  },
+  "sources_by_tier": {
+    "1": 7,
+    "3": 9,
+    "2": 9,
+    "4": 2
+  },
+  "sources_by_access_status": {
+    "accessible": 20,
+    "partial": 6,
+    "snippet_only": 1
+  },
+  "validation_status": {
+    "schema_question": "PASS",
+    "schema_sample_answer": "PASS",
+    "schema_source": "PASS",
+    "unique_question_ids": "PASS",
+    "unique_answer_ids": "PASS",
+    "unique_source_ids": "PASS",
+    "provenance_links": "PASS",
+    "target_language_english_only": "PASS",
+    "level_label_type": "PASS",
+    "question_near_duplicates": "PASS",
+    "answer_sets_complete": "PASS",
+    "levels_rewritten_not_padded": "PASS",
+    "no_secrets_or_company_names": "PASS",
+    "human_review": "NEEDS_REVIEW",
+    "jsonl_parse": "PASS",
+    "coach_prompt_present": "PASS"
+  },
+  "known_limitations": [
+    "Toàn bộ câu hỏi (trừ Q-000001) và bài mẫu do AI viết; chưa có giáo viên hoặc rater được chứng nhận rà soát.",
+    "Nhãn IM/IH/AL trên bài mẫu là mục tiêu luyện tập, không phải rating chính thức.",
+    "Cấu trúc 15 câu, số lần nghe lại và độ khó 1–6 dựa trên nguồn cộng đồng/tài liệu luyện thi, chưa được ACTFL xác nhận.",
+    "Descriptor ACTFL được tóm tắt/diễn giải, không chép nguyên văn; cần đối chiếu PDF trước khi phát hành thương mại."
+  ],
+  "checksums_sha256": {
+    "01_SOURCE_REGISTER.csv": "77321d702bef47ead78e34597e242c36632093e018392fb104a0cb115d2f88e0",
+    "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
+    "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
+    "04_QUESTION_TAXONOMY.md": "29f361d5057cc4500d84272ca602bac4e353e7c30ab2aa28f3abd1b73b7eb036",
+    "05_QUESTION_BANK_SEED.jsonl": "b3589e8d675c3c6dd3021bcd2d142c46cd3fcac00c3ce747b04ac6c189907d61",
+    "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl": "dc48205a06311e8c3d92e5505117b7172da39c32c0c85f5e14f57403019b30c0",
+    "07_AI_COACH_GRADING_PROMPT.md": "79519a30f7a9cbdb16e280e6c1c90d8acd45fbab28a0798723c03b0513cef324",
+    "08_DATA_SCHEMA.json": "b05782e114471217ec61cfd21c340cfa97b49a486f7955b9475bed2092733a6f",
+    "validation_report.json": "674ed82ee8a38921969fca4158f89fd7ff3750e48e8d888d06e61e04b8cf8592"
+  }
+}

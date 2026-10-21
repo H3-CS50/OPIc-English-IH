@@ -131,29 +131,38 @@ function webTranscriber(onText) {
   };
 }
 
+export const canTranscribe = () => isNative || !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 export const createTranscriber = (onText) => (isNative ? nativeTranscriber(onText) : webTranscriber(onText));
 
-// Ghi âm để nghe lại. Không chạy cùng lúc với nhận diện giọng nói vì Android chỉ
-// cho một bên dùng micro.
+// Ghi âm (MediaRecorder). Không chạy cùng lúc với nhận diện giọng nói vì Android chỉ
+// cho một bên dùng micro. Trả về { blob, url, mimeType } để nghe lại hoặc gửi cho AI.
 export function createRecorder() {
   let media = null;
   let chunks = [];
   let stream = null;
   return {
     async start() {
-      if (!navigator.mediaDevices?.getUserMedia) throw new Error('Máy không hỗ trợ ghi âm trong app.');
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') throw new Error('Máy không hỗ trợ ghi âm trong app.');
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+      } catch {
+        throw new Error('Chưa có quyền dùng micro. Hãy cấp quyền micro cho app trong Cài đặt của điện thoại.');
+      }
       chunks = [];
-      media = new MediaRecorder(stream);
+      const preferred = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+      const mimeType = preferred.find((t) => MediaRecorder.isTypeSupported?.(t));
+      media = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
       media.ondataavailable = (e) => e.data.size && chunks.push(e.data);
-      media.start();
+      media.start(1000);
     },
     stop() {
       return new Promise((resolve) => {
-        if (!media) return resolve(null);
+        if (!media || media.state === 'inactive') return resolve(null);
         media.onstop = () => {
-          stream.getTracks().forEach((t) => t.stop());
-          resolve(URL.createObjectURL(new Blob(chunks, { type: media.mimeType })));
+          stream?.getTracks().forEach((t) => t.stop());
+          const mimeType = media.mimeType || 'audio/webm';
+          const blob = new Blob(chunks, { type: mimeType });
+          resolve(blob.size ? { blob, url: URL.createObjectURL(blob), mimeType } : null);
         };
         media.stop();
       });
@@ -161,6 +170,7 @@ export function createRecorder() {
   };
 }
 
+// Đọc văn bản tiếng Anh. Promise kết thúc khi đọc xong (hoặc bị dừng).
 export async function speak(text, rate = 0.9) {
   if (isNative) {
     await TextToSpeech.stop().catch(() => {});
@@ -168,10 +178,14 @@ export async function speak(text, rate = 0.9) {
   }
   if (!window.speechSynthesis) throw new Error('Trình duyệt không hỗ trợ đọc văn bản.');
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = rate;
-  speechSynthesis.speak(u);
+  return new Promise((resolve) => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = rate;
+    u.onend = u.onerror = () => resolve();
+    speechSynthesis.speak(u);
+    setTimeout(resolve, Math.max(4000, text.length * 120));
+  });
 }
 
 export async function stopSpeaking() {

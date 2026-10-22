@@ -105,6 +105,20 @@
           <h2>📝 Thi thử 15 câu</h2>
           <p class="small">Đi đúng các bước như khi thi: <b>Background Survey → Self-Assessment → 15 câu trong 40 phút</b>. Đề gồm giới thiệu → 3 combo → role-play (11–13) → 2 câu cuối. Mỗi câu nghe lại được 1 lần. <span class="muted">Đây là đề luyện tập của app, không phải đề thi thật.</span></p>
         </div>
+        <div class="card">
+          <h3>🎧 Cách làm bài</h3>
+          <p class="muted small">Áp dụng cho cả Bộ đề cố định và đề ngẫu nhiên.</p>
+          <div class="segmented">
+            <button data-mode="transcribe" class="seg">📝 Chuyển thành chữ</button>
+            <button data-mode="record" class="seg">🎙️ Ghi âm (nghe lại được)</button>
+          </div>
+          <p class="muted small">Chấm bằng Gemini thì dùng 🎙️ Ghi âm để AI nghe cả giọng. Chấm bằng Claude thì dùng 📝.</p>
+          <div class="noise-row">
+            <label class="field"><span>🔉 Tiếng ồn phòng thi</span><select id="mock-noise"><option value="off">Tắt</option><option value="low">Nhỏ</option><option value="mid">Vừa</option><option value="high">Lớn</option></select></label>
+            <button class="btn" id="mock-noise-test">▶ Nghe thử</button>
+          </div>
+          <p class="muted small">Tiếng rì rầm của nhiều người nói, tiếng gõ phím, tiếng điều hoà — giống phòng thi có nhiều thí sinh cùng nói. Âm thanh do app tạo ra, không phải bản ghi thật. <b>Nên đeo tai nghe</b> để tiếng ồn không lọt vào micro làm máy nghe nhầm.</p>
+        </div>
         <div class="card" id="mock-tests">
           <h3>📚 Bộ đề cố định</h3>
           <p class="muted small">60 đề đánh số, xếp sẵn để phủ đủ các chủ đề hay gặp: mỗi bộ 30 đề đi qua toàn bộ 31 chủ đề đột xuất, 26 tình huống role-play và 12 chủ đề Survey phổ biến. Cả nhóm cùng nói "hôm nay làm đề IH-05" là cùng một đề.</p>
@@ -114,7 +128,7 @@
           </div>
           <div id="tests-summary"></div>
           <div id="tests-list"></div>
-          <p class="muted small">Đề luyện tập do app xếp từ câu của lớp, của app và combo bổ sung (AI soạn), không phải đề thi thật. Survey giả định theo lựa chọn phổ biến; đề cố định không có bước chọn lại độ khó. Cách trả lời và tiếng ồn lấy theo mục 3–4 bên dưới.</p>
+          <p class="muted small">Đề luyện tập do app xếp từ câu của lớp, của app và combo bổ sung (AI soạn), không phải đề thi thật. Survey giả định theo lựa chọn phổ biến; đề cố định không có bước chọn lại độ khó. Cách trả lời và tiếng ồn lấy theo mục 🎧 Cách làm bài ở trên.</p>
         </div>
         <h3 class="section-h">🎲 Hoặc tạo đề ngẫu nhiên theo Survey của bạn</h3>
         <div class="card">
@@ -144,23 +158,10 @@
           <h3>3. Tuỳ chọn</h3>
           <label class="check"><input type="checkbox" id="mock-reselect"> <span>Chọn lại độ khó sau câu 7 (dễ hơn / tương tự / khó hơn)<br><span class="muted small">Bài thi OPIc tại Hàn Quốc có bước này. Nếu kỳ thi của bạn không có thì tắt đi.</span></span></label>
           <label class="check"><input type="checkbox" id="mock-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
-          <div class="noise-row">
-            <label class="field"><span>🔉 Tiếng ồn phòng thi</span><select id="mock-noise"><option value="off">Tắt</option><option value="low">Nhỏ</option><option value="mid">Vừa</option><option value="high">Lớn</option></select></label>
-            <button class="btn" id="mock-noise-test">▶ Nghe thử</button>
-          </div>
-          <p class="muted small">Tiếng rì rầm của nhiều người nói, tiếng gõ phím, tiếng điều hoà — giống phòng thi có nhiều thí sinh cùng nói. Âm thanh do app tạo ra, không phải bản ghi thật. <b>Nên đeo tai nghe</b> để tiếng ồn không lọt vào micro làm máy nghe nhầm.</p>
           <div class="muted small" style="margin-top:8px">Nguồn câu hỏi</div>
           <label class="check"><input type="radio" name="mock-source" value="both"> Cả hai bộ (câu hỏi của lớp + ngân hàng app)</label>
           <label class="check"><input type="radio" name="mock-source" value="class"> Chỉ câu hỏi của lớp</label>
           <label class="check"><input type="radio" name="mock-source" value="app"> Chỉ ngân hàng của app</label>
-        </div>
-        <div class="card">
-          <h3>4. Cách trả lời</h3>
-          <div class="segmented">
-            <button data-mode="transcribe" class="seg">📝 Chuyển thành chữ</button>
-            <button data-mode="record" class="seg">🎙️ Ghi âm (nghe lại được)</button>
-          </div>
-          <p class="muted small">Chấm bằng Gemini thì dùng 🎙️ Ghi âm để AI nghe cả giọng. Chấm bằng Claude thì dùng 📝.</p>
         </div>
         <button class="btn primary btn-block" id="btn-mock-start">▶ Bắt đầu thi thử</button>
       </div>

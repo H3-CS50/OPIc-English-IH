@@ -123,6 +123,10 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 
 Bài thi thử đi đúng các bước như khi thi: **Background Survey → Self-Assessment → 15 câu trong 40 phút**. Đề gồm giới thiệu → 3 combo chủ đề → role-play (câu 11–13) → 2 câu cuối. Đây là đề luyện tập của app, không phải đề thi thật.
 
+**🎧 Cách làm bài** (ô đầu trang, dùng chung cho Bộ đề và đề ngẫu nhiên)
+- **Cách trả lời:** 📝 chuyển thành chữ hoặc 🎙️ ghi âm.
+- **🔉 Tiếng ồn phòng thi:** mặc định **Tắt**. Chọn Nhỏ / Vừa / Lớn, bấm **▶ Nghe thử** để nghe 8 giây. Khi thi, app phát tiếng rì rầm của nhiều người nói, tiếng gõ phím và tiếng điều hoà để bạn tập tập trung như ở phòng thi đông người. Bấm **🔇** cạnh đồng hồ để tắt tạm. App nhớ lựa chọn cho lần sau. Âm thanh do app tạo ra, không phải bản ghi phòng thi thật. **Nên đeo tai nghe**, nếu không micro sẽ thu cả tiếng ồn và máy dễ nghe nhầm lời bạn.
+
 **📚 Bộ đề cố định (60 đề)**
 - 30 đề **cấp 3–4 · mục tiêu IM** (IM-01 … IM-30) và 30 đề **cấp 5–6 · mục tiêu IH/AL** (IH-01 … IH-30). Bài thi thật chỉ khác nhau giữa cấp 3–4 và cấp 5–6, nên IH và AL dùng chung bộ đề; khác nhau ở mức bạn nói được.
 - Mỗi bộ 30 đề đi qua **toàn bộ 31 chủ đề đột xuất, 26 tình huống role-play và 12 chủ đề Survey phổ biến**; mỗi combo bắt đầu bằng câu miêu tả hoặc thói quen như đề thật. Cấp 5–6: câu 14–15 là câu nâng cao; cấp 3–4: câu 14–15 là combo thường.
@@ -136,8 +140,7 @@ Bài thi thử đi đúng các bước như khi thi: **Background Survey → Sel
 2. **Background Survey:** bấm **✏️ Làm / sửa khảo sát** và chọn như khi đi thi: công việc, đi học, nơi ở, hoạt động giải trí – thể thao – du lịch, đề tài thảo luận. Combo 1–2 lấy từ chủ đề bạn chọn. Đề tài thảo luận dùng cho câu 14–15 ở cấp 5–6. App nhớ khảo sát cho lần sau.
 3. **Self-Assessment:** chọn cấp 3–6. Cấp 3–4: câu 14–15 là combo thường. Cấp 5–6: câu 14–15 là câu nâng cao (so sánh, vấn đề xã hội); cấp 6 ưu tiên câu khó hơn. App không có đề cấp 1–2.
 4. **Tuỳ chọn:** bật/tắt **chọn lại độ khó sau câu 7**, câu hỏi nhánh OQC, nguồn câu hỏi (của lớp, của app hoặc cả hai).
-   - **🔉 Tiếng ồn phòng thi:** Tắt / Nhỏ / Vừa / Lớn, bấm **▶ Nghe thử** để nghe 8 giây. Khi thi, app phát tiếng rì rầm của nhiều người nói, tiếng gõ phím và tiếng điều hoà để bạn tập tập trung như ở phòng thi đông người. Bấm **🔇** cạnh đồng hồ để tắt tạm. Âm thanh do app tạo ra, không phải bản ghi phòng thi thật. **Nên đeo tai nghe**, nếu không micro sẽ thu cả tiếng ồn và máy dễ nghe nhầm lời bạn.
-5. **Cách trả lời:** 📝 chuyển thành chữ hoặc 🎙️ ghi âm, rồi bấm **▶ Bắt đầu thi thử**.
+5. Bấm **▶ Bắt đầu thi thử**.
 
 **Chọn lại độ khó sau câu 7:** xong câu 7, app hỏi bạn muốn phần còn lại **Dễ hơn / Tương tự / Khó hơn**. Khó hơn thì tăng 1 cấp (tối đa cấp 6) và chọn combo khó hơn; dễ hơn thì giảm 1 cấp (tối thiểu cấp 3). Câu 8–15 được tạo lại theo cấp mới. Bài thi OPIc tại Hàn Quốc có bước này; nếu kỳ thi của bạn không có thì tắt trong Tuỳ chọn.
 

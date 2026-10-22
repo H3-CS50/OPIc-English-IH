@@ -29,7 +29,7 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 
 ## 🎤 Tab Luyện
 
-Đầu tab có 2 chế độ: **🗺️ Lộ trình** (đi từng chặng) và **🎤 Luyện tự do** (chọn câu theo bộ lọc như cũ).
+Đầu tab có 3 chế độ: **🗺️ Lộ trình** (đi từng chặng), **🎤 Luyện tự do** (chọn câu theo bộ lọc) và **💬 Giám khảo AI** (hội thoại với giám khảo AI, xem mục riêng).
 
 ## 🗺️ Lộ trình chinh phục
 
@@ -101,7 +101,9 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 - Chữ hiện ở đây sau khi nói. Bạn cũng có thể tự gõ câu trả lời.
 - Trước khi chấm, **chỉ sửa chỗ máy nghe nhầm**. Đừng sửa lỗi ngữ pháp của chính mình, để AI chỉ ra đúng chỗ cần cải thiện.
 
-**Bốn nút bên dưới**
+Dừng nói xong, thẻ **📊 Phân tích bài nói** hiện ngay (xem mục riêng).
+
+**Các nút bên dưới**
 
 | Nút | Tác dụng |
 |---|---|
@@ -109,6 +111,8 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 | 📋 Copy nhờ Claude | Copy sẵn yêu cầu chấm bài. Mở app Claude, dán vào rồi gửi. Không cần API key |
 | 📖 Bài mẫu | Câu của app: 3 bài mẫu IM – IH – AL để so sánh (với 24 câu có bộ mẫu). Câu của lớp: 1 bài mẫu IH, có nút 🔊 nghe bài mẫu |
 | ✅ Tự kiểm tra | Danh sách những gì nên có trong câu trả lời. Tự đánh dấu, không cần AI |
+| 🔍 Soi phát âm | AI nghe giọng và chỉ ra từ, âm đọc sai (xem mục riêng) |
+| 📜 Lưu kịch bản | Lưu lời nói vào Sổ kịch bản |
 
 **Cách đọc nhận xét của AI Coach**
 - **Ước tính luyện tập:** mức bài nói này đang thể hiện, kèm độ tin cậy.
@@ -118,6 +122,42 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 - **📝 Bản phát triển từ bài của bạn:** bài của bạn được nâng lên, giữ nội dung của bạn.
 - **🔎 Phân tích theo FACT:** Chức năng, Độ chính xác, Nội dung, Dạng diễn ngôn.
 - **🔁 Nói lại một lần nữa:** bấm **Nói lại với mục tiêu này**, app giữ câu hỏi cũ và nhắc mục tiêu ở đầu trang. Nói lại rồi chấm lần nữa.
+
+## 📊 Phân tích bài nói
+
+Sau mỗi lần nói, app tự chấm 4 mục ngay trên điện thoại, **không tốn lượt AI**:
+
+| Mục | App đo |
+|---|---|
+| 🌊 Độ trôi chảy | Tốc độ nói (từ/phút), số lần ngừng dài, từ đệm (um, uh, you know), từ lặp liền nhau |
+| 🎨 Độ phong phú | Số từ so với gợi ý, độ đa dạng từ, số từ nối (because, although, after that…), thì đã dùng, ✨ cụm hay đã dùng |
+| 🎯 Độ chính xác | Trước khi chấm AI: vài lỗi dễ thấy (she go, I am agree, didn't went, can to…). Sau khi chấm AI: số lỗi AI sửa |
+| 🗣️ Phát âm | Lấy từ 🔍 Soi phát âm, hoặc nhận xét phát âm khi chấm AI bằng ghi âm |
+
+- Mỗi mục có mức **Tốt / Khá / Cần luyện / Chưa có** và một gợi ý 💡 nên sửa gì trước. Sửa chữ trong ô bài nói thì phân tích tự cập nhật.
+- Tốc độ gợi ý: IM từ 60 từ/phút (tốt từ 85), IH từ 75 (tốt từ 100), AL từ 85 (tốt từ 110).
+- Thi thử có phân tích từng câu và **📊 Phân tích cả bài**. Tab Tiến bộ có thẻ **📊 Tốc độ nói & từ nối**.
+- Đây là chỉ số luyện tập theo quy tắc của app, **không phải điểm OPIc**. Số lần ngừng là ước tính; máy nhận giọng hay bỏ qua "um/uh"; máy chỉ dò vài lỗi hay gặp.
+
+## 🔍 Soi phát âm
+
+AI nghe ghi âm, tô **đỏ** (cần sửa) và **vàng** (nên sửa) những từ đọc chưa chuẩn. Cần **👥 AI của nhóm** hoặc **Gemini**. Mỗi lần soi tốn 1 lượt AI.
+
+1. Mở từ: tab Luyện (nút **🔍 Soi phát âm**), xem lại bài thi thử, Sổ kịch bản (chế độ Nói theo), hoặc Học → IPA.
+2. Nhập hoặc chọn 1–3 câu → bấm **nút đỏ** đọc → bấm lần nữa để dừng → **🔍 Gửi AI soi phát âm**. Chế độ 🎙️ Ghi âm ở tab Luyện thì soi luôn đoạn vừa nói.
+3. Chạm vào từ màu để xem phiên âm chuẩn, bạn đọc gần như thế nào, cách đặt lưỡi/môi; bấm **🔊 Nghe từ**, **📖 Học âm** (mở bài IPA của âm đó), **🎙️ Đọc lại**.
+
+AI nghe gần đúng, không đo từng âm chính xác như máy chuyên dụng.
+
+## 💬 Giám khảo AI
+
+Tab **Luyện → 💬 Giám khảo AI**: nói chuyện với giám khảo AI "Ava". AI **hỏi nối tiếp dựa trên điều bạn vừa nói**, giống combo trong đề thật.
+
+- **🎤 Phỏng vấn:** chọn chủ đề hoặc 🎲 Ngẫu nhiên. IM 3 câu (mô tả → thói quen → trải nghiệm), IH 4 câu (+ so sánh xưa – nay), AL 5 câu (+ vấn đề / giả định).
+- **🎭 Role-play:** câu 11 hỏi 3–4 câu → AI đóng vai trả lời rồi đưa vấn đề (câu 12, bạn đưa 2–3 phương án) → AI phản hồi và hỏi trải nghiệm tương tự (câu 13).
+- Mỗi lượt: **🎙️ Nói** → **⏹ Dừng** → sửa chữ nếu cần → **Gửi ➤**. Lời của Ava có **🔊** nghe lại và **VI** xem nghĩa. **🙈 Ẩn chữ** để chỉ nghe như thi thật.
+- Cuối buổi (hoặc bấm **⏹ Kết thúc & nhận xét**): ước tính luyện tập, điểm làm tốt, điểm cần cải thiện, **✏️ Nói hay hơn** có 🔊 và 📜 Lưu.
+- Tốn khoảng 3–5 lượt AI mỗi buổi. Chỉ gửi chữ, không gửi ghi âm.
 
 ## 📝 Tab Thi thử
 
@@ -271,6 +311,7 @@ Lời khuyên từ lớp: học thuộc **ý và cụm từ**, không thuộc ng
 
 Đầu tab có 2 nút: **📊 Của tôi** (tiến bộ của riêng bạn) và **🏆 Nhóm** (bảng xếp hạng, đề thật, kết quả thi — xem mục *👥 Nhóm học & bảng xếp hạng*).
 
+- **📊 Tốc độ nói & từ nối:** so 10 câu gần nhất với 10 câu trước (tốc độ, số lần ngừng, từ nối, độ đa dạng từ). ▲ là tốt lên.
 - **⭐ EXP, bậc, chuỗi ngày, huy hiệu:** tổng EXP, bậc hiện tại và EXP còn thiếu để lên bậc, EXP hôm nay / tuần này / tháng này, chuỗi ngày học liên tiếp 🔥 và 10 huy hiệu. Bấm **Cách tính EXP** để xem bảng điểm.
 - **🗓️ Hôm nay luyện gì?** Nhập **ngày thi**, app đếm ngược và chia giai đoạn: **Xây nền** (còn hơn 3 tuần) → **Tăng tốc** (3 tuần cuối) → **Nước rút** (tuần cuối) → **Nghỉ ngơi** (2 ngày cuối) → **Hôm nay thi**. Mỗi ngày có 3–4 việc: ôn từ vựng, luyện điểm yếu, nói theo một kịch bản, và thi thử khi đến lịch (2 tuần/lần khi còn xa, 1 tuần/lần trong 3 tuần cuối, 2 ngày/lần trong tuần cuối). Bấm vào việc để mở đúng chỗ. Việc tự đánh dấu ✅ khi app thấy bạn đã làm trong hôm nay. Lịch này là gợi ý của app, không phải quy định của bài thi.
 - **📈 Kết quả thi thử:** biểu đồ ước tính của các bài thi thử theo thời gian (mỗi điểm là trung vị các câu đã chấm trong bài đó), đường gạch là mục tiêu của bạn. Chạm vào điểm để xem ngày, cấp tự đánh giá và các điểm cần cải thiện của bài đó. Dòng **So với lần trước** cho biết tăng, giảm hay giữ nguyên. Bài thi thử chưa chấm câu nào không có trên biểu đồ.

@@ -2,7 +2,7 @@
 import { $, md, store, escapeHtml } from './util.js';
 import { docs, kb } from './data.js';
 
-const WELCOME_VERSION = 6;
+const WELCOME_VERSION = 7;
 const classCount = kb.questions.filter((q) => q.origin_set === 'class').length;
 
 const SLIDES = [
@@ -11,15 +11,15 @@ const SLIDES = [
     title: 'Chào mừng đến OPIc OQC',
     lead: 'App luyện nói OPIc tiếng Anh theo lộ trình IM → IH → AL.',
     items: [
+      ['💬', '<b>Giám khảo AI</b> hỏi nối tiếp theo câu bạn vừa nói, đóng vai role-play'],
+      ['📊', '<b>Phân tích bài nói</b> ngay sau khi nói · <b>🔍 Soi phát âm</b> từng từ'],
       ['🏆', '<b>Nhóm học</b>: EXP, chuỗi ngày, bảng xếp hạng, Đề của tuần'],
       ['🗺️', '<b>Lộ trình chinh phục</b>: đi từng chặng, từng combo, nhận sao'],
-      ['🎤', 'Nghe câu hỏi và nói như khi thi thật'],
-      ['🤖', 'AI Coach nhận xét, chỉ ra điểm cần sửa và giao bài nói lại'],
+      ['🤖', 'Nói như khi thi thật, AI Coach nhận xét và giao bài nói lại'],
       ['📒', 'Tab <b>Từ vựng</b>: hơn 1.200 từ & cụm từ, ôn theo lịch, kiểm tra nhanh'],
       ['👆', '<b>Chạm vào từ tiếng Anh bất kỳ</b> để xem phiên âm và nghĩa'],
       ['📜', '<b>Sổ kịch bản</b>: lưu bài hay, học thuộc ý, nói theo từng câu'],
       ['🔤', '<b>Học IPA</b>: 8 bài phát âm, bảng âm, luyện nghe – đọc – nói'],
-      ['📖', 'Bài mẫu, khung trả lời, tài liệu'],
       ['📝', 'Thi thử 15 câu trong 40 phút, có Survey và tự đánh giá như thi thật'],
     ],
   },
@@ -75,6 +75,9 @@ const QUICK = [
   ['Lộ trình', 'Lộ trình'],
   ['Lộ trình', 'Lộ trình chinh phục'],
   ['Luyện', 'Tab Luyện'],
+  ['Phân tích', 'Phân tích bài nói'],
+  ['Soi phát âm', 'Soi phát âm'],
+  ['Giám khảo AI', 'Giám khảo AI'],
   ['Thi thử', 'Tab Thi thử'],
   ['Từ vựng', 'Tab Từ vựng'],
   ['Tra từ', 'Tra từ'],

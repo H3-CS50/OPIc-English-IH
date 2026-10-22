@@ -1,6 +1,7 @@
 // Kiểm thử logic không cần giao diện: tạo đề thi thử, đoán dạng câu, nhập CSV, chuẩn hoá kết quả AI.
 import './test-setup.js';
-import { buildMock, rebuildTail } from '../src/mock.js';
+import { buildMock, rebuildTail, comboInfo } from '../src/mock.js';
+import * as RM from '../src/roadmap-core.js';
 import * as SC from '../src/scripts-core.js';
 import * as PL from '../src/plan.js';
 import { surveyTopics, normalizeSurvey, DEFAULT_SURVEY, levelToDiff } from '../src/mock-survey.js';
@@ -277,6 +278,34 @@ async function templateTests() {
     ]);
     ok(ser.graded.map((m) => m.id).join() === 'b,a' && ser.graded[0].label === 'IH', `mock series ${JSON.stringify(ser.graded)}`);
     ok(PL.compareLast(ser.graded).delta === -1, 'compare last');
+  }
+  // Lộ trình chinh phục
+  {
+    const stages = RM.buildRoadmap(comboInfo(), { source: 'both', oqc: false, mine: ['movies'] });
+    ok(stages.length === 6 && stages[0].nodes.length === 1 && stages[0].nodes[0].combos.every((c) => c.qs.length === 1), 'roadmap intro split');
+    ok(stages[1].nodes[0].topic === 'movies' && stages[1].nodes[0].mine, 'survey mine first');
+    ok(stages.slice(1, 5).every((s) => s.nodes.length > 0) && stages[2].nodes.every((n) => n.combos.every((c) => c.qs.length === 3)), 'roadmap stages filled');
+    ok(!stages.flatMap((s) => s.nodes).some((n) => n.topic === 'oqc_work'), 'roadmap respects OQC off');
+    const st0 = RM.roadmapStatus(stages, {});
+    ok(st0[0].open && !st0[1].open && st0.every((s) => !s.cleared), 'only stage 1 open at start');
+    const intro = stages[0].nodes[0].combos[0].qs[0].question_id;
+    const st1 = RM.roadmapStatus(stages, { spoken: { [intro]: { at: 1 } } });
+    ok(st1[0].cleared && st1[1].open && !st1[2].open, 'intro unlocks survey');
+    const combo = stages[1].nodes[0].combos[0];
+    const sp = Object.fromEntries(combo.qs.map((q) => [q.question_id, { at: 1 }]));
+    const atts = combo.qs.map((q) => ({ question_id: q.question_id, transcript: '', coach_result: { practice_level_estimate: { label: 'IH' } } }));
+    const idx = RM.indexAttempts(atts);
+    ok(RM.comboStars(combo, { idx: new Map(), spoken: sp, target: 'IH' }).stars === 1, '1 star spoken');
+    ok(RM.comboStars(combo, { idx, spoken: sp, target: 'IH' }).stars === 3, '3 stars at target');
+    ok(RM.comboStars(combo, { idx, spoken: sp, target: 'AL' }).stars === 1, 'AL target needs more');
+    const atts2 = combo.qs.map((q) => ({ question_id: q.question_id, transcript: '', coach_result: { practice_level_estimate: { label: 'IH_AL_borderline' } } }));
+    ok(RM.comboStars(combo, { idx: RM.indexAttempts(atts2), spoken: sp, target: 'AL' }).stars === 2, '2 stars near target');
+    const selfAtt = combo.qs.map((q) => ({ question_id: q.question_id, transcript: 'x', self_check: { checked: [1, 2, 3], total: 4 } }));
+    ok(RM.comboStars(combo, { idx: RM.indexAttempts(selfAtt), spoken: sp, target: 'IH' }).stars === 2, '2 stars by self-check');
+    ok(RM.comboStars(combo, { idx: RM.indexAttempts(combo.qs.slice(0, 2).map((q) => ({ question_id: q.question_id, transcript: 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen' }))), spoken: {}, target: 'IH' }).done === 2, 'spoken from transcript');
+    ok(!RM.recordSpoken('x', { words: 5, seconds: 3 }) && RM.recordSpoken('x', { words: 20 }) && RM.spokenMap().x, 'record spoken threshold');
+    RM.resetRoadmap();
+    ok(RM.nextStep(st1).stage.id === 'survey' && RM.nextStep(st1).node.topic === 'movies', 'next step');
   }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });

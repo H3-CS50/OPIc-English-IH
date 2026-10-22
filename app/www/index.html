@@ -19,6 +19,12 @@
   <main>
     <!-- ================= Luyện nói ================= -->
     <section id="tab-practice" class="tab active">
+      <div class="segmented practice-views">
+        <button class="seg" data-pview="road">🗺️ Lộ trình</button>
+        <button class="seg" data-pview="free">🎤 Luyện tự do</button>
+      </div>
+      <div id="practice-road" hidden><div id="roadmap-root"></div></div>
+      <div id="practice-free">
       <div class="level-switch" role="radiogroup" aria-label="Mục tiêu">
         <span class="muted small">Mục tiêu</span>
         <button data-level="IM">IM</button>
@@ -89,6 +95,7 @@
       <div id="sample-box" class="card md" hidden></div>
       <div id="selfcheck-box" class="card" hidden></div>
       <div id="feedback-box" class="card" hidden></div>
+      </div>
     </section>
 
     <!-- ================= Thi thử ================= -->

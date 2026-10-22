@@ -4,6 +4,7 @@ import { $, toast } from './util.js';
 import { initSettings, onSettingsChange } from './settings.js';
 import { initPractice, refreshPracticeFilters, isRecording, openQuestion } from './practice.js';
 import { initScripts, stopScripts } from './scripts.js';
+import { initRoadmap, renderRoadmap } from './roadmap.js';
 import { initMock, mockBusy } from './mock.js';
 import { initLearn, refreshLearn } from './learn.js';
 import { initProgress, renderProgress } from './progress.js';
@@ -25,6 +26,7 @@ function showTab(name) {
   $('screen-title').textContent = TITLES[name];
   if (name === 'progress') renderProgress();
   if (name === 'vocab') refreshVocab();
+  if (name === 'practice') renderRoadmap();
   window.scrollTo(0, 0);
 }
 
@@ -43,6 +45,7 @@ initProgress();
 initVocab();
 initLookup();
 initScripts();
+initRoadmap();
 window.addEventListener('opic:open-question', (e) => openQuestion(e.detail));
 onMyWordsChange(() => current === 'vocab' && refreshVocab());
 initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });

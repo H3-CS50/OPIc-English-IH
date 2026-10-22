@@ -9,6 +9,7 @@ import { renderFeedback } from './feedback.js';
 import { addAttempt } from './history.js';
 import { settings, saveSettings } from './settings.js';
 import { quickSave } from './scripts.js';
+import { recordSpoken } from './roadmap-core.js';
 
 // Thời lượng gợi ý theo mục tiêu (thiết kế của app, không phải quy định của bài thi).
 const DURATION = { IM: [60, 90], IH: [90, 120], AL: [105, 150] };
@@ -170,16 +171,18 @@ function resetAttempt({ keepRetry = true } = {}) {
   if (!keepRetry) st.retry = null;
 }
 
-export function openQuestion(qid, { banner = '' } = {}) {
+export function openQuestion(qid, { banner = '', combo = null } = {}) {
   const q = getQuestion(qid);
   if (!q) return toast('Không tìm thấy câu hỏi.');
   if (st.recording) return toast('Hãy dừng ghi trước khi đổi câu.');
   st.q = q;
   st.plays = 0;
-  st.banner = banner;
+  st.combo = combo;
+  st.banner = combo ? comboBannerHTML() : banner;
   resetAttempt({ keepRetry: false });
   renderQuestion();
   window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'practice' }));
+  window.dispatchEvent(new CustomEvent('opic:practice-view', { detail: 'free' }));
   if (settings.autoListen) setTimeout(listen, 300);
 }
 
@@ -198,9 +201,42 @@ function nextQuestion() {
   st.q = q;
   st.plays = 0;
   st.banner = '';
+  st.combo = null;
   resetAttempt({ keepRetry: false });
   renderQuestion();
   if (settings.autoListen) listen();
+}
+
+// ---------- Combo trong lộ trình ----------
+// combo = { qids, idx, title, isDone(qid) }
+function comboBannerHTML() {
+  const c = st.combo;
+  const n = c.qids.length;
+  const dots = c.qids.map((id, i) => `<span class="cb-dot ${c.isDone?.(id) ? 'ok' : ''} ${i === c.idx ? 'cur' : ''}">${c.isDone?.(id) ? '✓' : i + 1}</span>`).join('');
+  return `<div class="combo-banner"><div><b>🗺️ ${escapeHtml(c.title)}</b> <span class="muted small">câu ${c.idx + 1}/${n}</span></div>
+    <div class="cb-dots">${dots}</div>
+    <div class="row wrap">
+      ${c.idx > 0 ? '<button class="btn small-btn" data-combo-nav="-1">◀ Câu trước</button>' : ''}
+      ${c.idx < n - 1 ? '<button class="btn small-btn primary" data-combo-nav="1">Câu tiếp ▶</button>' : '<button class="btn small-btn primary" data-combo-nav="done">✓ Xong combo</button>'}
+      <button class="btn small-btn" data-combo-nav="map">🗺️ Lộ trình</button>
+    </div>
+    <div class="muted small">Nói đủ 15 từ hoặc 20 giây trở lên là câu được tính ✓. Chấm AI hoặc tự kiểm tra để lên ★★, ★★★.</div></div>`;
+}
+function renderComboBanner() {
+  if (!st.combo) return;
+  st.banner = comboBannerHTML();
+  renderBanner();
+}
+function comboNav(v) {
+  const c = st.combo;
+  if (!c) return;
+  if (st.recording) return toast('Hãy dừng ghi trước đã.');
+  if (v === 'map' || v === 'done') {
+    window.dispatchEvent(new CustomEvent('opic:roadmap', { detail: { done: v === 'done' } }));
+    return;
+  }
+  const idx = c.idx + Number(v);
+  openQuestion(c.qids[idx], { combo: { ...c, idx } });
 }
 
 async function listen() {
@@ -290,6 +326,7 @@ async function stopRecording() {
     }
   }
   const words = countWords($('transcript').value);
+  if (st.q && recordSpoken(st.q.question_id, { words, seconds: st.seconds })) renderComboBanner();
   $('rec-status').textContent = `Xong! ${fmtTime(st.seconds)}${words ? ` · ${words} từ` : ''}. Giờ nhờ AI Coach nhận xét, hoặc tự kiểm tra.`;
 }
 
@@ -526,6 +563,10 @@ export function initPractice() {
   $('btn-copy').addEventListener('click', onCopy);
   $('btn-sample').addEventListener('click', onSample);
   $('btn-selfcheck').addEventListener('click', onSelfCheck);
+  $('practice-banner').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-combo-nav]');
+    if (b) comboNav(b.dataset.comboNav);
+  });
   $('btn-save-script').addEventListener('click', () => {
     if (st.recording) return toast('Hãy dừng ghi trước đã.');
     const text = $('transcript').value.trim();

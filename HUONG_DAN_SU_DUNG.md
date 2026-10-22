@@ -29,6 +29,32 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 
 ## 🎤 Tab Luyện
 
+Đầu tab có 2 chế độ: **🗺️ Lộ trình** (đi từng chặng) và **🎤 Luyện tự do** (chọn câu theo bộ lọc như cũ).
+
+## 🗺️ Lộ trình chinh phục
+
+Lộ trình đi theo đúng thứ tự đề thi, gồm 6 chặng:
+
+| Chặng | Nội dung | Cần để qua chặng |
+|---|---|---|
+| 1. 👋 Khởi động | Giới thiệu bản thân (câu 1) | 1 chủ đề |
+| 2. 🏠 Chủ đề Survey | Combo 3 câu về chủ đề bạn chọn trong Background Survey | 3 chủ đề |
+| 3. ⚡ Chủ đề đột xuất | Chủ đề bạn không chọn nhưng đề vẫn hỏi | 3 chủ đề |
+| 4. 🎭 Role-play | Câu 11–13: hỏi thông tin → giải quyết vấn đề → kể trải nghiệm | 2 chủ đề |
+| 5. 🧠 Câu nâng cao | Câu 14–15: so sánh, thay đổi, vấn đề xã hội | 2 chủ đề |
+| 6. 🏆 Thi thử tổng | Làm một bài thi thử, trả lời từ 12 câu trở lên | 1 bài |
+
+Mỗi chặng là một chuỗi **chủ đề** (vòng tròn). Bấm vào chủ đề để xem các **combo** của nó, bấm **▶ Bắt đầu** để luyện. Khi luyện combo, thanh trên câu hỏi cho biết đang ở câu mấy, câu nào đã xong (✓), và có nút **Câu tiếp ▶**, **✓ Xong combo**, **🗺️ Lộ trình**. Chủ đề bạn chọn trong Background Survey (tab Thi thử) có dấu ⭐ và xếp lên đầu chặng 2.
+
+**Sao của mỗi combo**
+- **★** Nói hết các câu trong combo, mỗi câu từ 15 từ hoặc 20 giây trở lên. Nói ở tab Luyện hay khi thi thử đều được tính.
+- **★★** Thêm: mỗi câu được AI Coach chấm gần mục tiêu (cách tối đa nửa bậc, ví dụ IH–AL khi mục tiêu là AL), hoặc **✅ Tự kiểm tra** đạt từ 70% trở lên. Không có key AI vẫn lên ★★ được bằng tự kiểm tra.
+- **★★★** Mọi câu được AI chấm đạt mục tiêu.
+
+Một chủ đề được tính là xong khi có ít nhất một combo đạt ★. Đổi mục tiêu IM/IH/AL thì ★★ và ★★★ được tính lại theo mục tiêu mới. Ô **Bộ câu hỏi** chọn dùng câu của lớp, của app hoặc cả hai. Nút **▶ Làm tiếp** đưa bạn tới chủ đề nên làm tiếp theo.
+
+## 🎤 Luyện tự do
+
 **Hàng "Mục tiêu" IM / IH / AL**
 - Chọn mức bạn đang nhắm tới. App lọc câu hỏi hợp với mức đó.
 - AI Coach nhận xét bài nói so với mục tiêu này.

@@ -1,5 +1,5 @@
 // Thi thử mô phỏng 15 câu (cấu trúc theo tài liệu luyện thi/cộng đồng — không phải đề thật).
-import { $, escapeHtml, toast, fmtTime, pick, shuffle, uid, LEVEL_SCORE, scoreToLabel, LEVEL_LABEL } from './util.js';
+import { $, escapeHtml, toast, fmtTime, pick, shuffle, uid, LEVEL_SCORE, scoreToLabel, LEVEL_LABEL, countWords } from './util.js';
 import { comboIds, getCombo, topicLabel, ptypeLabel } from './data.js';
 import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe } from './speech.js';
 import { grade, providerReady } from './coach.js';
@@ -12,6 +12,7 @@ import {
 } from './mock-survey.js';
 import { saveMockRecord } from './mock-history.js';
 import { quickSave } from './scripts.js';
+import { recordSpoken } from './roadmap-core.js';
 import { startAmbience, stopAmbience, setAmbienceMuted, ambienceSupported, ambiencePlaying } from './ambience.js';
 
 const TOTAL_SECONDS = 40 * 60;
@@ -36,7 +37,7 @@ const ms = {
 
 // ---------- Tạo đề ----------
 // Mỗi combo được phân loại theo mock_slot của câu hỏi; nguồn: app (ngân hàng của app) hoặc class (câu hỏi của lớp).
-function comboInfo() {
+export function comboInfo() {
   const out = [];
   for (const id of comboIds()) {
     const qs = getCombo(id);
@@ -322,6 +323,7 @@ async function stopRec() {
     a.audio = await ms.recorder.stop();
     ms.recorder = null;
   }
+  recordSpoken(ms.items[ms.idx]?.question_id, { words: countWords(a.transcript), seconds: a.seconds });
   $('mock-rec-status').textContent = `Đã lưu câu trả lời (${fmtTime(a.seconds)}). Bấm "${$('mock-next').textContent}" để tiếp tục.`;
 }
 

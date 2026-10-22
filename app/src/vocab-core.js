@@ -91,10 +91,14 @@ export function grade(it, g, now = Date.now()) {
   else if (g === 1) p.box = Math.max(1, p.box);
   else p.box = Math.min(INT.length - 1, p.box + 1);
   p.due = g === 0 ? now : today0(now) + INT[p.box] * DAY;
+  p.at = now;
   S.p[it.id] = p;
   saveState();
   return p;
 }
+
+// Số thẻ đã ôn/học trong hôm nay (cho kế hoạch ngày).
+export const reviewedToday = (now = Date.now()) => Object.values(S.p).filter((p) => (p.at || 0) >= today0(now)).length;
 
 export function resetProgress() {
   S.p = {};

@@ -184,10 +184,12 @@ Lời khuyên từ lớp: học thuộc **ý và cụm từ**, không thuộc ng
 
 ## 📈 Tab Tiến bộ
 
+- **🗓️ Hôm nay luyện gì?** Nhập **ngày thi**, app đếm ngược và chia giai đoạn: **Xây nền** (còn hơn 3 tuần) → **Tăng tốc** (3 tuần cuối) → **Nước rút** (tuần cuối) → **Nghỉ ngơi** (2 ngày cuối) → **Hôm nay thi**. Mỗi ngày có 3–4 việc: ôn từ vựng, luyện điểm yếu, nói theo một kịch bản, và thi thử khi đến lịch (2 tuần/lần khi còn xa, 1 tuần/lần trong 3 tuần cuối, 2 ngày/lần trong tuần cuối). Bấm vào việc để mở đúng chỗ. Việc tự đánh dấu ✅ khi app thấy bạn đã làm trong hôm nay. Lịch này là gợi ý của app, không phải quy định của bài thi.
+- **📈 Kết quả thi thử:** biểu đồ ước tính của các bài thi thử theo thời gian (mỗi điểm là trung vị các câu đã chấm trong bài đó), đường gạch là mục tiêu của bạn. Chạm vào điểm để xem ngày, cấp tự đánh giá và các điểm cần cải thiện của bài đó. Dòng **So với lần trước** cho biết tăng, giảm hay giữ nguyên. Bài thi thử chưa chấm câu nào không có trên biểu đồ.
 - **Thống kê:** số lần luyện, số lần trong 7 ngày qua, số ngày luyện liên tiếp.
 - **Ước tính luyện tập gần đây:** trung vị các bài AI chấm gần nhất. Chỉ là chỉ số luyện tập, không dự đoán điểm thi.
 - **Theo dạng câu:** dạng nào chưa luyện hoặc ước tính thấp là chỗ nên luyện thêm.
-- **🎯 Luyện điểm yếu hôm nay:** app tự chọn một câu thuộc dạng bạn yếu nhất hoặc chưa luyện.
+- **🎯 Luyện điểm yếu hôm nay:** app tự chọn một câu thuộc dạng bạn yếu nhất hoặc chưa luyện (cùng dạng với việc trong kế hoạch ngày).
 - **Lịch sử luyện tập:** bấm từng lần để xem lại bài nói và nhận xét.
 
 ## ⚙️ Tab Cài đặt

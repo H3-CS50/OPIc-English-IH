@@ -1,11 +1,15 @@
 // Tab Tiến bộ: thống kê, luyện điểm yếu, lịch sử.
-import { $, escapeHtml, md, fmtTime, countWords, LEVEL_LABEL, CONF_LABEL } from './util.js';
+import { $, escapeHtml, md, fmtTime, countWords, LEVEL_LABEL, CONF_LABEL, LEVEL_SCORE } from './util.js';
 import { filterQuestions, ptypeLabel } from './data.js';
 import { stats, listAttempts, deleteAttempt, weakestPromptType } from './history.js';
 import { renderFeedback, levelBadge } from './feedback.js';
 import { openQuestion } from './practice.js';
-import { settings } from './settings.js';
-import { stats as vocabStats } from './vocab-core.js';
+import { settings, saveSettings } from './settings.js';
+import { stats as vocabStats, reviewedToday } from './vocab-core.js';
+import { listMocks, onMocksChange } from './mock-history.js';
+import { listScripts, onScriptsChange } from './scripts-core.js';
+import { daysLeft, phaseOf, dailyPlan, mockSeries, compareLast, dayStart } from './plan.js';
+import { openScript } from './scripts.js';
 
 const CORE_TYPES = [
   'description', 'routine', 'past_recent', 'memorable_experience', 'problem_experience', 'comparison_change',
@@ -21,10 +25,96 @@ function vocabCard() {
     <p class="muted small">${v.seen}/${v.total} mục đã học · ${v.due} mục cần ôn hôm nay. <button class="link-btn" data-goto-vocab>Mở tab Từ vựng →</button></p></div>`;
 }
 
+// ---------- Kế hoạch đến ngày thi ----------
+function planCard() {
+  const left = daysLeft(settings.examDate);
+  const phase = phaseOf(left);
+  const today = dayStart(Date.now());
+  const v = vocabStats();
+  const w = weakToday();
+  const scripts = listScripts();
+  const tasks = dailyPlan({
+    left,
+    vocabDue: v.due,
+    vocabStudiedToday: reviewedToday() > 0,
+    weakType: w.type,
+    weakLabel: ptypeLabel(w.type),
+    todayPracticed: listAttempts().filter((a) => new Date(a.created_at).getTime() >= today).length,
+    mocks: mockSeries(listMocks(), listAttempts()).all,
+    scripts,
+  });
+  const done = tasks.filter((t) => t.done).length;
+  return `<div class="card plan-card">
+    <div class="row between"><h3>🗓️ Hôm nay luyện gì?</h3><span class="muted small">${done}/${tasks.length} xong</span></div>
+    <label class="field plan-date"><span>Ngày thi của bạn</span><input type="date" id="exam-date" value="${settings.examDate || ''}"></label>
+    ${
+      left == null
+        ? '<p class="muted small">Nhập ngày thi để app chia giai đoạn (xây nền → tăng tốc → nước rút) và nhắc lịch thi thử.</p>'
+        : `<div class="plan-count"><b>${left > 0 ? `Còn ${left} ngày` : left === 0 ? 'Hôm nay thi 🍀' : `Đã thi cách đây ${-left} ngày`}</b><span class="chip">${escapeHtml(phase.vi)}</span></div>`
+    }
+    ${left != null && left < 0 ? '<p class="small">Cập nhật ngày thi mới nếu bạn thi tiếp. Bên dưới là gợi ý luyện duy trì.</p>' : ''}
+    <div class="plan-list">${tasks
+      .map(
+        (t) => `<button class="plan-item ${t.done ? 'done' : ''}" data-plan="${t.action}">
+          <span class="plan-check">${t.done ? '✅' : t.icon}</span>
+          <span><b>${escapeHtml(t.title)}</b><span class="muted small">${escapeHtml(t.detail)}</span></span><span class="plan-go">›</span></button>`,
+      )
+      .join('')}</div>
+    <p class="muted small">Việc tự đánh dấu ✅ khi app thấy bạn đã làm hôm nay. Lịch thi thử: 2 tuần/lần khi còn xa, 1 tuần/lần trong 3 tuần cuối, 2 ngày/lần trong tuần cuối.</p>
+  </div>`;
+}
+
+// ---------- Biểu đồ thi thử ----------
+const Y_LABEL = { 0: '&lt;IM', 1: 'IM', 2: 'IH', 3: 'AL' };
+function mockChart(graded) {
+  const W = 340, H = 170, L = 34, R = 12, T = 12, B = 26, P = 12;
+  const x = (i) => (graded.length === 1 ? L + (W - L - R) / 2 : L + P + (i * (W - L - R - 2 * P)) / (graded.length - 1));
+  const y = (v) => T + ((3 - v) * (H - T - B)) / 3;
+  const tgt = LEVEL_SCORE[settings.target];
+  const fmt = (t) => new Date(t).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+  const pts = graded.map((m, i) => `${x(i).toFixed(1)},${y(m.score).toFixed(1)}`).join(' ');
+  return `<svg class="mock-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Ước tính các bài thi thử theo thời gian">
+    ${[0, 1, 2, 3].map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="mc-grid"/><text x="${L - 6}" y="${y(v) + 4}" class="mc-axis" text-anchor="end">${Y_LABEL[v]}</text>`).join('')}
+    ${tgt != null ? `<line x1="${L}" x2="${W - R}" y1="${y(tgt)}" y2="${y(tgt)}" class="mc-target"/><text x="${W - R}" y="${y(tgt) - 5}" class="mc-axis" text-anchor="end">mục tiêu ${settings.target}</text>` : ''}
+    ${graded.length > 1 ? `<polyline points="${pts}" class="mc-line"/>` : ''}
+    ${graded.map((m, i) => `<g class="mc-pt" data-mi="${i}"><circle cx="${x(i)}" cy="${y(m.score)}" r="14" class="mc-hit"/><circle cx="${x(i)}" cy="${y(m.score)}" r="5" class="mc-dot"/></g>`).join('')}
+    <text x="${x(0)}" y="${H - 6}" class="mc-axis" text-anchor="${graded.length === 1 ? 'middle' : 'start'}">${fmt(graded[0].at)}</text>
+    ${graded.length > 1 ? `<text x="${x(graded.length - 1)}" y="${H - 6}" class="mc-axis" text-anchor="end">${fmt(graded.at(-1).at)}</text>` : ''}
+  </svg>`;
+}
+
+function mockDetail(m) {
+  const d = new Date(m.at).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+  return `<div class="row">${levelBadge(m.label)}<span class="small">${d} · ${m.graded} câu đã chấm${m.self ? ` · tự đánh giá cấp ${m.self}${m.selfEnd && m.selfEnd !== m.self ? ` → ${m.selfEnd}` : ''}` : ''}</span></div>
+    ${m.gaps?.length ? `<ul class="small">${m.gaps.map((g) => `<li>${escapeHtml(g)}</li>`).join('')}</ul>` : ''}`;
+}
+
+function mockCard() {
+  const { all, graded } = mockSeries(listMocks(), listAttempts());
+  if (!all.length) return `<div class="card"><h3>📈 Kết quả thi thử</h3><p class="muted small">Chưa có bài thi thử. Làm bài ở tab Thi thử rồi chấm để thấy biểu đồ tiến bộ ở đây.</p></div>`;
+  const ungraded = all.length - graded.length;
+  const cmp = compareLast(graded);
+  const last = graded.at(-1);
+  return `<div class="card">
+    <h3>📈 Kết quả thi thử</h3>
+    ${
+      graded.length
+        ? `${mockChart(graded)}
+      <div id="mock-chart-detail">${mockDetail(last)}</div>
+      ${cmp ? `<p class="small"><b>So với lần trước:</b> ${cmp.delta > 0 ? `⬆️ tăng từ ${LEVEL_LABEL[cmp.from]} lên ${LEVEL_LABEL[cmp.to]}` : cmp.delta < 0 ? `⬇️ giảm từ ${LEVEL_LABEL[cmp.from]} xuống ${LEVEL_LABEL[cmp.to]}` : `➡️ giữ ở ${LEVEL_LABEL[cmp.to]}`}</p>` : ''}
+      <p class="muted small">Mỗi điểm là trung vị các câu AI đã chấm trong một bài thi thử. Chạm vào điểm để xem chi tiết. Chỉ là chỉ số luyện tập, không phải điểm OPIc.</p>`
+        : '<p class="muted small">Các bài thi thử chưa được chấm. Vào phần xem lại và bấm 🤖 Chấm tất cả để có điểm.</p>'
+    }
+    ${ungraded ? `<p class="muted small">${ungraded} bài thi thử chưa chấm câu nào.</p>` : ''}
+  </div>`;
+}
+
 function renderStats() {
   const s = stats();
   const maxDist = Math.max(1, ...Object.values(s.dist));
   $('progress-stats').innerHTML = `
+    ${planCard()}
+    ${mockCard()}
     <div class="stat-row">
       <div class="stat"><b>${s.total}</b><span>lần luyện</span></div>
       <div class="stat"><b>${s.last7}</b><span>7 ngày qua</span></div>
@@ -48,8 +138,16 @@ function renderStats() {
     </div>`;
 }
 
+// Điểm yếu hôm nay: chọn một lần mỗi ngày để kế hoạch và nút luyện khớp nhau.
+let weakCache = null;
+function weakToday() {
+  const day = new Date().toDateString();
+  if (!weakCache || weakCache.day !== day || weakCache.n !== listAttempts().length) weakCache = { day, n: listAttempts().length, w: weakestPromptType(CORE_TYPES) };
+  return weakCache.w;
+}
+
 function dailyPractice() {
-  const w = weakestPromptType(CORE_TYPES);
+  const w = weakToday();
   const list = filterQuestions({ ptype: w.type, level: settings.target, oqc: settings.includeOqc });
   if (!list.length) return;
   const q = list[Math.floor(Math.random() * list.length)];
@@ -106,6 +204,33 @@ export function initProgress() {
   $('btn-daily').addEventListener('click', dailyPractice);
   $('progress-stats').addEventListener('click', (e) => {
     if (e.target.closest('[data-goto-vocab]')) window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'vocab' }));
+    const pt = e.target.closest('[data-mi]');
+    if (pt) {
+      const { graded } = mockSeries(listMocks(), listAttempts());
+      $('mock-chart-detail').innerHTML = mockDetail(graded[+pt.dataset.mi]);
+      document.querySelectorAll('.mc-pt').forEach((g) => g.classList.toggle('sel', g === pt));
+    }
+    const plan = e.target.closest('[data-plan]')?.dataset.plan;
+    if (plan === 'vocab') window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'vocab' }));
+    if (plan === 'mock') window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'mock' }));
+    if (plan === 'weak') dailyPractice();
+    if (plan === 'practice') window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'practice' }));
+    if (plan === 'scripts') {
+      const list = listScripts().sort((a, b) => (a.lastPracticed || 0) - (b.lastPracticed || 0));
+      if (list.length) openScript(list[0].id, 'shadow');
+      else {
+        window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'learn' }));
+        window.dispatchEvent(new CustomEvent('opic:learn-sub', { detail: 'scripts' }));
+      }
+    }
   });
+  $('progress-stats').addEventListener('change', (e) => {
+    if (e.target.id !== 'exam-date') return;
+    settings.examDate = e.target.value;
+    saveSettings();
+    renderStats();
+  });
+  onMocksChange(() => $('tab-progress').classList.contains('active') && renderStats());
+  onScriptsChange(() => $('tab-progress').classList.contains('active') && renderStats());
   renderProgress();
 }

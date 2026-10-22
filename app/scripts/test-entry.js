@@ -2,6 +2,7 @@
 import './test-setup.js';
 import { buildMock, rebuildTail } from '../src/mock.js';
 import * as SC from '../src/scripts-core.js';
+import * as PL from '../src/plan.js';
 import { surveyTopics, normalizeSurvey, DEFAULT_SURVEY, levelToDiff } from '../src/mock-survey.js';
 import { guessPromptType, importPack, importFile, allQuestions, listPacks } from '../src/data.js';
 import { readXlsx } from '../src/xlsx.js';
@@ -258,6 +259,24 @@ async function templateTests() {
     ok(SC.getScript(a.script.id).practiced === 2 && SC.getScript(a.script.id).best === 80, 'script practice best');
     SC.removeScript(a.script.id);
     ok(!SC.getScript(a.script.id), 'script remove');
+  }
+  // Kế hoạch ngày thi + chuỗi thi thử
+  {
+    const now = new Date(2026, 9, 22, 10).getTime();
+    ok(PL.daysLeft('2026-10-30', now) === 8 && PL.daysLeft('2026-10-22', now) === 0 && PL.daysLeft('', now) === null, 'days left');
+    ok(PL.phaseOf(30).id === 'base' && PL.phaseOf(10).id === 'build' && PL.phaseOf(5).id === 'sprint' && PL.phaseOf(1).id === 'rest' && PL.phaseOf(0).id === 'day', 'phases');
+    const p1 = PL.dailyPlan({ left: 5, vocabDue: 12, weakType: 'routine', weakLabel: 'Thói quen', todayPracticed: 1, mocks: [{ at: now - 3 * 864e5 }], scripts: [], now });
+    ok(p1.map((t) => t.id).join() === 'vocab,weak,shadow,mock' && !p1[1].done, `sprint plan ${p1.map((t) => t.id)}`);
+    const p2 = PL.dailyPlan({ left: 30, vocabDue: 0, todayPracticed: 1, mocks: [{ at: now - 3 * 864e5 }], scripts: [{ lastPracticed: now }], now });
+    ok(p2.length === 3 && p2[1].done && p2[2].done, 'base plan: no mock yet');
+    ok(PL.dailyPlan({ left: 1, now }).every((t) => ['review', 'intro'].includes(t.id)), 'rest plan');
+    const ser = PL.mockSeries([{ id: 'a', at: 2, label: 'IM', graded: 3 }], [
+      { mode: 'mock', mock_id: 'b', created_at: new Date(1).toISOString(), coach_result: { practice_level_estimate: { label: 'IH' } } },
+      { mode: 'mock', mock_id: 'b', created_at: new Date(1).toISOString(), coach_result: { practice_level_estimate: { label: 'AL' } } },
+      { mode: 'practice', created_at: new Date(1).toISOString() },
+    ]);
+    ok(ser.graded.map((m) => m.id).join() === 'b,a' && ser.graded[0].label === 'IH', `mock series ${JSON.stringify(ser.graded)}`);
+    ok(PL.compareLast(ser.graded).delta === -1, 'compare last');
   }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });

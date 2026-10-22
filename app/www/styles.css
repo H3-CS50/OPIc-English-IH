@@ -535,3 +535,4 @@ input[type=date] { width: 100%; padding: 10px 12px; border: 1px solid var(--bord
 .mc-dot { fill: var(--primary); stroke: var(--surface); stroke-width: 2; }
 .mc-hit { fill: transparent; cursor: pointer; }
 .mc-pt.sel .mc-dot { r: 7; }
+.noise-row { display: flex; gap: 8px; align-items: flex-end; margin-top: 6px; } .noise-row .field { flex: 1; margin: 0; } .noise-row .btn { margin-bottom: 2px; }

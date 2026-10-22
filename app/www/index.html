@@ -125,6 +125,11 @@
           <h3>3. Tuỳ chọn</h3>
           <label class="check"><input type="checkbox" id="mock-reselect"> <span>Chọn lại độ khó sau câu 7 (dễ hơn / tương tự / khó hơn)<br><span class="muted small">Bài thi OPIc tại Hàn Quốc có bước này. Nếu kỳ thi của bạn không có thì tắt đi.</span></span></label>
           <label class="check"><input type="checkbox" id="mock-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
+          <div class="noise-row">
+            <label class="field"><span>🔉 Tiếng ồn phòng thi</span><select id="mock-noise"><option value="off">Tắt</option><option value="low">Nhỏ</option><option value="mid">Vừa</option><option value="high">Lớn</option></select></label>
+            <button class="btn" id="mock-noise-test">▶ Nghe thử</button>
+          </div>
+          <p class="muted small">Tiếng rì rầm của nhiều người nói, tiếng gõ phím, tiếng điều hoà — giống phòng thi có nhiều thí sinh cùng nói. Âm thanh do app tạo ra, không phải bản ghi thật. <b>Nên đeo tai nghe</b> để tiếng ồn không lọt vào micro làm máy nghe nhầm.</p>
           <div class="muted small" style="margin-top:8px">Nguồn câu hỏi</div>
           <label class="check"><input type="radio" name="mock-source" value="both"> Cả hai bộ (câu hỏi của lớp + ngân hàng app)</label>
           <label class="check"><input type="radio" name="mock-source" value="class"> Chỉ câu hỏi của lớp</label>
@@ -144,7 +149,7 @@
       <div id="mock-run" hidden>
         <div class="mock-head">
           <div><b id="mock-progress">Câu 1/15</b><div class="muted small" id="mock-section"></div></div>
-          <div class="mock-clock" id="mock-clock">40:00</div>
+          <div class="row"><button class="btn small-btn" id="mock-noise-mute" hidden>🔇</button><div class="mock-clock" id="mock-clock">40:00</div></div>
         </div>
         <div class="card" id="mock-reselect-panel" hidden>
           <h3>Chọn lại độ khó</h3>

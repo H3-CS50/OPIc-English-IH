@@ -12,6 +12,7 @@ import {
 } from './mock-survey.js';
 import { saveMockRecord } from './mock-history.js';
 import { quickSave } from './scripts.js';
+import { startAmbience, stopAmbience, setAmbienceMuted, ambienceSupported, ambiencePlaying } from './ambience.js';
 
 const TOTAL_SECONDS = 40 * 60;
 
@@ -166,6 +167,8 @@ function renderSetup() {
   $('mock-self').innerHTML = selfLevelHTML(clampLevel(lvl));
   $('mock-reselect').checked = settings.mockReselect !== false;
   $('mock-oqc').checked = settings.includeOqc;
+  $('mock-noise').value = settings.mockNoise || 'off';
+  $('mock-noise').disabled = !ambienceSupported();
   document.querySelectorAll('#mock-setup .seg[data-mode]').forEach((b) => b.classList.toggle('active', b.dataset.mode === settings.mode));
 }
 
@@ -183,6 +186,7 @@ function start() {
   settings.mockReselect = $('mock-reselect').checked;
   settings.includeOqc = $('mock-oqc').checked;
   settings.mockSource = document.querySelector('[name=mock-source]:checked')?.value || 'both';
+  settings.mockNoise = $('mock-noise').value;
   saveSettings();
   if (settings.mode === 'transcribe' && !canTranscribe()) return toast('Thiết bị không hỗ trợ chuyển giọng nói thành chữ. Chọn chế độ 🎙️ Ghi âm.', 4500);
   const { topics, discuss } = surveyTopics(settings.survey, { oqc: settings.includeOqc });
@@ -208,6 +212,12 @@ function start() {
   }, 1000);
   show('run');
   showReselect(false);
+  clearTimeout(ms.previewTimer);
+  ms.noiseMuted = false;
+  startAmbience(settings.mockNoise).then((on) => {
+    $('mock-noise-mute').hidden = !on;
+    $('mock-noise-mute').textContent = '🔇';
+  });
   renderQuestion();
 }
 
@@ -332,6 +342,8 @@ async function finish() {
   await stopRec();
   await stopSpeaking();
   clearInterval(ms.clockId);
+  stopAmbience();
+  $('mock-noise-mute').hidden = true;
   showReselect(false);
   show('review');
   renderReview();
@@ -527,6 +539,30 @@ export function initMock() {
   $('mock-self').addEventListener('change', (e) => {
     settings.mockSelf = +e.target.value;
     saveSettings();
+  });
+  $('mock-noise').addEventListener('change', () => {
+    settings.mockNoise = $('mock-noise').value;
+    saveSettings();
+  });
+  $('mock-noise-test').addEventListener('click', async () => {
+    if (ambiencePlaying()) {
+      stopAmbience();
+      clearTimeout(ms.previewTimer);
+      $('mock-noise-test').textContent = '▶ Nghe thử';
+      return;
+    }
+    const lvl = $('mock-noise').value === 'off' ? 'mid' : $('mock-noise').value;
+    if (!(await startAmbience(lvl))) return toast('Máy không phát được âm thanh mô phỏng.');
+    $('mock-noise-test').textContent = '⏹ Dừng';
+    ms.previewTimer = setTimeout(() => {
+      stopAmbience();
+      $('mock-noise-test').textContent = '▶ Nghe thử';
+    }, 8000);
+  });
+  $('mock-noise-mute').addEventListener('click', () => {
+    ms.noiseMuted = !ms.noiseMuted;
+    setAmbienceMuted(ms.noiseMuted);
+    $('mock-noise-mute').textContent = ms.noiseMuted ? '🔉' : '🔇';
   });
   document.querySelectorAll('[data-reselect]').forEach((b) => b.addEventListener('click', () => applyReselect(+b.dataset.reselect)));
   $('btn-mock-start').addEventListener('click', start);

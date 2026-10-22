@@ -84,6 +84,18 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 **Nút đỏ và đồng hồ**
 - Bấm nút đỏ để bắt đầu, bấm lần nữa để dừng.
 - Thanh dưới đồng hồ là **thời lượng gợi ý** để luyện, không phải quy định của bài thi. App báo khi bạn đạt mức tối thiểu và tối đa.
+- Thời lượng gợi ý **khác nhau theo dạng câu và mục tiêu** (bài thi không giới hạn thời gian từng câu, chỉ giới hạn tổng 40 phút):
+
+| Dạng câu | IM | IH | AL |
+|---|---|---|---|
+| Giới thiệu (không tính điểm) | 0:30–0:45 | 0:30–0:45 | 0:30–0:45 |
+| Miêu tả, thói quen, sở thích | 0:50–1:00 | 1:00–1:15 | 1:15–1:30 |
+| Kể trải nghiệm, sự cố, kỷ niệm; role-play kể chuyện | 0:50–1:10 | 1:20–1:40 | 1:30–2:00 |
+| Role-play hỏi 3–4 câu | 0:30–0:45 | 0:45–1:00 | 0:50–1:10 |
+| Role-play giải quyết vấn đề | 0:45–1:00 | 1:00–1:15 | 1:15–1:30 |
+| So sánh, vấn đề xã hội, tin tức | 0:50–1:10 | 1:15–1:30 | 1:30–2:00 |
+
+  Bảng này do app đặt, dựa trên số liệu cộng đồng: người đạt IH nói trung bình khoảng 1:30 mỗi câu (OPIcmansur); số từ tối thiểu theo cấp: IH khoảng 90, AL khoảng 130 từ (Ringle Prep). Nói dài không tự làm lên cấp, quan trọng là kể chuyện, chi tiết và lý do.
 
 **Ô "Bài nói của bạn"**
 - Chữ hiện ở đây sau khi nói. Bạn cũng có thể tự gõ câu trả lời.
@@ -110,6 +122,14 @@ Một chủ đề được tính là xong khi có ít nhất một combo đạt 
 ## 📝 Tab Thi thử
 
 Bài thi thử đi đúng các bước như khi thi: **Background Survey → Self-Assessment → 15 câu trong 40 phút**. Đề gồm giới thiệu → 3 combo chủ đề → role-play (câu 11–13) → 2 câu cuối. Đây là đề luyện tập của app, không phải đề thi thật.
+
+**📚 Bộ đề cố định (60 đề)**
+- 30 đề **cấp 3–4 · mục tiêu IM** (IM-01 … IM-30) và 30 đề **cấp 5–6 · mục tiêu IH/AL** (IH-01 … IH-30). Bài thi thật chỉ khác nhau giữa cấp 3–4 và cấp 5–6, nên IH và AL dùng chung bộ đề; khác nhau ở mức bạn nói được.
+- Mỗi bộ 30 đề đi qua **toàn bộ 31 chủ đề đột xuất, 26 tình huống role-play và 12 chủ đề Survey phổ biến**; mỗi combo bắt đầu bằng câu miêu tả hoặc thói quen như đề thật. Cấp 5–6: câu 14–15 là câu nâng cao; cấp 3–4: câu 14–15 là combo thường.
+- Đề đánh số cố định nên cả nhóm cùng làm một đề rồi so sánh được. Danh sách hiện đề đã làm, số lần làm, và ước tính tốt nhất nếu đã chấm.
+- Survey giả định theo lựa chọn phổ biến: phim, biểu diễn, nhạc, công viên, đi bộ, leo núi, biển, du lịch trong nước / nước ngoài, nghỉ ở nhà, nhà ở, công việc. Đề cố định không có bước chọn lại độ khó và không dùng câu nhánh OQC.
+- Câu hỏi lấy từ câu của lớp, của app và **99 câu bổ sung** (35 combo AI soạn để lấp chủ đề còn thiếu: biểu diễn, leo núi, thư viện, khu phố, trường học, lễ hội, bệnh viện; role-play nha sĩ, ngân hàng, nhà mạng, vé hòa nhạc, thư viện, hãng bay, thuê xe, đặt đồ ăn, hẹn bạn, dự án công ty). Câu bổ sung đã qua kiểm tra tự động và một AI chấm độc lập (71 đạt, 27 sửa nhỏ, 1 sửa lớn — đã sửa hết), nhưng chưa có giáo viên duyệt.
+- Bên dưới là phần **🎲 tạo đề ngẫu nhiên** theo Survey và cấp tự đánh giá của bạn.
 
 **Trước khi thi**
 1. **🎯 Mục tiêu:** chọn IM, IH hoặc AL. App gợi ý cấp tự đánh giá phù hợp (IM → cấp 4, IH → cấp 5, AL → cấp 6). Mục tiêu này dùng chung với tab Luyện và khi AI chấm.

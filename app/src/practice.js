@@ -11,14 +11,8 @@ import { settings, saveSettings } from './settings.js';
 import { quickSave } from './scripts.js';
 import { recordSpoken } from './roadmap-core.js';
 
-// Thời lượng gợi ý theo mục tiêu (thiết kế của app, không phải quy định của bài thi).
-const DURATION = { IM: [60, 90], IH: [90, 120], AL: [105, 150] };
-const SHORT_TYPES = new Set(['roleplay_ask', 'roleplay_ask_ava', 'self_introduction']);
-export function targetDuration(q, level) {
-  const [lo, hi] = DURATION[level] || DURATION.IH;
-  const k = SHORT_TYPES.has(q?.prompt_type) ? 0.6 : 1;
-  return [Math.round(lo * k), Math.round(hi * k)];
-}
+import { targetDuration } from './durations.js';
+export { targetDuration };
 
 const st = {
   q: null,
@@ -479,7 +473,7 @@ function onSample() {
       <div class="row wrap"><button class="btn" data-speak-ih>🔊 Nghe bài mẫu</button><button class="btn" data-shadow-ih>🗣️ Nói theo</button><button class="btn" data-save-ih>📜 Lưu</button><span class="muted small">${q.sample_wc} từ</span></div>
       <div class="small"><b>Khung đã dùng:</b> <span class="en-text">${escapeHtml(q.answer_framework)}</span></div>
       <div class="callout"><b>🚫 Đừng học thuộc:</b> lấy khung và cụm từ hay, rồi kể chuyện thật của bạn. Câu trả lời học thuộc dễ bị nhận ra và không giúp lên level.</div>
-      <p class="muted small">Bài mẫu do AI viết cho câu hỏi của lớp, nhắm mức IH để luyện tập — không phải bài thi thật hay điểm chính thức. Muốn lên AL: thêm diễn biến bất ngờ, lý do và suy nghĩ của bạn; muốn ở mức IM an toàn: nói gọn các ý chính.</p>`;
+      <p class="muted small">Bài mẫu do AI viết cho ${q.ext ? 'câu hỏi bổ sung (AI soạn, đã qua kiểm tra tự động)' : 'câu hỏi của lớp'}, nhắm mức IH để luyện tập — không phải bài thi thật hay điểm chính thức. Muốn lên AL: thêm diễn biến bất ngờ, lý do và suy nghĩ của bạn; muốn ở mức IM an toàn: nói gọn các ý chính.</p>`;
     box.querySelector('[data-speak-ih]').addEventListener('click', () => speak(q.sample_ih, settings.ttsRate).catch((e) => toast(e.message)));
     const payload = { question_id: q.question_id, question_text: q.question_text, topic: q.topic, text: q.sample_ih, source: 'sample', level: 'IH' };
     box.querySelector('[data-save-ih]').addEventListener('click', () => quickSave(payload));

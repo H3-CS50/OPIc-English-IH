@@ -578,3 +578,10 @@ input[type=date] { width: 100%; padding: 10px 12px; border: 1px solid var(--bord
 .cb-dot.ok { background: var(--primary); color: #fff; border-color: var(--primary); }
 .cb-dot.cur { outline: 2px solid #f59e0b; outline-offset: 1px; }
 @media (prefers-color-scheme: dark) { .rm-stage.cleared .rm-stage-icon { background: #14532d; } }
+
+/* ---------- Bộ đề cố định ---------- */
+.section-h { margin: 18px 4px 8px; font-size: 16px; }
+.test-item { display: block; width: 100%; text-align: left; }
+.test-item.done { opacity: 0.8; }
+#tests-summary { margin: 10px 0 6px; }
+#tests-summary .rm-bar { margin: 6px 0 10px; }

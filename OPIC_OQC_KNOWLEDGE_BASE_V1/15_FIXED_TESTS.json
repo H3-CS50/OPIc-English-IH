@@ -1,0 +1,3174 @@
+{
+ "version": 1,
+ "note_vi": "Đề luyện tập do app xếp từ ngân hàng câu hỏi (câu của lớp, của app và combo bổ sung). Không phải đề thi thật.",
+ "survey_assumed": [
+  "movies",
+  "concerts",
+  "music",
+  "parks",
+  "walking",
+  "hiking",
+  "beach",
+  "domestic_trips",
+  "overseas_trips",
+  "vacation_home",
+  "housing",
+  "work"
+ ],
+ "stats": {
+  "L34": {
+   "tests": 30,
+   "topics_covered": 70,
+   "unexpected_topics": "31/31",
+   "roleplay_topics": "26/26",
+   "survey_topics": "12/12",
+   "distinct_combos": 114,
+   "max_topic_repeats": 30
+  },
+  "L56": {
+   "tests": 30,
+   "topics_covered": 71,
+   "unexpected_topics": "31/31",
+   "roleplay_topics": "26/26",
+   "survey_topics": "12/12",
+   "distinct_combos": 133,
+   "max_topic_repeats": 30
+  }
+ },
+ "sets": [
+  {
+   "id": "L34",
+   "level": "34",
+   "title": "Cấp 3–4 · mục tiêu IM",
+   "tests": [
+    {
+     "id": "IM-01",
+     "no": 1,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "CL-0234",
+      "CL-0235",
+      "CL-0236",
+      "Q-000025",
+      "Q-000026",
+      "Q-000027",
+      "EX-0070",
+      "EX-0071",
+      "EX-0072",
+      "Q-000091",
+      "Q-000092",
+      "Q-000093",
+      "CL-0081",
+      "CL-0082"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "industry",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hotel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "phones",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-02",
+     "no": 2,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0021",
+      "CL-0022",
+      "CL-0023",
+      "Q-000055",
+      "Q-000056",
+      "Q-000057",
+      "CL-0220",
+      "CL-0221",
+      "CL-0222",
+      "Q-000109",
+      "Q-000110",
+      "Q-000111",
+      "CL-0077",
+      "CL-0078"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "weather",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "hotels",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_gym"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "internet",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-03",
+     "no": 3,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "Q-000061",
+      "Q-000062",
+      "Q-000063",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "CL-0029",
+      "CL-0030",
+      "CL-0031",
+      "Q-000103",
+      "Q-000104",
+      "Q-000105",
+      "CL-0105",
+      "CL-0106"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "recycling",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_travel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "appointments",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-04",
+     "no": 4,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "CL-0061",
+      "CL-0062",
+      "CL-0063",
+      "CL-0001",
+      "CL-0002",
+      "CL-0003",
+      "CL-0113",
+      "CL-0114",
+      "CL-0115",
+      "Q-000106",
+      "Q-000107",
+      "Q-000108",
+      "CL-0085",
+      "CL-0086"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "food",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "banks",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_furniture"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "technology",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-05",
+     "no": 5,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0240",
+      "CL-0241",
+      "CL-0242",
+      "CL-0033",
+      "CL-0034",
+      "CL-0035",
+      "EX-0076",
+      "EX-0077",
+      "EX-0078",
+      "CL-0123",
+      "CL-0124",
+      "CL-0125",
+      "EX-0088",
+      "EX-0089"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "text_messages",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_food_store"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "festivals",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-06",
+     "no": 6,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0093",
+      "CL-0094",
+      "CL-0095",
+      "Q-000067",
+      "Q-000068",
+      "Q-000069",
+      "Q-000019",
+      "Q-000020",
+      "Q-000021",
+      "EX-0031",
+      "EX-0032",
+      "EX-0033",
+      "Q-000070",
+      "Q-000071"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "fashion",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "health",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_rental_car"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "family_friends",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-07",
+     "no": 7,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "CL-0037",
+      "CL-0038",
+      "CL-0039",
+      "EX-0049",
+      "EX-0050",
+      "EX-0051",
+      "CL-0101",
+      "CL-0102",
+      "CL-0103",
+      "Q-000094",
+      "Q-000095",
+      "Q-000096",
+      "CL-0073",
+      "CL-0074"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "transportation",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_clothing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "furniture",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-08",
+     "no": 8,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0224",
+      "CL-0225",
+      "CL-0226",
+      "CL-0230",
+      "CL-0231",
+      "CL-0232",
+      "CL-0042",
+      "CL-0043",
+      "CL-0044",
+      "CL-0256",
+      "CL-0257",
+      "CL-0258",
+      "EX-0079",
+      "EX-0080"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "newspapers",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "television",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_cinema"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "libraries",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-09",
+     "no": 9,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0053",
+      "CL-0054",
+      "CL-0055",
+      "Q-000007",
+      "Q-000008",
+      "Q-000009",
+      "Q-000013",
+      "Q-000014",
+      "Q-000015",
+      "EX-0019",
+      "EX-0020",
+      "EX-0021",
+      "Q-000085",
+      "Q-000086"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "coffee_shops",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_internet"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "shopping",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-10",
+     "no": 10,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "CL-0069",
+      "CL-0070",
+      "CL-0071",
+      "CL-0109",
+      "CL-0110",
+      "CL-0111",
+      "Q-000028",
+      "Q-000029",
+      "Q-000030",
+      "EX-0022",
+      "EX-0023",
+      "EX-0024",
+      "CL-0049",
+      "CL-0050"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "geography",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "holidays",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_concert"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "restaurants",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-11",
+     "no": 11,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "Q-000034",
+      "Q-000035",
+      "Q-000036",
+      "CL-0017",
+      "CL-0018",
+      "CL-0019",
+      "EX-0082",
+      "EX-0083",
+      "EX-0084",
+      "Q-000100",
+      "Q-000101",
+      "Q-000102",
+      "CL-0209",
+      "CL-0210"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "neighborhood",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_phone_store"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "free_time",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-12",
+     "no": 12,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0244",
+      "CL-0245",
+      "CL-0246",
+      "EX-0085",
+      "EX-0086",
+      "EX-0087",
+      "Q-000031",
+      "Q-000032",
+      "Q-000033",
+      "CL-0135",
+      "CL-0136",
+      "CL-0137",
+      "CL-0057",
+      "CL-0058"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "id_cards",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "school_memories",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_weather"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "gatherings",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-13",
+     "no": 13,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "EX-0091",
+      "EX-0092",
+      "EX-0093",
+      "Q-000022",
+      "Q-000023",
+      "Q-000024",
+      "Q-000040",
+      "Q-000041",
+      "Q-000042",
+      "EX-0040",
+      "EX-0041",
+      "EX-0042",
+      "Q-000052",
+      "Q-000053"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "hospitals",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_work_project"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "internet",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-14",
+     "no": 14,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "EX-0067",
+      "EX-0068",
+      "EX-0069",
+      "CL-0197",
+      "CL-0198",
+      "CL-0199",
+      "Q-000049",
+      "Q-000050",
+      "Q-000051",
+      "EX-0025",
+      "EX-0026",
+      "EX-0027",
+      "CL-0214",
+      "CL-0215"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "recycling",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "phones",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_library"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "family_friends",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-15",
+     "no": 15,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0097",
+      "CL-0098",
+      "CL-0099",
+      "Q-000037",
+      "Q-000038",
+      "Q-000039",
+      "EX-0046",
+      "EX-0047",
+      "EX-0048",
+      "EX-0028",
+      "EX-0029",
+      "EX-0030",
+      "Q-000076",
+      "Q-000077"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "weather",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_airline"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "banks",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-16",
+     "no": 16,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "Q-000073",
+      "Q-000074",
+      "Q-000075",
+      "Q-000046",
+      "Q-000047",
+      "Q-000048",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "EX-0013",
+      "EX-0014",
+      "EX-0015",
+      "Q-000064",
+      "Q-000065"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "restaurants",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "technology",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hospital"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "holidays",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-17",
+     "no": 17,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0007",
+      "CL-0008",
+      "CL-0009",
+      "CL-0026",
+      "CL-0027",
+      "CL-0028",
+      "Q-000079",
+      "Q-000080",
+      "Q-000081",
+      "CL-0250",
+      "CL-0251",
+      "CL-0252",
+      "Q-000088",
+      "Q-000089"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "appointments",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_train"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "geography",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-18",
+     "no": 18,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0065",
+      "CL-0066",
+      "CL-0067",
+      "Q-000043",
+      "Q-000044",
+      "Q-000045",
+      "EX-0097",
+      "EX-0098",
+      "EX-0099",
+      "CL-0138",
+      "CL-0139",
+      "CL-0140",
+      "Q-000058",
+      "Q-000059"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "health",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "shopping",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_business_trip"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "transportation",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-19",
+     "no": 19,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "Q-000082",
+      "Q-000083",
+      "Q-000084",
+      "Q-000004",
+      "Q-000005",
+      "Q-000006",
+      "EX-0052",
+      "EX-0053",
+      "EX-0054",
+      "CL-0247",
+      "CL-0248",
+      "CL-0249",
+      "CL-0234",
+      "CL-0235"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "furniture",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_store_sale"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "industry",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-20",
+     "no": 20,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0220",
+      "CL-0221",
+      "CL-0222",
+      "EX-0073",
+      "EX-0074",
+      "EX-0075",
+      "CL-0230",
+      "CL-0231",
+      "CL-0232",
+      "EX-0037",
+      "EX-0038",
+      "EX-0039",
+      "CL-0061",
+      "CL-0062"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "hotels",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "television",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_friend_plans"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "food",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-21",
+     "no": 21,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "CL-0093",
+      "CL-0094",
+      "CL-0095",
+      "EX-0055",
+      "EX-0056",
+      "EX-0057",
+      "EX-0064",
+      "EX-0065",
+      "EX-0066",
+      "EX-0034",
+      "EX-0035",
+      "EX-0036",
+      "EX-0088",
+      "EX-0089"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "fashion",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_delivery"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "festivals",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-22",
+     "no": 22,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "EX-0079",
+      "EX-0080",
+      "EX-0081",
+      "CL-0224",
+      "CL-0225",
+      "CL-0226",
+      "EX-0061",
+      "EX-0062",
+      "EX-0063",
+      "Q-000112",
+      "Q-000113",
+      "Q-000114",
+      "CL-0240",
+      "CL-0241"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "libraries",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "newspapers",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_restaurant_friend"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "text_messages",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-23",
+     "no": 23,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0053",
+      "CL-0054",
+      "CL-0055",
+      "EX-0058",
+      "EX-0059",
+      "EX-0060",
+      "EX-0049",
+      "EX-0050",
+      "EX-0051",
+      "CL-0129",
+      "CL-0130",
+      "CL-0131",
+      "CL-0209",
+      "CL-0210"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "coffee_shops",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_geography"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "free_time",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-24",
+     "no": 24,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "CL-0057",
+      "CL-0058",
+      "CL-0059",
+      "CL-0244",
+      "CL-0245",
+      "CL-0246",
+      "EX-0016",
+      "EX-0017",
+      "EX-0018",
+      "EX-0082",
+      "EX-0083"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "gatherings",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "id_cards",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_bank"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "neighborhood",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-25",
+     "no": 25,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "EX-0085",
+      "EX-0086",
+      "EX-0087",
+      "CL-0004",
+      "CL-0005",
+      "CL-0006",
+      "CL-0013",
+      "CL-0014",
+      "CL-0015",
+      "CL-0144",
+      "CL-0145",
+      "CL-0146",
+      "EX-0091",
+      "EX-0092"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "school_memories",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_housing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "hospitals",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-26",
+     "no": 26,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0089",
+      "CL-0090",
+      "CL-0091",
+      "CL-0033",
+      "CL-0034",
+      "CL-0035",
+      "EX-0094",
+      "EX-0095",
+      "EX-0096",
+      "CL-0120",
+      "CL-0121",
+      "CL-0122",
+      "CL-0081",
+      "CL-0082"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "shopping",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "restaurants",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_shopping"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "phones",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-27",
+     "no": 27,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "Q-000067",
+      "Q-000068",
+      "Q-000069",
+      "Q-000034",
+      "Q-000035",
+      "Q-000036",
+      "EX-0076",
+      "EX-0077",
+      "EX-0078",
+      "CL-0117",
+      "CL-0118",
+      "CL-0119",
+      "Q-000052",
+      "Q-000053"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "health",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_clothing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "internet",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-28",
+     "no": 28,
+     "level": "34",
+     "qids": [
+      "Q-000001",
+      "Q-000025",
+      "Q-000026",
+      "Q-000027",
+      "CL-0197",
+      "CL-0198",
+      "CL-0199",
+      "CL-0105",
+      "CL-0106",
+      "CL-0107",
+      "CL-0132",
+      "CL-0133",
+      "CL-0134",
+      "CL-0073",
+      "CL-0074"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "recycling",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "appointments",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hotel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "furniture",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-29",
+     "no": 29,
+     "level": "34",
+     "qids": [
+      "Q-000002",
+      "CL-0021",
+      "CL-0022",
+      "CL-0023",
+      "CL-0001",
+      "CL-0002",
+      "CL-0003",
+      "CL-0113",
+      "CL-0114",
+      "CL-0115",
+      "Q-000097",
+      "Q-000098",
+      "Q-000099",
+      "Q-000070",
+      "Q-000071"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "banks",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_cinema"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "family_friends",
+       "kind": "unexpected"
+      }
+     ]
+    },
+    {
+     "id": "IM-30",
+     "no": 30,
+     "level": "34",
+     "qids": [
+      "Q-000003",
+      "Q-000043",
+      "Q-000044",
+      "Q-000045",
+      "CL-0085",
+      "CL-0086",
+      "CL-0087",
+      "Q-000055",
+      "Q-000056",
+      "Q-000057",
+      "CL-0141",
+      "CL-0142",
+      "CL-0143",
+      "CL-0101",
+      "CL-0102"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "technology",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "weather",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_furniture"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "transportation",
+       "kind": "unexpected"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L56",
+   "level": "56",
+   "title": "Cấp 5–6 · mục tiêu IH / AL",
+   "tests": [
+    {
+     "id": "IH-01",
+     "no": 1,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "Q-000016",
+      "Q-000017",
+      "Q-000018",
+      "EX-0094",
+      "EX-0095",
+      "EX-0096",
+      "EX-0064",
+      "EX-0065",
+      "EX-0066",
+      "CL-0126",
+      "CL-0127",
+      "CL-0128",
+      "CL-0170",
+      "CL-0171"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "restaurants",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_travel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "domestic_trips",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-02",
+     "no": 2,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "Q-000082",
+      "Q-000083",
+      "Q-000084",
+      "Q-000088",
+      "Q-000089",
+      "Q-000090",
+      "EX-0058",
+      "EX-0059",
+      "EX-0060",
+      "CL-0253",
+      "CL-0254",
+      "CL-0255",
+      "Q-000121",
+      "Q-000122"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "furniture",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "geography",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_phone_store"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "technology",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-03",
+     "no": 3,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "EX-0046",
+      "EX-0047",
+      "EX-0048",
+      "CL-0013",
+      "CL-0014",
+      "CL-0015",
+      "Q-000058",
+      "Q-000059",
+      "Q-000060",
+      "Q-000094",
+      "Q-000095",
+      "Q-000096",
+      "Q-000129",
+      "Q-000130"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "transportation",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_clothing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "health",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-04",
+     "no": 4,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "CL-0109",
+      "CL-0110",
+      "CL-0111",
+      "EX-0097",
+      "EX-0098",
+      "EX-0099",
+      "Q-000031",
+      "Q-000032",
+      "Q-000033",
+      "CL-0148",
+      "Q-000092",
+      "Q-000093",
+      "CL-0218",
+      "CL-0219"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "holidays",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "shopping",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hotel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "family_friends",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-05",
+     "no": 5,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "Q-000004",
+      "Q-000005",
+      "Q-000006",
+      "EX-0055",
+      "EX-0056",
+      "EX-0057",
+      "CL-0097",
+      "CL-0098",
+      "CL-0099",
+      "EX-0034",
+      "EX-0035",
+      "EX-0036",
+      "Q-000131",
+      "Q-000132"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "weather",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_delivery"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "recycling",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-06",
+     "no": 6,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "Q-000079",
+      "Q-000080",
+      "Q-000081",
+      "Q-000076",
+      "Q-000077",
+      "Q-000078",
+      "CL-0042",
+      "CL-0043",
+      "CL-0044",
+      "EX-0031",
+      "EX-0032",
+      "EX-0033",
+      "CL-0183",
+      "CL-0184"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "appointments",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "banks",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_rental_car"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "gatherings",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-07",
+     "no": 7,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "EX-0052",
+      "EX-0053",
+      "EX-0054",
+      "CL-0077",
+      "CL-0078",
+      "CL-0079",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "EX-0025",
+      "EX-0026",
+      "EX-0027",
+      "EX-0003",
+      "EX-0004"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "internet",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_library"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "libraries",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-08",
+     "no": 8,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "EX-0061",
+      "EX-0062",
+      "EX-0063",
+      "Q-000049",
+      "Q-000050",
+      "Q-000051",
+      "EX-0091",
+      "EX-0092",
+      "EX-0093",
+      "CL-0149",
+      "EX-0020",
+      "EX-0021",
+      "CL-0174",
+      "CL-0175"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "phones",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "hospitals",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_internet"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "bars",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-09",
+     "no": 9,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "Q-000040",
+      "Q-000041",
+      "Q-000042",
+      "CL-0026",
+      "CL-0027",
+      "CL-0028",
+      "EX-0082",
+      "EX-0083",
+      "EX-0084",
+      "CL-0138",
+      "CL-0139",
+      "CL-0140",
+      "EX-0007",
+      "EX-0008"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "neighborhood",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_business_trip"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "school_memories",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-10",
+     "no": 10,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "EX-0073",
+      "EX-0074",
+      "EX-0075",
+      "CL-0244",
+      "CL-0245",
+      "CL-0246",
+      "CL-0209",
+      "CL-0210",
+      "CL-0211",
+      "CL-0141",
+      "CL-0142",
+      "CL-0143",
+      "EX-0009",
+      "EX-0010"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "id_cards",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "free_time",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_furniture"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "festivals",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-11",
+     "no": 11,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "CL-0220",
+      "CL-0221",
+      "CL-0222",
+      "EX-0067",
+      "EX-0068",
+      "EX-0069",
+      "EX-0070",
+      "EX-0071",
+      "EX-0072",
+      "EX-0022",
+      "EX-0023",
+      "EX-0024",
+      "CL-0228",
+      "CL-0229"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "hotels",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_concert"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "newspapers",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-12",
+     "no": 12,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "CL-0061",
+      "CL-0062",
+      "CL-0063",
+      "CL-0230",
+      "CL-0231",
+      "CL-0232",
+      "CL-0029",
+      "CL-0030",
+      "CL-0031",
+      "CL-0150",
+      "Q-000098",
+      "Q-000099",
+      "CL-0238",
+      "CL-0239"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "food",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "television",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_cinema"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "industry",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-13",
+     "no": 13,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "CL-0093",
+      "CL-0094",
+      "CL-0095",
+      "Q-000028",
+      "Q-000029",
+      "Q-000030",
+      "Q-000007",
+      "Q-000008",
+      "Q-000009",
+      "EX-0037",
+      "EX-0038",
+      "EX-0039",
+      "EX-0011",
+      "EX-0012"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "fashion",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_friend_plans"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "hospitals",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-14",
+     "no": 14,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "CL-0240",
+      "CL-0241",
+      "CL-0242",
+      "CL-0017",
+      "CL-0018",
+      "CL-0019",
+      "CL-0053",
+      "CL-0054",
+      "CL-0055",
+      "CL-0144",
+      "CL-0145",
+      "CL-0146",
+      "Q-000127",
+      "Q-000128"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "text_messages",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "coffee_shops",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_housing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "shopping",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-15",
+     "no": 15,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "Q-000073",
+      "Q-000074",
+      "Q-000075",
+      "EX-0049",
+      "EX-0050",
+      "EX-0051",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "EX-0013",
+      "EX-0014",
+      "EX-0015",
+      "EX-0005",
+      "EX-0006"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "restaurants",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hospital"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "neighborhood",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-16",
+     "no": 16,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "CL-0214",
+      "CL-0215",
+      "CL-0216",
+      "CL-0037",
+      "CL-0038",
+      "CL-0039",
+      "CL-0069",
+      "CL-0070",
+      "CL-0071",
+      "CL-0151",
+      "CL-0248",
+      "CL-0249",
+      "CL-0187",
+      "CL-0188"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "family_friends",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "geography",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_store_sale"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "food",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-17",
+     "no": 17,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "Q-000037",
+      "Q-000038",
+      "Q-000039",
+      "CL-0065",
+      "CL-0066",
+      "CL-0067",
+      "Q-000022",
+      "Q-000023",
+      "Q-000024",
+      "CL-0129",
+      "CL-0130",
+      "CL-0131",
+      "Q-000135",
+      "Q-000136"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "health",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_geography"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "industry",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-18",
+     "no": 18,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "Q-000046",
+      "Q-000047",
+      "Q-000048",
+      "CL-0004",
+      "CL-0005",
+      "CL-0006",
+      "Q-000064",
+      "Q-000065",
+      "Q-000066",
+      "EX-0040",
+      "EX-0041",
+      "EX-0042",
+      "CL-0205",
+      "CL-0206"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "technology",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "holidays",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_work_project"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "phones",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-19",
+     "no": 19,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "Q-000043",
+      "Q-000044",
+      "Q-000045",
+      "Q-000061",
+      "Q-000062",
+      "Q-000063",
+      "Q-000025",
+      "Q-000026",
+      "Q-000027",
+      "EX-0016",
+      "EX-0017",
+      "EX-0018",
+      "Q-000133",
+      "Q-000134"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "recycling",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_bank"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "transportation",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-20",
+     "no": 20,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "Q-000034",
+      "Q-000035",
+      "Q-000036",
+      "CL-0057",
+      "CL-0058",
+      "CL-0059",
+      "EX-0085",
+      "EX-0086",
+      "EX-0087",
+      "CL-0152",
+      "CL-0121",
+      "CL-0122",
+      "Q-000139",
+      "Q-000140"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "gatherings",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "school_memories",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_shopping"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "internet",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-21",
+     "no": 21,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "CL-0001",
+      "CL-0002",
+      "CL-0003",
+      "EX-0076",
+      "EX-0077",
+      "EX-0078",
+      "CL-0113",
+      "CL-0114",
+      "CL-0115",
+      "CL-0250",
+      "CL-0251",
+      "CL-0252",
+      "CL-0228",
+      "CL-0229"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "banks",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_train"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "newspapers",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-22",
+     "no": 22,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "EX-0079",
+      "EX-0080",
+      "EX-0081",
+      "CL-0073",
+      "CL-0074",
+      "CL-0075",
+      "CL-0021",
+      "CL-0022",
+      "CL-0023",
+      "Q-000109",
+      "Q-000110",
+      "Q-000111",
+      "EX-0009",
+      "EX-0010"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "libraries",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "furniture",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_gym"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "festivals",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-23",
+     "no": 23,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "EX-0046",
+      "EX-0047",
+      "EX-0048",
+      "Q-000055",
+      "Q-000056",
+      "Q-000057",
+      "EX-0043",
+      "EX-0044",
+      "EX-0045",
+      "EX-0028",
+      "EX-0029",
+      "EX-0030",
+      "CL-0174",
+      "CL-0175"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "hiking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "weather",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "concerts",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_airline"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "bars",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-24",
+     "no": 24,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "CL-0105",
+      "CL-0106",
+      "CL-0107",
+      "CL-0244",
+      "CL-0245",
+      "CL-0246",
+      "CL-0007",
+      "CL-0008",
+      "CL-0009",
+      "Q-000118",
+      "CL-0124",
+      "CL-0125",
+      "Q-000141",
+      "Q-000142"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "appointments",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "id_cards",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "housing",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_food_store"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "holidays",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-25",
+     "no": 25,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "CL-0209",
+      "CL-0210",
+      "CL-0211",
+      "Q-000019",
+      "Q-000020",
+      "Q-000021",
+      "CL-0033",
+      "CL-0034",
+      "CL-0035",
+      "CL-0135",
+      "CL-0136",
+      "CL-0137",
+      "CL-0192",
+      "CL-0193"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "free_time",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "movies",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "domestic_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_weather"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "geography",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-26",
+     "no": 26,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "CL-0230",
+      "CL-0231",
+      "CL-0232",
+      "CL-0053",
+      "CL-0054",
+      "CL-0055",
+      "EX-0064",
+      "EX-0065",
+      "EX-0066",
+      "Q-000112",
+      "Q-000113",
+      "Q-000114",
+      "CL-0178",
+      "CL-0179"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "television",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "coffee_shops",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "overseas_trips",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_restaurant_friend"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "restaurants",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-27",
+     "no": 27,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "EX-0058",
+      "EX-0059",
+      "EX-0060",
+      "CL-0240",
+      "CL-0241",
+      "CL-0242",
+      "EX-0067",
+      "EX-0068",
+      "EX-0069",
+      "CL-0132",
+      "CL-0133",
+      "CL-0134",
+      "CL-0203",
+      "CL-0204"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "beach",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "text_messages",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "vacation_home",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_hotel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "internet",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-28",
+     "no": 28,
+     "level": "56",
+     "qids": [
+      "Q-000001",
+      "Q-000004",
+      "Q-000005",
+      "Q-000006",
+      "CL-0220",
+      "CL-0221",
+      "CL-0222",
+      "CL-0093",
+      "CL-0094",
+      "CL-0095",
+      "Q-000119",
+      "CL-0118",
+      "CL-0119",
+      "Q-000123",
+      "Q-000124"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "work",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "hotels",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "fashion",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_clothing"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "phones",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-29",
+     "no": 29,
+     "level": "56",
+     "qids": [
+      "Q-000002",
+      "Q-000085",
+      "Q-000086",
+      "Q-000087",
+      "CL-0026",
+      "CL-0027",
+      "CL-0028",
+      "EX-0052",
+      "EX-0053",
+      "EX-0054",
+      "Q-000103",
+      "Q-000104",
+      "Q-000105",
+      "CL-0189",
+      "CL-0190"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "shopping",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "walking",
+       "kind": "survey"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "music",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_travel"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "health",
+       "kind": "adv"
+      }
+     ]
+    },
+    {
+     "id": "IH-30",
+     "no": 30,
+     "level": "56",
+     "qids": [
+      "Q-000003",
+      "CL-0224",
+      "CL-0225",
+      "CL-0226",
+      "EX-0088",
+      "EX-0089",
+      "EX-0090",
+      "EX-0055",
+      "EX-0056",
+      "EX-0057",
+      "Q-000100",
+      "Q-000101",
+      "Q-000102",
+      "CL-0201",
+      "CL-0202"
+     ],
+     "sections": [
+      {
+       "name": "Giới thiệu",
+       "topic": "self_intro"
+      },
+      {
+       "name": "Combo 1",
+       "topic": "newspapers",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 2",
+       "topic": "festivals",
+       "kind": "unexpected"
+      },
+      {
+       "name": "Combo 3",
+       "topic": "parks",
+       "kind": "survey"
+      },
+      {
+       "name": "Role-play",
+       "topic": "rp_phone_store"
+      },
+      {
+       "name": "Câu 14–15",
+       "topic": "recycling",
+       "kind": "adv"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -2,6 +2,8 @@
 import './test-setup.js';
 import { buildMock, rebuildTail, comboInfo } from '../src/mock.js';
 import * as RM from '../src/roadmap-core.js';
+import TESTS from '../src/tests.json';
+import { targetDuration, targetWords } from '../src/durations.js';
 import * as SC from '../src/scripts-core.js';
 import * as PL from '../src/plan.js';
 import { surveyTopics, normalizeSurvey, DEFAULT_SURVEY, levelToDiff } from '../src/mock-survey.js';
@@ -306,6 +308,19 @@ async function templateTests() {
     ok(!RM.recordSpoken('x', { words: 5, seconds: 3 }) && RM.recordSpoken('x', { words: 20 }) && RM.spokenMap().x, 'record spoken threshold');
     RM.resetRoadmap();
     ok(RM.nextStep(st1).stage.id === 'survey' && RM.nextStep(st1).node.topic === 'movies', 'next step');
+  }
+  // Bộ đề cố định + thời lượng theo dạng câu
+  {
+    const ids = new Set(kbData.questions.map((q) => q.question_id));
+    const all = TESTS.sets.flatMap((x) => x.tests);
+    ok(TESTS.sets.length === 2 && all.length === 60, `60 fixed tests (${all.length})`);
+    ok(all.every((t) => t.qids.length === 15 && new Set(t.qids).size === 15 && t.qids.every((id) => ids.has(id))), 'fixed tests: 15 valid unique questions');
+    const byId = new Map(kbData.questions.map((q) => [q.question_id, q]));
+    ok(all.filter((t) => t.level === '56').every((t) => t.qids.slice(13).every((id) => byId.get(id).mock_slot === 'adv')), 'level 5–6 tests end with advanced questions');
+    ok(new Set(all.map((t) => t.id)).size === 60, 'fixed test ids unique');
+    ok(kbData.questions.filter((q) => q.ext).length === 99, 'ext combos in app');
+    ok(targetDuration({ prompt_type: 'memorable_experience' }, 'IH').join() === '80,100' && targetDuration({ prompt_type: 'roleplay_ask' }, 'IM').join() === '30,45' && targetDuration({ prompt_type: 'issue_concern' }, 'AL').join() === '90,120', 'durations by type');
+    ok(targetWords({ prompt_type: 'description' }, 'IH').join() === '100,150', 'target words');
   }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });

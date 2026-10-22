@@ -383,6 +383,8 @@ def validate(questions, answers, sources, class_q):
 # ---------------------------------------------------------------- outputs
 from vocab_build import build_vocab, app_payload  # noqa: E402
 from dict_build import build_dict  # noqa: E402
+from ext_build import build_ext  # noqa: E402
+from tests_build import build_tests, check_tests  # noqa: E402
 
 
 def write_jsonl(path, rows):
@@ -491,19 +493,50 @@ def main():
 
     # ---- từ điển tra từ
     dstats = build_dict(issue)
+
+    # ---- combo bổ sung (AI soạn 2026-10) + kiểm tra chất lượng
+    gloss = json.loads((APP_SRC / "gloss.json").read_text(encoding="utf-8")) if (APP_SRC / "gloss.json").exists() else {}
+
+    def common(w):
+        w = w.lower().strip("'")
+        if w in gloss or w.endswith("'s") and w[:-2] in gloss or w.endswith("n't"):
+            return True
+        for suf, rep in (("ies", "y"), ("ied", "y"), ("ing", ""), ("ing", "e"), ("ed", ""), ("ed", "e"), ("d", ""), ("es", ""), ("s", ""), ("er", ""), ("est", ""), ("ly", "")):
+            if w.endswith(suf) and (w[: -len(suf)] + rep) in gloss:
+                return True
+        return False
+
+    from class_meta import PERSONA_VI  # noqa: E402  (đã nạp trong build_class)
+    ext_q, ext_report = build_ext(issue, TOPICS, PROMPT_TYPES, EXPECTED_EVIDENCE, FRAMEWORKS, LEVELS, SCHEMA_VERSION, PERSONA_VI,
+                                  questions + class_q, common if gloss else None)
+    ev = jsonschema.Draft202012Validator({**schemas.bundle(), **schemas.EXT_QUESTION})
+    ebad = 0
+    for r in ext_q:
+        errs = list(ev.iter_errors(r))
+        for e in errs[:2]:
+            issue("FAIL", "schema_ext_question", f"{r['question_id']}: {e.message}")
+        ebad += bool(errs)
+    results["schema_ext_question"] = "PASS" if not ebad else "FAIL"
+    results["ext_quality"] = "FAIL" if any(i["check"] == "ext_quality" and i["severity"] == "FAIL" for i in issues) else "PASS"
+    emissing = {r["source_id"] for r in ext_q} - {s["source_id"] for s in sources}
+    results["ext_provenance"] = "PASS" if not emissing else "FAIL"
+    eids = Counter(r["question_id"] for r in questions + class_q + ext_q)
+    results["unique_all_question_ids"] = "PASS" if all(v == 1 for v in eids.values()) else "FAIL"
     results["dict_glossary"] = "FAIL" if any(i["check"].startswith("dict_") and i["severity"] == "FAIL" for i in issues) else "PASS"
 
     write_jsonl(KB / "05_QUESTION_BANK_SEED.jsonl", questions)
     write_jsonl(KB / "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", answers)
     write_jsonl(KB / "12_CLASS_QUESTION_BANK.jsonl", class_q)
     write_jsonl(KB / "13_VOCAB_BANK.jsonl", vocab)
+    write_jsonl(KB / "14_EXT_COMBO_BANK.jsonl", ext_q)
+    (KB / "14_EXT_COMBO_QA.json").write_text(json.dumps(ext_report, ensure_ascii=False, indent=1), encoding="utf-8")
     write_sources_csv(KB / "01_SOURCE_REGISTER.csv", sources)
     write_taxonomy_md(KB / "04_QUESTION_TAXONOMY.md", questions)
     (KB / "08_DATA_SCHEMA.json").write_text(json.dumps(schemas.bundle(), ensure_ascii=False, indent=2), encoding="utf-8")
 
     # re-parse every JSONL line to prove it parses
     parse_ok = True
-    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", "12_CLASS_QUESTION_BANK.jsonl", "13_VOCAB_BANK.jsonl"):
+    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", "12_CLASS_QUESTION_BANK.jsonl", "13_VOCAB_BANK.jsonl", "14_EXT_COMBO_BANK.jsonl"):
         for i, line in enumerate((KB / fn).read_text(encoding="utf-8").splitlines(), 1):
             try:
                 json.loads(line)
@@ -527,6 +560,12 @@ def main():
                                         "follow_up_questions", "scaffolding_hints", "answer_framework", "time_frame_targets",
                                         "content_origin", "origin_set", "class_type")}
                      | {"sample_ih": q["sample_answer_ih"], "sample_wc": q["sample_word_count"]})
+    for q in ext_q:
+        app_q.append({k: q[k] for k in ("question_id", "topic", "topic_category", "question_text", "prompt_type", "target_practice_levels",
+                                        "difficulty_design", "mock_slot", "combo_id", "combo_order", "oqc_branch", "expected_evidence",
+                                        "follow_up_questions", "scaffolding_hints", "answer_framework", "time_frame_targets",
+                                        "content_origin", "class_type")}
+                     | {"origin_set": "app", "ext": True, "sample_ih": q["sample_answer_ih"], "sample_wc": q["sample_word_count"]})
     app_sets = []
     for sid, lv in sorted(sets.items()):
         any_a = lv["IM"]
@@ -550,6 +589,15 @@ def main():
         "sources": [{k: s[k] for k in ("source_id", "title", "publisher_or_author", "tier", "url", "access_status")} for s in sources],
     }
     (APP_SRC / "kb.json").write_text(json.dumps(kb_json, ensure_ascii=False), encoding="utf-8")
+
+    # ---- bộ đề cố định
+    test_sets, pools = build_tests(app_q)
+    tests_ok, test_stats = check_tests(test_sets, pools, app_q, issue)
+    results["fixed_tests"] = "PASS" if tests_ok else "FAIL"
+    tests_json = {"version": 1, "note_vi": "Đề luyện tập do app xếp từ ngân hàng câu hỏi (câu của lớp, của app và combo bổ sung). Không phải đề thi thật.",
+                  "survey_assumed": __import__("tests_build").SURVEY_TOPICS, "stats": test_stats, "sets": test_sets}
+    (APP_SRC / "tests.json").write_text(json.dumps(tests_json, ensure_ascii=False), encoding="utf-8")
+    (KB / "15_FIXED_TESTS.json").write_text(json.dumps(tests_json, ensure_ascii=False, indent=1), encoding="utf-8")
     (APP_SRC / "vocab.json").write_text(json.dumps(app_payload(vocab, vtopics), ensure_ascii=False), encoding="utf-8")
     (APP_SRC / "coach_schema.json").write_text(json.dumps(schemas.COACH_RESULT, ensure_ascii=False), encoding="utf-8")
     (APP_SRC / "coach_prompt.txt").write_text(prompt, encoding="utf-8")

@@ -233,6 +233,19 @@ PROGRESS = {
 }
 
 
+EXT_QUESTION = {
+    "x-status": "MVP",
+    "type": "object", "additionalProperties": False,
+    "required": CLASS_QUESTION["required"],
+    "properties": {
+        **CLASS_QUESTION["properties"],
+        "question_id": {"type": "string", "pattern": "^EX-\\d{4}$"},
+        "origin_set": {"const": "ext"},
+        "class_type": {"enum": ["Combo-3", "Combo-2", "Role-plays"]},
+    },
+}
+
+
 def bundle():
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -240,7 +253,7 @@ def bundle():
         "title": "OPIc OQC knowledge base & app data schema",
         "x-schema-version": "1.0",
         "$defs": {
-            "source": SOURCE, "question": QUESTION, "class_question": CLASS_QUESTION, "sample_answer": SAMPLE_ANSWER,
+            "source": SOURCE, "question": QUESTION, "class_question": CLASS_QUESTION, "ext_question": EXT_QUESTION, "sample_answer": SAMPLE_ANSWER,
             "coach_result": COACH_RESULT, "vocab_item": VOCAB_ITEM, "practice_session": PRACTICE_SESSION, "progress": PROGRESS,
         },
     }

@@ -31,9 +31,14 @@ Ngày: 2026-10-22 · Phiên bản dữ liệu 1.0.0
 | `vocab_unique` | **PASS** |
 | `vocab_complete` | **PASS** |
 | `vocab_user_app_kept` | **PASS** |
+| `schema_ext_question` | **PASS** |
+| `ext_quality` | **PASS** |
+| `ext_provenance` | **PASS** |
+| `unique_all_question_ids` | **PASS** |
 | `dict_glossary` | **PASS** |
 | `jsonl_parse` | **PASS** |
 | `coach_prompt_present` | **PASS** |
+| `fixed_tests` | **PASS** |
 
 Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.json`.
 <!-- AUTO-CHECKS END -->

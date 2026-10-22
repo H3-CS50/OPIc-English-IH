@@ -9,9 +9,9 @@
     "class_questions": 258,
     "sample_answers": 72,
     "sample_answer_sets": 24,
-    "sources": 37,
+    "sources": 43,
     "vocab_items": 1241,
-    "dict_gloss_entries": 2814
+    "dict_gloss_entries": 2964
   },
   "vocab": {
     "total": 1241,
@@ -47,9 +47,9 @@
     }
   },
   "dictionary": {
-    "gloss_entries": 2814,
+    "gloss_entries": 2964,
     "ipa_entries": 125927,
-    "gloss_with_ipa": 2776
+    "gloss_with_ipa": 2925
   },
   "questions_by_topic": {
     "self_intro": 3,
@@ -173,12 +173,12 @@
   },
   "sources_by_tier": {
     "1": 7,
-    "3": 10,
-    "2": 17,
+    "3": 15,
+    "2": 18,
     "4": 3
   },
   "sources_by_access_status": {
-    "accessible": 29,
+    "accessible": 35,
     "partial": 7,
     "snippet_only": 1
   },
@@ -205,9 +205,14 @@
     "vocab_unique": "PASS",
     "vocab_complete": "PASS",
     "vocab_user_app_kept": "PASS",
+    "schema_ext_question": "PASS",
+    "ext_quality": "PASS",
+    "ext_provenance": "PASS",
+    "unique_all_question_ids": "PASS",
     "dict_glossary": "PASS",
     "jsonl_parse": "PASS",
-    "coach_prompt_present": "PASS"
+    "coach_prompt_present": "PASS",
+    "fixed_tests": "PASS"
   },
   "known_limitations": [
     "Toàn bộ câu hỏi (trừ Q-000001) và bài mẫu do AI viết; chưa có giáo viên hoặc rater được chứng nhận rà soát.",
@@ -217,18 +222,22 @@
   ],
   "checksums_sha256": {
     "00_README.md": "308371e2561ba450a507c3f962c2d922c72165560df5f83e92c1f73b7a83cee8",
-    "01_SOURCE_REGISTER.csv": "a28d4825cfc462525d0db3a53fd296c10ea44a12fa15fedf4dc5ee4863b5ccd3",
+    "01_SOURCE_REGISTER.csv": "9477c6dce739d82f1bc7663087ed4742baa01cafae2e95e67d423216168bf380",
     "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
     "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
-    "04_QUESTION_TAXONOMY.md": "9c2642193d646ddd0e881d9b9dbd16785ac955a025393cfd4fe7b751a8771faf",
+    "04_QUESTION_TAXONOMY.md": "a6c592ecd55bae789103f56e0b326ec675da8a5313fd4dffa96d26297a12df91",
     "05_QUESTION_BANK_SEED.jsonl": "b3589e8d675c3c6dd3021bcd2d142c46cd3fcac00c3ce747b04ac6c189907d61",
     "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl": "dc48205a06311e8c3d92e5505117b7172da39c32c0c85f5e14f57403019b30c0",
     "07_AI_COACH_GRADING_PROMPT.md": "79519a30f7a9cbdb16e280e6c1c90d8acd45fbab28a0798723c03b0513cef324",
-    "08_DATA_SCHEMA.json": "121313f8b51b8e9d05adf249a3de25551352b4394b0c7066cf01446b38f9e7b7",
+    "08_DATA_SCHEMA.json": "7731f6206f0983845ba40a4fa71a30685ce76d95a7658b766945de6c318f3a41",
     "09_APK_CONTENT_PRODUCT_SPEC.md": "9261a2c2502076122250c6311a61a4aaa41c74999f53d9fd737dbdb2c41e9b32",
-    "10_QA_AND_GAP_REPORT.md": "ed9943daf3aaea4a6a7d0931ed0cf7ad5bc0531db53affbe5c3c0457a7b21718",
+    "10_QA_AND_GAP_REPORT.md": "dce891e23e230c19a65af0cf0e9c60706b6cebcde6afd8117f0de2ebf9b94592",
     "12_CLASS_QUESTION_BANK.jsonl": "41ffb5aca4c8223a80ee79833b70a01e231d8fe84a6de1f1a0bc27d467d5dc5e",
     "13_VOCAB_BANK.jsonl": "0351fedaa87975ba86d6c2eb22775a9da2c08ec6a4c9f4b9316a9d9a38b1d408",
-    "validation_report.json": "b019cde0afffa452f5e1f328f3e319f97491e64fd5f7d0d5593351eef7b92280"
+    "14_EXT_COMBO_BANK.jsonl": "786de3273aef451677daf6da8a663aa4643219c64c9640d417187183bd230698",
+    "14_EXT_COMBO_QA.json": "54a72b15e779ad0b9e69fffe0d1234fcc422fca2c512fb85a074ba152f911a9a",
+    "14_EXT_COMBO_REVIEW.md": "51b8533c40c095a447503aff4a97adaf7192c8603e5447b0aadb1709165151a4",
+    "15_FIXED_TESTS.json": "2b3b51792bf3dcb733149330af69c0fa1268e8fb1491313ccbdcd01865117434",
+    "validation_report.json": "52bad665daa7701cc13b7e8a89264c91ba9565ec9513b5db280f276304166e71"
   }
 }

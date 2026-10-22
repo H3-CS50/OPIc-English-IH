@@ -196,6 +196,23 @@
             "television",
             "text_messages",
             "id_cards",
+            "concerts",
+            "hiking",
+            "libraries",
+            "neighborhood",
+            "school_memories",
+            "festivals",
+            "hospitals",
+            "rp_hospital",
+            "rp_bank",
+            "rp_internet",
+            "rp_concert",
+            "rp_library",
+            "rp_airline",
+            "rp_rental_car",
+            "rp_delivery",
+            "rp_friend_plans",
+            "rp_work_project",
             "rp_shopping",
             "rp_food_store",
             "rp_geography",
@@ -460,6 +477,23 @@
             "television",
             "text_messages",
             "id_cards",
+            "concerts",
+            "hiking",
+            "libraries",
+            "neighborhood",
+            "school_memories",
+            "festivals",
+            "hospitals",
+            "rp_hospital",
+            "rp_bank",
+            "rp_internet",
+            "rp_concert",
+            "rp_library",
+            "rp_airline",
+            "rp_rental_car",
+            "rp_delivery",
+            "rp_friend_plans",
+            "rp_work_project",
             "rp_shopping",
             "rp_food_store",
             "rp_geography",
@@ -635,6 +669,316 @@
         },
         "origin_set": {
           "const": "class"
+        },
+        "source_index": {
+          "type": "integer"
+        },
+        "class_type": {
+          "enum": [
+            "Combo-3",
+            "Combo-2",
+            "Role-plays"
+          ]
+        },
+        "sample_answer_ih": {
+          "type": "string",
+          "minLength": 40
+        },
+        "sample_word_count": {
+          "type": "integer"
+        },
+        "sample_origin": {
+          "const": "AI_generated_original"
+        },
+        "sample_level_label_type": {
+          "const": "practice_target_not_official_rating"
+        },
+        "sample_persona_vi": {
+          "type": "string"
+        }
+      }
+    },
+    "ext_question": {
+      "x-status": "MVP",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question_id",
+        "test_language",
+        "topic",
+        "topic_label_vi",
+        "topic_category",
+        "subtopic",
+        "question_text",
+        "prompt_type",
+        "communicative_functions",
+        "time_frame_targets",
+        "target_practice_levels",
+        "difficulty_design",
+        "mock_slot",
+        "combo_id",
+        "combo_order",
+        "oqc_branch",
+        "source_id",
+        "source_url",
+        "content_origin",
+        "copyright_status",
+        "expected_evidence",
+        "follow_up_questions",
+        "scaffolding_hints",
+        "answer_framework",
+        "review_status",
+        "schema_version",
+        "origin_set",
+        "source_index",
+        "class_type",
+        "sample_answer_ih",
+        "sample_word_count",
+        "sample_origin",
+        "sample_level_label_type",
+        "sample_persona_vi"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string",
+          "pattern": "^EX-\\d{4}$"
+        },
+        "test_language": {
+          "const": "English"
+        },
+        "topic": {
+          "enum": [
+            "self_intro",
+            "work",
+            "oqc_work",
+            "housing",
+            "movies",
+            "music",
+            "parks",
+            "walking",
+            "beach",
+            "domestic_trips",
+            "overseas_trips",
+            "vacation_home",
+            "technology",
+            "phones",
+            "internet",
+            "weather",
+            "transportation",
+            "recycling",
+            "holidays",
+            "health",
+            "family_friends",
+            "restaurants",
+            "banks",
+            "appointments",
+            "furniture",
+            "shopping",
+            "geography",
+            "industry",
+            "bars",
+            "coffee_shops",
+            "gatherings",
+            "food",
+            "fashion",
+            "free_time",
+            "hotels",
+            "newspapers",
+            "television",
+            "text_messages",
+            "id_cards",
+            "concerts",
+            "hiking",
+            "libraries",
+            "neighborhood",
+            "school_memories",
+            "festivals",
+            "hospitals",
+            "rp_hospital",
+            "rp_bank",
+            "rp_internet",
+            "rp_concert",
+            "rp_library",
+            "rp_airline",
+            "rp_rental_car",
+            "rp_delivery",
+            "rp_friend_plans",
+            "rp_work_project",
+            "rp_shopping",
+            "rp_food_store",
+            "rp_geography",
+            "rp_weather",
+            "rp_business_trip",
+            "rp_housing",
+            "rp_store_sale",
+            "rp_train",
+            "rp_hotel",
+            "rp_clothing",
+            "rp_cinema",
+            "rp_phone_store",
+            "rp_travel",
+            "rp_furniture",
+            "rp_gym",
+            "rp_restaurant_friend",
+            "rp_work_training",
+            "rp_ask_ava"
+          ]
+        },
+        "topic_label_vi": {
+          "type": "string"
+        },
+        "topic_category": {
+          "enum": [
+            "intro",
+            "survey",
+            "unexpected",
+            "role_play",
+            "issue"
+          ]
+        },
+        "subtopic": {
+          "type": "string"
+        },
+        "question_text": {
+          "type": "string",
+          "minLength": 10
+        },
+        "prompt_type": {
+          "enum": [
+            "self_introduction",
+            "description",
+            "routine",
+            "preference_opinion",
+            "past_recent",
+            "past_first",
+            "memorable_experience",
+            "problem_experience",
+            "comparison_change",
+            "comparison_two",
+            "roleplay_ask",
+            "roleplay_ask_ava",
+            "roleplay_problem",
+            "roleplay_experience",
+            "issue_concern",
+            "news_report"
+          ]
+        },
+        "communicative_functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "time_frame_targets": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "past",
+              "present",
+              "future"
+            ]
+          },
+          "minItems": 1
+        },
+        "target_practice_levels": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "IM",
+              "IH",
+              "AL"
+            ]
+          },
+          "minItems": 1
+        },
+        "difficulty_design": {
+          "enum": [
+            "easy",
+            "medium",
+            "challenging"
+          ]
+        },
+        "mock_slot": {
+          "enum": [
+            "intro",
+            "combo",
+            "rp_ask",
+            "rp_problem",
+            "rp_experience",
+            "adv"
+          ]
+        },
+        "combo_id": {
+          "type": "string"
+        },
+        "combo_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "oqc_branch": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content_origin": {
+          "enum": [
+            "official_excerpt_reference",
+            "third_party_source",
+            "user_provided",
+            "AI_generated_original",
+            "adapted_with_permission"
+          ]
+        },
+        "copyright_status": {
+          "enum": [
+            "original",
+            "short_quote_official",
+            "user_provided_unclear",
+            "user_owned",
+            "permission_granted"
+          ]
+        },
+        "expected_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "follow_up_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scaffolding_hints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "answer_framework": {
+          "type": "string"
+        },
+        "review_status": {
+          "enum": [
+            "draft",
+            "ai_checked",
+            "human_reviewed",
+            "approved"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "origin_set": {
+          "const": "ext"
         },
         "source_index": {
           "type": "integer"

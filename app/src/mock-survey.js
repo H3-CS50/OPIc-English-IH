@@ -48,6 +48,7 @@ export const SURVEY = [
         vi: 'Giải trí',
         options: [
           { id: 'movies', vi: 'Đi xem phim', topics: ['movies'] },
+          { id: 'concerts', vi: 'Xem biểu diễn / hòa nhạc', topics: ['concerts'] },
           { id: 'parks', vi: 'Đi chơi công viên', topics: ['parks'] },
           { id: 'beach', vi: 'Đi biển', topics: ['beach'] },
           { id: 'bars', vi: 'Đi quán bar / quán nhậu', topics: ['bars'] },
@@ -59,6 +60,7 @@ export const SURVEY = [
         options: [
           { id: 'walking', vi: 'Đi bộ', topics: ['walking'] },
           { id: 'jogging', vi: 'Chạy bộ chậm (jogging)', topics: ['walking'] },
+          { id: 'hiking', vi: 'Leo núi / trekking', topics: ['hiking'] },
         ],
       },
       {

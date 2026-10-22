@@ -57,6 +57,23 @@
 | `television` | Truyền hình | Television | unexpected | 0 |
 | `text_messages` | Tin nhắn | Text messages | unexpected | 0 |
 | `id_cards` | Giấy tờ tùy thân | Identification cards | unexpected | 0 |
+| `concerts` | Xem biểu diễn / hòa nhạc | Concerts & performances | survey | 0 |
+| `hiking` | Leo núi / đi bộ đường dài | Hiking & trekking | survey | 0 |
+| `libraries` | Thư viện | Libraries | unexpected | 0 |
+| `neighborhood` | Khu phố / hàng xóm | Neighborhood & neighbors | unexpected | 0 |
+| `school_memories` | Trường học / kỷ niệm đi học | School & school days | unexpected | 0 |
+| `festivals` | Lễ hội truyền thống | Traditional festivals | unexpected | 0 |
+| `hospitals` | Bệnh viện / phòng khám | Hospitals & clinics | unexpected | 0 |
+| `rp_hospital` | Role-play: hẹn khám nha sĩ / bác sĩ | Role-play: doctor or dentist | role_play | 0 |
+| `rp_bank` | Role-play: ngân hàng | Role-play: bank | role_play | 0 |
+| `rp_internet` | Role-play: nhà mạng internet | Role-play: internet provider | role_play | 0 |
+| `rp_concert` | Role-play: mua vé hòa nhạc | Role-play: concert tickets | role_play | 0 |
+| `rp_library` | Role-play: thư viện | Role-play: library | role_play | 0 |
+| `rp_airline` | Role-play: hãng bay | Role-play: airline | role_play | 0 |
+| `rp_rental_car` | Role-play: thuê xe | Role-play: car rental | role_play | 0 |
+| `rp_delivery` | Role-play: đặt đồ ăn cho tiệc | Role-play: food order for a party | role_play | 0 |
+| `rp_friend_plans` | Role-play: hẹn đi chơi với bạn | Role-play: plans with a friend | role_play | 0 |
+| `rp_work_project` | Role-play: dự án ở công ty | Role-play: work project | role_play | 0 |
 | `rp_shopping` | Role-play: cửa hàng mới / để quên ví | Role-play: new store | role_play | 0 |
 | `rp_food_store` | Role-play: cửa hàng thực phẩm | Role-play: food store | role_play | 0 |
 | `rp_geography` | Role-play: hỏi bạn về địa lý nước bạn | Role-play: friend abroad | role_play | 0 |

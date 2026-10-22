@@ -105,6 +105,18 @@
           <h2>📝 Thi thử 15 câu</h2>
           <p class="small">Đi đúng các bước như khi thi: <b>Background Survey → Self-Assessment → 15 câu trong 40 phút</b>. Đề gồm giới thiệu → 3 combo → role-play (11–13) → 2 câu cuối. Mỗi câu nghe lại được 1 lần. <span class="muted">Đây là đề luyện tập của app, không phải đề thi thật.</span></p>
         </div>
+        <div class="card" id="mock-tests">
+          <h3>📚 Bộ đề cố định</h3>
+          <p class="muted small">60 đề đánh số, xếp sẵn để phủ đủ các chủ đề hay gặp: mỗi bộ 30 đề đi qua toàn bộ 31 chủ đề đột xuất, 26 tình huống role-play và 12 chủ đề Survey phổ biến. Cả nhóm cùng nói "hôm nay làm đề IH-05" là cùng một đề.</p>
+          <div class="segmented" id="tests-level">
+            <button class="seg" data-tlevel="34">Cấp 3–4 · IM</button>
+            <button class="seg" data-tlevel="56">Cấp 5–6 · IH / AL</button>
+          </div>
+          <div id="tests-summary"></div>
+          <div id="tests-list"></div>
+          <p class="muted small">Đề luyện tập do app xếp từ câu của lớp, của app và combo bổ sung (AI soạn), không phải đề thi thật. Survey giả định theo lựa chọn phổ biến; đề cố định không có bước chọn lại độ khó. Cách trả lời và tiếng ồn lấy theo mục 3–4 bên dưới.</p>
+        </div>
+        <h3 class="section-h">🎲 Hoặc tạo đề ngẫu nhiên theo Survey của bạn</h3>
         <div class="card">
           <h3>🎯 Mục tiêu của bạn</h3>
           <div class="segmented" id="mock-target">
@@ -178,7 +190,7 @@
         </div>
         <div class="recorder" id="mock-recorder">
           <button class="rec-btn" id="mock-rec" aria-label="Ghi"><span class="rec-dot"></span></button>
-          <div class="timer"><span id="mock-timer">0:00</span></div>
+          <div class="timer"><span id="mock-timer">0:00</span><span class="muted small" id="mock-timer-target"></span></div>
           <p class="muted small" id="mock-rec-status"></p>
           <p class="small live" id="mock-live"></p>
         </div>

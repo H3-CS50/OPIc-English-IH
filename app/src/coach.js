@@ -197,7 +197,7 @@ async function geminiFetch(settings, body, signal) {
       const r = await groupPost(g.url, { action: 'ai', uid: g.uid, body }, { signal, timeout: 80000 });
       return { status: r.status, data: r.data };
     } catch (e) {
-      if (signal?.aborted) throw new CoachError('Đã huỷ chấm bài.');
+      if (signal?.aborted) throw new CoachError('Đã huỷ.');
       const m = e?.message || String(e);
       if (/^AI_TIMEOUT/.test(m)) throw new CoachError('AI của nhóm trả lời quá 60 giây (giới hạn của máy chủ nhóm). Bấm chấm lại sau ít giây.');
       throw new CoachError(m);
@@ -214,7 +214,7 @@ async function geminiFetch(settings, body, signal) {
       signal,
     });
   } catch {
-    if (signal?.aborted) throw new CoachError('Đã huỷ chấm bài.');
+    if (signal?.aborted) throw new CoachError('Đã huỷ.');
     throw new CoachError('Không kết nối được tới Gemini. Kiểm tra mạng rồi thử lại.');
   }
   let data = null;
@@ -421,7 +421,8 @@ async function aiJson(settings, { system, user, schema, maxTokens = 2048, temper
     if (!res.ok) throw new CoachError(claudeFriendly(res.status, await readError(res)));
     const data = await res.json();
     if (data.stop_reason === 'refusal') throw new CoachError('Claude từ chối yêu cầu này.');
-    return parseJson((data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join(''));
+    if (data.stop_reason === 'max_tokens') throw new CoachError('Phản hồi bị cắt vì quá dài. Thử lại.');
+    return safeJson((data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join(''));
   }
   if (usesGemini(settings)) {
     const attempt = async (withSchema) => {
@@ -438,11 +439,18 @@ async function aiJson(settings, { system, user, schema, maxTokens = 2048, temper
       }
       if (data.promptFeedback?.blockReason) throw new CoachError('Gemini chặn yêu cầu này.');
       if (data.candidates?.[0]?.finishReason === 'MAX_TOKENS') throw new CoachError('Phản hồi bị cắt vì quá dài. Thử lại.');
-      return parseJson(geminiText(data));
+      return safeJson(geminiText(data));
     };
     return attempt(true);
   }
   throw new CoachError('Chưa chọn AI. Vào Cài đặt → AI Coach (AI của nhóm, hoặc key Gemini/Claude).');
+}
+function safeJson(text) {
+  try {
+    return parseJson(text);
+  } catch {
+    throw new CoachError('AI trả về dữ liệu không đọc được. Bấm thử lại.');
+  }
 }
 const wrap = async (fn) => {
   try {
@@ -495,9 +503,10 @@ const PRON_SCHEMA = {
 };
 const PRON_SYSTEM = `You are an English pronunciation coach for Vietnamese adults preparing for the OPIc speaking test.
 Target: clear General American, but accept any accent that is easy to understand. You receive a recording and, when available, the REFERENCE TEXT the learner intended to say.
-1. Write what you actually heard in heard_text.
+1. Write what you actually heard in heard_text — do not copy the reference text if the learner said something different.
 2. Flag at most 8 words whose pronunciation is clearly non-standard or could confuse a listener. Be conservative: do not flag accent features that do not hurt understanding, and do not flag words you could not hear clearly (mention them in limitations_vi instead). If the reading is good, return an empty words list.
-3. Check especially the typical problems of Vietnamese speakers: dropped or unreleased final consonants (t d k s z), missing -s / -ed endings, θ ð said as t d or s z, ʃ vs s, r vs l, v said as b or j, z said as s, short vs long vowels (ɪ vs i, æ vs ɛ, ʊ vs u), wrong word stress, consonant clusters (str-, -sts), extra vowels between consonants, flat intonation.
+3. Listen especially for these typical problems of Vietnamese speakers, but flag one ONLY when you clearly hear it: dropped final consonants (t d k s z), missing -s / -ed endings, θ ð said as t d or s z, ʃ vs s, r vs l, v said as b or j, z said as s, short vs long vowels (ɪ vs i, æ vs ɛ, ʊ vs u), wrong word stress, consonant clusters (str-, -sts), extra vowels between consonants, flat intonation. Unreleased final stops are normal in American English — do not flag them.
+   If the learner skipped a word or said a different word, do not flag it as pronunciation; mention it in limitations_vi instead.
 4. For each flagged word: position = 0-based index of that word in the numbered reference (or in heard_text words if there is no reference); expected_ipa and heard_ipa between slashes; sound = the main problem sound written with ONE of these symbols: ${APP_IPA} (write r not ɹ, i not iː, u not uː), or "stress" for word stress, or "ending" for a missing -s/-ed/final consonant; severity major if a listener would likely misunderstand.
 5. issue_vi says what went wrong; tip_vi gives one concrete mouth/tongue instruction. Both in short, natural Vietnamese.
 6. overall.clarity: clear | mostly_clear | hard_to_understand. summary_vi: 1–2 sentences. top_tips_vi: up to 3 short Vietnamese tips.
@@ -571,7 +580,7 @@ Rules:
 - Questions are open-ended and personal, in OPIc style ("Tell me about…", "Describe…", "What do you usually…", "Tell me about a time when… What happened and how did you feel?"). Ask ONE question per turn (it may have 2–3 short parts like real OPIc prompts).
 - Match the target: IM = simple description, routine, simple past; IH = detailed past experiences and comparisons; AL = also issues, opinions, hypothetical or news-related questions.
 - Follow-up questions must build on a specific detail the learner just said.
-- If the learner's last answer is empty, very short or off-topic, say one short encouraging phrase and rephrase the question more simply.
+- If the learner's last answer is off-topic, briefly steer back to the topic in the next question.
 - say_vi is a natural Vietnamese translation of everything you said (reply_en + say_en), for the learner's reference only.
 Output JSON only.`;
 
@@ -598,8 +607,9 @@ const FEEDBACK_SCHEMA = {
   },
 };
 const FEEDBACK_SYSTEM = `You are an OPIc speaking coach for Vietnamese adults. You receive a practice conversation between the examiner (Ava) and a learner (speech-recognition transcripts, which may contain recognition errors — do not punish obvious recognition mistakes).
-Give a practice estimate (NOT an official OPIc rating) of the level the learner showed, based on: task completion, paragraph-length connected discourse, time frames (past/present/future), accuracy, vocabulary, and how well they handled follow-ups. Use insufficient_evidence if the learner said too little. Confidence is at most medium.
-Write in short, natural Vietnamese: overall_vi (2–3 sentences), strengths_vi (max 3), improve_vi (max 3, concrete), better_versions (max 3: quote the learner's own sentence in yours, give a more natural/higher-level English version in better_en at the learner's next level, why_vi short), next_step_vi (one concrete exercise).
+You only have text transcripts: do not judge pronunciation, accent or speaking speed.
+Give a practice estimate (NOT an official OPIc rating) of the level the learner actually showed, based on: task completion, paragraph-length connected discourse, time frames (past/present/future), accuracy, vocabulary, and how well they handled follow-ups. Base it only on the evidence; do not let the target level influence the estimate. Use insufficient_evidence if the learner said too little. Confidence is at most medium.
+Write in short, natural Vietnamese: overall_vi (2–3 sentences), strengths_vi (max 3), improve_vi (max 3, concrete), better_versions (max 3: quote the learner's own sentence in yours, give a more natural English version in better_en one level above your estimate (IM → IH → AL; AL stays AL), why_vi short), next_step_vi (one concrete exercise).
 Output JSON only.`;
 
 const transcriptOf = (history) =>
@@ -614,7 +624,7 @@ export function examinerTurn(settings, { level = 'IH', history = [], task, signa
       system: EXAMINER_SYSTEM(level),
       user: `CONVERSATION SO FAR:\n${transcriptOf(history) || '(nothing yet)'}\n\nYOUR TASK THIS TURN:\n${task}`,
       schema: TURN_SCHEMA,
-      maxTokens: 1024,
+      maxTokens: 2048,
       temperature: 0.7,
       signal,
     });
@@ -628,12 +638,13 @@ export function examinerFeedback(settings, { level = 'IH', history = [], context
       system: FEEDBACK_SYSTEM,
       user: `LEARNER TARGET LEVEL: ${level}\nPRACTICE: ${context}\n\nCONVERSATION:\n${transcriptOf(history)}`,
       schema: FEEDBACK_SCHEMA,
-      maxTokens: 4096,
+      maxTokens: 8192,
       temperature: 0.3,
       signal,
     });
+    const LEVELS = ['below_IM', 'IM', 'IM_IH_borderline', 'IH', 'IH_AL_borderline', 'AL', 'insufficient_evidence'];
     return {
-      level: r.level || 'insufficient_evidence',
+      level: LEVELS.includes(r.level) ? r.level : 'insufficient_evidence',
       confidence: r.confidence === 'medium' ? 'medium' : 'low',
       overall_vi: String(r.overall_vi || ''),
       strengths_vi: (r.strengths_vi || []).slice(0, 3).map(String),

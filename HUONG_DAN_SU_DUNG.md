@@ -129,15 +129,15 @@ Sau mỗi lần nói, app tự chấm 4 mục ngay trên điện thoại, **khô
 
 | Mục | App đo |
 |---|---|
-| 🌊 Độ trôi chảy | Tốc độ nói (từ/phút), số lần ngừng dài, từ đệm (um, uh, you know), từ lặp liền nhau |
+| 🌊 Độ trôi chảy | Tốc độ nói (từ/phút, tính từ lúc bắt đầu nói), tiếng ngập ngừng (um, uh), từ lặp liền nhau, số lần ngừng ≥2 giây (chỉ đo và tính điểm khi dùng 🎙️ Ghi âm; khi chuyển thành chữ chỉ ước tính để tham khảo) |
 | 🎨 Độ phong phú | Số từ so với gợi ý, độ đa dạng từ, số từ nối (because, although, after that…), thì đã dùng, ✨ cụm hay đã dùng |
-| 🎯 Độ chính xác | Trước khi chấm AI: vài lỗi dễ thấy (she go, I am agree, didn't went, can to…). Sau khi chấm AI: số lỗi AI sửa |
+| 🎯 Độ chính xác | Trước khi chấm AI: máy nghi một số lỗi hay gặp (she go, I am agree, didn't went, I can to, make me to, there have…) — có thể nhầm, hãy tự kiểm tra. Sau khi chấm AI: số lỗi AI sửa |
 | 🗣️ Phát âm | Lấy từ 🔍 Soi phát âm, hoặc nhận xét phát âm khi chấm AI bằng ghi âm |
 
 - Mỗi mục có mức **Tốt / Khá / Cần luyện / Chưa có** và một gợi ý 💡 nên sửa gì trước. Sửa chữ trong ô bài nói thì phân tích tự cập nhật.
 - Tốc độ gợi ý: IM từ 60 từ/phút (tốt từ 85), IH từ 75 (tốt từ 100), AL từ 85 (tốt từ 110).
 - Thi thử có phân tích từng câu và **📊 Phân tích cả bài**. Tab Tiến bộ có thẻ **📊 Tốc độ nói & từ nối**.
-- Đây là chỉ số luyện tập theo quy tắc của app, **không phải điểm OPIc**. Số lần ngừng là ước tính; máy nhận giọng hay bỏ qua "um/uh"; máy chỉ dò vài lỗi hay gặp.
+- Đây là chỉ số luyện tập theo quy tắc của app, **không phải điểm OPIc**. Khi chuyển thành chữ, máy có thể bỏ sót chữ và "um/uh" nên tốc độ có thể thấp hơn thực tế. Gõ tay thì không chấm độ trôi chảy.
 
 ## 🔍 Soi phát âm
 
@@ -151,10 +151,10 @@ AI nghe gần đúng, không đo từng âm chính xác như máy chuyên dụng
 
 ## 💬 Giám khảo AI
 
-Tab **Luyện → 💬 Giám khảo AI**: nói chuyện với giám khảo AI "Ava". AI **hỏi nối tiếp dựa trên điều bạn vừa nói**, giống combo trong đề thật.
+Tab **Luyện → 💬 Giám khảo AI**: luyện theo dạng câu hỏi OPIc với giám khảo AI "Ava". Khác đề thật (câu hỏi cố định), AI **hỏi nối tiếp dựa trên điều bạn vừa nói** để bạn tập phát triển ý.
 
 - **🎤 Phỏng vấn:** chọn chủ đề hoặc 🎲 Ngẫu nhiên. IM 3 câu (mô tả → thói quen → trải nghiệm), IH 4 câu (+ so sánh xưa – nay), AL 5 câu (+ vấn đề / giả định).
-- **🎭 Role-play:** câu 11 hỏi 3–4 câu → AI đóng vai trả lời rồi đưa vấn đề (câu 12, bạn đưa 2–3 phương án) → AI phản hồi và hỏi trải nghiệm tương tự (câu 13).
+- **🎭 Role-play:** câu 11 hỏi 3–4 câu → AI đóng vai trả lời, rồi app đọc đề câu 12 (giải quyết vấn đề, đưa 2–3 phương án) → AI đóng vai phản hồi, rồi app đọc đề câu 13 (kể trải nghiệm tương tự). Đề câu 11–13 lấy nguyên văn từ ngân hàng câu hỏi.
 - Mỗi lượt: **🎙️ Nói** → **⏹ Dừng** → sửa chữ nếu cần → **Gửi ➤**. Lời của Ava có **🔊** nghe lại và **VI** xem nghĩa. **🙈 Ẩn chữ** để chỉ nghe như thi thật.
 - Cuối buổi (hoặc bấm **⏹ Kết thúc & nhận xét**): ước tính luyện tập, điểm làm tốt, điểm cần cải thiện, **✏️ Nói hay hơn** có 🔊 và 📜 Lưu.
 - Tốn khoảng 3–5 lượt AI mỗi buổi. Chỉ gửi chữ, không gửi ghi âm.

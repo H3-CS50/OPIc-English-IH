@@ -494,7 +494,8 @@ function overallAnalysisHTML() {
   if (!list.length) return '';
   const avg = (arr) => (arr.length ? Math.round(arr.reduce((p, c) => p + c, 0) / arr.length) : null);
   const wpm = avg(list.map((x) => x.fluency.wpm).filter((x) => x != null));
-  const pauses = list.reduce((p, x) => p + (x.fluency.longPauses || 0), 0);
+  const scored = list.filter((x) => x.fluency.pauseScored);
+  const pauses = scored.length ? scored.reduce((p, x) => p + (x.fluency.longPauses || 0), 0) : '–';
   const conns = avg(list.map((x) => x.complexity.connectors.length));
   const errs = list.flatMap((x) => x.accuracy.easy);
   const byRule = {};
@@ -502,7 +503,7 @@ function overallAnalysisHTML() {
   const topErr = Object.entries(byRule).sort((a, b) => b[1] - a[1])[0];
   const missing = list.filter((x) => x.complexity.missingTenses.length).length;
   return `<div class="an-sum"><h4>📊 Phân tích cả bài (${list.length} câu)</h4>
-    <div class="stat-row"><div class="stat"><b>${wpm ?? '–'}</b><span>từ/phút trung bình</span></div><div class="stat"><b>${pauses}</b><span>lần ngừng dài</span></div><div class="stat"><b>${conns ?? '–'}</b><span>từ nối mỗi câu</span></div></div>
+    <div class="stat-row"><div class="stat"><b>${wpm ?? '–'}</b><span>từ/phút trung bình</span></div><div class="stat"><b>${pauses}</b><span>lần ngừng dài${scored.length ? '' : ' (cần ghi âm)'}</span></div><div class="stat"><b>${conns ?? '–'}</b><span>từ nối mỗi câu</span></div></div>
     ${topErr ? `<p class="small">🎯 Lỗi dễ thấy lặp nhiều nhất (${topErr[1]} lần): ${escapeHtml(topErr[0])}</p>` : ''}
     ${missing ? `<p class="small">⏳ ${missing} câu kể chuyện / so sánh dùng ít thì quá khứ hoặc hiện tại.</p>` : ''}
     <p class="muted small">Mở từng câu bên dưới để xem phân tích chi tiết.</p></div>`;

@@ -8,7 +8,7 @@ import { soundOf } from './ipa-core.js';
 import { logActivity } from './activity.js';
 import { splitSentences } from './scripts-core.js';
 
-const P = { text: '', choices: [], rec: null, recording: false, audio: null, ownAudio: false, result: null, loading: false, abort: null, sel: null, seconds: 0, timer: null, onResult: null, error: '', refUsed: '' };
+const P = { starting: false, text: '', choices: [], rec: null, recording: false, audio: null, ownAudio: false, result: null, loading: false, abort: null, sel: null, seconds: 0, timer: null, onResult: null, error: '', refUsed: '' };
 const CLARITY = { clear: ['🟢', 'Rõ ràng'], mostly_clear: ['🟡', 'Khá rõ, vài chỗ cần sửa'], hard_to_understand: ['🔴', 'Khó nghe, cần luyện thêm'] };
 const normW = (w) => String(w || '').toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z']/g, '');
 
@@ -19,6 +19,7 @@ const normW = (w) => String(w || '').toLowerCase().replace(/[’‘]/g, "'").rep
  */
 export function openPron({ text = '', audio = null, choices = [], onResult = null } = {}) {
   stopAll();
+  P.abort?.abort();
   Object.assign(P, { text, choices: choices.slice(0, 8), audio, ownAudio: false, result: null, loading: false, sel: null, seconds: 0, onResult, error: '', refUsed: '' });
   $('pron').hidden = false;
   render();
@@ -65,7 +66,7 @@ function detailHTML(i) {
   const snd = soundOf(w.sound);
   return `<div class="pron-detail">
     <div class="row between"><b class="pron-w">${escapeHtml(w.word)}</b><span class="badge">${w.severity === 'major' ? 'Cần sửa' : 'Nên sửa'}</span></div>
-    <div class="small">Chuẩn: <span class="ipa">${escapeHtml(dictIpa || w.expected_ipa)}</span>${w.heard_ipa ? ` · Bạn đọc gần như: <span class="ipa">${escapeHtml(w.heard_ipa)}</span>` : ''}</div>
+    <div class="small">Chuẩn: <span class="ipa">${escapeHtml(dictIpa || w.expected_ipa)}</span>${w.heard_ipa ? ` · AI nghe giống (ước đoán): <span class="ipa">${escapeHtml(w.heard_ipa)}</span>` : ''}</div>
     <p class="small">${escapeHtml(w.issue_vi)}</p>
     <p class="small">👉 ${escapeHtml(w.tip_vi)}</p>
     <div class="row wrap">
@@ -124,14 +125,20 @@ function render() {
 }
 
 async function startRec() {
+  if (P.starting || P.recording) return;
+  P.starting = true;
   await stopSpeaking();
   P.text = $('pron-text')?.value ?? P.text;
   const rec = createRecorder();
   try {
     await rec.start();
   } catch (e) {
+    P.starting = false;
+    render();
     return toast(e.message, 4500);
   }
+  P.starting = false;
+  clearInterval(P.timer);
   if (P.ownAudio && P.audio?.url) URL.revokeObjectURL(P.audio.url);
   P.audio = null;
   P.rec = rec;
@@ -183,12 +190,15 @@ async function onClick(e) {
   const t = e.target.closest('button');
   if (!t) return;
   if (t.dataset.pick != null) {
+    // Đổi câu thì ghi âm cũ (kể cả đoạn nói từ tab Luyện) không còn khớp: ghi lại.
     P.text = P.choices[+t.dataset.pick];
     if (P.ownAudio && P.audio?.url) URL.revokeObjectURL(P.audio.url);
-    if (P.ownAudio) P.audio = null;
+    P.audio = null;
+    P.ownAudio = false;
     return render();
   }
   if (t.dataset.pw != null) {
+    if (!P.result) return;
     P.sel = +t.dataset.pw;
     render();
     document.querySelector('.pron-detail')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -211,6 +221,7 @@ async function onClick(e) {
       if (!text() && !P.audio) return toast('Hãy nhập hoặc chọn câu cần đọc trước.');
       return startRec();
     case 'send':
+      if (P.loading) return;
       return send();
     case 'cancel':
       return P.abort?.abort();

@@ -38,6 +38,9 @@ const T = {
   showVi: new Set(),
   hideText: false,
   abort: null,
+  sayToken: 0,
+  busy: false,
+  timing: null,
 };
 const root = () => $('talk-root');
 
@@ -88,7 +91,7 @@ function setupHTML() {
           .join('');
   return `<div class="card">
     <h2>💬 Giám khảo AI</h2>
-    <p class="small">Nói chuyện với giám khảo AI như phần thi thật. AI <b>hỏi nối tiếp dựa trên chính câu bạn vừa trả lời</b>, hoặc <b>đóng vai</b> trong tình huống role-play. Cuối buổi có nhận xét và câu mẫu tốt hơn.</p>
+    <p class="small">Luyện theo dạng câu hỏi OPIc. Khác đề thật, AI <b>hỏi nối tiếp dựa trên câu bạn vừa nói</b>, hoặc <b>đóng vai</b> trong tình huống role-play. Cuối buổi có nhận xét và câu nói hay hơn.</p>
     <div class="segmented">
       <button class="seg ${T.mode === 'interview' ? 'active' : ''}" data-tk-mode="interview">🎤 Phỏng vấn</button>
       <button class="seg ${T.mode === 'roleplay' ? 'active' : ''}" data-tk-mode="roleplay">🎭 Role-play</button>
@@ -126,12 +129,12 @@ function chatHTML() {
       <div class="row between"><b>${escapeHtml(label)}</b><span class="muted small">Câu ${Math.min(T.asked, T.total)}/${T.total} · mục tiêu ${T.level}</span></div>
       <div class="row">
         <button class="btn small-btn" data-tk="hide">${T.hideText ? '👁️ Hiện chữ' : '🙈 Ẩn chữ'}</button>
-        ${done ? '' : `<button class="btn small-btn" data-tk="end">${answered ? '⏹ Kết thúc & nhận xét' : '✕ Thoát'}</button>`}
+        ${done || T.waiting ? '' : `<button class="btn small-btn" data-tk="end">${answered ? '⏹ Kết thúc & nhận xét' : '✕ Thoát'}</button>`}
       </div>
     </div>
     <div class="tk-log">${T.history.map(bubbleHTML).join('')}</div>
     ${T.waiting ? `<p class="muted"><span class="spinner"></span> ${T.phase === 'feedback' ? 'AI đang nhận xét cả buổi…' : 'Ava đang nghe và nghĩ câu tiếp theo…'}</p>` : ''}
-    ${T.error ? `<div class="card"><p class="small">⚠️ ${escapeHtml(T.error)}</p><button class="btn primary" data-tk="retry">↻ Thử lại</button></div>` : ''}
+    ${T.error ? `<div class="card"><p class="small">⚠️ ${escapeHtml(T.error)}</p><div class="row"><button class="btn primary" data-tk="retry">↻ Thử lại</button><button class="btn" data-tk="new">✕ Thoát</button></div></div>` : ''}
     ${!done && !T.waiting && !T.error && T.history.at(-1)?.role !== 'learner' ? composeHTML() : ''}
     ${done && T.feedback ? feedbackHTML(T.feedback) : ''}`;
 }
@@ -143,7 +146,7 @@ function composeHTML() {
     <div class="row">
       ${can ? `<button class="btn ${T.listening ? 'danger' : ''}" data-tk="rec">${T.listening ? '⏹ Dừng' : '🎙️ Nói'}</button>` : ''}
       <span class="timer small tk-timer">${fmtTime(T.seconds)}</span>
-      <button class="btn primary" data-tk="send">Gửi ➤</button>
+      <button class="btn primary" data-tk="send" ${T.busy ? 'disabled' : ''}>Gửi ➤</button>
     </div>
   </div>`;
 }
@@ -181,31 +184,35 @@ export function renderTalk() {
 function interviewTask(k) {
   const q = T.qs[k - 1];
   const en = kb.topics[T.topic]?.en || topicLabel(T.topic);
+  const short = 'If the learner\'s last answer was empty or very short, keep the question simpler and easier to answer.';
   if (q)
-    return `Ask question ${k} of ${T.total}. Base it on this OPIc question, keeping its meaning and question type, but adapt it naturally so it refers to one specific detail the learner just mentioned: "${q.question_text}". You may start with a very short natural reaction (2–5 words). reply_en must be "".`;
-  if (k === 4) return `Ask question 4 of ${T.total}: a follow-up that asks the learner to compare the past and the present about "${en}" (how it has changed over the years, and why), building on what the learner said. reply_en must be "".`;
-  return `Ask question 5 of ${T.total}: an advanced OPIc-style question about a social issue, a concern or a future trend related to "${en}", or a hypothetical situation, connected to the conversation. reply_en must be "".`;
+    return `Ask question ${k} of ${T.total}. Base it on this OPIc question, keeping its meaning and question type, but adapt it naturally so it refers to one specific detail the learner just mentioned: "${q.question_text}". You may start with a very short natural reaction (2–5 words). ${short} reply_en must be "".`;
+  if (k === 4) return `Ask question 4 of ${T.total}: a follow-up that asks the learner to compare the past and the present about "${en}" (how it has changed over the years, and why), building on what the learner said. ${short} reply_en must be "".`;
+  return `Ask question 5 of ${T.total}: an advanced OPIc-style question about a social issue, a concern or a future trend related to "${en}", or a hypothetical situation, connected to the conversation. ${short} reply_en must be "".`;
 }
+// Role-play: AI chỉ đóng vai (reply_en); đề câu 12, 13 do app đọc nguyên văn từ ngân hàng câu hỏi.
 function roleplayTask(k) {
-  const [ask, problem, exp] = T.qs;
+  const [ask] = T.qs;
+  const who = `the person or business the learner contacted in this situation: "${ask.question_text}"`;
   if (k === 2)
-    return `Two parts.
-reply_en: you are now the person the learner is talking to in this situation: "${ask.question_text}". Answer the learner's questions naturally and briefly (at most 4 short sentences; invent realistic details). If they asked nothing useful, greet them and say briefly what you can help with.
-say_en: as the examiner, read this next OPIc prompt (you may shorten it slightly but keep its meaning): "${problem.question_text}"`;
-  return `Two parts.
-reply_en: as the same person in the situation, respond briefly (at most 2 sentences) to the learner's last message and accept one of the solutions they offered.
-say_en: as the examiner, end the role-play and read this OPIc prompt (you may shorten it slightly): "${exp.question_text}"`;
+    return `reply_en: you are ${who}. Answer the learner's questions naturally and briefly (at most 4 short sentences; invent realistic details). If they asked nothing useful, greet them and say briefly what you can help with.
+say_en must be "". say_vi: Vietnamese translation of reply_en.`;
+  return `reply_en: you are still ${who}. A problem came up and the learner has just left a message about it. Respond briefly (at most 2 sentences): if they offered solutions, accept one of them; if they offered none, politely ask them to suggest an option.
+say_en must be "". say_vi: Vietnamese translation of reply_en.`;
 }
 
+// Đọc lần lượt; dừng nếu người học bấm ghi âm, thoát, hoặc có lượt đọc mới.
 async function sayAll(texts) {
+  const token = ++T.sayToken;
   for (const t of texts) {
-    if (!t || T.phase === 'setup') return;
+    if (!t) continue;
+    if (T.phase === 'setup' || T.listening || token !== T.sayToken) return;
     await speak(t, settings.ttsRate).catch(() => {});
   }
 }
 
-function pushExaminer(say, vi, reply = '') {
-  if (reply) T.history.push({ role: 'character', text: reply });
+function pushExaminer(say, vi, reply = '', replyVi = '') {
+  if (reply) T.history.push({ role: 'character', text: reply, vi: replyVi });
   T.history.push({ role: 'examiner', text: say, vi });
   T.asked++;
   renderTalk();
@@ -235,14 +242,16 @@ function start(again = false) {
     feedback: null,
     sid: Date.now().toString(36),
     showVi: new Set(),
+    busy: false,
+    timing: null,
   });
   pushExaminer(T.qs[0].question_text, '');
 }
 
-async function aiStep(fn) {
+async function aiStep(fn, retry) {
   T.waiting = true;
   T.error = '';
-  T.retry = () => aiStep(fn);
+  T.retry = retry;
   T.abort = new AbortController();
   renderTalk();
   scrollEnd();
@@ -261,15 +270,16 @@ async function aiStep(fn) {
 async function nextQuestion() {
   const k = T.asked + 1;
   const task = T.mode === 'roleplay' ? roleplayTask(k) : interviewTask(k);
-  const r = await aiStep((signal) => examinerTurn(settings, { level: T.level, history: T.history, task, signal }));
+  const r = await aiStep((signal) => examinerTurn(settings, { level: T.level, history: T.history, task, signal }), nextQuestion);
   if (!r) return;
-  pushExaminer(r.say_en || T.qs[k - 1]?.question_text || 'Could you tell me more about that?', r.say_vi, T.mode === 'roleplay' ? r.reply_en : '');
+  if (T.mode === 'roleplay') pushExaminer(T.qs[k - 1].question_text, '', r.reply_en, r.say_vi);
+  else pushExaminer(r.say_en || T.qs[k - 1]?.question_text || 'Could you tell me more about that?', r.say_vi);
 }
 
 async function finishTalk() {
   T.phase = 'feedback';
   const context = T.mode === 'roleplay' ? `Role-play (OPIc questions 11–13): ${topicLabel(T.topic)}` : `Interview on the topic "${kb.topics[T.topic]?.en || T.topic}" with follow-up questions`;
-  const r = await aiStep((signal) => examinerFeedback(settings, { level: T.level, history: T.history, context, signal }));
+  const r = await aiStep((signal) => examinerFeedback(settings, { level: T.level, history: T.history, context, signal }), finishTalk);
   if (!r) return;
   T.feedback = r;
   logActivity('graded', { key: `talk-${T.sid}` });
@@ -278,23 +288,36 @@ async function finishTalk() {
 }
 
 async function send() {
-  await stopListening();
-  const text = ($('tk-draft')?.value ?? T.draft).trim();
-  if (!text && !confirm('Chưa có câu trả lời. Vẫn gửi (bỏ qua câu này)?')) return;
-  await stopSpeaking();
+  if (T.busy || T.waiting) return;
+  T.busy = true;
+  try {
+    await stopListening();
+    const text = ($('tk-draft')?.value ?? T.draft).trim();
+    if (!text && !confirm('Chưa có câu trả lời. Vẫn gửi (bỏ qua câu này)?')) return;
+    await stopSpeaking();
+    await submit(text);
+  } finally {
+    T.busy = false;
+  }
+}
+
+async function submit(text) {
   const words = countWords(text);
-  const a = analyze({ text, seconds: T.seconds, target: T.level, timing: T.tracker?.stop() || null });
+  const a = analyze({ text, seconds: T.seconds, target: T.level, timing: T.timing });
   T.history.push({ role: 'learner', text, words, seconds: T.seconds, chips: analysisChips(a) });
   logAnalysis(a, { qid: `talk-${T.sid}-${T.asked}`, target: T.level });
   if (words >= 15) logActivity('spoken', { key: `talk-${T.sid}-${T.asked}`, seconds: T.seconds });
   T.draft = '';
   T.seconds = 0;
-  T.tracker = null;
+  T.timing = null;
   if (T.asked >= T.total) return finishTalk();
   return nextQuestion();
 }
 
 async function startListening() {
+  if (T.listening || T.busy) return;
+  T.busy = true;
+  T.sayToken++;
   await stopSpeaking();
   T.draft = $('tk-draft')?.value || '';
   const base = T.draft ? `${T.draft} ` : '';
@@ -310,9 +333,12 @@ async function startListening() {
     await T.tr.start();
   } catch (e) {
     T.tr = null;
+    T.busy = false;
     return toast(e.message || 'Không mở được micro.', 4500);
   }
+  T.busy = false;
   T.listening = true;
+  clearInterval(T.timer);
   T.timer = setInterval(() => {
     T.seconds++;
     const el = document.querySelector('.tk-timer');
@@ -329,6 +355,10 @@ async function stopListening() {
   clearInterval(T.timer);
   await T.tr?.stop().catch(() => {});
   T.tr = null;
+  // Nói nhiều đoạn cho một câu: gộp các khoảng ngừng.
+  const t = T.tracker?.stop();
+  T.tracker = null;
+  if (t) T.timing = T.timing ? { ...T.timing, gaps: [...T.timing.gaps, ...t.gaps] } : t;
 }
 
 const scrollEnd = () => setTimeout(() => root()?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' }), 30);
@@ -369,6 +399,8 @@ async function onClick(e) {
     case 'send':
       return send();
     case 'retry':
+      if (T.waiting) return;
+      T.error = '';
       return T.retry?.();
     case 'hide':
       T.hideText = !T.hideText;
@@ -390,6 +422,8 @@ async function onClick(e) {
 
 function reset() {
   stopTalk();
+  T.retry = null;
+  T.waiting = false;
   T.phase = 'setup';
   T.history = [];
   T.feedback = null;

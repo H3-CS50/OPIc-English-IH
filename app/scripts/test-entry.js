@@ -469,7 +469,7 @@ async function groupTests() {
 // ---------- Phân tích bài nói, soi phát âm, giám khảo AI ----------
 async function speechTests() {
   const w = AN.words;
-  ok(AN.fillerStats(w('um so I uh think you know it is um good')).total === 4, 'filler count');
+  ok(AN.fillerStats(w('um so I uh think you know it is um good')).total === 3, 'filler count (only hesitation sounds)');
   ok(JSON.stringify(AN.repetitions(w('I I went to the the park I went I went'))) === JSON.stringify(['i', 'the', 'i went']), `repetitions ${JSON.stringify(AN.repetitions(w('I I went to the the park I went I went')))}`);
   ok(AN.repetitions(w('it was very very good and so so cheap')).length === 0, 'intentional repeats ignored');
   ok(AN.mattr(w('a b c d')) === 1 && AN.mattr(w('go go go go')) === 0.25, 'mattr short texts');
@@ -478,6 +478,11 @@ async function speechTests() {
   ok(tm.past >= 3 && tm.present >= 2 && tm.future >= 2 && tm.perfect >= 1, `tense markers ${JSON.stringify(tm)}`);
   ok(AN.tenseMarkers(w('I am interested and excited, I need a bed')).past === 0, 'ed adjectives are not past');
   ok(AN.tenseMarkers(w('I am going to the park')).future === 0, 'going to + place is not future');
+  ok(AN.tenseMarkers(w('a little bit on the left it is called pho')).past === 0, 'bit/left/called are not past');
+  const kid = analyze({ text: 'when i was a kid i could not swim so my dad would take me to the pool every sunday and he taught me how to float and after a few months i could swim across the pool by myself', seconds: 40, target: 'IH', ptype: 'memorable_experience' });
+  ok(!kid.complexity.missingTenses.length, 'good past answer not warned');
+  const present = analyze({ text: 'last summer i go to da nang with my family it was amazing we stay in a hotel near the beach the food was delicious i eat seafood every day and we swim in the sea', seconds: 40, target: 'IH', ptype: 'memorable_experience' });
+  ok(present.complexity.missingTenses.includes('past'), 'story told in present (only "was") is warned');
   // Lỗi dễ thấy
   const e = (t) => AN.easyErrors(t).map((x) => `${x.from}=>${x.to}`);
   ok(e('She go to work early.').join() === 'she go=>she goes', `third person ${e('She go to work early.')}`);
@@ -485,7 +490,22 @@ async function speechTests() {
   ok(e('I am agree with you.').join() === 'i am agree=>I agree', 'am agree');
   ok(e("I didn't went there.").join() === "didn't went=>didn't go", `did + past ${e("I didn't went there.")}`);
   ok(e('It is more better. I can to swim. We discussed about it. I went to home.').length === 4, `misc rules ${e('It is more better. I can to swim. We discussed about it. I went to home.')}`);
-  ok(e('I bought a apple and a hour later a university friend called.').join() === 'a apple=>an apple', `a/an ${e('I bought a apple and a hour later a university friend called.')}`);
+  ok(e('I bought a apple and a hour later a university friend called.').join() === 'a apple=>an apple,a hour=>an hour', `a/an ${e('I bought a apple and a hour later a university friend called.')}`);
+  // Các câu đúng từng bị báo nhầm (theo rà soát độc lập)
+  const noFp = [
+    'i think helping people is important', 'meeting new people was fun', 'what i want to tell you is that it was great',
+    'the people in it are friendly', 'i did everything i could to help her', 'whatever i can to support my team',
+    'last night she read a book', "why doesn't he go to the gym", 'i got an a in english', 'plan a is better',
+    'i have a usb', 'since two years ago i have lived here', 'tap the go to home screen button',
+    'there are more good restaurants here', 'almost everyone likes it', 'one of my favorite places',
+  ];
+  const fps = noFp.filter((t) => AN.easyErrors(t).length);
+  ok(!fps.length, `no false positives: ${fps.join(' | ')} → ${JSON.stringify(fps.map((t) => AN.easyErrors(t)))}`);
+  const caught = ['he don\'t like it', 'it is more easy than before', 'i very like coffee', 'it makes me to feel happy', "i'm interesting in music", 'there have many shops', 'one of my friend lives there', 'almost people like it', "they're agree with me", "i didn't knew that", 'an university', 'when he was young he play football'];
+  const missed = caught.filter((t) => !AN.easyErrors(t).length);
+  ok(!missed.length, `catches common errors, missed: ${missed.join(' | ')}`);
+  ok(AN.easyErrors("they're agree with me")[0].to === 'they agree', 'agree fix keeps subject');
+  ok(/played/.test(AN.easyErrors('when he was young he play football')[0].to), 'past context suggests past form');
   ok(e('My wife and I are tired. How much is it? Are there any rooms?').length === 0, 'no false be errors across sentences');
   ok(e('I have lived here since five years.').join() === 'since five years=>for five years', 'since → for');
   // Không báo nhầm trên bài mẫu của lớp
@@ -502,8 +522,11 @@ async function speechTests() {
   ok(short.fluency.level === 'na' && short.complexity.level === 'na' && /15 từ/.test(short.tip), 'too short → na');
   const past = analyze({ text: 'I usually go to the park on weekends and I like to walk there because it is quiet and green and there are many trees and I feel relaxed', seconds: 30, target: 'IH', ptype: 'memorable_experience' });
   ok(past.complexity.missingTenses.includes('past') && /quá khứ/.test(past.tip), 'past-tense reminder for story questions');
-  const slow = analyze({ text: Array(40).fill('word').map((x, i) => `${x}${i}`).join(' '), seconds: 60, target: 'IH', timing: { gaps: [3.5, 4, 5, 1.2], source: 'asr', firstWordDelay: 6 } });
-  ok(slow.fluency.wpm === 40 && slow.fluency.longPauses === 3 && slow.fluency.level === 'ok' || slow.fluency.level === 'work', `slow fluency ${JSON.stringify(slow.fluency)}`);
+  const slow = analyze({ text: Array(40).fill('word').map((x, i) => `${x}${i}`).join(' '), seconds: 66, target: 'IH', timing: { gaps: [3.5, 4, 5, 1.2, 6], source: 'asr', firstWordDelay: 6 } });
+  ok(slow.fluency.wpm === 40 && slow.fluency.longPauses === 2 && !slow.fluency.pauseScored && slow.fluency.level === 'work', `asr pauses shown not scored, wpm from first word ${JSON.stringify(slow.fluency)}`);
+  const aud = analyze({ text: Array(100).fill('word').map((x, i) => `${x}${i}`).join(' '), seconds: 60, target: 'IH', timing: { gaps: [2.5, 3, 2.2, 1], source: 'audio', firstWordDelay: 1 } });
+  ok(aud.fluency.pauseScored && aud.fluency.longPauses === 3, 'audio pauses scored at 2 s');
+  ok(analyze({ text: im, seconds: 0, target: 'IM' }).fluency.level === 'na', 'typed answer: fluency not assessed');
   const withAi = analyze({ text: im, seconds: 60, target: 'IM', ai: { language_fixes: [{ impact: 'affects_meaning' }, { impact: 'affects_meaning' }], delivery: { pronunciation: { status: 'assessed', observation_vi: 'Rõ' } } } });
   ok(withAi.accuracy.source === 'ai' && withAi.accuracy.level === 'work' && withAi.pronunciation.source === 'ai', 'AI result feeds accuracy & pronunciation');
   const withPron = analyze({ text: im, seconds: 60, target: 'IM', pron: { overall: { clarity: 'clear', summary_vi: 'Tốt' }, words: [] } });
@@ -529,6 +552,15 @@ async function speechTests() {
   const pz = AN.pausesFromSamples(sig, rate);
   ok(pz.gaps.length === 1 && Math.abs(pz.gaps[0] - 2) < 0.15 && Math.abs(pz.firstWordDelay - 0.5) < 0.1 && pz.speakingRatio > 0.5 && pz.speakingRatio < 0.65, `audio pauses ${JSON.stringify(pz)}`);
   ok(AN.pausesFromSamples(new Float32Array(rate), rate).speakingRatio === 0, 'silent audio');
+  // Tiếng click 40 ms ở đầu không tính là bắt đầu nói
+  const clk = new Float32Array(rate * 8);
+  for (let i = 0; i < rate * 0.04; i++) clk[i] = 0.5;
+  for (let i = Math.round(5 * rate); i < 7 * rate; i++) clk[i] = 0.3 * Math.sin(i / 3);
+  const pc = AN.pausesFromSamples(clk, rate);
+  ok(Math.abs(pc.firstWordDelay - 5) < 0.1 && pc.gaps.length === 0, `click ignored ${JSON.stringify(pc)}`);
+  const cont = new Float32Array(rate * 3).map((_, i) => 0.3 * Math.sin(i / 3));
+  ok(AN.pausesFromSamples(cont, rate).speakingRatio === 1, 'continuous speech');
+  ok(AN.pausesFromSamples(new Float32Array(100), rate).firstWordDelay === null, 'very short audio');
   // Nhật ký + xu hướng
   clearAnalysisLog();
   for (let i = 0; i < 12; i++) logAnalysis({ ...aIM, fluency: { ...aIM.fluency, wpm: 60 + i * 5 } }, { qid: `Q${i}`, now: 1e12 + i * 3e5 });

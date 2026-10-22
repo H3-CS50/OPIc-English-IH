@@ -19,9 +19,10 @@ function fluencyLine(f) {
   const parts = [];
   if (f.wpm != null) parts.push(`<b>${f.wpm}</b> từ/phút`);
   else if (f.wpmUnreliable) parts.push('tốc độ: không tính (số từ quá nhiều so với thời gian ghi — có thể do gõ thêm chữ)');
-  if (f.longPauses != null) parts.push(`<b>${f.longPauses}</b> lần ngừng ≥${f.longThr} giây`);
+  if (f.longPauses != null)
+    parts.push(f.pauseScored ? `<b>${f.longPauses}</b> lần ngừng ≥${f.longThr} giây` : `≈${f.longPauses} lần ngừng ≥${f.longThr} giây <span class="muted">(ước tính, không tính điểm)</span>`);
   if (f.speakingRatio != null) parts.push(`nói <b>${Math.round(f.speakingRatio * 100)}%</b> thời gian`);
-  parts.push(`<b>${f.fillers}</b> từ đệm${f.fillers ? ` (${Object.entries(f.fillerList).map(([k, v]) => `${escapeHtml(k)}×${v}`).join(', ')})` : ''}`);
+  parts.push(`<b>${f.fillers}</b> tiếng ngập ngừng${f.fillers ? ` (${Object.entries(f.fillerList).map(([k, v]) => `${escapeHtml(k)}×${v}`).join(', ')})` : ''}`);
   parts.push(`lặp <b>${f.repeats.length}</b>${f.repeats.length ? ` (${f.repeats.slice(0, 3).map(escapeHtml).join(', ')})` : ''}`);
   if (f.firstWordDelay != null && f.firstWordDelay >= 4) parts.push(`bắt đầu nói sau <b>${num(f.firstWordDelay, 1)}</b> giây`);
   return parts.join(' · ');
@@ -32,7 +33,7 @@ function complexityLine(c) {
   const tenses = ['past', 'present', 'future', 'perfect'].map((k) => `${TENSE_VI[k]} ${t[k] ? '✓' : '–'}`).join(' · ');
   return `<b>${c.words}</b>${c.targetWords ? `/${c.targetWords}` : ''} từ · đa dạng từ <b>${num(c.diversity, 2)}</b> · <b>${c.connectors.length}</b> từ nối${c.connectors.length ? ` (${c.connectors.slice(0, 5).map(escapeHtml).join(', ')}${c.connectors.length > 5 ? '…' : ''})` : ''}
     <div class="muted">Dấu hiệu thì: ${tenses}</div>
-    ${c.missingTenses.length ? `<div>⚠️ Câu này cần thì <b>${c.missingTenses.map((x) => TENSE_VI[x]).join(' và ')}</b> nhưng bạn dùng rất ít.</div>` : ''}`;
+    ${c.missingTenses.length ? `<div>⚠️ Máy thấy ít động từ ${c.missingTenses.map((x) => TENSE_VI[x]).join(' và ')}. Câu này cần kể ${c.missingTenses.includes('past') ? 'trải nghiệm đã qua' : 'cả trước đây lẫn bây giờ'} — kiểm tra lại.</div>` : ''}`;
 }
 
 function accuracyLine(a) {
@@ -43,7 +44,7 @@ function accuracyLine(a) {
         .join('')}</ul>`
     : '';
   if (a.source === 'ai') return `AI sửa <b>${a.aiFixes}</b> chỗ${a.aiMajor ? ` (${a.aiMajor} chỗ ảnh hưởng nghĩa)` : ''}. Xem mục ✏️ Sửa lỗi trong nhận xét.${easy}`;
-  if (a.easy.length) return `Máy dò thấy <b>${a.easy.length}</b> lỗi dễ thấy:${easy}<div class="muted">Bấm 🤖 AI Coach để chấm kỹ ngữ pháp.</div>`;
+  if (a.easy.length) return `Máy nghi có <b>${a.easy.length}</b> lỗi hay gặp (máy có thể nhầm, hãy kiểm tra):${easy}<div class="muted">Bấm 🤖 AI Coach để chấm kỹ ngữ pháp.</div>`;
   return 'Máy chưa thấy lỗi dễ thấy (máy chỉ dò vài lỗi hay gặp). Bấm 🤖 AI Coach để chấm kỹ ngữ pháp.';
 }
 
@@ -59,7 +60,7 @@ export function renderAnalysis(a, { pronButton = true, title = '📊 Phân tích
     return `<div class="an-card"><b>${title}</b><p class="muted small">Bài nói dưới 15 từ — nói dài hơn (khoảng 20 giây trở lên) để app phân tích.</p></div>`;
   const lines = {
     fluency: fluencyLine(a.fluency),
-    complexity: a.words >= 15 ? complexityLine(a.complexity) : 'Chưa có chữ để phân tích. Gõ lại lời nói vào ô, hoặc dùng chế độ 📝.',
+    complexity: a.words >= 15 ? complexityLine(a.complexity) : a.words ? 'Bài nói dưới 15 từ, chưa đủ để phân tích.' : 'Chưa có chữ để phân tích. Gõ lại lời nói vào ô, hoặc dùng chế độ 📝.',
     accuracy: a.words >= 15 ? accuracyLine(a.accuracy) : '',
     pronunciation: pronLine(a.pronunciation, { pronButton }),
   };
@@ -75,7 +76,7 @@ export function renderAnalysis(a, { pronButton = true, title = '📊 Phân tích
     }).join('')}
     ${a.complexity.phrases.length ? `<div class="small an-phr"><b>✨ Cụm hay bạn đã dùng:</b> ${a.complexity.phrases.map((p) => `<span class="chip" title="${escapeHtml(p.vi)}">${escapeHtml(p.en)}</span>`).join(' ')}</div>` : ''}
     <div class="an-tip small">💡 ${escapeHtml(a.tip)}</div>
-    <p class="muted small">Chỉ số luyện tập do app tự tính, không phải điểm OPIc. Máy nhận giọng thường bỏ qua "um/uh" nên số từ đệm có thể thấp hơn thực tế; số lần ngừng là ước tính.</p>
+    <p class="muted small">Chỉ số luyện tập do app tự tính theo quy tắc, không phải điểm OPIc. Khi chuyển giọng nói thành chữ, máy có thể bỏ sót chữ và "um/uh" nên tốc độ và số tiếng ngập ngừng có thể thấp hơn thực tế. Muốn đo khoảng ngừng chính xác hơn, dùng chế độ 🎙️ Ghi âm.</p>
   </div>`;
 }
 
@@ -83,7 +84,12 @@ export function renderAnalysis(a, { pronButton = true, title = '📊 Phân tích
 export function analysisChips(a) {
   if (!a || a.words < 15) return '';
   const f = a.fluency;
-  return `<span class="an-chips small">${f.wpm != null ? `${f.wpm} từ/phút` : ''}${f.longPauses != null ? ` · ${f.longPauses} lần ngừng dài` : ''} · ${a.complexity.connectors.length} từ nối${a.accuracy.easy.length ? ` · ${a.accuracy.easy.length} lỗi dễ thấy` : ''}</span>`;
+  const parts = [];
+  if (f.wpm != null) parts.push(`${f.wpm} từ/phút`);
+  if (f.longPauses != null && f.pauseScored) parts.push(`${f.longPauses} lần ngừng dài`);
+  parts.push(`${a.complexity.connectors.length} từ nối`);
+  if (a.accuracy.easy.length) parts.push(`${a.accuracy.easy.length} lỗi nghi ngờ`);
+  return `<span class="an-chips small">${parts.join(' · ')}</span>`;
 }
 
 // ---------- Nhật ký chỉ số ----------
@@ -100,7 +106,8 @@ export function logAnalysis(a, { qid = null, ptype = null, target = '', now = Da
     words: a.words,
     seconds: a.seconds,
     wpm: a.fluency.wpm,
-    pausesPerMin: a.fluency.longPauses != null && a.seconds ? Math.round((a.fluency.longPauses / (a.seconds / 60)) * 10) / 10 : null,
+    // Chỉ lưu khoảng ngừng đo từ ghi âm (cùng ngưỡng 2 giây) để xu hướng không bị trộn.
+    pausesPerMin: a.fluency.pauseScored && a.fluency.longPauses != null && a.seconds ? Math.round((a.fluency.longPauses / (a.seconds / 60)) * 10) / 10 : null,
     fillers: a.fluency.fillers,
     diversity: a.complexity.diversity,
     connectors: a.complexity.connectors.length,

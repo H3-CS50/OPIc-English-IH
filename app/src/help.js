@@ -2,7 +2,7 @@
 import { $, md, store, escapeHtml } from './util.js';
 import { docs, kb } from './data.js';
 
-const WELCOME_VERSION = 4;
+const WELCOME_VERSION = 5;
 const classCount = kb.questions.filter((q) => q.origin_set === 'class').length;
 
 const SLIDES = [
@@ -17,6 +17,7 @@ const SLIDES = [
       ['📒', 'Tab <b>Từ vựng</b>: hơn 1.200 từ & cụm từ, ôn theo lịch, kiểm tra nhanh'],
       ['👆', '<b>Chạm vào từ tiếng Anh bất kỳ</b> để xem phiên âm và nghĩa'],
       ['📜', '<b>Sổ kịch bản</b>: lưu bài hay, học thuộc ý, nói theo từng câu'],
+      ['🔤', '<b>Học IPA</b>: 8 bài phát âm, bảng âm, luyện nghe – đọc – nói'],
       ['📖', 'Bài mẫu, khung trả lời, tài liệu'],
       ['📝', 'Thi thử 15 câu trong 40 phút, có Survey và tự đánh giá như thi thật'],
     ],
@@ -77,6 +78,7 @@ const QUICK = [
   ['Tra từ', 'Tra từ'],
   ['Học', 'Tab Học'],
   ['Kịch bản', 'Sổ kịch bản'],
+  ['IPA', 'Học phiên âm IPA'],
   ['Tiến bộ', 'Tab Tiến bộ'],
   ['Cài đặt', 'Tab Cài đặt'],
   ['Nhập câu hỏi', 'Nhập bộ câu hỏi'],

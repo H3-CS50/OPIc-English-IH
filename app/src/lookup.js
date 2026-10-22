@@ -84,7 +84,7 @@ function sheetHTML() {
   return `
   <div class="lk-head">
     <div><div class="lk-word">${esc(word)}</div>
-      <div class="lk-ipa">${ipa ? esc(ipa) : ipaLoaded() ? '<span class="muted">(chưa có phiên âm)</span>' : '<span class="muted">đang tải phiên âm…</span>'}</div></div>
+      <div class="lk-ipa">${ipa ? `${esc(ipa)} <button class="link-btn lk-ipa-how" data-lk="ipa">🔤 Cách đọc</button>` : ipaLoaded() ? '<span class="muted">(chưa có phiên âm)</span>' : '<span class="muted">đang tải phiên âm…</span>'}</div></div>
     <div class="lk-acts"><button class="btn small-btn" data-lk="say" aria-label="Nghe">🔊</button><button class="btn small-btn" data-lk="close" aria-label="Đóng">✕</button></div>
   </div>
   ${r.lemma && r.lemma !== word ? `<p class="small muted">Dạng gốc: <b>${esc(r.lemma)}</b></p>` : ''}
@@ -216,6 +216,11 @@ export function initLookup() {
     if (a === 'close') close();
     else if (a === 'say') speak(speakable(cur.word), settings.ttsRate).catch((er) => toast(er.message));
     else if (a === 'ai') askAI();
+    else if (a === 'ipa') {
+      const w = cur.word;
+      close();
+      window.dispatchEvent(new CustomEvent('opic:ipa-word', { detail: w }));
+    }
     else if (a === 'save') save();
     else if (a === 'unsave') {
       removeMyWord(cur.r.lemma || cur.word) || removeMyWord(cur.word);

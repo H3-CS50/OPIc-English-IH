@@ -5,9 +5,10 @@ import { openQuestion, bindSampleSet } from './practice.js';
 import { speak } from './speech.js';
 import { settings } from './settings.js';
 import { refreshScripts } from './scripts.js';
+import { refreshIpa } from './ipa.js';
 
 let sub = store.get('learnSub', 'bank');
-if (!['scripts', 'bank', 'samples', 'levels', 'frameworks', 'docs'].includes(sub)) sub = 'bank';
+if (!['scripts', 'ipa', 'bank', 'samples', 'levels', 'frameworks', 'docs'].includes(sub)) sub = 'bank';
 
 function showSub(name) {
   sub = name;
@@ -17,6 +18,7 @@ function showSub(name) {
   if (name === 'bank') renderBank();
   if (name === 'samples') renderSampleList();
   if (name === 'scripts') refreshScripts();
+  if (name === 'ipa') refreshIpa();
   window.scrollTo(0, 0);
 }
 

@@ -206,11 +206,42 @@ Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần b�
 | Mục | Nội dung |
 |---|---|
 | 📜 Kịch bản | Sổ kịch bản của bạn: đọc, nghe, học thuộc ý và nói theo (xem phần dưới) |
+| 🔤 IPA | Học phiên âm: 8 bài, bảng 40 âm, luyện nghe – đọc – nói, tra cách đọc một từ (xem phần dưới) |
 | Câu hỏi | Toàn bộ câu hỏi. Tìm theo từ khóa, lọc theo bộ câu hỏi, nhóm, dạng câu, cấp độ. Bấm vào câu để luyện ngay |
 | Bài mẫu 3 cấp | 24 câu, mỗi câu có 3 bài IM – IH – AL cùng một nhân vật. So sánh để thấy khác biệt về cách tổ chức ý, không chỉ độ dài |
 | IM·IH·AL | Mỗi mức cần thể hiện gì, điểm hay bị kẹt và cách luyện. Kèm thông tin chính thức về OPIc của ACTFL |
 | Khung trả lời | Khung phát triển ý cho từng dạng câu, có nút luyện ngẫu nhiên dạng đó |
 | Tài liệu | Hướng dẫn này, thư viện bài mẫu và mẹo, thông tin về bộ dữ liệu |
+
+## 🔤 Học phiên âm IPA
+
+Tab **Học → 🔤 IPA**. Học xong là nhìn phiên âm đọc được mọi từ, kể cả từ mới.
+
+**8 bài học** (nên học theo thứ tự):
+1. Đọc phiên âm như thế nào (dấu / /, trọng âm ˈ ˌ, vì sao chữ viết khác âm đọc)
+2. Nguyên âm ngắn và dài (/i/–/ɪ/, /u/–/ʊ/, /ɛ/–/æ/–/ʌ/, /ə/, /ɝ/…)
+3. Nguyên âm đôi và bảng đối chiếu ký hiệu Anh–Mỹ / Anh–Anh
+4. Phụ âm gần giống tiếng Việt (bật hơi p t k, "d" tiếng Anh = "đ", âm cuối)
+5. Phụ âm khó với người Việt (/θ ð ʃ ʒ tʃ dʒ r/)
+6. Âm cuối, đuôi -s và -ed (3 cách đọc mỗi loại), cụm phụ âm, nối âm
+7. Trọng âm và âm yếu
+8. 10 lỗi hay gặp của người Việt
+
+**Mỗi âm** có: cách đặt miệng – lưỡi, âm gần giống trong tiếng Việt, lỗi hay gặp, cách viết thường gặp, 3–5 từ ví dụ (bấm 🔊 để nghe, âm đang học được tô vàng trong phiên âm) và cặp từ dễ nhầm.
+
+**🔣 Bảng âm:** 40 âm chia 4 nhóm. Ô viền xanh là âm đã xem.
+
+**🎯 Luyện tập** (3 cách):
+- **👂 Nghe chọn:** máy đọc một từ trong cặp dễ nhầm (ship/sheep, think/sink, right/light…), bạn chọn từ nghe được.
+- **🔣 Đọc phiên âm:** nhìn phiên âm, chọn đúng từ trong 4 từ.
+- **🎙️ Nói thử:** nói một từ, máy cho biết có nhận ra đúng từ đó không. Máy nhận dạng có thể tự đoán theo ngữ cảnh, nên đây chỉ là kiểm tra gần đúng.
+
+**🔎 Tra cách đọc:** gõ một từ, app tách phiên âm thành từng âm, bấm vào âm để xem cách đọc. Ở bất kỳ đâu trong app, chạm vào một từ → bấm **🔤 Cách đọc** cạnh phiên âm cũng mở đúng chỗ này.
+
+**Lưu ý:**
+- App dùng phiên âm kiểu **Anh–Mỹ** (không có dấu ː), khớp với giọng đọc của máy. Từ điển Anh–Anh và slide của lớp dùng kiểu Anh (/iː/, /əʊ/, /ɜː/…) — bảng đối chiếu ở Bài 3. Nói giọng nào cũng được, miễn rõ ràng và nhất quán.
+- Âm thanh là giọng máy của điện thoại đọc từ ví dụ, không có bản ghi âm từng âm riêng lẻ.
+- Phần "gần giống tiếng Việt" chỉ là gợi nhớ gần đúng; nghe từ ví dụ và nói theo vẫn là cách học chính.
 
 ## 📜 Sổ kịch bản & nói theo
 

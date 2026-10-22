@@ -585,3 +585,52 @@ input[type=date] { width: 100%; padding: 10px 12px; border: 1px solid var(--bord
 .test-item.done { opacity: 0.8; }
 #tests-summary { margin: 10px 0 6px; }
 #tests-summary .rm-bar { margin: 6px 0 10px; }
+
+/* ---------- Học IPA ---------- */
+.ipa { font-family: "Noto Sans", "Segoe UI", system-ui, sans-serif; color: var(--primary); }
+.ipa-hero h3 { margin-top: 0; }
+.ipa-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ipa-actions .btn { padding: 10px 4px; font-size: 14px; }
+.ipa-lesson { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left; }
+.ipa-lesson > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.ipa-lesson-i { font-size: 24px; width: 32px; text-align: center; }
+.ipa-lesson.done { opacity: 0.75; }
+.ipa-lesson-body h3 { margin-top: 0; }
+.ipa-lesson-body li { margin: 4px 0; }
+.ipa-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 14px; }
+.ipa-table th, .ipa-table td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+.ipa-table th { background: var(--bg); }
+.ipa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 8px; margin: 8px 0 12px; }
+.ipa-tile { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border: 2px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.ipa-tile.seen { border-color: var(--primary); }
+.ipa-sym { font-family: "Noto Sans", "Segoe UI", system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--primary); }
+.ipa-sound-head { display: flex; gap: 14px; align-items: center; margin-bottom: 10px; }
+.ipa-big { font-family: "Noto Sans", "Segoe UI", system-ui, sans-serif; font-size: 40px; font-weight: 700; color: var(--primary); min-width: 84px; }
+.ipa-how { margin: 8px 0; line-height: 1.55; }
+.ipa-words { display: flex; flex-direction: column; gap: 8px; margin: 6px 0; }
+.ipa-word { display: flex; gap: 10px; align-items: center; }
+.ipa-t { border: none; background: transparent; color: inherit; font: inherit; padding: 0 1px; cursor: pointer; }
+.ipa-t.hit { background: #fde68a; color: #92400e; border-radius: 4px; font-weight: 700; }
+.ipa-t.str { text-decoration: underline; text-underline-offset: 3px; }
+.ipa-pair { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ipa-modes .seg { font-size: 13px; }
+.ipa-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ipa-opt { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 6px; border: 2px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); font: inherit; font-size: 18px; cursor: pointer; }
+.ipa-opt.right { border-color: #16a34a; background: #dcfce7; color: #14532d; }
+.ipa-opt.wrong { border-color: #dc2626; background: #fee2e2; color: #7f1d1d; }
+.ipa-prompt { text-align: center; font-size: 26px; margin: 14px 0; line-height: 1.5; }
+.ipa-say-w { font-size: 26px; }
+.ipa-heard { padding: 10px 12px; border-radius: 10px; margin: 8px 0; font-size: 14px; }
+.ipa-heard.right { background: #dcfce7; color: #14532d; }
+.ipa-heard.wrong { background: #fee2e2; color: #7f1d1d; }
+.ipa-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.ipa-step { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; text-align: center; }
+.lk-ipa-how { font-size: 13px; margin-left: 6px; }
+@media (prefers-color-scheme: dark) {
+  .ipa-t.hit { background: #78350f; color: #fde68a; }
+  .ipa-opt.right, .ipa-heard.right { background: #14532d; color: #bbf7d0; }
+  .ipa-opt.wrong, .ipa-heard.wrong { background: #7f1d1d; color: #fecaca; }
+}
+.ipa { white-space: nowrap; }
+.ipa-prompt > .ipa { display: block; font-size: 24px; margin-top: 4px; }
+.ipa-prompt .ipa-say-w { display: block; }

@@ -2,6 +2,8 @@
 import './test-setup.js';
 import { buildMock, rebuildTail, comboInfo } from '../src/mock.js';
 import * as RM from '../src/roadmap-core.js';
+import * as IPA from '../src/ipa-core.js';
+import { SOUNDS, PAIRS, LESSONS } from '../src/ipa-data.js';
 import TESTS from '../src/tests.json';
 import { targetDuration, targetWords } from '../src/durations.js';
 import * as SC from '../src/scripts-core.js';
@@ -321,6 +323,33 @@ async function templateTests() {
     ok(kbData.questions.filter((q) => q.ext).length === 99, 'ext combos in app');
     ok(targetDuration({ prompt_type: 'memorable_experience' }, 'IH').join() === '80,100' && targetDuration({ prompt_type: 'roleplay_ask' }, 'IM').join() === '30,45' && targetDuration({ prompt_type: 'issue_concern' }, 'AL').join() === '90,120', 'durations by type');
     ok(targetWords({ prompt_type: 'description' }, 'IH').join() === '100,150', 'target words');
+  }
+  // Học IPA: nội dung khớp từ điển của app
+  {
+    const t = IPA.tokenizeIpa('/ˈtitʃɝ/');
+    ok(t.map((x) => x.sym).join(',') === 't,i,tʃ,ɝ' && t[0].stress === 'primary', `tokenize teacher ${JSON.stringify(t)}`);
+    ok(IPA.tokenizeIpa('/ˌjunəˈvɝsəti/').filter((x) => x.stress).length === 2, 'tokenize stress marks');
+    ok(IPA.tokenizeIpa('/ˈɡoʊ/').map((x) => x.sym).join() === 'ɡ,oʊ' && IPA.tokenizeIpa('/ˈdʒʌdʒ/').map((x) => x.sym).join() === 'dʒ,ʌ,dʒ', 'tokenize multi-char');
+    ok(SOUNDS.length >= 40 && new Set(SOUNDS.map((x) => x.sym)).size === SOUNDS.length, `sounds ${SOUNDS.length}`);
+    const bad = [];
+    for (const snd of SOUNDS) for (const [w] of snd.words) if (!IPA.hasSound(D.ipaOf(w), snd.sym)) bad.push(`${snd.sym}:${w}=${D.ipaOf(w)}`);
+    ok(!bad.length, `every example word contains its sound (${bad.join(' ')})`);
+    const pbad = PAIRS.filter((p) => !D.ipaOf(p.a) || !D.ipaOf(p.b) || p.ia === p.ib || !IPA.tokenizeIpa(p.ia).every((x) => x.known) || !IPA.tokenizeIpa(p.ib).every((x) => x.known));
+    ok(!pbad.length, `minimal pairs valid ${pbad.map((p) => p.a + '/' + p.b)}`);
+    ok(SOUNDS.filter((x) => x.pair).every((x) => PAIRS.some((p) => (p.a === x.pair[0] && p.b === x.pair[1]) || (p.a === x.pair[1] && p.b === x.pair[0]))), 'sound pairs listed in PAIRS');
+    ok(LESSONS.length === 8 && LESSONS.every((l) => l.sounds.every((x) => IPA.soundOf(x))), 'lessons reference known sounds');
+    const covered = new Set(LESSONS.flatMap((l) => l.sounds));
+    ok(SOUNDS.every((x) => covered.has(x.sym)), 'every sound appears in a lesson');
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    for (let k = 0; k < 30; k++) {
+      const q = IPA.readQuestion((w) => D.ipaOf(w), rnd);
+      if (!(q.options.length === 4 && new Set(q.options).size === 4 && q.options.includes(q.word) && q.ipa)) { ok(false, `read question ${JSON.stringify(q)}`); break; }
+      const l = IPA.pairQuestion(rnd);
+      if (![l.pair.a, l.pair.b].includes(l.word)) { ok(false, 'pair question'); break; }
+      if (k === 29) ok(true, 'ipa questions ×30');
+    }
+    ok(IPA.saidWord('I said Sheep.', 'sheep').ok && !IPA.saidWord('ship', 'sheep').ok, 'said word check');
   }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });

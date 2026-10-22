@@ -5,6 +5,8 @@ import { guessPromptType, importPack, importFile, allQuestions, listPacks } from
 import { readXlsx } from '../src/xlsx.js';
 import { TEMPLATE_HEADER, TEMPLATE_ROWS, xlsxTemplate, csvTemplate, jsonTemplate } from '../src/templates.js';
 import { readFileSync } from 'node:fs';
+import * as V from '../src/vocab-core.js';
+import vocabData from '../src/vocab.json';
 import { join } from 'node:path';
 import { normalizeResult, buildUserMessage } from '../src/coach.js';
 
@@ -114,6 +116,45 @@ async function templateTests() {
     err = e.message;
   }
   ok(/Questions/.test(err), 'missing Questions column gives a clear error');
+}
+
+// ---------- Từ vựng ----------
+{
+  ok(V.ALL.length === vocabData.items.length && V.ALL.length > 1000, `vocab items ${V.ALL.length}`);
+  ok(V.ORIGINAL_COUNT === 618, `618 items from OPIc AL Vocab kept (got ${V.ORIGINAL_COUNT})`);
+  ok(V.TOPICS.length === 24 && V.TOPICS.every((t) => t.items.length > 0), 'vocab topics all non-empty');
+  ok(V.ALL.every((it) => it.en && it.vi && it.ex), 'every vocab item has meaning + example');
+  ok(new Set(V.ALL.map((it) => it.id)).size === V.ALL.length, 'vocab ids unique');
+  const now = new Date('2026-10-22T09:00:00').getTime();
+  const it = V.TOPICS[0].items[0];
+  V.resetProgress();
+  ok(V.isNew(it), 'item starts new');
+  let p = V.grade(it, 2, now);
+  ok(p.box === 1 && p.due > now && !V.isDue(it, now), 'Nhớ → box 1, due later');
+  V.grade(it, 2, now);
+  V.grade(it, 2, now);
+  ok(V.isLearned(it), 'three Nhớ → learned');
+  p = V.grade(it, 1, now);
+  ok(p.box === 3, 'Khó keeps box');
+  p = V.grade(it, 0, now);
+  ok(p.box === 0 && V.isDue(it, now), 'Quên → box 0 and due now');
+  const s1 = V.stats(V.ALL, now);
+  ok(s1.seen === 1 && s1.due === 1 && s1.learned === 0, `stats after one item ${JSON.stringify(s1)}`);
+  const { q, free } = V.studyQueue(V.ALL, 10, now);
+  ok(!free && q[0] === it && q.length === 11, `study queue = due + 10 new (got ${q.length})`);
+  V.resetProgress();
+  const qz = V.quiz(V.TOPICS[2].items);
+  ok(qz.length === 10 && qz.every((x) => x.opts.length === 4 && x.opts.includes(x.it) && new Set(x.opts).size === 4), 'quiz 10 x 4 options');
+  ok(V.search('tom lai').some((x) => /sum up|In short/.test(x.en)), 'diacritic-free search');
+  ok(V.speakable("I've been ...ing for...") === "I've been doing something for, ", `speakable: ${V.speakable("I've been ...ing for...")}`);
+  const sug = V.suggestFor({ prompt_type: 'memorable_experience', topic: 'domestic_trips' }, 6);
+  ok(sug.items.length === 6 && sug.topics.some((t) => t.id === 'story') && sug.topics.some((t) => t.id === 'travel'), 'suggestions mix story + travel');
+  localStorage.setItem('opic.known', JSON.stringify(['When it comes to…', 'plot twist']));
+  localStorage.removeItem('opic.vocabMigrated');
+  const moved = V.migrateOldFlashcards(now);
+  ok(moved === 2 && V.stats().learned === 2, `old flashcards migrated (${moved})`);
+  ok(V.migrateOldFlashcards(now) === 0, 'migration runs once');
+  V.resetProgress();
 }
 
 templateTests()

@@ -224,4 +224,3 @@ export function filterQuestions({ source = '', category = '', topic = '', ptype 
 }
 
 export const docs = content.docs;
-export const flashcards = content.flashcards;

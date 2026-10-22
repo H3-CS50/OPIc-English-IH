@@ -182,6 +182,27 @@ CLASS_QUESTION = {
     },
 }
 
+# Từ vựng & cụm từ (tab Từ vựng). vocab_id = "<topic_id>::<English>" để tiến độ học ổn định.
+VOCAB_ITEM = {
+    "x-status": "MVP",
+    "type": "object", "additionalProperties": False,
+    "required": ["vocab_id", "topic_id", "en", "vi", "example_en", "note_vi", "kind", "target_levels", "prompt_types",
+                 "source_ids", "content_origin", "review_status", "schema_version"],
+    "properties": {
+        "vocab_id": {"type": "string", "pattern": "^[a-z_]+::.+$"},
+        "topic_id": _str,
+        "en": {"type": "string", "minLength": 1}, "vi": {"type": "string", "minLength": 1},
+        "example_en": {"type": "string", "minLength": 3}, "note_vi": _str,
+        "kind": {"enum": ["word", "phrase", "phrasal_verb", "collocation", "sentence_frame", "discourse_marker", "idiom"]},
+        "target_levels": {"type": "array", "items": {"enum": LEVELS}, "minItems": 1},
+        "prompt_types": {"type": "array", "items": {"enum": list(PROMPT_TYPES)}},
+        "source_ids": {"type": "array", "items": _str, "minItems": 1},
+        "content_origin": {"enum": ["user_app", "AI_generated_original"]},
+        "review_status": {"enum": REVIEW_STATUSES},
+        "schema_version": _str,
+    },
+}
+
 PRACTICE_SESSION = {
     "x-status": "MVP",
     "description": "Một lần luyện (lưu cục bộ trên máy, KHÔNG lưu file ghi âm)",
@@ -220,6 +241,6 @@ def bundle():
         "x-schema-version": "1.0",
         "$defs": {
             "source": SOURCE, "question": QUESTION, "class_question": CLASS_QUESTION, "sample_answer": SAMPLE_ANSWER,
-            "coach_result": COACH_RESULT, "practice_session": PRACTICE_SESSION, "progress": PROGRESS,
+            "coach_result": COACH_RESULT, "vocab_item": VOCAB_ITEM, "practice_session": PRACTICE_SESSION, "progress": PROGRESS,
         },
     }

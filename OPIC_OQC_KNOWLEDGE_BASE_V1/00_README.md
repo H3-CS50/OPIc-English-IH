@@ -27,6 +27,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 | `09_APK_CONTENT_PRODUCT_SPEC.md` | Module app, ưu tiên P0/P1/P2, kiến trúc hiện tại và kiến trúc FastAPI + SQL Server sau này |
 | `10_QA_AND_GAP_REPORT.md` | Kết quả kiểm định, khoảng trống, mâu thuẫn giữa nguồn, quyền sử dụng, việc cần làm tiếp |
 | `12_CLASS_QUESTION_BANK.jsonl` | 258 câu hỏi của lớp (người dùng tự soạn) + 1 bài mẫu IH do AI viết cho mỗi câu *(file sinh tự động)* |
+| `13_VOCAB_BANK.jsonl` | 1241 từ & cụm từ cho tab Từ vựng: 618 mục từ app OPIc AL Vocab của người dùng + flashcard v1 + phần AI viết mới có nguồn tham khảo *(file sinh tự động)* |
 | `11_DATASET_MANIFEST.json` | Số lượng record, trạng thái kiểm định, checksum SHA-256 *(file sinh tự động)* |
 | `validation_report.json` | Chi tiết từng phép kiểm tra tự động *(file sinh tự động)* |
 
@@ -49,6 +50,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 1. Sửa nguồn trong `tools/kb/`:
    - `questions_src.py`: thêm câu với **số id mới**, không đánh số lại.
    - `answers_src_*.py`, `sources.py`, `taxonomy.py`.
+   - Từ vựng: `vocab/opic_al_vocab_app.json`, `vocab/ext_*.py`, `vocab/topics.py`.
    - Câu hỏi của lớp: `class_pack/class_questions_src.json` (câu hỏi), `class_pack/ans_*.py` (bài mẫu IH), `class_pack/class_meta.py` (dạng câu, chủ đề).
    - Prompt AI Coach: sửa trong `07_AI_COACH_GRADING_PROMPT.md`.
 2. Chạy `python3 tools/kb/build_kb.py`. Script kiểm định schema, ID, liên kết nguồn, ngôn ngữ, câu trùng và bí mật. Nếu có lỗi FAIL, script trả mã lỗi.

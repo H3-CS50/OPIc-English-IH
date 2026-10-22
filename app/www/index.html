@@ -159,6 +159,11 @@
       </div>
     </section>
 
+    <!-- ================= Từ vựng ================= -->
+    <section id="tab-vocab" class="tab">
+      <div id="vocab-root"></div>
+    </section>
+
     <!-- ================= Học ================= -->
     <section id="tab-learn" class="tab">
       <nav class="subnav">
@@ -167,7 +172,6 @@
         <button data-sub="levels">IM·IH·AL</button>
         <button data-sub="frameworks">Khung trả lời</button>
         <button data-sub="docs">Tài liệu</button>
-        <button data-sub="cards">Flashcard</button>
       </nav>
 
       <div id="learn-bank" class="learn-pane">
@@ -206,28 +210,6 @@
         </div>
       </div>
 
-      <div id="learn-cards" class="learn-pane" hidden>
-        <div class="row wrap">
-          <select id="card-tag"></select>
-          <label class="check"><input type="checkbox" id="card-unknown"> Chỉ thẻ chưa thuộc</label>
-        </div>
-        <div class="flashcard" id="flashcard" tabindex="0">
-          <div class="fc-front" id="fc-front"></div>
-          <div class="fc-back" id="fc-back" hidden></div>
-          <p class="muted small fc-hint" id="fc-hint">Chạm để lật thẻ</p>
-        </div>
-        <p class="center muted" id="card-counter"></p>
-        <div class="row">
-          <button class="btn" id="card-prev">←</button>
-          <button class="btn" id="card-speak">🔊</button>
-          <button class="btn" id="card-shuffle">🔀</button>
-          <button class="btn" id="card-next">→</button>
-        </div>
-        <div class="row">
-          <button class="btn" id="card-again">😕 Chưa thuộc</button>
-          <button class="btn primary" id="card-known">✓ Đã thuộc</button>
-        </div>
-      </div>
     </section>
 
     <!-- ================= Tiến bộ ================= -->
@@ -347,6 +329,7 @@
   <nav class="tabbar">
     <button data-tab="practice" class="active"><span>🎤</span>Luyện</button>
     <button data-tab="mock"><span>📝</span>Thi thử</button>
+    <button data-tab="vocab"><span>📒</span>Từ vựng</button>
     <button data-tab="learn"><span>📚</span>Học</button>
     <button data-tab="progress"><span>📈</span>Tiến bộ</button>
     <button data-tab="settings"><span>⚙️</span>Cài đặt</button>

@@ -5,6 +5,7 @@ import { stats, listAttempts, deleteAttempt, weakestPromptType } from './history
 import { renderFeedback, levelBadge } from './feedback.js';
 import { openQuestion } from './practice.js';
 import { settings } from './settings.js';
+import { stats as vocabStats } from './vocab-core.js';
 
 const CORE_TYPES = [
   'description', 'routine', 'past_recent', 'memorable_experience', 'problem_experience', 'comparison_change',
@@ -12,6 +13,13 @@ const CORE_TYPES = [
 ];
 const ORDER = ['below_IM', 'IM', 'IM_IH_borderline', 'IH', 'IH_AL_borderline', 'AL', 'insufficient_evidence'];
 const MODE_LABEL = { practice: 'Luyện', mock: 'Thi thử', daily: 'Điểm yếu', retry: 'Nói lại' };
+
+function vocabCard() {
+  const v = vocabStats();
+  return `<div class="card"><h3>📒 Từ vựng</h3>
+    <div class="bar-row"><span class="bar-label">Đã thuộc</span><span class="bar"><span class="bar-fill v-fill" style="width:${Math.round((v.learned / v.total) * 100)}%"></span></span><span class="bar-n">${v.learned}</span></div>
+    <p class="muted small">${v.seen}/${v.total} mục đã học · ${v.due} mục cần ôn hôm nay. <button class="link-btn" data-goto-vocab>Mở tab Từ vựng →</button></p></div>`;
+}
 
 function renderStats() {
   const s = stats();
@@ -22,6 +30,7 @@ function renderStats() {
       <div class="stat"><b>${s.last7}</b><span>7 ngày qua</span></div>
       <div class="stat"><b>${s.streak}🔥</b><span>ngày liên tiếp</span></div>
     </div>
+    ${vocabCard()}
     <div class="card">
       <h3>Ước tính luyện tập gần đây</h3>
       ${s.overall ? `<div class="readiness">${levelBadge(s.overall, 'badge-lg')}<div class="small">Trung vị của ${s.recentCount} bài được AI chấm gần nhất. Mục tiêu của bạn: <b>${settings.target}</b>.<br><span class="muted">Chỉ là chỉ số luyện tập, không dự đoán điểm thi chính thức.</span></div></div>` : '<p class="muted small">Chưa có bài nào được AI chấm. Luyện và bấm 🤖 AI Coach để có ước tính.</p>'}
@@ -95,5 +104,8 @@ export function renderProgress() {
 
 export function initProgress() {
   $('btn-daily').addEventListener('click', dailyPractice);
+  $('progress-stats').addEventListener('click', (e) => {
+    if (e.target.closest('[data-goto-vocab]')) window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'vocab' }));
+  });
   renderProgress();
 }

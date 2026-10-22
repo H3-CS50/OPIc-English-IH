@@ -1193,6 +1193,119 @@
         }
       }
     },
+    "vocab_item": {
+      "x-status": "MVP",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vocab_id",
+        "topic_id",
+        "en",
+        "vi",
+        "example_en",
+        "note_vi",
+        "kind",
+        "target_levels",
+        "prompt_types",
+        "source_ids",
+        "content_origin",
+        "review_status",
+        "schema_version"
+      ],
+      "properties": {
+        "vocab_id": {
+          "type": "string",
+          "pattern": "^[a-z_]+::.+$"
+        },
+        "topic_id": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vi": {
+          "type": "string",
+          "minLength": 1
+        },
+        "example_en": {
+          "type": "string",
+          "minLength": 3
+        },
+        "note_vi": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "word",
+            "phrase",
+            "phrasal_verb",
+            "collocation",
+            "sentence_frame",
+            "discourse_marker",
+            "idiom"
+          ]
+        },
+        "target_levels": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "IM",
+              "IH",
+              "AL"
+            ]
+          },
+          "minItems": 1
+        },
+        "prompt_types": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "self_introduction",
+              "description",
+              "routine",
+              "preference_opinion",
+              "past_recent",
+              "past_first",
+              "memorable_experience",
+              "problem_experience",
+              "comparison_change",
+              "comparison_two",
+              "roleplay_ask",
+              "roleplay_ask_ava",
+              "roleplay_problem",
+              "roleplay_experience",
+              "issue_concern",
+              "news_report"
+            ]
+          }
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "content_origin": {
+          "enum": [
+            "user_app",
+            "AI_generated_original"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "draft",
+            "ai_checked",
+            "human_reviewed",
+            "approved"
+          ]
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
     "practice_session": {
       "x-status": "MVP",
       "description": "Một lần luyện (lưu cục bộ trên máy, KHÔNG lưu file ghi âm)",

@@ -2,7 +2,7 @@
 import { $, md, store, escapeHtml } from './util.js';
 import { docs, kb } from './data.js';
 
-const WELCOME_VERSION = 1;
+const WELCOME_VERSION = 2;
 const classCount = kb.questions.filter((q) => q.origin_set === 'class').length;
 
 const SLIDES = [
@@ -13,7 +13,8 @@ const SLIDES = [
     items: [
       ['🎤', 'Nghe câu hỏi và nói như khi thi thật'],
       ['🤖', 'AI Coach nhận xét, chỉ ra điểm cần sửa và giao bài nói lại'],
-      ['📖', 'Bài mẫu, khung trả lời, flashcard'],
+      ['📒', 'Tab <b>Từ vựng</b>: hơn 1.200 từ & cụm từ, ôn theo lịch, kiểm tra nhanh'],
+      ['📖', 'Bài mẫu, khung trả lời, tài liệu'],
       ['📝', 'Thi thử 15 câu trong 40 phút'],
     ],
   },
@@ -62,12 +63,13 @@ const SLIDES = [
 ];
 
 // Mục trong hướng dẫn tương ứng với từng tab (khớp theo chữ trong tiêu đề ##).
-const TAB_SECTION = { practice: 'Tab Luyện', mock: 'Tab Thi thử', learn: 'Tab Học', progress: 'Tab Tiến bộ', settings: 'Tab Cài đặt' };
+const TAB_SECTION = { practice: 'Tab Luyện', mock: 'Tab Thi thử', vocab: 'Tab Từ vựng', learn: 'Tab Học', progress: 'Tab Tiến bộ', settings: 'Tab Cài đặt' };
 const QUICK = [
   ['Bắt đầu nhanh', 'Bắt đầu nhanh'],
   ['Lộ trình', 'Lộ trình'],
   ['Luyện', 'Tab Luyện'],
   ['Thi thử', 'Tab Thi thử'],
+  ['Từ vựng', 'Tab Từ vựng'],
   ['Học', 'Tab Học'],
   ['Tiến bộ', 'Tab Tiến bộ'],
   ['Cài đặt', 'Tab Cài đặt'],

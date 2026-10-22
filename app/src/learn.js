@@ -1,11 +1,12 @@
-// Tab Học: ngân hàng câu hỏi, bài mẫu 3 cấp, cấp độ IM/IH/AL, khung trả lời, tài liệu, flashcard.
+// Tab Học: ngân hàng câu hỏi, bài mẫu 3 cấp, cấp độ IM/IH/AL, khung trả lời, tài liệu. (Flashcard đã chuyển sang tab Từ vựng.)
 import { $, escapeHtml, md, store, toast } from './util.js';
-import { kb, docs, flashcards, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf, allQuestions } from './data.js';
+import { kb, docs, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf, allQuestions } from './data.js';
 import { openQuestion, bindSampleSet } from './practice.js';
 import { speak } from './speech.js';
 import { settings } from './settings.js';
 
 let sub = store.get('learnSub', 'bank');
+if (!['bank', 'samples', 'levels', 'frameworks', 'docs'].includes(sub)) sub = 'bank';
 
 function showSub(name) {
   sub = name;
@@ -137,75 +138,6 @@ function openDoc(id) {
   window.scrollTo(0, 0);
 }
 
-// ---------- Flashcard ----------
-let deck = [];
-let idx = 0;
-const known = new Set(store.get('known', []));
-function buildDeck(shuffle = false) {
-  const tag = $('card-tag').value;
-  const onlyUnknown = $('card-unknown').checked;
-  deck = flashcards.filter((c) => (!tag || c.tag === tag) && (!onlyUnknown || !known.has(c.en)));
-  if (shuffle) {
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-  }
-  idx = 0;
-  renderCard();
-}
-function renderCard() {
-  const card = deck[idx];
-  $('fc-back').hidden = true;
-  $('fc-hint').hidden = false;
-  if (!card) {
-    $('fc-front').textContent = $('card-unknown').checked ? '🎉 Bạn đã thuộc hết thẻ trong nhóm này!' : 'Không có thẻ nào.';
-    $('card-counter').textContent = '';
-    return;
-  }
-  $('fc-front').innerHTML = `${known.has(card.en) ? '<span class="fc-known">✓ đã thuộc</span>' : ''}${escapeHtml(card.vi)}`;
-  $('fc-back').innerHTML = `<div class="en">${escapeHtml(card.en)}</div><div class="ex">${escapeHtml(card.ex)}</div>`;
-  $('card-counter').textContent = `${idx + 1} / ${deck.length} · đã thuộc ${known.size}/${flashcards.length}`;
-}
-const moveCard = (step) => {
-  if (!deck.length) return;
-  idx = (idx + step + deck.length) % deck.length;
-  renderCard();
-};
-function markCard(isKnown) {
-  const card = deck[idx];
-  if (!card) return;
-  if (isKnown) known.add(card.en);
-  else known.delete(card.en);
-  store.set('known', [...known]);
-  if ($('card-unknown').checked && isKnown) {
-    deck.splice(idx, 1);
-    if (idx >= deck.length) idx = 0;
-    renderCard();
-  } else moveCard(1);
-}
-function initCards() {
-  const tags = [...new Set(flashcards.map((c) => c.tag))];
-  $('card-tag').innerHTML = `<option value="">Tất cả nhóm (${flashcards.length})</option>` + tags.map((t) => `<option value="${t}">${t}</option>`).join('');
-  $('card-tag').addEventListener('change', () => buildDeck());
-  $('card-unknown').addEventListener('change', () => buildDeck());
-  $('flashcard').addEventListener('click', () => {
-    if (!deck[idx]) return;
-    $('fc-back').hidden = !$('fc-back').hidden;
-    $('fc-hint').hidden = !$('fc-back').hidden;
-  });
-  $('card-prev').addEventListener('click', () => moveCard(-1));
-  $('card-next').addEventListener('click', () => moveCard(1));
-  $('card-shuffle').addEventListener('click', () => buildDeck(true));
-  $('card-speak').addEventListener('click', () => {
-    const c = deck[idx];
-    if (c) speak(`${c.en}. ${c.ex}`, settings.ttsRate).catch((e) => toast(e.message));
-  });
-  $('card-known').addEventListener('click', () => markCard(true));
-  $('card-again').addEventListener('click', () => markCard(false));
-  buildDeck();
-}
-
 export function initLearn() {
   document.querySelectorAll('#tab-learn .subnav button').forEach((b) => b.addEventListener('click', () => showSub(b.dataset.sub)));
   fillBankFilters();
@@ -245,7 +177,6 @@ export function initLearn() {
     const d = docs.find((x) => x.file === file);
     if (d) openDoc(d.id);
   });
-  initCards();
   showSub(sub);
 }
 

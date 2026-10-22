@@ -1,4 +1,4 @@
-// Gom tài liệu Markdown + flashcard thành src/content.json để đóng gói vào app.
+// Gom tài liệu Markdown thành src/content.json để đóng gói vào app.
 // Câu hỏi và bài mẫu nằm trong src/kb.json (sinh bởi tools/kb/build_kb.py).
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -43,13 +43,6 @@ const docs = [
   kbDoc('10_QA_AND_GAP_REPORT.md', 'kb/10', 'Về bộ dữ liệu', 'Kiểm định chất lượng & giới hạn'),
 ].filter(Boolean);
 
-const flashcards = readFileSync(join(root, '03-flashcards', 'anki-opic-ih.tsv'), 'utf8')
-  .split('\n')
-  .filter((l) => l.trim() && !l.startsWith('#'))
-  .map((l) => {
-    const [vi, en, ex, tag] = l.split('\t');
-    return { vi, en, ex, tag };
-  });
-
-writeFileSync(out, JSON.stringify({ docs, flashcards }));
-console.log(`content.json: ${docs.length} tài liệu, ${flashcards.length} flashcard`);
+// Flashcard v1 đã gộp vào tab Từ vựng (src/vocab.json, sinh bởi tools/kb/build_kb.py).
+writeFileSync(out, JSON.stringify({ docs }));
+console.log(`content.json: ${docs.length} tài liệu`);

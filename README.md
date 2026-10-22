@@ -16,7 +16,8 @@ Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở
 |---|---|
 | 🎤 **Luyện** | Chọn mục tiêu IM/IH/AL. Lọc theo bộ câu hỏi (của lớp / của app), nhóm, chủ đề, dạng câu, có nhánh OQC tùy chọn. Nghe câu hỏi, ẩn/hiện chữ, xem gợi ý khung. 📝 Chuyển giọng nói thành chữ hoặc 🎙️ ghi âm. **AI Coach** nhận xét theo FACT, chỉ ra một khoảng trống chính và giao **bài nói lại**. Có 📖 bài mẫu (3 cấp với câu của app, bài mẫu IH với câu của lớp), ✅ tự kiểm tra, 📋 copy nhờ Claude chấm |
 | 📝 **Thi thử** | 15 câu trong 40 phút: giới thiệu → 3 combo → role-play → câu nâng cao. Chọn nguồn câu hỏi (lớp / app / cả hai), chủ đề Survey và độ khó. Nghe lại câu hỏi 1 lần. Sau khi nộp: chấm từng câu hoặc cả bài, xem ước tính tổng |
-| 📚 **Học** | 258 câu hỏi của lớp (mỗi câu có bài mẫu IH) + 142 câu hỏi của app; 24 bộ bài mẫu IM/IH/AL; ma trận cấp độ; khung trả lời; tài liệu; flashcard |
+| 📒 **Từ vựng** | App OPIc AL Vocab (618 mục) + phần bổ sung có nguồn: 1241 từ & cụm từ, 24 chủ đề. Học hôm nay (ôn theo lịch Quên/Khó/Nhớ), kiểm tra 10 câu, tìm kiếm, nghe phát âm. Gợi ý cụm từ ngay trong tab Luyện |
+| 📚 **Học** | 258 câu hỏi của lớp (mỗi câu có bài mẫu IH) + 142 câu hỏi của app; 24 bộ bài mẫu IM/IH/AL; ma trận cấp độ; khung trả lời; tài liệu |
 | 📈 **Tiến bộ** | Thống kê, chuỗi ngày luyện, ước tính theo dạng câu, 🎯 luyện điểm yếu, lịch sử |
 | ⚙️ **Cài đặt** | Chọn AI: **Claude** (chấm theo chữ), **Gemini** (nghe được ghi âm, có gói miễn phí) hoặc chỉ copy. Key chỉ lưu trên máy. Nhập bộ câu hỏi riêng (JSON/CSV) |
 
@@ -27,12 +28,13 @@ Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở
 | [`OPIC_OQC_KNOWLEDGE_BASE_V1/`](OPIC_OQC_KNOWLEDGE_BASE_V1/) | Knowledge base: nguồn đã kiểm chứng, phát hiện chính thức từ ACTFL, ma trận IM/IH/AL, taxonomy, ngân hàng câu hỏi, bài mẫu, prompt AI Coach, schema, product spec, báo cáo QA, manifest. Bắt đầu đọc từ [`00_README.md`](OPIC_OQC_KNOWLEDGE_BASE_V1/00_README.md) |
 | [`tools/kb/`](tools/kb/) | Nguồn dữ liệu và script `build_kb.py` sinh + kiểm định dữ liệu (chạy trong CI) |
 | [`app/`](app/) | App Capacitor (Android). `npm run build` → `npx cap sync android` → Gradle |
-| [`01-cau-hoi-bai-mau/`](01-cau-hoi-bai-mau/), [`02-templates/`](02-templates/), [`03-flashcards/`](03-flashcards/) | Thư viện v1 (bài mẫu IH, khung trả lời, flashcard), vẫn hiển thị trong app |
+| [`01-cau-hoi-bai-mau/`](01-cau-hoi-bai-mau/), [`02-templates/`](02-templates/), [`03-flashcards/`](03-flashcards/) | Thư viện v1 (bài mẫu IH, khung trả lời). Flashcard v1 đã gộp vào tab Từ vựng |
 
 ## 🔧 Cập nhật nội dung
 
 1. Hướng dẫn sử dụng trong app lấy từ `HUONG_DAN_SU_DUNG.md`; tiêu đề `##` nào chứa "Tab Luyện", "Tab Thi thử"… sẽ được nút **?** mở đúng mục theo tab đang xem.
    Sửa `tools/kb/questions_src.py` (thêm câu với số id mới), `answers_src_*.py` hoặc `OPIC_OQC_KNOWLEDGE_BASE_V1/07_AI_COACH_GRADING_PROMPT.md`.
+   Từ vựng: `tools/kb/vocab/opic_al_vocab_app.json` (618 mục gốc), `tools/kb/vocab/ext_a.py`, `ext_b.py`, `ext_c.py` (phần bổ sung, mỗi dòng `English | Tiếng Việt | Ví dụ | Ghi chú`), chủ đề trong `tools/kb/vocab/topics.py`.
    Câu hỏi của lớp: `tools/kb/class_pack/class_questions_src.json`, bài mẫu IH trong `tools/kb/class_pack/ans_*.py`, dạng câu trong `tools/kb/class_pack/class_meta.py`.
 2. Push lên GitHub. CI chạy kiểm định dữ liệu và kiểm thử logic, rồi build APK và đăng lên Releases.
 

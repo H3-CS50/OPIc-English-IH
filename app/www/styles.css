@@ -385,3 +385,56 @@ body.no-scroll { overflow: hidden; }
 @media (prefers-color-scheme: dark) {
   .sheet-preview tr.head td { background: #164e63; color: #e6edf2; }
 }
+
+/* --- Tab Từ vựng --- */
+.v-head h2 { margin-bottom: 2px; }
+.v-head p { margin: 0; }
+.v-top { display: flex; align-items: center; gap: 10px; margin: 2px 0 10px; }
+.v-top b { flex: 1; font-size: 16px; }
+.v-deck { padding: 12px 14px; }
+.v-deck-top { display: flex; gap: 12px; align-items: center; }
+.v-ic { font-size: 26px; width: 34px; text-align: center; }
+.v-dn { flex: 1; min-width: 0; }
+.v-due { color: var(--warn); font-weight: 600; }
+.v-deck .bar { margin: 10px 0; height: 6px; }
+.v-fill { background: var(--ok); }
+.v-acts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.v-acts .btn { min-height: 38px; padding: 6px; background: var(--surface-2); border-color: transparent; color: var(--primary); font-weight: 600; }
+.chip-new { color: var(--warn); }
+.v-set .v-set-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.v-set .v-set-row:last-child { border-bottom: none; }
+.v-chip { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 6px 12px; margin-left: 4px; font: inherit; font-size: 14px; cursor: pointer; }
+.v-chip.on { background: var(--primary); color: var(--primary-text); border-color: var(--primary); }
+.v-flash { min-height: 230px; }
+.v-front { font-size: 22px; font-weight: 700; line-height: 1.35; }
+.v-sep { height: 1px; background: var(--border); margin: 4px 20%; }
+.v-back { font-size: 19px; color: var(--primary); font-weight: 600; }
+.v-ex { color: var(--muted); font-style: italic; }
+.v-note { font-size: 13.5px; color: var(--muted); }
+.v-grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+.v-grade .btn { font-weight: 700; }
+.v-g0 { color: var(--accent); }
+.v-g1 { color: var(--warn); }
+.v-g2 { color: var(--ok); }
+.v-qcard { text-align: center; }
+.v-opts { display: grid; gap: 8px; margin: 10px 0; }
+.v-opt { text-align: left; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 12px; padding: 12px 14px; font: inherit; font-size: 15px; cursor: pointer; }
+.v-opt.ok { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, var(--surface)); }
+.v-opt.no { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.v-ex-box { cursor: pointer; font-style: italic; }
+.v-done { text-align: center; padding: 16px 0; }
+.v-big { font-size: 48px; }
+.v-item { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin: 6px 0; }
+.v-it-main { flex: 1; min-width: 0; }
+.v-it-en { font-weight: 700; }
+.v-it-vi { color: var(--text); font-size: 14.5px; }
+.v-it-ex { color: var(--muted); font-size: 14px; font-style: italic; cursor: pointer; margin-top: 2px; }
+.v-it-note { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.v-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; background: var(--border); }
+.v-dot.ok { background: var(--ok); }
+.v-dot.mid { background: var(--warn); }
+#v-search, #v-filter { margin: 8px 0; }
+.v-hint { margin: 4px 0 6px; padding-left: 4px; list-style: none; }
+.v-hint li { padding: 2px 0; }
+.v-hint .link-btn { padding: 0 2px; }
+.tabbar button { min-width: 0; }

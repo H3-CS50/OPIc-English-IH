@@ -1,4 +1,6 @@
 // Màn hình Luyện nói: chọn câu → nghe → nói/ghi âm → AI Coach → nói lại.
+import { suggestFor, speakable } from './vocab-core.js';
+import { openVocabTopic } from './vocab.js';
 import { $, escapeHtml, toast, fmtTime, countWords, copyText, pick, md } from './util.js';
 import { kb, allQuestions, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf } from './data.js';
 import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe } from './speech.js';
@@ -134,7 +136,20 @@ function renderHints(show) {
     <div class="small"><b>Khung phát triển ý:</b> <span class="en-text">${escapeHtml(q.answer_framework)}</span></div>
     ${q.scaffolding_hints.length ? `<div class="small"><b>Ý tưởng:</b><ul>${q.scaffolding_hints.map((h) => `<li>${escapeHtml(h)}</li>`).join('')}</ul></div>` : ''}
     ${q.expected_evidence.length ? `<div class="small"><b>Nên có trong câu trả lời:</b><ul>${q.expected_evidence.map((h) => `<li>${escapeHtml(h)}</li>`).join('')}</ul></div>` : ''}
+    ${vocabHintHTML(q)}
     <p class="muted small">Gợi ý để luyện, không phải công thức bắt buộc. Thử nói một lần không xem gợi ý trước.</p>`;
+  box.querySelectorAll('[data-vsay]').forEach((b) => b.addEventListener('click', () => speak(speakable(b.dataset.vsay), settings.ttsRate).catch((e) => toast(e.message))));
+  box.querySelectorAll('[data-vtopic]').forEach((b) => b.addEventListener('click', () => openVocabTopic(Number(b.dataset.vtopic))));
+}
+
+// Cụm từ nên thử cho câu này (lấy từ tab Từ vựng, ưu tiên mục chưa thuộc).
+function vocabHintHTML(q) {
+  const { items, topics } = suggestFor(q, 6);
+  if (!items.length) return '';
+  const shown = [...new Map(topics.map((t) => [t.idx, t])).values()].slice(0, 3);
+  return `<div class="small"><b>📒 Cụm từ nên thử:</b><ul class="v-hint">${items
+    .map((it) => `<li><button class="link-btn" data-vsay="${escapeHtml(it.en)}" aria-label="Nghe">🔊</button> <b>${escapeHtml(it.en)}</b> — ${escapeHtml(it.vi)}</li>`)
+    .join('')}</ul>${shown.map((t) => `<button class="btn small-btn" data-vtopic="${t.idx}">${t.icon} Ôn nhóm ${escapeHtml(t.vi)}</button>`).join(' ')}</div>`;
 }
 
 function resetAttempt({ keepRetry = true } = {}) {

@@ -9,7 +9,41 @@
     "class_questions": 258,
     "sample_answers": 72,
     "sample_answer_sets": 24,
-    "sources": 36
+    "sources": 37,
+    "vocab_items": 1241
+  },
+  "vocab": {
+    "total": 1241,
+    "from_app": 618,
+    "from_v1": 75,
+    "new_ai": 548,
+    "duplicates_skipped": 13,
+    "by_topic": {
+      "discourse": 91,
+      "fillers": 47,
+      "al": 57,
+      "story": 71,
+      "compare": 54,
+      "feel": 78,
+      "roleplay": 72,
+      "pv": 87,
+      "col": 83,
+      "home": 63,
+      "hood": 47,
+      "work": 54,
+      "hobby": 77,
+      "travel": 72,
+      "tech": 56,
+      "misc": 51,
+      "weather": 22,
+      "issues": 27,
+      "food": 29,
+      "shopping": 22,
+      "health": 20,
+      "people": 21,
+      "transport": 17,
+      "factory": 23
+    }
   },
   "questions_by_topic": {
     "self_intro": 3,
@@ -135,10 +169,10 @@
     "1": 7,
     "3": 10,
     "2": 17,
-    "4": 2
+    "4": 3
   },
   "sources_by_access_status": {
-    "accessible": 28,
+    "accessible": 29,
     "partial": 7,
     "snippet_only": 1
   },
@@ -160,6 +194,11 @@
     "levels_rewritten_not_padded": "PASS",
     "no_secrets_or_company_names": "PASS",
     "human_review": "NEEDS_REVIEW",
+    "schema_vocab_item": "PASS",
+    "vocab_provenance": "PASS",
+    "vocab_unique": "PASS",
+    "vocab_complete": "PASS",
+    "vocab_user_app_kept": "PASS",
     "jsonl_parse": "PASS",
     "coach_prompt_present": "PASS"
   },
@@ -170,18 +209,19 @@
     "Descriptor ACTFL được tóm tắt/diễn giải, không chép nguyên văn; cần đối chiếu PDF trước khi phát hành thương mại."
   ],
   "checksums_sha256": {
-    "00_README.md": "164fabd5ffe1f522f2b0f3b899862f25c99ba5a82debcb52d1e43fc15da604fc",
-    "01_SOURCE_REGISTER.csv": "e324db96d5997d3aca5e1ece0906323192a99d2712856427c67f11e0451cc94e",
+    "00_README.md": "4ff5fa4d2e78d2c6b8d1d5be2d4838b311074cf73b8ae30c52a3e530810ae784",
+    "01_SOURCE_REGISTER.csv": "a28d4825cfc462525d0db3a53fd296c10ea44a12fa15fedf4dc5ee4863b5ccd3",
     "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
     "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
     "04_QUESTION_TAXONOMY.md": "9c2642193d646ddd0e881d9b9dbd16785ac955a025393cfd4fe7b751a8771faf",
     "05_QUESTION_BANK_SEED.jsonl": "b3589e8d675c3c6dd3021bcd2d142c46cd3fcac00c3ce747b04ac6c189907d61",
     "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl": "dc48205a06311e8c3d92e5505117b7172da39c32c0c85f5e14f57403019b30c0",
     "07_AI_COACH_GRADING_PROMPT.md": "79519a30f7a9cbdb16e280e6c1c90d8acd45fbab28a0798723c03b0513cef324",
-    "08_DATA_SCHEMA.json": "1c0998313fa3f14a82049dac5a1e4c5c94ada14a1e2f9a5babca77b16e8c9f97",
-    "09_APK_CONTENT_PRODUCT_SPEC.md": "31b5473d830e4797c453bf193d1b1fdd0136e77bebee5807f32ec798780fca22",
-    "10_QA_AND_GAP_REPORT.md": "ac2169fc7e63370e9b1d85d174bdf7436122f7899ef795bc04102272f4dd1f65",
+    "08_DATA_SCHEMA.json": "121313f8b51b8e9d05adf249a3de25551352b4394b0c7066cf01446b38f9e7b7",
+    "09_APK_CONTENT_PRODUCT_SPEC.md": "9261a2c2502076122250c6311a61a4aaa41c74999f53d9fd737dbdb2c41e9b32",
+    "10_QA_AND_GAP_REPORT.md": "d1df8c62f866ce6a31220c17dd7bfcbe90a0db0e72e8edd29a379d01fe1267ef",
     "12_CLASS_QUESTION_BANK.jsonl": "41ffb5aca4c8223a80ee79833b70a01e231d8fe84a6de1f1a0bc27d467d5dc5e",
-    "validation_report.json": "1df95c8d0b48089b5475b2ef9038c3c341465a3beccb2e63fab05ab1545ee7e8"
+    "13_VOCAB_BANK.jsonl": "0351fedaa87975ba86d6c2eb22775a9da2c08ec6a4c9f4b9316a9d9a38b1d408",
+    "validation_report.json": "667500eb8c4a5169c442626cd611995e7dd27d18b3897d7abb065f2745112b02"
   }
 }

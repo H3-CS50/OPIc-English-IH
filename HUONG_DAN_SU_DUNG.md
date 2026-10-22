@@ -19,7 +19,7 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 **Mỗi ngày (15–20 phút):**
 - 1 câu **🎯 Luyện điểm yếu hôm nay** (tab Tiến bộ).
 - 2–3 câu cùng chủ đề trong tab Luyện. Mỗi câu: nói → AI Coach → nói lại 1 lần.
-- 5 phút **Flashcard** (tab Học).
+- 5–10 phút **📒 Từ vựng**: bấm **▶ Học hôm nay** để ôn thẻ đến hạn và học từ mới.
 
 **Mỗi tuần:**
 - 1 bài **📝 Thi thử 15 câu**, rồi bấm **🤖 Chấm tất cả**.
@@ -105,6 +105,31 @@ Bài thi thử gồm **15 câu trong 40 phút**: giới thiệu → 3 combo ch�
 - **Ước tính cả bài** là trung vị các câu đã chấm, kèm những điểm cần cải thiện lặp lại.
 - Ghi âm chỉ giữ trong phiên thi. Đóng app hoặc làm bài mới là mất.
 
+## 📒 Tab Từ vựng
+
+Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần bổ sung mới, tổng **1241 từ & cụm từ, 24 chủ đề**. Mỗi mục có nghĩa tiếng Việt và câu ví dụ; nhiều mục có thêm ghi chú cách dùng.
+
+**Trang chính**
+- **Đã thuộc / Đã học / Cần ôn:** số thẻ theo tiến độ của bạn.
+- **▶ Học hôm nay:** ôn hết thẻ đến hạn + số từ mới bạn chọn (10, 20 hoặc 30).
+- **🎯 Kiểm tra 10 câu:** trắc nghiệm chọn nghĩa đúng. Câu sai được đưa vào danh sách ôn.
+- **Ô tìm kiếm:** gõ tiếng Anh hoặc tiếng Việt, không cần dấu.
+
+**Mỗi chủ đề** có 3 nút: **Học**, **Kiểm tra**, **Xem** (danh sách, bấm câu ví dụ để nghe). Mục có nhãn **mới** là phần bổ sung; chủ đề có nhãn **chủ đề mới** là 8 nhóm thêm vào: Ăn uống, Mua sắm, Sức khỏe, Thời tiết & môi trường, Vấn đề xã hội & tin tức, Gia đình & bạn bè, Giao thông, Nhà máy & kiểm tra chất lượng.
+
+**Cách học thẻ**
+1. Đọc mặt trước, tự nhớ nghĩa, rồi bấm **Lật thẻ**.
+2. Đọc to câu ví dụ 2–3 lần, rồi tự đặt 1 câu về bản thân.
+3. Chấm: **Quên** (thẻ quay lại sau vài thẻ), **Khó** (ôn lại sớm), **Nhớ** (giãn lịch ôn: 1 → 2 → 4 → 7 → 15 → 30 ngày). Thẻ được chấm **Nhớ** đủ 3 lần là **đã thuộc**; chấm **Quên** thì đếm lại từ đầu.
+
+**Cài đặt riêng của tab:** mặt trước thẻ (Anh hoặc Việt), tự động đọc, tốc độ đọc, số từ mới mỗi lượt, xóa tiến độ (bấm 2 lần để xác nhận).
+
+**Dùng khi luyện nói:** ở tab **Luyện**, bấm **💡 Gợi ý** sẽ thấy **📒 Cụm từ nên thử** hợp với dạng câu và chủ đề đang luyện, kèm nút mở nhóm từ đó.
+
+> Không có cụm từ nào tự làm bạn lên điểm. Theo ACTFL, mức IH/AL thể hiện qua việc kể chuyện, miêu tả, so sánh và xử lý tình huống trọn vẹn. Cụm từ chỉ giúp khi bạn dùng đúng chức năng, tự nhiên, không học thuộc cả câu.
+
+**Nguồn tham khảo cho phần bổ sung:** VOA Learning English (từ nối trong văn nói), British Council (kể chuyện, cụm động từ), Cambridge English (so sánh, phỏng đoán, diễn đạt vòng khi bí từ), Oxford 3000/5000 và Oxford Phrase List (chọn từ thông dụng), ACTFL (chức năng theo cấp độ). Câu ví dụ do AI viết, chưa có giáo viên duyệt.
+
 ## 📚 Tab Học
 
 | Mục | Nội dung |
@@ -114,7 +139,6 @@ Bài thi thử gồm **15 câu trong 40 phút**: giới thiệu → 3 combo ch�
 | IM·IH·AL | Mỗi mức cần thể hiện gì, điểm hay bị kẹt và cách luyện. Kèm thông tin chính thức về OPIc của ACTFL |
 | Khung trả lời | Khung phát triển ý cho từng dạng câu, có nút luyện ngẫu nhiên dạng đó |
 | Tài liệu | Hướng dẫn này, thư viện bài mẫu và mẹo, thông tin về bộ dữ liệu |
-| Flashcard | Cụm từ hay dùng. Chạm để lật thẻ, 🔊 để nghe, đánh dấu **Đã thuộc / Chưa thuộc** |
 
 ## 📈 Tab Tiến bộ
 

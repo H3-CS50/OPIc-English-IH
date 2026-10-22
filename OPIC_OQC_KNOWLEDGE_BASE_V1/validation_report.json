@@ -18,6 +18,11 @@
     "levels_rewritten_not_padded": "PASS",
     "no_secrets_or_company_names": "PASS",
     "human_review": "NEEDS_REVIEW",
+    "schema_vocab_item": "PASS",
+    "vocab_provenance": "PASS",
+    "vocab_unique": "PASS",
+    "vocab_complete": "PASS",
+    "vocab_user_app_kept": "PASS",
     "jsonl_parse": "PASS",
     "coach_prompt_present": "PASS"
   },

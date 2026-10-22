@@ -7,8 +7,9 @@ import { initMock, mockBusy } from './mock.js';
 import { initLearn, refreshLearn } from './learn.js';
 import { initProgress, renderProgress } from './progress.js';
 import { initHelp } from './help.js';
+import { initVocab, refreshVocab } from './vocab.js';
 
-const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
+const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', vocab: 'Từ vựng', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
 
 function showTab(name) {
@@ -20,6 +21,7 @@ function showTab(name) {
   document.querySelectorAll('.tabbar button').forEach((b) => b.classList.toggle('active', b.dataset.tab === name));
   $('screen-title').textContent = TITLES[name];
   if (name === 'progress') renderProgress();
+  if (name === 'vocab') refreshVocab();
   window.scrollTo(0, 0);
 }
 
@@ -35,6 +37,7 @@ initPractice();
 initMock();
 initLearn();
 initProgress();
+initVocab();
 initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });
 
 let packCount = -1;

@@ -381,6 +381,9 @@ def validate(questions, answers, sources, class_q):
 
 
 # ---------------------------------------------------------------- outputs
+from vocab_build import build_vocab, app_payload  # noqa: E402
+
+
 def write_jsonl(path, rows):
     with open(path, "w", encoding="utf-8") as f:
         for r in rows:
@@ -465,16 +468,37 @@ def main():
 
     results, sets = validate(questions, answers, sources, class_q)
 
+    # ---- từ vựng
+    vocab, vtopics, vstats, vskipped = build_vocab(SCHEMA_VERSION, issue)
+    vv = jsonschema.Draft202012Validator({**schemas.bundle(), **schemas.VOCAB_ITEM})
+    vbad = 0
+    for it in vocab:
+        errs = list(vv.iter_errors(it))
+        for e in errs[:2]:
+            issue("FAIL", "schema_vocab_item", f"{it['vocab_id']}: {e.message}")
+        vbad += bool(errs)
+    results["schema_vocab_item"] = "PASS" if not vbad else "FAIL"
+    src_ids = {s["source_id"] for s in sources}
+    vmissing = {sid for it in vocab for sid in it["source_ids"] if sid not in src_ids}
+    for m in vmissing:
+        issue("FAIL", "provenance", f"vocab: unknown source_id {m}")
+    results["vocab_provenance"] = "PASS" if not vmissing else "FAIL"
+    dup_ids = [k for k, v in Counter(i["vocab_id"] for i in vocab).items() if v > 1]
+    results["vocab_unique"] = "PASS" if not dup_ids else "FAIL"
+    results["vocab_complete"] = "FAIL" if any(i["check"] == "vocab_complete" for i in issues) else "PASS"
+    results["vocab_user_app_kept"] = "PASS" if vstats["from_app"] == 618 else "FAIL"
+
     write_jsonl(KB / "05_QUESTION_BANK_SEED.jsonl", questions)
     write_jsonl(KB / "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", answers)
     write_jsonl(KB / "12_CLASS_QUESTION_BANK.jsonl", class_q)
+    write_jsonl(KB / "13_VOCAB_BANK.jsonl", vocab)
     write_sources_csv(KB / "01_SOURCE_REGISTER.csv", sources)
     write_taxonomy_md(KB / "04_QUESTION_TAXONOMY.md", questions)
     (KB / "08_DATA_SCHEMA.json").write_text(json.dumps(schemas.bundle(), ensure_ascii=False, indent=2), encoding="utf-8")
 
     # re-parse every JSONL line to prove it parses
     parse_ok = True
-    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", "12_CLASS_QUESTION_BANK.jsonl"):
+    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", "12_CLASS_QUESTION_BANK.jsonl", "13_VOCAB_BANK.jsonl"):
         for i, line in enumerate((KB / fn).read_text(encoding="utf-8").splitlines(), 1):
             try:
                 json.loads(line)
@@ -521,6 +545,7 @@ def main():
         "sources": [{k: s[k] for k in ("source_id", "title", "publisher_or_author", "tier", "url", "access_status")} for s in sources],
     }
     (APP_SRC / "kb.json").write_text(json.dumps(kb_json, ensure_ascii=False), encoding="utf-8")
+    (APP_SRC / "vocab.json").write_text(json.dumps(app_payload(vocab, vtopics), ensure_ascii=False), encoding="utf-8")
     (APP_SRC / "coach_schema.json").write_text(json.dumps(schemas.COACH_RESULT, ensure_ascii=False), encoding="utf-8")
     (APP_SRC / "coach_prompt.txt").write_text(prompt, encoding="utf-8")
 
@@ -554,7 +579,9 @@ def main():
             "sample_answers": len(answers),
             "sample_answer_sets": len(sets),
             "sources": len(sources),
+            "vocab_items": vstats["total"],
         },
+        "vocab": vstats,
         "questions_by_topic": dict(Counter(q["topic"] for q in questions)),
         "questions_by_prompt_type": dict(Counter(q["prompt_type"] for q in questions)),
         "questions_by_category": dict(Counter(q["topic_category"] for q in questions)),

@@ -26,6 +26,11 @@ Ngày: 2026-10-22 · Phiên bản dữ liệu 1.0.0
 | `levels_rewritten_not_padded` | **PASS** |
 | `no_secrets_or_company_names` | **PASS** |
 | `human_review` | **NEEDS_REVIEW** |
+| `schema_vocab_item` | **PASS** |
+| `vocab_provenance` | **PASS** |
+| `vocab_unique` | **PASS** |
+| `vocab_complete` | **PASS** |
+| `vocab_user_app_kept` | **PASS** |
 | `jsonl_parse` | **PASS** |
 | `coach_prompt_present` | **PASS** |
 
@@ -85,6 +90,8 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 
 - **Tài liệu người dùng (SRC-U01…U15, trừ U10): REUSE_RIGHTS_UNCLEAR.** Gồm sách, slide của giáo viên và lớp SEVT, bảng câu hỏi. Các tài liệu này chỉ dùng để tham khảo phân loại; **không** đóng gói vào APK. Người dùng có thể tự nhập bộ câu hỏi của mình vào app (chỉ lưu trên máy).
 - **Bộ câu hỏi của lớp (SRC-U10, `List câu hỏi.pdf`): USER_OWNED.** Ngày 2026-10-22 người dùng xác nhận đây là câu hỏi tự soạn và yêu cầu đưa vào app. 258 câu nằm trong `12_CLASS_QUESTION_BANK.jsonl` và trong APK (mục "Câu hỏi của lớp"). Mỗi câu có 1 bài mẫu IH do AI viết (`sample_origin: AI_generated_original`), là mục tiêu luyện tập, không phải bài thi thật. Dạng câu của từng câu do AI gán tay, cần người kiểm tra mẫu.
+- **App OPIc AL Vocab (SRC-U16): USER_OWNED.** 618 mục do người dùng làm cùng Claude (chat 2026-10-17); ngày 2026-10-22 người dùng yêu cầu tích hợp vào app. Giữ nguyên văn trong `13_VOCAB_BANK.jsonl`.
+- **Phần từ vựng bổ sung:** cụm từ là tiếng Anh thông dụng; nghĩa, câu ví dụ và ghi chú do AI viết mới. Các nguồn VOA, British Council, Cambridge, Oxford chỉ dùng để đối chiếu chức năng và chọn từ, không chép danh sách hay ví dụ.
 - **ACTFL Guidelines và Can-Do:** chỉ được dùng cho mục đích giáo dục phi lợi nhuận. Nếu app được thương mại hóa, cần xin phép ACTFL cho phần mô tả level, hoặc thay bằng mô tả hoàn toàn tự xây dựng.
 - **Tên "OPIc":** là tên bài thi của ACTFL. **Chưa kiểm tra** đăng ký nhãn hiệu. Trước khi phát hành công khai hoặc thu phí, nên đổi tên app hoặc tìm hiểu quy định dùng tên.
 - **Learner answers trong `OPIc_Questions.xlsx`:** thuộc về người viết. Không dùng làm bài mẫu trong APK.
@@ -108,6 +115,7 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 ## 7. Dữ liệu cần thu thập tiếp
 
 - Giáo viên duyệt mẫu 258 bài mẫu IH của bộ câu hỏi lớp (ưu tiên role-play và câu hỏi Ava).
+- Giáo viên duyệt phần từ vựng bổ sung (nghĩa tiếng Việt, độ tự nhiên của câu ví dụ). Chưa gắn nhãn CEFR cho từng mục vì chưa đối chiếu từng mục với danh sách Oxford.
 
 - Bộ ghi âm có rating chính thức (có đồng ý của người nói) để hiệu chỉnh prompt.
 - Thêm bài mẫu cho các dạng còn ít:

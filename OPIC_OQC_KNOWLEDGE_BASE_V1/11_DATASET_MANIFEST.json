@@ -9,7 +9,7 @@
     "class_questions": 258,
     "sample_answers": 72,
     "sample_answer_sets": 24,
-    "sources": 27
+    "sources": 36
   },
   "questions_by_topic": {
     "self_intro": 3,
@@ -133,13 +133,13 @@
   },
   "sources_by_tier": {
     "1": 7,
-    "3": 9,
-    "2": 9,
+    "3": 10,
+    "2": 17,
     "4": 2
   },
   "sources_by_access_status": {
-    "accessible": 20,
-    "partial": 6,
+    "accessible": 28,
+    "partial": 7,
     "snippet_only": 1
   },
   "validation_status": {
@@ -171,7 +171,7 @@
   ],
   "checksums_sha256": {
     "00_README.md": "164fabd5ffe1f522f2b0f3b899862f25c99ba5a82debcb52d1e43fc15da604fc",
-    "01_SOURCE_REGISTER.csv": "b958a5e1b11acae67f7760a80c69c88aebb7e9e5610e4c4c486d32d927b3fe1d",
+    "01_SOURCE_REGISTER.csv": "e324db96d5997d3aca5e1ece0906323192a99d2712856427c67f11e0451cc94e",
     "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
     "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
     "04_QUESTION_TAXONOMY.md": "9c2642193d646ddd0e881d9b9dbd16785ac955a025393cfd4fe7b751a8771faf",

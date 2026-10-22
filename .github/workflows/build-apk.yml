@@ -64,6 +64,9 @@ jobs:
       - name: Kiểm thử logic (thi thử, nhập câu hỏi, chuẩn hoá kết quả AI)
         run: node scripts/run-tests.mjs
 
+      - name: Kiểm thử máy chủ nhóm (Apps Script giả lập)
+        run: node ../tools/group-server/test-server.mjs
+
       - name: Đồng bộ vào project Android
         run: npx cap sync android
 

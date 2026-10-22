@@ -84,6 +84,18 @@ export function dailyPlan(input) {
       action: 'mock',
     });
   }
+  // Đề của tuần: hiện khi chưa làm (hoặc vừa làm hôm nay).
+  const wk = input.week;
+  if (wk && (!wk.done || wk.doneToday)) {
+    tasks.push({
+      id: 'week',
+      icon: '🗓️',
+      title: wk.done ? `Đã làm Đề của tuần ${wk.id}` : `Đề của tuần: ${wk.id}`,
+      detail: wk.done ? 'Vào phần xem lại để chấm nếu chưa chấm.' : 'Cả nhóm cùng làm một đề mỗi tuần (+50 EXP). Làm ngày nào trong tuần cũng được.',
+      done: !!wk.done,
+      action: 'week',
+    });
+  }
   return tasks;
 }
 

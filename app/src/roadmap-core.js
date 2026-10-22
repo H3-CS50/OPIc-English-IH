@@ -1,5 +1,6 @@
 // Lộ trình chinh phục: chặng → chủ đề → combo. Dữ liệu và cách tính sao (không đụng DOM).
 import { store, LEVEL_SCORE, countWords } from './util.js';
+import { logActivity } from './activity.js';
 
 // Chặng theo thứ tự đề thi: giới thiệu → survey → đột xuất → role-play → nâng cao → thi thử.
 export const STAGES = [
@@ -27,6 +28,7 @@ export function recordSpoken(qid, { words = 0, seconds = 0 } = {}) {
   const old = prog.spoken[qid];
   prog.spoken[qid] = { at: Date.now(), words: Math.max(words, old?.words || 0), seconds: Math.max(seconds, old?.seconds || 0) };
   store.set(KEY, prog);
+  logActivity('spoken', { key: qid, seconds });
   listeners.forEach((fn) => fn());
   return true;
 }

@@ -1,6 +1,7 @@
 // Sổ kịch bản: lưu trên máy (localStorage), không cần mạng.
 // Kèm các hàm thuần cho chế độ học thuộc (ẩn từ) và nói theo (so từng từ).
 import { store, uid } from './util.js';
+import { logActivity } from './activity.js';
 
 const KEY = 'scripts';
 const MAX = 300;
@@ -46,6 +47,7 @@ export function markPracticed(id, score = null) {
   const s = getScript(id);
   if (!s) return;
   s.practiced = (s.practiced || 0) + 1;
+  logActivity('scripts', { key: id });
   s.lastPracticed = Date.now();
   if (score != null) s.best = Math.max(s.best || 0, score);
   store.set(KEY, scripts);

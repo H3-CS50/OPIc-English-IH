@@ -3,7 +3,7 @@ import { $, escapeHtml, toast } from './util.js';
 import { getQuestion, topicLabel } from './data.js';
 import { speak, stopSpeaking, createTranscriber, canTranscribe } from './speech.js';
 import { settings } from './settings.js';
-import { readScriptImageAI } from './coach.js';
+import { readScriptImageAI, aiConfigured } from './coach.js';
 import {
   listScripts, getScript, addScript, updateScript, removeScript, markPracticed, onScriptsChange,
   SOURCE_VI, splitSentences, compareSpeech, maskedWords, RECALL_LEVELS,
@@ -198,7 +198,7 @@ async function shrinkImage(file, max = 1600) {
 
 async function onPhoto(file) {
   if (!file) return;
-  if (settings.provider === 'none' || !settings.provider) return toast('Đọc ảnh cần AI. Vào Cài đặt → AI Coach để nhập key Gemini hoặc Claude.', 5000);
+  if (!aiConfigured(settings)) return toast('Đọc ảnh cần AI. Vào Cài đặt → AI Coach (AI của nhóm, hoặc key Gemini/Claude).', 5000);
   root().insertAdjacentHTML('afterbegin', '<div class="card" id="sc-busy"><span class="spinner"></span> AI đang đọc chữ trong ảnh…</div>');
   try {
     const b64 = await shrinkImage(file);

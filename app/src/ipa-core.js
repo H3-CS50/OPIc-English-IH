@@ -1,5 +1,6 @@
 // Hàm thuần cho mục học IPA: tách phiên âm thành từng âm, tra ký hiệu, tiến độ, tạo câu luyện.
 import { store } from './util.js';
+import { logActivity } from './activity.js';
 import { SOUNDS, PAIRS, LESSONS } from './ipa-data.js';
 
 const MULTI = ['tʃ', 'dʒ', 'eɪ', 'aɪ', 'ɔɪ', 'aʊ', 'oʊ'];
@@ -63,7 +64,10 @@ export function markLesson(id) {
 }
 export function recordQuiz(ok) {
   prog.quiz.n++;
-  if (ok) prog.quiz.ok++;
+  if (ok) {
+    prog.quiz.ok++;
+    logActivity('ipa');
+  }
   save();
 }
 export function resetIpa() {

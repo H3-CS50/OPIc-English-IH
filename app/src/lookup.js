@@ -3,7 +3,7 @@
 import { $, escapeHtml as esc, toast, store } from './util.js';
 import { lookupWord, loadIpa, ipaOf, ipaLoaded, POS_VI, searchDict, cleanWord, dictLinks, machineTranslate } from './dict.js';
 import { ALL, isMine, addMyWord, removeMyWord, speakable, norm } from './vocab-core.js';
-import { lookupWordAI } from './coach.js';
+import { lookupWordAI, aiConfigured } from './coach.js';
 import { settings } from './settings.js';
 import { speak } from './speech.js';
 
@@ -80,7 +80,7 @@ function sheetHTML() {
   const phrases = relatedPhrases(word, r.lemma);
   const saved = isMine(head);
   const canSave = !!(r.entry || ai || mt);
-  const aiReady = settings.provider === 'claude' || settings.provider === 'gemini';
+  const aiReady = aiConfigured(settings);
   return `
   <div class="lk-head">
     <div><div class="lk-word">${esc(word)}</div>
@@ -161,8 +161,8 @@ function close() {
 
 async function askAI() {
   if (!cur || cur.aiLoading) return;
-  if (settings.provider !== 'claude' && settings.provider !== 'gemini') {
-    cur.aiError = 'Chưa chọn AI. Vào Cài đặt → AI Coach để nhập key Gemini (có gói miễn phí) hoặc Claude.';
+  if (!aiConfigured(settings)) {
+    cur.aiError = 'Chưa chọn AI. Vào Cài đặt → AI Coach: dùng AI của nhóm, hoặc nhập key Gemini (có gói miễn phí) / Claude.';
     return render();
   }
   cur.aiLoading = true;

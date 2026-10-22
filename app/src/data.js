@@ -185,6 +185,21 @@ export async function importFile(file) {
   return importPack(await file.text(), file.name);
 }
 
+// Câu hỏi thi thật cả nhóm gửi về → một bộ câu hỏi tự nhập (thay bộ cũ cùng tên). Chỉ lấy câu viết bằng tiếng Anh.
+export const REAL_PACK_NAME = 'Đề thật nhóm vừa gặp';
+export const looksEnglish = (t) => (String(t).match(/\b[A-Za-z']{2,}\b/g) || []).length >= 4 && (String(t).match(/[à-ỹÀ-Ỹđ]/g) || []).length < 3;
+export function importRealQuestions(rows) {
+  const list = rows.filter((r) => looksEnglish(r.question));
+  if (!list.length) throw new Error('Chưa có câu hỏi tiếng Anh nào để đưa vào bộ luyện tập.');
+  packs = packs.filter((p) => p.name !== REAL_PACK_NAME);
+  savePacks();
+  rebuild();
+  return addPack(
+    REAL_PACK_NAME,
+    list.map((r) => ({ question_text: r.question, topic: [r.section, r.level, r.exam_date].filter(Boolean).join(' · ') })),
+  );
+}
+
 // ---------- Chỉ mục ----------
 let all = [];
 let byId = new Map();

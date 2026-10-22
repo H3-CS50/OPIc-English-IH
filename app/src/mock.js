@@ -3,7 +3,7 @@ import { $, escapeHtml, toast, fmtTime, pick, shuffle, uid, LEVEL_SCORE, scoreTo
 import { comboIds, getCombo, getQuestion, topicLabel, ptypeLabel } from './data.js';
 import TESTS from './tests.json';
 import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe } from './speech.js';
-import { grade, providerReady } from './coach.js';
+import { grade, providerReady, usesGemini } from './coach.js';
 import { renderFeedback, renderCompact, levelBadge } from './feedback.js';
 import { addAttempt } from './history.js';
 import { settings, saveSettings, onSettingsChange } from './settings.js';
@@ -14,6 +14,8 @@ import {
 import { saveMockRecord, listMocks, onMocksChange } from './mock-history.js';
 import { quickSave } from './scripts.js';
 import { targetDuration } from './durations.js';
+import { logActivity } from './activity.js';
+import { weekTest, weekDone } from './week.js';
 import { recordSpoken } from './roadmap-core.js';
 import { startAmbience, stopAmbience, setAmbienceMuted, ambienceSupported, ambiencePlaying } from './ambience.js';
 
@@ -240,6 +242,14 @@ function renderTests() {
   const next = st.find(([, s]) => !s)?.[0];
   const showAll = !!settings.testsShowAll;
   const list = showAll ? st : st.filter(([t, s]) => !s || t === next).slice(0, 6);
+  const wt = weekTest(lv);
+  const wDone = weekDone(wt, listMocks());
+  const dm = (d) => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+  $('week-box').innerHTML = `<div class="week-box ${wDone ? 'done' : ''}">
+    <div class="row between"><b>🗓️ Đề của tuần ${wt.week}</b><span class="muted small">${dm(wt.from)} – ${dm(wt.to)}</span></div>
+    <div class="row between"><span class="small">Đề <b>${wt.test.id}</b> · ${wDone ? '✅ bạn đã làm tuần này' : 'cả nhóm cùng làm, <b>+50 EXP</b>'}</span>
+      <button class="btn ${wDone ? '' : 'primary'} small-btn" data-test="${wt.test.id}">${wDone ? 'Làm lại' : '▶ Làm ngay'}</button></div>
+  </div>`;
   $('tests-summary').innerHTML = `<div class="row between"><span class="small"><b>${done}/${set.tests.length}</b> đề đã làm</span>${next ? `<button class="btn primary small-btn" data-test="${next.id}">▶ Làm đề ${next.id}</button>` : '<span class="small">🎉 Đã làm hết bộ này</span>'}</div>
     <span class="rm-bar"><span style="width:${Math.round((100 * done) / set.tests.length)}%"></span></span>`;
   $('tests-list').innerHTML =
@@ -485,7 +495,7 @@ async function gradeOne(i, single = false) {
     if (single) toast('Câu này chưa có câu trả lời.');
     return false;
   }
-  const inputMode = a.audio && settings.provider === 'gemini' ? (hasText ? 'audio_and_transcript' : 'audio') : 'transcript_only';
+  const inputMode = a.audio && usesGemini(settings) ? (hasText ? 'audio_and_transcript' : 'audio') : 'transcript_only';
   const ready = providerReady(settings, !hasText && a.audio ? 'audio' : inputMode);
   if (!ready.ok) {
     toast(ready.reason, 5500);
@@ -540,6 +550,12 @@ function recordMock() {
   if (!ms.answers.some((a) => a.transcript.trim() || a.audio)) return; // bỏ trống cả bài thì không lưu
   const graded = ms.answers.filter((a) => a.result);
   const scores = graded.map((a) => LEVEL_SCORE[a.result.practice_level_estimate.label]).filter((x) => x != null).sort((x, y) => x - y);
+  const answered = ms.answers.filter((a) => a.transcript.trim() || a.audio).length;
+  if (answered >= 12) {
+    logActivity('mocks', { key: ms.mockId });
+    const wt = ms.testId && weekTest(ms.testId.startsWith('IM') ? '34' : '56');
+    if (wt && wt.test.id === ms.testId) logActivity('week', { key: wt.key });
+  }
   saveMockRecord({
     id: ms.mockId,
     testId: ms.testId || null,
@@ -651,6 +667,14 @@ export function initMock() {
     if (b) startFixed(b.dataset.test);
   });
   onMocksChange(() => ms.phase === 'setup' && renderTests());
+  // Từ kế hoạch hôm nay (tab Tiến bộ): mở tab Thi thử tại Đề của tuần.
+  window.addEventListener('opic:goto-week', () => {
+    if (ms.phase !== 'setup') return;
+    settings.testLevel = settings.target === 'IM' ? '34' : '56';
+    saveSettings();
+    renderTests();
+    setTimeout(() => $('week-box').scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+  });
   // Đổi mục tiêu ở tab Luyện tập thì cập nhật ở đây.
   onSettingsChange(() => {
     if (ms.phase !== 'setup') return;

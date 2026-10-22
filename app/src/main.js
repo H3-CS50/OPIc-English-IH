@@ -12,6 +12,7 @@ import { initProgress, renderProgress } from './progress.js';
 import { initHelp } from './help.js';
 import { initVocab, refreshVocab } from './vocab.js';
 import { initLookup, onMyWordsChange } from './lookup.js';
+import { initGroup } from './group.js';
 
 const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', vocab: 'Từ vựng', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
@@ -42,6 +43,7 @@ window.addEventListener('opic:show-tab', (e) => {
 });
 
 initSettings({ version: pkg.version });
+initGroup({ version: pkg.version });
 initPractice();
 initMock();
 initLearn();

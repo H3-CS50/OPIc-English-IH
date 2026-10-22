@@ -6,7 +6,7 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 
 ## 🚀 Bắt đầu nhanh
 
-1. **Bật AI chấm bài** (nên làm, không bắt buộc): vào tab **⚙️ Cài đặt** → mục **AI Coach** → chọn **Gemini** (có gói miễn phí) hoặc **Claude** → dán API key → bấm **Kiểm tra key**. Cách lấy key ở mục *🔑 Lấy API key* bên dưới.
+1. **Vào nhóm học** (nên làm đầu tiên): vào tab **⚙️ Cài đặt** → thẻ **👥 Nhóm học** → nhập **tên hiển thị** và **phòng ban** → bấm **💾 Lưu & kết nối**. Nếu nhóm đã bật **AI của nhóm**, app tự chuyển AI chấm bài sang AI của nhóm — **không cần API key**. Muốn dùng key riêng thì xem mục *🔑 Lấy API key*.
 2. Vào tab **🎤 Luyện** → chọn mục tiêu **IM**, **IH** hoặc **AL** ở hàng trên cùng.
 3. Ở ô **Bộ câu hỏi**, chọn **Câu hỏi của lớp** (258 câu, có bài mẫu IH) hoặc **Ngân hàng của app**.
 4. Bấm **🔊 Nghe** để nghe câu hỏi.
@@ -22,7 +22,7 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 - 5–10 phút **📒 Từ vựng**: bấm **▶ Học hôm nay** để ôn thẻ đến hạn và học từ mới.
 
 **Mỗi tuần:**
-- 1 bài **📝 Thi thử 15 câu**, rồi bấm **🤖 Chấm tất cả**.
+- **🗓️ Đề của tuần** (tab Thi thử): cả nhóm cùng làm một đề, +50 EXP. Rồi bấm **🤖 Chấm tất cả**.
 - Xem tab **📈 Tiến bộ** để biết dạng câu nào còn yếu.
 
 **Thứ tự nên luyện:** tự giới thiệu → miêu tả (người, nơi chốn, đồ vật) → thói quen → kể chuyện quá khứ → so sánh xưa và nay → role-play → câu nâng cao (vấn đề, tin tức).
@@ -126,6 +126,10 @@ Bài thi thử đi đúng các bước như khi thi: **Background Survey → Sel
 **🎧 Cách làm bài** (ô đầu trang, dùng chung cho Bộ đề và đề ngẫu nhiên)
 - **Cách trả lời:** 📝 chuyển thành chữ hoặc 🎙️ ghi âm.
 - **🔉 Tiếng ồn phòng thi:** mặc định **Tắt**. Chọn Nhỏ / Vừa / Lớn, bấm **▶ Nghe thử** để nghe 8 giây. Khi thi, app phát tiếng rì rầm của nhiều người nói, tiếng gõ phím và tiếng điều hoà để bạn tập tập trung như ở phòng thi đông người. Bấm **🔇** cạnh đồng hồ để tắt tạm. App nhớ lựa chọn cho lần sau. Âm thanh do app tạo ra, không phải bản ghi phòng thi thật. **Nên đeo tai nghe**, nếu không micro sẽ thu cả tiếng ồn và máy dễ nghe nhầm lời bạn.
+
+**🗓️ Đề của tuần** (ô viền xanh trên danh sách Bộ đề)
+- Mỗi tuần (thứ Hai → Chủ nhật) cả nhóm cùng làm **một đề cố định**: cấp 3–4 làm đề IM, cấp 5–6 làm đề IH. Tuần 1 bắt đầu ngày 19/10/2026, đi ngược từ đề cuối bộ (IH-30, IH-29…) để ít trùng với thứ tự bạn tự làm (IH-01, IH-02…).
+- Làm từ **12 câu trở lên** trong tuần thì được **+50 EXP** (cộng thêm +100 EXP của bài thi thử) và ô chuyển sang ✅. Việc này cũng hiện trong **🗓️ Hôm nay luyện gì?** cho đến khi bạn làm.
 
 **📚 Bộ đề cố định (60 đề)**
 - 30 đề **cấp 3–4 · mục tiêu IM** (IM-01 … IM-30) và 30 đề **cấp 5–6 · mục tiêu IH/AL** (IH-01 … IH-30). Bài thi thật chỉ khác nhau giữa cấp 3–4 và cấp 5–6, nên IH và AL dùng chung bộ đề; khác nhau ở mức bạn nói được.
@@ -265,9 +269,47 @@ Lời khuyên từ lớp: học thuộc **ý và cụm từ**, không thuộc ng
 
 ## 📈 Tab Tiến bộ
 
+Đầu tab có 2 nút: **📊 Của tôi** (tiến bộ của riêng bạn) và **🏆 Nhóm** (bảng xếp hạng, đề thật, kết quả thi — xem mục *👥 Nhóm học & bảng xếp hạng*).
+
+- **⭐ EXP, bậc, chuỗi ngày, huy hiệu:** tổng EXP, bậc hiện tại và EXP còn thiếu để lên bậc, EXP hôm nay / tuần này / tháng này, chuỗi ngày học liên tiếp 🔥 và 10 huy hiệu. Bấm **Cách tính EXP** để xem bảng điểm.
 - **🗓️ Hôm nay luyện gì?** Nhập **ngày thi**, app đếm ngược và chia giai đoạn: **Xây nền** (còn hơn 3 tuần) → **Tăng tốc** (3 tuần cuối) → **Nước rút** (tuần cuối) → **Nghỉ ngơi** (2 ngày cuối) → **Hôm nay thi**. Mỗi ngày có 3–4 việc: ôn từ vựng, luyện điểm yếu, nói theo một kịch bản, và thi thử khi đến lịch (2 tuần/lần khi còn xa, 1 tuần/lần trong 3 tuần cuối, 2 ngày/lần trong tuần cuối). Bấm vào việc để mở đúng chỗ. Việc tự đánh dấu ✅ khi app thấy bạn đã làm trong hôm nay. Lịch này là gợi ý của app, không phải quy định của bài thi.
 - **📈 Kết quả thi thử:** biểu đồ ước tính của các bài thi thử theo thời gian (mỗi điểm là trung vị các câu đã chấm trong bài đó), đường gạch là mục tiêu của bạn. Chạm vào điểm để xem ngày, cấp tự đánh giá và các điểm cần cải thiện của bài đó. Dòng **So với lần trước** cho biết tăng, giảm hay giữ nguyên. Bài thi thử chưa chấm câu nào không có trên biểu đồ.
 - **Thống kê:** số lần luyện, số lần trong 7 ngày qua, số ngày luyện liên tiếp.
+
+## 👥 Nhóm học & bảng xếp hạng
+
+App trên mỗi máy tự tính EXP. Khi bạn **vào nhóm học**, app gửi số liệu lên **máy chủ nhóm** (một Google Sheet do người quản trị tạo) để cả nhóm thấy bảng xếp hạng của nhau.
+
+**Vào nhóm:** **⚙️ Cài đặt → 👥 Nhóm học** → nhập **tên hiển thị** (tên đồng nghiệp nhận ra) và **phòng ban** → **💾 Lưu & kết nối**. Nếu app chưa có sẵn địa chỉ máy chủ, mở **Địa chỉ máy chủ nhóm** và dán địa chỉ người quản trị gửi (kết thúc bằng `/exec`). Đổi điện thoại hoặc cài lại app: nhập **đúng tên và phòng ban như cũ** để giữ tài khoản cũ.
+
+**App gửi gì?** Chỉ số liệu: tên, phòng ban, mục tiêu, EXP và số phút nói từng ngày (35 ngày gần nhất), số bài thi thử và ước tính, kết quả thi thật bạn tự ghi, câu hỏi thi thật bạn gửi. **Không gửi bài nói, chữ hay ghi âm.** App tự gửi khi mở app, sau khi học khoảng 1,5 phút, và khi thoát app. Bấm **🔄 Đồng bộ ngay** để gửi ngay.
+
+**Cách tính EXP**
+
+| Việc | EXP |
+|---|---|
+| Nói xong một câu (từ 15 từ hoặc 20 giây) | +10 |
+| Được AI chấm một bài | +5 |
+| Hoàn thành một bài thi thử (từ 12 câu) | +100 |
+| Làm Đề của tuần | +50 |
+| Luyện một kịch bản (học thuộc / nói theo) | +5 (tính tối đa 10 lần/ngày) |
+| Ôn một thẻ từ vựng | +1 (tối đa 100 lần/ngày) |
+| Trả lời đúng một câu luyện IPA | +2 (tối đa 25 lần/ngày) |
+
+- Nói lại cùng một câu trong ngày chỉ tính 1 lần. Muốn nhiều EXP thì luyện nhiều câu khác nhau.
+- Mỗi người tối đa **800 EXP/ngày**. Chuỗi ngày 🔥 tính khi hôm đó có ít nhất 1 EXP.
+- **Bậc** (1–11) theo tổng EXP: 200, 500, 1.000, 2.000, 3.500, 5.500, 8.000, 11.000, 15.000, 20.000. Bậc chỉ để tạo động lực, không liên quan cấp OPIc.
+- **Huy hiệu:** chuỗi 3 / 7 / 30 ngày, 100 / 500 câu đã nói, 10 giờ nói, bài thi thử đầu tiên, 10 bài thi thử, 4 Đề của tuần, 1.000 lượt ôn từ.
+
+**🏆 Tab Tiến bộ → Nhóm**
+- **Bảng xếp hạng** Hôm nay / Tuần này (từ thứ Hai) / Tháng này: hạng, tên, phòng ban, EXP, số phút nói, số bài thi thử. Dòng của bạn có viền. Ô **Xem** để lọc theo phòng ban.
+- **📝 Câu hỏi vừa gặp khi thi:** thi xong, ghi lại các câu bạn nhớ (tiếng Anh, gần đúng cũng được) → **📤 Gửi cho nhóm**. Bấm **👀 Xem câu cả nhóm đã gửi** để xem, **🔊** để nghe, **📥 Đưa các câu này vào bộ luyện tập** để luyện ở tab Luyện → Bộ câu hỏi → Câu hỏi tự nhập ("Đề thật nhóm vừa gặp").
+- **🎓 Kết quả thi thật:** ghi ngày thi và cấp trên phiếu điểm (NL … IM1, IM2, IM3, IH, AL). Lưu trên máy và gửi lên nhóm.
+- **👑 Bảng theo dõi (quản trị):** chỉ hiện khi đã nhập **mã quản trị** ở Cài đặt → 👥 Nhóm học → Dành cho người quản trị. Gồm số người tham gia, số người học trong 7 ngày, tổng giờ nói, số người đã có kết quả thi, danh sách người chưa học 7 ngày qua, và bảng từng người (EXP 7 ngày, phút nói, số ngày học, bài thi thử, ước tính, kết quả thi, lần cuối mở app). Bấm **📋 Copy bảng** rồi dán vào Excel để làm báo cáo.
+
+**🤖 AI của nhóm:** người quản trị cài một API key Gemini trên máy chủ nhóm. Mọi người chọn **👥 AI của nhóm** trong Cài đặt → AI Coach là chấm được, kể cả chấm bằng ghi âm, không cần key riêng. Mỗi người có số lượt mỗi ngày (mặc định 40). Bài nói đi qua máy chủ nhóm tới Gemini để chấm, máy chủ không lưu lại bài nói. Máy chủ chờ AI tối đa 60 giây; nếu báo quá giờ thì bấm chấm lại.
+
+Người quản trị cài máy chủ nhóm theo file `tools/group-server/HUONG_DAN_MAY_CHU_NHOM.md` trong mã nguồn.
 - **Ước tính luyện tập gần đây:** trung vị các bài AI chấm gần nhất. Chỉ là chỉ số luyện tập, không dự đoán điểm thi.
 - **Theo dạng câu:** dạng nào chưa luyện hoặc ước tính thấp là chỗ nên luyện thêm.
 - **🎯 Luyện điểm yếu hôm nay:** app tự chọn một câu thuộc dạng bạn yếu nhất hoặc chưa luyện (cùng dạng với việc trong kế hoạch ngày).
@@ -275,7 +317,8 @@ Lời khuyên từ lớp: học thuộc **ý và cụm từ**, không thuộc ng
 
 ## ⚙️ Tab Cài đặt
 
-- **🤖 AI Coach:** chọn Claude, Gemini, hoặc Không dùng (chỉ Copy). Chọn model, dán key, bấm **Kiểm tra key**.
+- **👥 Nhóm học:** tên hiển thị, phòng ban, địa chỉ máy chủ nhóm, **🔄 Đồng bộ ngay**, mã quản trị, **Rời nhóm**. Xem mục *👥 Nhóm học & bảng xếp hạng*.
+- **🤖 AI Coach:** chọn **👥 AI của nhóm** (không cần key), Claude, Gemini, hoặc Không dùng (chỉ Copy). Với Claude/Gemini: chọn model, dán key, bấm **Kiểm tra key**.
 - **🔊 Giọng đọc & luyện tập:** tốc độ đọc câu hỏi; tự đọc câu hỏi khi đổi câu; luôn hiện gợi ý; có gồm câu hỏi nhánh OQC / nhà máy hay không.
 - **📥 Nhập bộ câu hỏi của bạn:** thêm câu hỏi riêng theo 3 bước, xem mục *📥 Nhập bộ câu hỏi riêng* bên dưới.
 - **🗂️ Dữ liệu:** **📤 Copy dữ liệu (JSON)** để sao lưu lịch sử; **🗑️ Xoá lịch sử**.
@@ -301,6 +344,8 @@ Vào **⚙️ Cài đặt → 📥 Nhập bộ câu hỏi của bạn**, làm th
 - Câu mới nằm ở tab **Luyện → ô Bộ câu hỏi → Câu hỏi tự nhập**. Muốn bỏ thì bấm **Xoá** cạnh tên bộ câu hỏi trong Cài đặt.
 
 ## 🔑 Lấy API key
+
+**Cách dễ nhất: không cần key.** Vào nhóm học và chọn **👥 AI của nhóm** (nếu người quản trị đã bật). Chỉ cần key riêng khi nhóm chưa bật AI hoặc bạn đã dùng hết lượt trong ngày.
 
 **Gemini (có gói miễn phí, nghe được ghi âm)**
 1. Mở [aistudio.google.com/apikey](https://aistudio.google.com/apikey) và đăng nhập tài khoản Google.
@@ -357,6 +402,12 @@ Tăng âm lượng media. Kiểm tra điện thoại đã có giọng đọc ti�
 - *Key sai hoặc hết hạn:* vào Cài đặt, dán lại key, bấm **Kiểm tra key**.
 - *Hết hạn mức / gửi quá nhanh:* đợi một lát rồi thử lại, hoặc chọn model khác.
 - *Claude không nghe được ghi âm:* gõ lời nói vào ô chữ, dùng chế độ 📝, hoặc chuyển sang Gemini.
+- *AI của nhóm báo hết lượt:* mai dùng tiếp, hoặc tạm dùng key riêng. *Báo quản trị chưa bật AI:* nhắn người quản trị nhóm.
+
+**Bảng xếp hạng không thấy tên tôi / số EXP chưa đúng?**
+- Kiểm tra **Cài đặt → 👥 Nhóm học** có dòng ✅ Đã vào nhóm. Bấm **🔄 Đồng bộ ngay**, rồi bấm 🔄 trên bảng xếp hạng.
+- Bảng chỉ hiện người có EXP trong khoảng đang xem (hôm nay / tuần / tháng).
+- Mỗi người nên dùng **một điện thoại**: hai máy cùng một tài khoản sẽ ghi đè số liệu của nhau trong cùng ngày.
 
 **Nhập file câu hỏi bị báo lỗi?**
 - *Không thấy cột "Questions":* dòng tiêu đề phải có ô ghi đúng chữ `Questions`. Dễ nhất là tải file mẫu rồi điền vào.
@@ -364,7 +415,7 @@ Tăng âm lượng media. Kiểm tra điện thoại đã có giọng đọc ti�
 - *File .xls hoặc loại file khác:* mở bằng Excel hoặc Google Sheets rồi lưu lại dạng .xlsx hoặc .csv.
 
 **Dữ liệu của tôi lưu ở đâu?**
-Lịch sử luyện tập và key chỉ lưu trên điện thoại này. App không lưu file ghi âm. Gỡ app là mất dữ liệu, nên thỉnh thoảng bấm **📤 Copy dữ liệu (JSON)** để sao lưu.
+Lịch sử luyện tập và key chỉ lưu trên điện thoại này. App không lưu file ghi âm. Nếu vào nhóm học, app gửi thêm số liệu học (EXP, phút nói, số bài thi thử, kết quả thi) lên Google Sheet của nhóm — không gửi bài nói. Gỡ app là mất dữ liệu, nên thỉnh thoảng bấm **📤 Copy dữ liệu (JSON)** để sao lưu.
 
 **Cập nhật app thế nào?**
 Tải file `OPIc-OQC.apk` mới và cài đè lên bản cũ. Lịch sử luyện tập vẫn được giữ.

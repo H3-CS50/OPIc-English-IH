@@ -1,5 +1,6 @@
 // Lịch sử luyện tập (chỉ văn bản + kết quả; không lưu file ghi âm) và thống kê tiến bộ.
 import { store, uid, LEVEL_SCORE, scoreToLabel } from './util.js';
+import { logActivity } from './activity.js';
 
 const KEY = 'attempts';
 const MAX = 400;
@@ -49,6 +50,7 @@ export function addAttempt(a) {
   const rec = { attempt_id: uid(), created_at: new Date().toISOString(), retry_of: null, coach_result: null, ...a };
   attempts.unshift(rec);
   save();
+  if (rec.coach_result) logActivity('graded', { key: rec.attempt_id });
   return rec;
 }
 export function updateAttempt(id, patch) {

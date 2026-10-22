@@ -2,6 +2,7 @@
 // chấm Quên / Khó / Nhớ, hộp 0–6 với khoảng ôn 0/1/2/4/7/15/30 ngày, "đã thuộc" = hộp ≥ 3.
 import data from './vocab.json';
 import { store, shuffle } from './util.js';
+import { logActivity } from './activity.js';
 
 export const DAY = 864e5;
 export const INT = [0, 1, 2, 4, 7, 15, 30];
@@ -93,6 +94,7 @@ export function grade(it, g, now = Date.now()) {
   p.due = g === 0 ? now : today0(now) + INT[p.box] * DAY;
   p.at = now;
   S.p[it.id] = p;
+  logActivity('vocab', { key: it.id, now });
   saveState();
   return p;
 }

@@ -19,7 +19,12 @@ import * as D from '../src/dict.js';
 import { sentenceAround } from '../src/lookup.js';
 import kbData from '../src/kb.json';
 import { join } from 'node:path';
-import { normalizeResult, buildUserMessage } from '../src/coach.js';
+import { normalizeResult, buildUserMessage, gradeGemini, lookupWordAI, providerReady, usesGemini, aiConfigured } from '../src/coach.js';
+import * as ACT from '../src/activity.js';
+import * as WK from '../src/week.js';
+import { groupPost } from '../src/group-net.js';
+import { saveExam, listExams, removeExam } from '../src/group.js';
+import { looksEnglish, importRealQuestions, REAL_PACK_NAME } from '../src/data.js';
 
 let fails = 0;
 const ok = (cond, msg) => {
@@ -358,7 +363,108 @@ async function templateTests() {
   ok(V.removeMyWord('reluctant') && V.ALL.length === n0 && V.ALL.every((x, i) => x.idx === i), 'remove from Sổ từ + reindex');
 }
 
+// ---------- EXP, Đề của tuần, nhóm học ----------
+async function groupTests() {
+  // EXP
+  ok(ACT.computeExp({ spoken: 3, vocab: 150, ipa: 40, scripts: 20 }) === 30 + 100 + 50 + 50, 'computeExp caps per kind');
+  ok(ACT.computeExp({ spoken: 200 }) === ACT.MAX_DAY_EXP, 'computeExp daily cap');
+  const day = (y, m, d, h = 10) => new Date(y, m - 1, d, h).getTime();
+  ACT.resetActivity();
+  ok(ACT.logActivity('spoken', { key: 'Q1', seconds: 61, now: day(2026, 10, 20) }) === 10, 'first spoken +10');
+  ok(ACT.logActivity('spoken', { key: 'Q1', seconds: 30, now: day(2026, 10, 20, 11) }) === 0, 'same question same day = 0');
+  ok(ACT.logActivity('spoken', { key: 'Q1', now: day(2026, 10, 21) }) === 10, 'same question next day counts');
+  ACT.logActivity('mocks', { key: 'm1', now: day(2026, 10, 22) });
+  ACT.logActivity('vocab', { key: 'v1', now: day(2026, 10, 24) });
+  const sm = ACT.summary(day(2026, 10, 24, 20));
+  ok(sm.total === 10 + 10 + 100 + 1, `summary total ${sm.total}`);
+  ok(sm.streak === 1 && sm.best === 3, `streak ${sm.streak} best ${sm.best}`);
+  ok(sm.week === 121 && sm.today === 1, `week ${sm.week} today ${sm.today}`);
+  ok(ACT.dayStats('2026-10-20').seconds === 61, 'seconds only counted when logged');
+  ok(ACT.summary(day(2026, 10, 25)).streak === 1, 'streak kept until end of next day');
+  ok(ACT.summary(day(2026, 10, 26)).streak === 0, 'streak broken after a missed day');
+  ok(ACT.levelOf(0).n === 1 && ACT.levelOf(250).n === 2 && ACT.levelOf(250).pct === 17 && ACT.levelOf(99999).next === null, 'levelOf');
+  ok(ACT.badges(sm).find((b) => b.id === 'mock1').ok && ACT.badges(sm).find((b) => b.id === 'streak3').ok && !ACT.badges(sm).find((b) => b.id === 'streak7').ok, 'badges');
+  ok(ACT.recentDays(35, day(2026, 10, 24)).length === 4, 'recentDays');
+  ok(ACT.weekStart(day(2026, 10, 25)).getDate() === 19 && ACT.weekStart(day(2026, 10, 26)).getDate() === 26, 'week starts Monday');
+  ACT.resetActivity();
+
+  // Đề của tuần
+  ok(WK.weekNo(day(2026, 10, 19)) === 1 && WK.weekNo(day(2026, 10, 25, 23)) === 1 && WK.weekNo(day(2026, 10, 26)) === 2, 'weekNo');
+  ok(WK.weekNo(day(2026, 9, 1)) === 1, 'weekNo before start = 1');
+  const w1 = WK.weekTest('56', day(2026, 10, 21));
+  const w2 = WK.weekTest('56', day(2026, 10, 28));
+  ok(w1.test.id === 'IH-30' && w2.test.id === 'IH-29' && WK.weekTest('34', day(2026, 10, 21)).test.id === 'IM-30', `week tests ${w1.test.id} ${w2.test.id}`);
+  ok(WK.weekTest('56', day(2027, 5, 17)).test.id !== WK.weekTest('56', day(2027, 5, 10)).test.id, 'week test changes weekly');
+  const seen = new Set();
+  for (let k = 0; k < 30; k++) seen.add(WK.weekTest('56', day(2026, 10, 19) + k * 7 * 864e5).test.id);
+  ok(seen.size === 30, '30 weeks cover all 30 tests');
+  ok(WK.weekDone(w1, [{ testId: 'IH-30', at: day(2026, 10, 20), answered: 13 }]) && !WK.weekDone(w1, [{ testId: 'IH-30', at: day(2026, 10, 18), answered: 15 }]) && !WK.weekDone(w1, [{ testId: 'IH-30', at: day(2026, 10, 20), answered: 5 }]), 'weekDone');
+  const plan = PL.dailyPlan({ left: 60, week: { id: 'IH-30', done: false } });
+  ok(plan.some((t) => t.id === 'week' && !t.done), 'week task in plan');
+  ok(!PL.dailyPlan({ left: 60, week: { id: 'IH-30', done: true } }).some((t) => t.id === 'week'), 'no week task once done');
+
+  // Kết quả thi thật
+  ok(saveExam({ date: '2026-11-01', level: 'IM2' }) && saveExam({ date: '2026-12-01', level: 'IH' }) && !saveExam({ date: 'x', level: 'IH' }) && !saveExam({ date: '2026-12-02', level: 'B2' }), 'saveExam validates');
+  saveExam({ date: '2026-11-01', level: 'IM3' });
+  ok(listExams().length === 2 && listExams()[0].date === '2026-12-01' && listExams()[1].level === 'IM3', 'exam list sorted, same date replaced');
+  removeExam('2026-11-01');
+  removeExam('2026-12-01');
+  ok(listExams().length === 0, 'removeExam');
+
+  // Câu hỏi thi thật → bộ luyện tập
+  ok(looksEnglish('Tell me about the bank you usually go to.') && !looksEnglish('Hỏi về ngân hàng bạn hay đến') && !looksEnglish('bank'), 'looksEnglish');
+  const nReal = importRealQuestions([{ question: 'Tell me about the bank you usually go to.', section: 'Đột xuất' }, { question: 'Hỏi về ngân hàng gần nhà bạn' }]);
+  importRealQuestions([{ question: 'Describe a recent change in your neighborhood in detail.' }, { question: 'What do you usually do on weekends with your family?' }]);
+  ok(nReal === 1 && listPacks().filter((p) => p.name === REAL_PACK_NAME).length === 1 && listPacks().find((p) => p.name === REAL_PACK_NAME).count === 2, 'real questions pack replaced, not duplicated');
+
+  // Gọi máy chủ nhóm + AI của nhóm (fetch giả)
+  const realFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url, opts) => {
+    calls.push({ url, opts, body: JSON.parse(opts.body) });
+    const b = JSON.parse(opts.body);
+    if (b.action === 'ai') {
+      const text = b.body.systemInstruction.parts[0].text.includes('dictionary')
+        ? JSON.stringify({ headword: 'bank', ipa: '/bæŋk/', pos_vi: 'danh từ', meaning_vi: 'ngân hàng', explanation_vi: '', example_en: '', example_vi: '' })
+        : JSON.stringify({ practice_level_estimate: { label: 'IH', confidence: 'high' } });
+      return { ok: true, status: 200, json: async () => ({ ok: true, status: 200, data: { candidates: [{ content: { parts: [{ text }] } }] } }) };
+    }
+    if (b.action === 'fail') return { ok: true, status: 200, json: async () => ({ ok: false, error: 'Bạn đã dùng hết 40 lượt AI hôm nay.' }) };
+    if (b.action === 'slow') return { ok: true, status: 200, json: async () => ({ ok: false, error: 'AI_TIMEOUT: AI trả lời quá 60 giây.' }) };
+    if (b.action === 'html') return { ok: true, status: 200, json: async () => { throw new Error('not json'); } };
+    return { ok: true, status: 200, json: async () => ({ ok: true, echo: b.action }) };
+  };
+  try {
+    const r = await groupPost('https://script.google.com/macros/s/x/exec', { action: 'ping' });
+    ok(r.echo === 'ping' && calls[0].opts.headers['Content-Type'].startsWith('text/plain'), 'groupPost uses text/plain (no CORS preflight)');
+    let err = '';
+    try { await groupPost('http://x', { action: 'ping' }); } catch (e) { err = e.message; }
+    ok(/https/.test(err), 'groupPost rejects non-https');
+    try { await groupPost('https://x/exec', { action: 'fail' }); } catch (e) { err = e.message; }
+    ok(/hết 40 lượt/.test(err), 'groupPost surfaces server error');
+    try { await groupPost('https://x/exec', { action: 'html' }); } catch (e) { err = e.message; }
+    ok(/Bất kỳ ai/.test(err), 'groupPost explains non-JSON reply');
+
+    const gs = { provider: 'group', keys: {}, models: { gemini: 'm' }, group: { url: 'https://x/exec', uid: 'abcdefgh12', registered: true } };
+    ok(usesGemini(gs) && aiConfigured(gs) && providerReady(gs, 'audio').ok, 'group provider ready (audio ok)');
+    ok(!providerReady({ ...gs, group: { url: '', uid: '' } }, 'transcript_only').ok, 'group provider needs connection');
+    calls.length = 0;
+    const res = await gradeGemini({ settings: gs, ctx: { question: 'Q', ptype: 'description', ptypeLabel: 'Mô tả', expected: [], target: 'IH', inputMode: 'transcript_only', seconds: 60, transcript: 'I live in Hanoi.' } });
+    ok(res.practice_level_estimate.label === 'IH' && res.practice_level_estimate.confidence === 'medium', 'grade via group AI');
+    ok(calls[0].body.action === 'ai' && calls[0].body.uid === 'abcdefgh12' && calls[0].body.body.generationConfig.responseJsonSchema, 'group AI request carries Gemini body');
+    const lk = await lookupWordAI(gs, 'bank');
+    ok(lk.result?.meaning_vi === 'ngân hàng', 'lookup word via group AI');
+    globalThis.fetch = async (url, opts) => ({ ok: true, status: 200, json: async () => ({ ok: false, error: 'AI_TIMEOUT: x' }) });
+    let te = '';
+    try { await gradeGemini({ settings: gs, ctx: { question: 'Q', expected: [], transcript: 'x', inputMode: 'transcript_only' } }); } catch (e) { te = e.message; }
+    ok(/60 giây/.test(te), 'friendly timeout message');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+}
+
 templateTests()
+  .then(groupTests)
   .catch((e) => {
     fails++;
     console.error('FAIL template tests threw', e);

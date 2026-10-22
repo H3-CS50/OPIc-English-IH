@@ -10,6 +10,9 @@ import { listMocks, onMocksChange } from './mock-history.js';
 import { listScripts, onScriptsChange } from './scripts-core.js';
 import { daysLeft, phaseOf, dailyPlan, mockSeries, compareLast, dayStart } from './plan.js';
 import { openScript } from './scripts.js';
+import { summary, badges, EXP_RULES, MAX_DAY_EXP, onActivity } from './activity.js';
+import { weekTest, weekDone, weekLevelFor } from './week.js';
+import { renderGroup } from './group.js';
 
 const CORE_TYPES = [
   'description', 'routine', 'past_recent', 'memorable_experience', 'problem_experience', 'comparison_change',
@@ -23,6 +26,28 @@ function vocabCard() {
   return `<div class="card"><h3>📒 Từ vựng</h3>
     <div class="bar-row"><span class="bar-label">Đã thuộc</span><span class="bar"><span class="bar-fill v-fill" style="width:${Math.round((v.learned / v.total) * 100)}%"></span></span><span class="bar-n">${v.learned}</span></div>
     <p class="muted small">${v.seen}/${v.total} mục đã học · ${v.due} mục cần ôn hôm nay. <button class="link-btn" data-goto-vocab>Mở tab Từ vựng →</button></p></div>`;
+}
+
+// ---------- EXP, chuỗi ngày, huy hiệu ----------
+function expCard() {
+  const s = summary();
+  const lv = s.level;
+  const bs = badges(s);
+  const got = bs.filter((b) => b.ok).length;
+  const n = (x) => x.toLocaleString('vi-VN');
+  return `<div class="card exp-card">
+    <div class="row between"><h3>⭐ Bậc ${lv.n} · ${n(s.total)} EXP</h3><span class="chip">🔥 ${s.streak} ngày</span></div>
+    <span class="rm-bar"><span style="width:${lv.pct}%"></span></span>
+    <p class="muted small">${lv.next ? `Còn ${n(lv.next - s.total)} EXP lên bậc ${lv.n + 1}` : 'Bậc cao nhất 🎉'} · chuỗi dài nhất ${s.best} ngày</p>
+    <div class="stat-row"><div class="stat"><b>${n(s.today)}</b><span>EXP hôm nay</span></div><div class="stat"><b>${n(s.week)}</b><span>EXP tuần này</span></div><div class="stat"><b>${n(s.month)}</b><span>EXP tháng này</span></div></div>
+    <div class="row between"><b class="small">Huy hiệu ${got}/${bs.length}</b><button class="link-btn" data-goto-group>🏆 Xem bảng xếp hạng →</button></div>
+    <div class="badge-grid">${bs.map((b) => `<div class="bdg ${b.ok ? 'ok' : ''}"><span>${b.icon}</span><small>${escapeHtml(b.vi)}</small></div>`).join('')}</div>
+    <details><summary class="small">Cách tính EXP</summary><ul class="small">
+      ${EXP_RULES.map((r) => `<li>${escapeHtml(r.vi)}: <b>+${r.exp}</b>${r.cap ? ` (tính tối đa ${r.cap} lần/ngày)` : ''}</li>`).join('')}
+      <li>Nói lại cùng một câu trong ngày chỉ tính 1 lần — hãy luyện nhiều câu khác nhau.</li>
+      <li>Tối đa ${MAX_DAY_EXP} EXP mỗi ngày. Chuỗi ngày tính khi hôm đó có ít nhất 1 EXP.</li>
+    </ul></details>
+  </div>`;
 }
 
 // ---------- Kế hoạch đến ngày thi ----------
@@ -42,6 +67,12 @@ function planCard() {
     todayPracticed: listAttempts().filter((a) => new Date(a.created_at).getTime() >= today).length,
     mocks: mockSeries(listMocks(), listAttempts()).all,
     scripts,
+    week: (() => {
+      const wt = weekTest(weekLevelFor(settings.target));
+      const done = weekDone(wt, listMocks());
+      const doneToday = done && listMocks().some((m) => m.testId === wt.test.id && m.at >= today);
+      return { id: wt.test.id, done, doneToday };
+    })(),
   });
   const done = tasks.filter((t) => t.done).length;
   return `<div class="card plan-card">
@@ -112,13 +143,15 @@ function mockCard() {
 function renderStats() {
   const s = stats();
   const maxDist = Math.max(1, ...Object.values(s.dist));
+  const act = summary();
   $('progress-stats').innerHTML = `
+    ${expCard()}
     ${planCard()}
     ${mockCard()}
     <div class="stat-row">
       <div class="stat"><b>${s.total}</b><span>lần luyện</span></div>
       <div class="stat"><b>${s.last7}</b><span>7 ngày qua</span></div>
-      <div class="stat"><b>${s.streak}🔥</b><span>ngày liên tiếp</span></div>
+      <div class="stat"><b>${Math.max(s.streak, act.streak)}🔥</b><span>ngày liên tiếp</span></div>
     </div>
     ${vocabCard()}
     <div class="card">
@@ -195,15 +228,28 @@ function renderHistory() {
   );
 }
 
-export function renderProgress() {
+let pview = 'me';
+function showView(v) {
+  pview = v;
+  document.querySelectorAll('#progress-view .seg').forEach((b) => b.classList.toggle('active', b.dataset.progview === v));
+  $('pv-me').hidden = v !== 'me';
+  $('pv-group').hidden = v !== 'group';
+  if (v === 'group') renderGroup();
+  else renderProgressMe();
+}
+function renderProgressMe() {
   renderStats();
   renderHistory();
+}
+export function renderProgress() {
+  showView(pview);
 }
 
 export function initProgress() {
   $('btn-daily').addEventListener('click', dailyPractice);
   $('progress-stats').addEventListener('click', (e) => {
     if (e.target.closest('[data-goto-vocab]')) window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'vocab' }));
+    if (e.target.closest('[data-goto-group]')) return showView('group');
     const pt = e.target.closest('[data-mi]');
     if (pt) {
       const { graded } = mockSeries(listMocks(), listAttempts());
@@ -215,6 +261,10 @@ export function initProgress() {
     if (plan === 'mock') window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'mock' }));
     if (plan === 'weak') dailyPractice();
     if (plan === 'practice') window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'practice' }));
+    if (plan === 'week') {
+      window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'mock' }));
+      window.dispatchEvent(new CustomEvent('opic:goto-week'));
+    }
     if (plan === 'scripts') {
       const list = listScripts().sort((a, b) => (a.lastPracticed || 0) - (b.lastPracticed || 0));
       if (list.length) openScript(list[0].id, 'shadow');
@@ -230,7 +280,10 @@ export function initProgress() {
     saveSettings();
     renderStats();
   });
-  onMocksChange(() => $('tab-progress').classList.contains('active') && renderStats());
+  document.querySelectorAll('#progress-view .seg').forEach((b) => b.addEventListener('click', () => showView(b.dataset.progview)));
+  window.addEventListener('opic:progress-view', (e) => showView(e.detail));
+  onMocksChange(() => $('tab-progress').classList.contains('active') && pview === 'me' && renderStats());
+  onActivity(() => $('tab-progress').classList.contains('active') && pview === 'me' && renderStats());
   onScriptsChange(() => $('tab-progress').classList.contains('active') && renderStats());
-  renderProgress();
+  renderProgressMe();
 }

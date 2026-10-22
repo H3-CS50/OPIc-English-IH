@@ -3,6 +3,7 @@
 import PROMPT from './coach_prompt.txt';
 import SCHEMA from './coach_schema.json';
 import { countWords, blobToBase64 } from './util.js';
+import { groupPost } from './group-net.js';
 
 export const CLAUDE_MODELS = [
   { id: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5 (khuyên dùng)' },
@@ -186,7 +187,48 @@ function geminiFriendly(status, msg) {
   return `Lỗi từ Gemini (${status}): ${msg}`;
 }
 
-export async function gradeGemini({ key, model, ctx, audio, signal }) {
+// Gọi Gemini generateContent: bằng key riêng, hoặc qua "AI của nhóm" (máy chủ nhóm giữ key chung).
+// Trả về { status, data } như API Gemini.
+async function geminiFetch(settings, body, signal) {
+  if (settings.provider === 'group') {
+    const g = settings.group || {};
+    if (!g.url || !g.uid) throw new CoachError('Chưa kết nối Nhóm học. Vào Cài đặt → 👥 Nhóm học.');
+    try {
+      const r = await groupPost(g.url, { action: 'ai', uid: g.uid, body }, { signal, timeout: 80000 });
+      return { status: r.status, data: r.data };
+    } catch (e) {
+      if (signal?.aborted) throw new CoachError('Đã huỷ chấm bài.');
+      const m = e?.message || String(e);
+      if (/^AI_TIMEOUT/.test(m)) throw new CoachError('AI của nhóm trả lời quá 60 giây (giới hạn của máy chủ nhóm). Bấm chấm lại sau ít giây.');
+      throw new CoachError(m);
+    }
+  }
+  const key = settings.keys?.gemini;
+  if (!key) throw new CoachError('Chưa có API key Gemini. Thêm ở tab Cài đặt hoặc dùng nút 📋 Copy.');
+  let res;
+  try {
+    res = await fetch(geminiUrl(settings.models.gemini), {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
+      body: JSON.stringify(body),
+      signal,
+    });
+  } catch {
+    if (signal?.aborted) throw new CoachError('Đã huỷ chấm bài.');
+    throw new CoachError('Không kết nối được tới Gemini. Kiểm tra mạng rồi thử lại.');
+  }
+  let data = null;
+  try {
+    data = await res.json();
+  } catch {
+    data = { error: { message: res.statusText } };
+  }
+  return { status: res.status, data };
+}
+const geminiError = (data) => data?.error?.message || data?.message || JSON.stringify(data || {});
+const geminiText = (data) => (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || '').join('');
+
+export async function gradeGemini({ settings, ctx, audio, signal }) {
   const parts = [{ text: buildUserMessage(ctx) }];
   if (audio?.blob) {
     const data = await blobToBase64(audio.blob);
@@ -203,32 +245,20 @@ export async function gradeGemini({ key, model, ctx, audio, signal }) {
         ...(withSchema ? { responseJsonSchema: SCHEMA } : {}),
       },
     };
-    let res;
-    try {
-      res = await fetch(geminiUrl(model), {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
-        body: JSON.stringify(body),
-        signal,
-      });
-    } catch {
-      if (signal?.aborted) throw new CoachError('Đã huỷ chấm bài.');
-      throw new CoachError('Không kết nối được tới Gemini. Kiểm tra mạng rồi thử lại.');
+    const { status, data } = await geminiFetch(settings, body, signal);
+    if (status !== 200) {
+      const msg = geminiError(data);
+      if (status === 400 && withSchema && /responseJsonSchema|response_json_schema|schema|Unknown name/i.test(msg)) return attempt(false);
+      throw new CoachError(geminiFriendly(status, msg));
     }
-    if (!res.ok) {
-      const msg = await readError(res);
-      if (res.status === 400 && withSchema && /responseJsonSchema|response_json_schema|schema|Unknown name/i.test(msg)) return attempt(false);
-      throw new CoachError(geminiFriendly(res.status, msg));
-    }
-    return res.json();
+    return data;
   };
   const data = await attempt(true);
   if (data.promptFeedback?.blockReason) throw new CoachError('Gemini chặn yêu cầu này. Thử lại với nội dung khác.');
   const cand = data.candidates?.[0];
   if (!cand) throw new CoachError('Gemini không trả về kết quả.');
   if (cand.finishReason === 'MAX_TOKENS') throw new CoachError('Phản hồi bị cắt vì quá dài. Thử lại.');
-  const text = (cand.content?.parts || []).map((p) => p.text || '').join('');
-  return normalizeResult(parseJson(text), ctx.inputMode);
+  return normalizeResult(parseJson(geminiText(data)), ctx.inputMode);
 }
 
 export async function checkGeminiKey(key, model) {
@@ -241,7 +271,9 @@ export async function checkGeminiKey(key, model) {
 }
 
 // ---------------- Điều phối ----------------
-// settings: { provider, keys:{claude,gemini}, models:{claude,gemini} }
+// settings: { provider: claude|gemini|group|none, keys:{claude,gemini}, models:{claude,gemini}, group:{url,uid,registered} }
+export const usesGemini = (settings) => settings.provider === 'gemini' || settings.provider === 'group';
+export const aiConfigured = (settings) => settings.provider === 'claude' || usesGemini(settings);
 export function providerReady(settings, inputMode) {
   const p = settings.provider;
   if (p === 'claude') {
@@ -253,13 +285,18 @@ export function providerReady(settings, inputMode) {
     if (!settings.keys?.gemini) return { ok: false, reason: 'Chưa có API key Gemini. Thêm ở tab Cài đặt hoặc dùng nút 📋 Copy.' };
     return { ok: true };
   }
+  if (p === 'group') {
+    if (!settings.group?.url || !settings.group?.uid || !settings.group?.registered)
+      return { ok: false, reason: 'Chưa kết nối Nhóm học. Vào Cài đặt → 👥 Nhóm học, nhập tên rồi bấm Lưu & kết nối.' };
+    return { ok: true };
+  }
   return { ok: false, reason: 'Chưa chọn AI chấm bài. Vào Cài đặt để thêm API key, hoặc dùng nút 📋 Copy để dán vào app Claude.' };
 }
 
 export async function grade(settings, ctx, audio, signal) {
   try {
     if (settings.provider === 'claude') return { result: await gradeClaude({ key: settings.keys.claude, model: settings.models.claude, ctx, signal }) };
-    if (settings.provider === 'gemini') return { result: await gradeGemini({ key: settings.keys.gemini, model: settings.models.gemini, ctx, audio, signal }) };
+    if (usesGemini(settings)) return { result: await gradeGemini({ settings, ctx, audio, signal }) };
     return { error: 'Chưa chọn AI chấm bài.' };
   } catch (e) {
     return { error: e instanceof CoachError ? e.message : `Lỗi: ${e?.message || e}` };
@@ -301,24 +338,19 @@ export async function lookupWordAI(settings, word, sentence = '') {
       const text = (data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
       return { result: parseJson(text) };
     }
-    if (settings.provider === 'gemini') {
-      const key = settings.keys?.gemini;
-      if (!key) return { error: 'Chưa có API key Gemini. Thêm ở tab Cài đặt.' };
+    if (usesGemini(settings)) {
       const body = {
         systemInstruction: { parts: [{ text: WORD_SYSTEM }] },
         contents: [{ role: 'user', parts: [{ text: user }] }],
         generationConfig: { responseMimeType: 'application/json', temperature: 0.2, maxOutputTokens: 1024, responseJsonSchema: WORD_SCHEMA },
       };
-      const res = await fetch(geminiUrl(settings.models.gemini), { method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, body: JSON.stringify(body) }).catch(() => null);
-      if (!res) return { error: 'Không kết nối được tới Gemini. Kiểm tra mạng.' };
-      if (!res.ok) return { error: geminiFriendly(res.status, await readError(res)) };
-      const data = await res.json();
-      const text = (data.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('');
-      return { result: parseJson(text) };
+      const { status, data } = await geminiFetch(settings, body);
+      if (status !== 200) return { error: geminiFriendly(status, geminiError(data)) };
+      return { result: parseJson(geminiText(data)) };
     }
-    return { error: 'Chưa chọn AI. Vào Cài đặt → AI Coach để nhập key Gemini hoặc Claude.' };
+    return { error: 'Chưa chọn AI. Vào Cài đặt → AI Coach (dùng AI của nhóm hoặc nhập key Gemini/Claude).' };
   } catch (e) {
-    return { error: `Lỗi: ${e?.message || e}` };
+    return { error: e instanceof CoachError ? e.message : `Lỗi: ${e?.message || e}` };
   }
 }
 
@@ -357,22 +389,18 @@ export async function readScriptImageAI(settings, base64, mimeType = 'image/jpeg
       const data = await res.json();
       return { result: parseJson((data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('')) };
     }
-    if (settings.provider === 'gemini') {
-      const key = settings.keys?.gemini;
-      if (!key) return { error: 'Chưa có API key Gemini. Thêm ở tab Cài đặt.' };
+    if (usesGemini(settings)) {
       const body = {
         systemInstruction: { parts: [{ text: SCRIPT_SYSTEM }] },
         contents: [{ role: 'user', parts: [{ inlineData: { mimeType, data: base64 } }, { text: user }] }],
         generationConfig: { responseMimeType: 'application/json', temperature: 0, maxOutputTokens: 4096, responseJsonSchema: SCRIPT_SCHEMA },
       };
-      const res = await fetch(geminiUrl(settings.models.gemini), { method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, body: JSON.stringify(body) }).catch(() => null);
-      if (!res) return { error: 'Không kết nối được tới Gemini. Kiểm tra mạng.' };
-      if (!res.ok) return { error: geminiFriendly(res.status, await readError(res)) };
-      const data = await res.json();
-      return { result: parseJson((data.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('')) };
+      const { status, data } = await geminiFetch(settings, body);
+      if (status !== 200) return { error: geminiFriendly(status, geminiError(data)) };
+      return { result: parseJson(geminiText(data)) };
     }
-    return { error: 'Đọc ảnh cần AI. Vào Cài đặt → AI Coach để nhập key Gemini hoặc Claude.' };
+    return { error: 'Đọc ảnh cần AI. Vào Cài đặt → AI Coach (dùng AI của nhóm hoặc nhập key Gemini/Claude).' };
   } catch (e) {
-    return { error: `Lỗi: ${e?.message || e}` };
+    return { error: e instanceof CoachError ? e.message : `Lỗi: ${e?.message || e}` };
   }
 }

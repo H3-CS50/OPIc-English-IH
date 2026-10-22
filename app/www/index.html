@@ -126,6 +126,7 @@
             <button class="seg" data-tlevel="34">Cấp 3–4 · IM</button>
             <button class="seg" data-tlevel="56">Cấp 5–6 · IH / AL</button>
           </div>
+          <div id="week-box"></div>
           <div id="tests-summary"></div>
           <div id="tests-list"></div>
           <p class="muted small">Đề luyện tập do app xếp từ câu của lớp, của app và combo bổ sung (AI soạn), không phải đề thi thật. Survey giả định theo lựa chọn phổ biến; đề cố định không có bước chọn lại độ khó. Cách trả lời và tiếng ồn lấy theo mục 🎧 Cách làm bài ở trên.</p>
@@ -269,20 +270,50 @@
 
     <!-- ================= Tiến bộ ================= -->
     <section id="tab-progress" class="tab">
-      <button class="btn primary btn-block" id="btn-daily">🎯 Luyện điểm yếu hôm nay</button>
-      <div id="progress-stats"></div>
-      <h3>Lịch sử luyện tập</h3>
-      <div id="history-list"></div>
+      <div class="segmented" id="progress-view">
+        <button class="seg active" data-progview="me">📊 Của tôi</button>
+        <button class="seg" data-progview="group">🏆 Nhóm</button>
+      </div>
+      <div id="pv-me">
+        <button class="btn primary btn-block" id="btn-daily">🎯 Luyện điểm yếu hôm nay</button>
+        <div id="progress-stats"></div>
+        <h3>Lịch sử luyện tập</h3>
+        <div id="history-list"></div>
+      </div>
+      <div id="pv-group" hidden><div id="group-root"></div></div>
     </section>
 
     <!-- ================= Cài đặt ================= -->
     <section id="tab-settings" class="tab">
+      <div class="card" id="group-card">
+        <h2>👥 Nhóm học</h2>
+        <p class="small">Vào nhóm để lên <b>bảng xếp hạng</b>, dùng <b>AI của nhóm</b> (không cần key riêng) và chia sẻ câu hỏi thi thật. App chỉ gửi số liệu học (EXP, phút nói, số bài thi thử, kết quả thi) — <b>không gửi bài nói, chữ hay ghi âm</b>.</p>
+        <label class="field"><span>Tên hiển thị</span><input id="g-name" type="text" maxlength="40" autocomplete="name" placeholder="vd. Nguyễn Văn An"></label>
+        <label class="field"><span>Phòng ban / nhóm (không bắt buộc)</span><input id="g-team" type="text" maxlength="40" placeholder="vd. Phòng Chất lượng"></label>
+        <details id="g-url-box" class="sv-box"><summary class="small">Địa chỉ máy chủ nhóm</summary>
+          <label class="field"><span>Người quản trị gửi địa chỉ này (kết thúc bằng /exec)</span><input id="g-url" type="url" autocomplete="off" placeholder="https://script.google.com/macros/s/…/exec"></label>
+        </details>
+        <div class="row"><button class="btn primary" id="g-save">💾 Lưu & kết nối</button><button class="btn" id="g-sync">🔄 Đồng bộ ngay</button></div>
+        <p class="small" id="g-status"></p>
+        <details class="sv-box"><summary class="small">👑 Dành cho người quản trị</summary>
+          <label class="field"><span>Mã quản trị (đặt trong Google Sheet, trang Config)</span><input id="g-pin" type="password" autocomplete="off"></label>
+          <p class="muted small">Nhập đúng mã thì tab Tiến bộ → 🏆 Nhóm có thêm Bảng theo dõi cả nhóm.</p>
+        </details>
+        <button class="link-btn" id="g-leave" hidden>Rời nhóm</button>
+      </div>
+
       <div class="card">
         <h2>🤖 AI Coach</h2>
-        <p class="small">AI Coach nhận xét theo FACT (chức năng, độ chính xác, nội dung, dạng diễn ngôn), chỉ ra một điểm cần sửa và giao bài nói lại. Bạn dùng API key của chính mình. Key chỉ lưu trên máy này.</p>
+        <p class="small">AI Coach nhận xét theo FACT (chức năng, độ chính xác, nội dung, dạng diễn ngôn), chỉ ra một điểm cần sửa và giao bài nói lại. Dùng <b>AI của nhóm</b> (nếu nhóm đã bật) hoặc API key của chính bạn — key riêng chỉ lưu trên máy này.</p>
+        <label class="check"><input type="radio" name="provider" value="group"> <b>👥 AI của nhóm</b> — không cần key, dùng chung key do quản trị nhóm cài (Gemini, chấm được cả ghi âm)</label>
         <label class="check"><input type="radio" name="provider" value="claude"> <b>Claude</b> — chấm theo chữ (transcript)</label>
         <label class="check"><input type="radio" name="provider" value="gemini"> <b>Gemini</b> — chấm theo chữ hoặc nghe file ghi âm, có gói miễn phí</label>
         <label class="check"><input type="radio" name="provider" value="none"> Không dùng — chỉ <b>📋 Copy</b> rồi dán vào app Claude</label>
+
+        <div id="group-ai-box" class="sub-box" hidden>
+          <p class="small" id="group-ai-status"></p>
+          <p class="muted small">Mỗi người có số lượt AI mỗi ngày do quản trị đặt. Bài nói được gửi qua máy chủ nhóm tới Gemini để chấm, máy chủ không lưu lại bài nói.</p>
+        </div>
 
         <div id="claude-box" class="sub-box" hidden>
           <label class="field"><span>Model</span><select id="claude-model"></select></label>

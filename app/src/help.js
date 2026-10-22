@@ -2,7 +2,7 @@
 import { $, md, store, escapeHtml } from './util.js';
 import { docs, kb } from './data.js';
 
-const WELCOME_VERSION = 5;
+const WELCOME_VERSION = 6;
 const classCount = kb.questions.filter((q) => q.origin_set === 'class').length;
 
 const SLIDES = [
@@ -11,6 +11,7 @@ const SLIDES = [
     title: 'Chào mừng đến OPIc OQC',
     lead: 'App luyện nói OPIc tiếng Anh theo lộ trình IM → IH → AL.',
     items: [
+      ['🏆', '<b>Nhóm học</b>: EXP, chuỗi ngày, bảng xếp hạng, Đề của tuần'],
       ['🗺️', '<b>Lộ trình chinh phục</b>: đi từng chặng, từng combo, nhận sao'],
       ['🎤', 'Nghe câu hỏi và nói như khi thi thật'],
       ['🤖', 'AI Coach nhận xét, chỉ ra điểm cần sửa và giao bài nói lại'],
@@ -35,10 +36,11 @@ const SLIDES = [
   },
   {
     icon: '🤖',
-    title: 'Bật AI Coach',
-    lead: 'AI cần API key của riêng bạn. Key chỉ lưu trên máy này.',
+    title: 'Vào nhóm & bật AI Coach',
+    lead: 'Cách dễ nhất: vào nhóm học và dùng AI của nhóm, không cần key.',
     items: [
-      ['⚙️', 'Vào <b>Cài đặt</b> → chọn <b>Gemini</b> (có gói miễn phí) hoặc <b>Claude</b> → dán key'],
+      ['👥', 'Vào <b>Cài đặt → 👥 Nhóm học</b> → nhập tên, phòng ban → <b>Lưu & kết nối</b>'],
+      ['🔑', 'Hoặc dùng key riêng: chọn <b>Gemini</b> (có gói miễn phí) hoặc <b>Claude</b> → dán key'],
       ['📋', 'Chưa có key? Bấm <b>Copy nhờ Claude</b> rồi dán vào app Claude'],
       ['🔒', 'Đừng đưa thông tin nội bộ công ty vào bài nói'],
     ],
@@ -80,6 +82,7 @@ const QUICK = [
   ['Kịch bản', 'Sổ kịch bản'],
   ['IPA', 'Học phiên âm IPA'],
   ['Tiến bộ', 'Tab Tiến bộ'],
+  ['Nhóm học', 'Nhóm học'],
   ['Cài đặt', 'Tab Cài đặt'],
   ['Nhập câu hỏi', 'Nhập bộ câu hỏi'],
   ['API key', 'API key'],

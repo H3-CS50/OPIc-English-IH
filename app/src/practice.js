@@ -4,7 +4,7 @@ import { openVocabTopic } from './vocab.js';
 import { $, escapeHtml, toast, fmtTime, countWords, copyText, pick, md } from './util.js';
 import { kb, allQuestions, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf } from './data.js';
 import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe } from './speech.js';
-import { grade, buildCopyPrompt, providerReady } from './coach.js';
+import { grade, buildCopyPrompt, providerReady, usesGemini } from './coach.js';
 import { renderFeedback } from './feedback.js';
 import { addAttempt } from './history.js';
 import { settings, saveSettings } from './settings.js';
@@ -327,7 +327,7 @@ async function stopRecording() {
 // ---------- Chấm ----------
 function inputModeFor() {
   const transcript = $('transcript').value.trim();
-  if (st.audio && settings.provider === 'gemini') return transcript ? 'audio_and_transcript' : 'audio';
+  if (st.audio && usesGemini(settings)) return transcript ? 'audio_and_transcript' : 'audio';
   return 'transcript_only';
 }
 

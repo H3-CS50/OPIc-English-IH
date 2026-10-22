@@ -113,10 +113,11 @@ function initTemplates() {
   $('tpl-share').addEventListener('click', shareTemplate);
 }
 
-function syncProviderUi() {
+export function syncProviderUi() {
   document.querySelectorAll('[name=provider]').forEach((r) => (r.checked = r.value === settings.provider));
   $('claude-box').hidden = settings.provider !== 'claude';
   $('gemini-box').hidden = settings.provider !== 'gemini';
+  $('group-ai-box').hidden = settings.provider !== 'group';
 }
 
 function bindModel(selId, customId, list, key) {

@@ -8,6 +8,7 @@ import { initLearn, refreshLearn } from './learn.js';
 import { initProgress, renderProgress } from './progress.js';
 import { initHelp } from './help.js';
 import { initVocab, refreshVocab } from './vocab.js';
+import { initLookup, onMyWordsChange } from './lookup.js';
 
 const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', vocab: 'Từ vựng', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
@@ -38,6 +39,8 @@ initMock();
 initLearn();
 initProgress();
 initVocab();
+initLookup();
+onMyWordsChange(() => current === 'vocab' && refreshVocab());
 initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });
 
 let packCount = -1;

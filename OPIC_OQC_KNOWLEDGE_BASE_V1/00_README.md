@@ -51,6 +51,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
    - `questions_src.py`: thêm câu với **số id mới**, không đánh số lại.
    - `answers_src_*.py`, `sources.py`, `taxonomy.py`.
    - Từ vựng: `vocab/opic_al_vocab_app.json`, `vocab/ext_*.py`, `vocab/topics.py`.
+   - Từ điển tra từ: `dict/gloss_*.txt`, `dict/ipa_en_US.txt` (MIT).
    - Câu hỏi của lớp: `class_pack/class_questions_src.json` (câu hỏi), `class_pack/ans_*.py` (bài mẫu IH), `class_pack/class_meta.py` (dạng câu, chủ đề).
    - Prompt AI Coach: sửa trong `07_AI_COACH_GRADING_PROMPT.md`.
 2. Chạy `python3 tools/kb/build_kb.py`. Script kiểm định schema, ID, liên kết nguồn, ngôn ngữ, câu trùng và bí mật. Nếu có lỗi FAIL, script trả mã lỗi.

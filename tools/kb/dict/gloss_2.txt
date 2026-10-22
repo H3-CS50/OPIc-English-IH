@@ -1,0 +1,428 @@
+chilly|adj|se lạnh
+chip|n|khoai tây chiên lát; con chip
+choice|n|sự lựa chọn
+choose|v|chọn
+chore|n|việc vặt (household chores: việc nhà)
+chorus|n|điệp khúc
+chubby|adj|mũm mĩm
+chung|n|(tiếng Việt) chưng — banh chung: bánh chưng
+cinema|n|rạp chiếu phim
+cinnamon|n|quế
+circulate|v|lưu thông, lan truyền
+circumstance|n|hoàn cảnh
+citadel|n|thành, thành quách
+citizen|n|công dân
+city|n|thành phố
+class|n|lớp học; tầng lớp
+classmate|n|bạn cùng lớp
+clean|adj|sạch; v: dọn dẹp
+cleaner|n|người dọn dẹp; chất tẩy rửa
+cleanliness|n|sự sạch sẽ
+clear|adj|rõ ràng; trong
+clearly|adv|rõ ràng
+clerk|n|nhân viên (bán hàng, văn phòng)
+click|v|nhấp chuột, bấm
+client|n|khách hàng
+climate|n|khí hậu
+climb|v|leo, trèo
+clinic|n|phòng khám
+clock|n|đồng hồ
+close|v|đóng; adj: gần, thân thiết
+closely|adv|chặt chẽ, sát sao
+closer|adj|gần hơn
+closet|n|tủ quần áo âm tường
+closing|n|sự đóng cửa
+closure|n|sự đóng cửa, ngừng hoạt động
+cloth|n|vải; khăn lau
+clothes|n|quần áo
+clothing|n|quần áo, trang phục
+cloud|n|đám mây; dịch vụ lưu trữ đám mây
+cloudy|adj|nhiều mây
+coach|n|huấn luyện viên; xe khách
+coast|n|bờ biển
+coastline|n|đường bờ biển
+cocktail|n|cocktail (đồ uống pha)
+code|n|mã
+coding|n|lập trình
+coffee|n|cà phê
+coke|n|nước Coca
+cold|adj|lạnh; n: cảm lạnh
+collaborate|v|hợp tác
+collect|v|thu thập, sưu tầm
+collection|n|bộ sưu tập
+collector|n|người sưu tầm
+college|n|trường cao đẳng, đại học
+color|n|màu sắc
+colorful|adj|nhiều màu sắc
+combination|n|sự kết hợp
+combine|v|kết hợp
+combo|n|suất combo; bộ câu hỏi liên tiếp
+come|v|đến
+comedy|n|phim hài, hài kịch
+comfort|n|sự thoải mái
+comfortable|adj|thoải mái, dễ chịu
+comfy|adj|thoải mái (thân mật)
+comment|n|bình luận
+commerce|n|thương mại (e-commerce: thương mại điện tử)
+commercial|adj|thương mại; n: quảng cáo
+common|adj|phổ biến; chung
+commonly|adv|thường, phổ biến
+communicate|v|giao tiếp
+communication|n|sự giao tiếp
+community|n|cộng đồng
+commute|v|đi lại (giữa nhà và nơi làm)
+companion|n|bạn đồng hành
+company|n|công ty; sự bầu bạn
+compare|v|so sánh
+comparison|n|sự so sánh
+competition|n|cuộc thi; sự cạnh tranh
+complain|v|phàn nàn
+complaint|n|lời phàn nàn, khiếu nại
+complete|v|hoàn thành; adj: hoàn toàn
+completely|adv|hoàn toàn
+complex|adj|phức tạp; n: khu phức hợp
+complicate|v|làm phức tạp
+component|n|linh kiện, thành phần
+composer|n|nhà soạn nhạc
+computer|n|máy tính
+concentration|n|sự tập trung
+concept|n|khái niệm
+concern|n|mối lo ngại
+concert|n|buổi hòa nhạc
+condense|v|cô đặc (condensed milk: sữa đặc)
+condition|n|điều kiện; tình trạng
+conditioner|n|dầu xả; máy (air conditioner: máy lạnh)
+conditioning|n|(air conditioning) điều hòa không khí
+confidence|n|sự tự tin
+confident|adj|tự tin
+confirm|v|xác nhận
+confirmation|n|sự xác nhận
+confuse|v|làm bối rối
+congestion|n|sự tắc nghẽn
+congratulation|n|lời chúc mừng
+connect|v|kết nối
+connection|n|sự kết nối
+cons|n|nhược điểm (pros and cons: ưu và nhược điểm)
+conscious|adj|có ý thức (health-conscious: quan tâm sức khỏe)
+consecutive|adj|liên tiếp
+consider|v|cân nhắc; coi là
+considerate|adj|chu đáo, biết nghĩ cho người khác
+consistent|adj|nhất quán, đều đặn
+constantly|adv|liên tục
+construction|n|sự xây dựng; công trình
+consume|v|tiêu thụ
+consumer|n|người tiêu dùng
+contact|n|sự liên lạc; v: liên hệ
+container|n|hộp đựng; thùng chứa
+contaminate|v|làm ô nhiễm, làm nhiễm bẩn
+content|n|nội dung
+continue|v|tiếp tục
+contract|n|hợp đồng
+contrast|n|sự tương phản (in contrast: ngược lại)
+control|n|sự kiểm soát
+convenience|n|sự tiện lợi (convenience store: cửa hàng tiện lợi)
+convenient|adj|tiện lợi
+conversation|n|cuộc trò chuyện
+convince|v|thuyết phục
+cook|v|nấu ăn; n: đầu bếp
+cooker|n|nồi (rice cooker: nồi cơm điện)
+cool|adj|mát; tuyệt
+cooler|adj|mát hơn; n: thùng giữ lạnh
+cooperate|v|hợp tác
+cooperation|n|sự hợp tác
+coordinate|v|điều phối
+coordination|n|sự phối hợp
+coordinator|n|người điều phối
+copy|n|bản sao; v: sao chép
+core|n|cốt lõi
+corner|n|góc
+correct|adj|đúng; v: sửa
+corrective|adj|khắc phục (corrective action: hành động khắc phục)
+correctly|adv|một cách chính xác
+cosmetic|n|mỹ phẩm
+cost|n|chi phí; v: tốn
+cotton|n|vải bông, cotton
+couch|n|ghế sofa dài
+could|aux|có thể (quá khứ của can); có lẽ
+count|v|đếm; tính
+countdown|n|đếm ngược
+counter|n|quầy
+country|n|đất nước; nông thôn
+countryside|n|vùng quê
+couple|n|cặp đôi; vài
+course|n|khóa học; món (trong bữa); of course: tất nhiên
+court|n|sân (thể thao); tòa án
+cousin|n|anh chị em họ
+cover|v|che phủ; bao gồm
+coworker|n|đồng nghiệp
+cozy|adj|ấm cúng
+crab|n|con cua
+crack|v|nứt; n: vết nứt
+craft|n|đồ thủ công
+cramp|n|chuột rút
+cranky|adj|cáu kỉnh
+crash|v|đâm, va chạm; (máy) bị treo, sập
+crazy|adj|điên; cuồng nhiệt
+cream|n|kem; váng sữa
+create|v|tạo ra
+creator|n|người sáng tạo
+credit|n|tín dụng; điểm (credit card: thẻ tín dụng)
+crisis|n|khủng hoảng
+crispy|adj|giòn
+criticize|v|chỉ trích
+crowd|n|đám đông
+cruise|n|chuyến du thuyền
+cry|v|khóc
+cucumber|n|dưa chuột
+cultural|adj|thuộc văn hóa
+culturally|adv|về mặt văn hóa
+culture|n|văn hóa
+cup|n|cái cốc, tách
+curious|adj|tò mò
+current|adj|hiện tại
+curtain|n|rèm cửa
+cushion|n|cái gối tựa, đệm ngồi
+custom|n|phong tục
+customer|n|khách hàng
+cut|v|cắt
+cycle|n|chu kỳ; v: đạp xe
+dad|n|bố
+dai|n|(tiếng Việt) dài — ao dai: áo dài
+daily|adj|hằng ngày
+damage|n|sự hư hại; v: làm hỏng
+dance|v|nhảy, múa
+dangerous|adj|nguy hiểm
+dark|adj|tối
+data|n|dữ liệu
+date|n|ngày; cuộc hẹn hò
+daughter|n|con gái
+day|n|ngày
+deadline|n|hạn chót
+deal|n|thỏa thuận; món hời (deal with: giải quyết)
+death|n|cái chết
+debate|n|cuộc tranh luận
+decade|n|thập kỷ
+decide|v|quyết định
+decision|n|quyết định
+decline|v|giảm sút; từ chối
+decorate|v|trang trí
+decoration|n|đồ trang trí
+deep|adj|sâu
+deeply|adv|sâu sắc
+defect|n|lỗi, khuyết tật
+defective|adj|bị lỗi
+defense|n|sự phòng thủ
+definitely|adv|chắc chắn
+definition|n|định nghĩa
+degree|n|độ; bằng cấp
+delay|v|trì hoãn; n: sự chậm trễ
+delicious|adj|ngon
+deliver|v|giao hàng
+delivery|n|sự giao hàng
+delta|n|đồng bằng châu thổ
+demand|n|nhu cầu
+dengue|n|sốt xuất huyết
+dental|adj|thuộc về răng
+dentist|n|nha sĩ
+department|n|phòng ban; bộ phận
+depend|v|phụ thuộc
+dependable|adj|đáng tin cậy
+dependence|n|sự phụ thuộc
+dependent|adj|phụ thuộc
+deposit|n|tiền đặt cọc; v: gửi tiền
+depress|v|làm chán nản
+describe|v|miêu tả
+design|n|thiết kế
+desk|n|bàn làm việc
+despite|prep|mặc dù
+dessert|n|món tráng miệng
+destination|n|điểm đến
+detach|v|tháo rời
+detail|n|chi tiết
+detailed|adj|chi tiết
+detox|n|sự thải độc (digital detox: tạm ngừng dùng thiết bị số)
+develop|v|phát triển
+develope|v|(viết sai của develop) phát triển
+development|n|sự phát triển
+device|n|thiết bị
+diabetes|n|bệnh tiểu đường
+die|v|chết; (pin) hết
+diet|n|chế độ ăn
+difference|n|sự khác biệt
+different|adj|khác
+differently|adv|một cách khác
+difficult|adj|khó
+difficulty|n|sự khó khăn
+digital|adj|kỹ thuật số
+dim|adj|mờ, tối
+dine|v|dùng bữa (dine out: ăn ngoài)
+dinner|n|bữa tối
+direction|n|hướng; chỉ dẫn
+directly|adv|trực tiếp
+director|n|đạo diễn; giám đốc
+dirt|n|bụi bẩn, đất
+dirty|adj|bẩn
+disappoint|v|làm thất vọng
+disaster|n|thảm họa
+disconnect|v|ngắt kết nối
+discount|n|sự giảm giá
+discover|v|khám phá
+discuss|v|thảo luận
+disease|n|bệnh
+dish|n|món ăn; cái đĩa
+dislike|v|không thích
+display|v|trưng bày, hiển thị
+distance|n|khoảng cách
+distinct|adj|rõ rệt, riêng biệt
+district|n|quận, huyện
+dive|v|lặn
+diverse|adj|đa dạng
+divide|v|chia
+do|v|làm
+doctor|n|bác sĩ
+document|n|tài liệu
+documentary|n|phim tài liệu
+dog|n|con chó
+domestic|adj|trong nước; trong nhà
+domestically|adv|trong nước
+dong|n|đồng (tiền Việt Nam)
+door|n|cửa
+double|adj|gấp đôi; đôi
+doubt|n|sự nghi ngờ
+down|adv|xuống
+download|v|tải xuống
+downpour|n|trận mưa như trút
+downside|n|mặt trái, nhược điểm
+downstairs|adv|ở tầng dưới
+downtown|n|trung tâm thành phố
+dragon|n|con rồng
+drain|v|thoát nước; làm cạn kiệt
+drama|n|phim truyền hình; kịch
+dramatic|adj|kịch tính; đột ngột lớn
+dramatically|adv|một cách đáng kể
+draw|v|vẽ
+drawing|n|bức vẽ
+dream|n|giấc mơ; ước mơ
+dress|n|váy; v: mặc quần áo
+drill|n|cuộc diễn tập; máy khoan
+drink|v|uống; n: đồ uống
+drip|v|nhỏ giọt (drip coffee: cà phê phin)
+drive|v|lái xe
+driver|n|tài xế
+drizzle|n|mưa phùn
+drop|v|đánh rơi; giảm (drop off: thả ai xuống)
+drought|n|hạn hán
+drum|n|cái trống
+drunk|adj|say rượu
+dry|adj|khô
+duck|n|con vịt
+due|adj|đến hạn (due to: do, bởi vì)
+during|prep|trong suốt
+dust|n|bụi
+each|det|mỗi
+earbud|n|tai nghe nhét tai
+early|adj|sớm
+earn|v|kiếm (tiền)
+earphone|n|tai nghe
+easily|adv|một cách dễ dàng
+east|n|phía đông
+easy|adj|dễ
+easygoing|adj|dễ tính
+eat|v|ăn
+economically|adv|về mặt kinh tế; tiết kiệm
+economy|n|nền kinh tế
+edge|n|cạnh, mép
+education|n|giáo dục
+effect|n|ảnh hưởng, tác động; hiệu ứng
+efficiency|n|hiệu quả, năng suất
+effort|n|sự nỗ lực
+egg|n|quả trứng
+eight|num|số tám
+eighth|num|thứ tám
+either|det|một trong hai; (phủ định) cũng không
+eldest|adj|lớn nhất (trong gia đình)
+electric|adj|chạy bằng điện
+electricity|n|điện
+electrolyte|n|chất điện giải
+electronic|adj|điện tử
+electronics|n|đồ điện tử
+elevator|n|thang máy
+eleven|num|số mười một
+else|adv|khác (nữa)
+elsewhere|adv|ở nơi khác
+email|n|thư điện tử
+embarrass|v|làm xấu hổ
+emergency|n|trường hợp khẩn cấp
+emotion|n|cảm xúc
+emotional|adj|xúc động; thuộc cảm xúc
+employ|v|thuê, tuyển dụng
+employee|n|nhân viên
+encounter|v|gặp phải
+encourage|v|khuyến khích
+end|n|cuối, kết thúc
+ending|n|đoạn kết
+energetic|adj|tràn đầy năng lượng
+energy|n|năng lượng
+engage|v|tham gia; thu hút
+engineer|n|kỹ sư
+engineering|n|kỹ thuật
+enjoy|v|thích, tận hưởng
+enough|det|đủ
+enter|v|đi vào; nhập
+entertainment|n|giải trí
+entrance|n|lối vào
+envelope|n|phong bì
+environment|n|môi trường
+episode|n|tập (phim)
+equipment|n|thiết bị
+escalate|v|leo thang
+escape|v|trốn thoát
+especially|adv|đặc biệt là
+ethnic|adj|thuộc dân tộc
+even|adv|thậm chí
+evening|n|buổi tối
+event|n|sự kiện
+eventful|adj|nhiều sự kiện
+eventually|adv|cuối cùng
+ever|adv|từng, bao giờ
+every|det|mỗi, mọi
+everyday|adj|hằng ngày
+everyone|pron|mọi người
+everything|pron|mọi thứ
+everywhere|adv|mọi nơi
+evolve|v|tiến hóa, phát triển dần
+exactly|adv|chính xác
+example|n|ví dụ
+except|prep|ngoại trừ
+exchange|v|đổi; trao đổi
+excite|v|làm hào hứng
+excitement|n|sự hào hứng
+exciting|adj|thú vị, hấp dẫn
+excuse|n|lời bào chữa; v: thứ lỗi
+exercise|n|bài tập; sự tập thể dục
+exhaust|v|làm kiệt sức; n: khí thải
+exist|v|tồn tại
+exit|n|lối ra
+expand|v|mở rộng
+expect|v|mong đợi
+expectation|n|sự kỳ vọng
+expensive|adj|đắt
+experience|n|kinh nghiệm; trải nghiệm
+explain|v|giải thích
+explore|v|khám phá
+explosion|n|vụ nổ
+export|v|xuất khẩu
+exporter|n|nhà xuất khẩu
+express|v|bày tỏ
+extend|v|kéo dài, gia hạn
+extinguisher|n|bình chữa cháy
+extra|adj|thêm
+extreme|adj|cực đoan, khắc nghiệt
+extremely|adv|cực kỳ
+eye|n|mắt
+eyesight|n|thị lực
+fabric|n|vải
+face|n|khuôn mặt; v: đối mặt
+facility|n|cơ sở vật chất
+fact|n|sự thật
+factor|n|yếu tố

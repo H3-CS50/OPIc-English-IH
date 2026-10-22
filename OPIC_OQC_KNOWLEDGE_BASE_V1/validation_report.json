@@ -23,6 +23,7 @@
     "vocab_unique": "PASS",
     "vocab_complete": "PASS",
     "vocab_user_app_kept": "PASS",
+    "dict_glossary": "PASS",
     "jsonl_parse": "PASS",
     "coach_prompt_present": "PASS"
   },

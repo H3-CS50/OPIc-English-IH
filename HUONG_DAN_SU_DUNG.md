@@ -113,7 +113,7 @@ Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần b�
 - **Đã thuộc / Đã học / Cần ôn:** số thẻ theo tiến độ của bạn.
 - **▶ Học hôm nay:** ôn hết thẻ đến hạn + số từ mới bạn chọn (10, 20 hoặc 30).
 - **🎯 Kiểm tra 10 câu:** trắc nghiệm chọn nghĩa đúng. Câu sai được đưa vào danh sách ôn.
-- **Ô tìm kiếm:** gõ tiếng Anh hoặc tiếng Việt, không cần dấu.
+- **Ô tìm kiếm = từ điển Anh ↔ Việt:** gõ tiếng Anh hoặc tiếng Việt, không cần dấu (xem mục *👆 Tra từ & từ điển*).
 
 **Mỗi chủ đề** có 3 nút: **Học**, **Kiểm tra**, **Xem** (danh sách, bấm câu ví dụ để nghe). Mục có nhãn **mới** là phần bổ sung; chủ đề có nhãn **chủ đề mới** là 8 nhóm thêm vào: Ăn uống, Mua sắm, Sức khỏe, Thời tiết & môi trường, Vấn đề xã hội & tin tức, Gia đình & bạn bè, Giao thông, Nhà máy & kiểm tra chất lượng.
 
@@ -129,6 +129,22 @@ Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần b�
 > Không có cụm từ nào tự làm bạn lên điểm. Theo ACTFL, mức IH/AL thể hiện qua việc kể chuyện, miêu tả, so sánh và xử lý tình huống trọn vẹn. Cụm từ chỉ giúp khi bạn dùng đúng chức năng, tự nhiên, không học thuộc cả câu.
 
 **Nguồn tham khảo cho phần bổ sung:** VOA Learning English (từ nối trong văn nói), British Council (kể chuyện, cụm động từ), Cambridge English (so sánh, phỏng đoán, diễn đạt vòng khi bí từ), Oxford 3000/5000 và Oxford Phrase List (chọn từ thông dụng), ACTFL (chức năng theo cấp độ). Câu ví dụ do AI viết, chưa có giáo viên duyệt.
+
+## 👆 Tra từ & từ điển
+
+**Chạm vào một từ tiếng Anh bất kỳ** trong câu hỏi. bài mẫu. câu ví dụ. nhận xét của AI → hiện bảng tra gồm:
+- **Phiên âm** Anh–Mỹ (IPA) và nút **🔊** nghe đọc.
+- **Nghĩa tiếng Việt** và loại từ. Nếu bạn chạm vào dạng biến đổi (went. studies. children…). app tự tìm **dạng gốc** (go. study. child).
+- **Câu đang đọc**. và các **cụm từ trong bộ Từ vựng** có chứa từ đó.
+- **⭐ Lưu vào Sổ từ:** từ được thêm vào chủ đề **⭐ Sổ từ của tôi** ở tab Từ vựng. ôn theo lịch như các thẻ khác. Bỏ lưu bằng nút ✕ trong danh sách.
+- **🔎 Hỏi AI:** AI (key Gemini/Claude trong Cài đặt) giải thích nghĩa **đúng với câu đang đọc**. kèm ví dụ. Kết quả được lưu lại trên máy để lần sau mở nhanh.
+
+**Từ điển Anh ↔ Việt:** gõ vào ô tìm ở đầu tab **📒 Từ vựng**.
+- Gõ tiếng Anh (kể cả dạng biến đổi) hoặc tiếng Việt. có dấu hay không dấu đều được.
+- Kết quả gồm mục **📖 Từ điển** (từ đơn. có phiên âm) và **📒 Trong bộ Từ vựng** (cụm từ. mẫu câu).
+- Từ chưa có nghĩa sẵn vẫn có phiên âm; bấm vào để hỏi AI.
+
+**Dữ liệu:** nghĩa tiếng Việt cho khoảng 2.814 từ gốc — toàn bộ các từ xuất hiện trong câu hỏi. bài mẫu và bộ Từ vựng — do AI soạn cho app. chưa có giáo viên duyệt. Phiên âm của khoảng 125.000 từ lấy từ bộ phát âm CMU (giấy phép MIT). Tất cả chạy không cần mạng. trừ nút Hỏi AI.
 
 ## 📚 Tab Học
 

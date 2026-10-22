@@ -31,6 +31,7 @@ Ngày: 2026-10-22 · Phiên bản dữ liệu 1.0.0
 | `vocab_unique` | **PASS** |
 | `vocab_complete` | **PASS** |
 | `vocab_user_app_kept` | **PASS** |
+| `dict_glossary` | **PASS** |
 | `jsonl_parse` | **PASS** |
 | `coach_prompt_present` | **PASS** |
 
@@ -92,6 +93,7 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 - **Bộ câu hỏi của lớp (SRC-U10, `List câu hỏi.pdf`): USER_OWNED.** Ngày 2026-10-22 người dùng xác nhận đây là câu hỏi tự soạn và yêu cầu đưa vào app. 258 câu nằm trong `12_CLASS_QUESTION_BANK.jsonl` và trong APK (mục "Câu hỏi của lớp"). Mỗi câu có 1 bài mẫu IH do AI viết (`sample_origin: AI_generated_original`), là mục tiêu luyện tập, không phải bài thi thật. Dạng câu của từng câu do AI gán tay, cần người kiểm tra mẫu.
 - **App OPIc AL Vocab (SRC-U16): USER_OWNED.** 618 mục do người dùng làm cùng Claude (chat 2026-10-17); ngày 2026-10-22 người dùng yêu cầu tích hợp vào app. Giữ nguyên văn trong `13_VOCAB_BANK.jsonl`.
 - **Phần từ vựng bổ sung:** cụm từ là tiếng Anh thông dụng; nghĩa, câu ví dụ và ghi chú do AI viết mới. Các nguồn VOA, British Council, Cambridge, Oxford chỉ dùng để đối chiếu chức năng và chọn từ, không chép danh sách hay ví dụ.
+- **Từ điển tra từ:** phiên âm từ ipa-dict `en_US` (dựa trên cmudict-ipa, **MIT License**, giữ file license trong `tools/kb/dict/`); nghĩa tiếng Việt cho 2814 từ gốc do AI soạn mới. Không dùng các bộ từ điển Anh–Việt sẵn có trên mạng vì không rõ bản quyền (vd. gói en_vi_dic không ghi nguồn dữ liệu) hoặc là dữ liệu thương mại.
 - **ACTFL Guidelines và Can-Do:** chỉ được dùng cho mục đích giáo dục phi lợi nhuận. Nếu app được thương mại hóa, cần xin phép ACTFL cho phần mô tả level, hoặc thay bằng mô tả hoàn toàn tự xây dựng.
 - **Tên "OPIc":** là tên bài thi của ACTFL. **Chưa kiểm tra** đăng ký nhãn hiệu. Trước khi phát hành công khai hoặc thu phí, nên đổi tên app hoặc tìm hiểu quy định dùng tên.
 - **Learner answers trong `OPIc_Questions.xlsx`:** thuộc về người viết. Không dùng làm bài mẫu trong APK.

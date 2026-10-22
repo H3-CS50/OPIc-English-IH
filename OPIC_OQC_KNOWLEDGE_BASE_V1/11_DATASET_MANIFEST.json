@@ -10,7 +10,8 @@
     "sample_answers": 72,
     "sample_answer_sets": 24,
     "sources": 37,
-    "vocab_items": 1241
+    "vocab_items": 1241,
+    "dict_gloss_entries": 2814
   },
   "vocab": {
     "total": 1241,
@@ -44,6 +45,11 @@
       "transport": 17,
       "factory": 23
     }
+  },
+  "dictionary": {
+    "gloss_entries": 2814,
+    "ipa_entries": 125927,
+    "gloss_with_ipa": 2776
   },
   "questions_by_topic": {
     "self_intro": 3,
@@ -199,6 +205,7 @@
     "vocab_unique": "PASS",
     "vocab_complete": "PASS",
     "vocab_user_app_kept": "PASS",
+    "dict_glossary": "PASS",
     "jsonl_parse": "PASS",
     "coach_prompt_present": "PASS"
   },
@@ -209,7 +216,7 @@
     "Descriptor ACTFL được tóm tắt/diễn giải, không chép nguyên văn; cần đối chiếu PDF trước khi phát hành thương mại."
   ],
   "checksums_sha256": {
-    "00_README.md": "4ff5fa4d2e78d2c6b8d1d5be2d4838b311074cf73b8ae30c52a3e530810ae784",
+    "00_README.md": "308371e2561ba450a507c3f962c2d922c72165560df5f83e92c1f73b7a83cee8",
     "01_SOURCE_REGISTER.csv": "a28d4825cfc462525d0db3a53fd296c10ea44a12fa15fedf4dc5ee4863b5ccd3",
     "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
     "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
@@ -219,9 +226,9 @@
     "07_AI_COACH_GRADING_PROMPT.md": "79519a30f7a9cbdb16e280e6c1c90d8acd45fbab28a0798723c03b0513cef324",
     "08_DATA_SCHEMA.json": "121313f8b51b8e9d05adf249a3de25551352b4394b0c7066cf01446b38f9e7b7",
     "09_APK_CONTENT_PRODUCT_SPEC.md": "9261a2c2502076122250c6311a61a4aaa41c74999f53d9fd737dbdb2c41e9b32",
-    "10_QA_AND_GAP_REPORT.md": "d1df8c62f866ce6a31220c17dd7bfcbe90a0db0e72e8edd29a379d01fe1267ef",
+    "10_QA_AND_GAP_REPORT.md": "ed9943daf3aaea4a6a7d0931ed0cf7ad5bc0531db53affbe5c3c0457a7b21718",
     "12_CLASS_QUESTION_BANK.jsonl": "41ffb5aca4c8223a80ee79833b70a01e231d8fe84a6de1f1a0bc27d467d5dc5e",
     "13_VOCAB_BANK.jsonl": "0351fedaa87975ba86d6c2eb22775a9da2c08ec6a4c9f4b9316a9d9a38b1d408",
-    "validation_report.json": "667500eb8c4a5169c442626cd611995e7dd27d18b3897d7abb065f2745112b02"
+    "validation_report.json": "b019cde0afffa452f5e1f328f3e319f97491e64fd5f7d0d5593351eef7b92280"
   }
 }

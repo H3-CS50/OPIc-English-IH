@@ -438,3 +438,34 @@ body.no-scroll { overflow: hidden; }
 .v-hint li { padding: 2px 0; }
 .v-hint .link-btn { padding: 0 2px; }
 .tabbar button { min-width: 0; }
+
+/* --- Tra từ --- */
+.q-text, .en-text, .sample-text, .v-ex, .v-it-ex, .v-it-en, .v-ex-box { -webkit-user-select: text; user-select: text; }
+.v-tip-tap { margin: -2px 2px 6px; }
+.v-it-btns { display: flex; flex-direction: column; gap: 4px; }
+.v-it-btns .small-btn { min-height: 32px; padding: 4px 8px; font-size: 13px; }
+.lk[hidden] { display: none; }
+.lk { position: fixed; inset: 0; z-index: 60; }
+.lk-backdrop { position: absolute; inset: 0; background: rgba(8, 20, 26, 0.35); }
+.lk-sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; max-height: 72vh; overflow-y: auto;
+  background: var(--surface); color: var(--text); border-radius: 18px 18px 0 0;
+  padding: 14px 16px calc(18px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 30px rgba(0,0,0,0.25);
+  max-width: 760px; margin: 0 auto;
+}
+.lk-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.lk-word { font-size: 24px; font-weight: 800; line-height: 1.2; }
+.lk-ipa { font-size: 17px; color: var(--primary); margin-top: 2px; font-family: "Noto Sans", "Segoe UI", system-ui, sans-serif; }
+.lk-ipa-inline { color: var(--primary); }
+.lk-acts { display: flex; gap: 6px; }
+.lk-mean { margin: 8px 0; }
+.lk-mean ul { margin: 6px 0 0; padding-left: 20px; font-size: 16px; }
+.lk-mean li { margin: 2px 0; }
+.lk-sent { font-style: italic; color: var(--muted); font-size: 14px; margin: 8px 0; }
+.lk-phr { margin: 4px 0 8px; padding-left: 18px; }
+.lk-ai { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; margin: 8px 0; display: grid; gap: 4px; }
+.lk-row { display: block; width: 100%; text-align: left; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 9px 12px; margin: 5px 0; font: inherit; cursor: pointer; }
+.lk-row-w { font-weight: 700; font-size: 16px; }
+.lk-row-ipa { color: var(--primary); font-size: 14px; margin-left: 4px; }
+.lk-row-m { display: block; font-size: 14px; margin-top: 2px; }
+.lk-row-miss { border-style: dashed; }

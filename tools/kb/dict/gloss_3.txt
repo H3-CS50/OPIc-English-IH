@@ -1,0 +1,430 @@
+factory|n|nhà máy
+fail|v|thất bại; trượt
+faint|v|ngất xỉu; adj: mờ nhạt
+fair|adj|công bằng; n: hội chợ
+fairly|adv|khá; công bằng
+fake|adj|giả
+fall|v|ngã, rơi; n: mùa thu
+family|n|gia đình
+famous|adj|nổi tiếng
+fan|n|người hâm mộ; cái quạt
+fancy|adj|sang trọng, cầu kỳ
+fansipan|n|Fansipan (đỉnh núi cao nhất Việt Nam)
+far|adv|xa
+fare|n|giá vé (xe, tàu)
+farm|n|nông trại
+farmer|n|nông dân
+fashion|n|thời trang
+fast|adj|nhanh
+fat|adj|béo; n: chất béo
+father|n|bố, cha
+faucet|n|vòi nước
+fault|n|lỗi
+favor|n|ân huệ, sự giúp đỡ (do me a favor: giúp tôi một việc)
+favorite|adj|yêu thích nhất
+feature|n|tính năng; đặc điểm
+fee|n|phí
+feed|v|cho ăn
+feel|v|cảm thấy
+feeling|n|cảm giác
+felt|v|(quá khứ của feel) đã cảm thấy
+fence|n|hàng rào
+festival|n|lễ hội
+fever|n|cơn sốt
+few|det|ít (a few: một vài)
+field|n|cánh đồng; lĩnh vực
+fifteen|num|mười lăm
+fifth|num|thứ năm
+fifty|num|năm mươi
+fight|v|đánh nhau; chiến đấu
+figure|n|con số; hình dáng (figure out: tìm ra)
+file|n|tệp, hồ sơ
+fill|v|làm đầy, điền
+film|n|bộ phim
+filter|n|bộ lọc
+final|adj|cuối cùng
+finally|adv|cuối cùng
+financial|adj|thuộc tài chính
+find|v|tìm thấy; thấy rằng
+finding|n|phát hiện, kết quả
+fine|adj|ổn, tốt; n: tiền phạt
+fingerprint|n|dấu vân tay
+finish|v|hoàn thành, kết thúc
+fire|n|lửa; đám cháy
+firefighter|n|lính cứu hỏa
+firewood|n|củi
+firework|n|pháo hoa
+first|adj|đầu tiên
+fish|n|cá
+fisherman|n|ngư dân
+fishing|n|câu cá
+fit|v|vừa (kích cỡ); adj: khỏe mạnh
+fitness|n|sự khỏe mạnh, thể hình
+fitting|n|sự thử đồ (fitting room: phòng thử đồ)
+five|num|năm (số 5)
+fix|v|sửa chữa
+fixe|adj|(prix fixe) thực đơn giá cố định
+fixture|n|đồ đạc gắn cố định (đèn, vòi...)
+flag|n|lá cờ
+flashlight|n|đèn pin
+flat|adj|phẳng; (lốp) xẹp
+flatten|v|làm phẳng
+flavorful|adj|đậm đà hương vị
+flexibility|n|sự linh hoạt
+flexible|adj|linh hoạt
+flight|n|chuyến bay
+float|v|nổi, trôi
+flood|n|lũ lụt; v: làm ngập
+floor|n|sàn nhà; tầng
+flower|n|hoa
+flu|n|bệnh cúm
+fly|v|bay; đi máy bay
+focus|v|tập trung
+foggy|adj|có sương mù
+fold|v|gấp
+follow|v|đi theo; làm theo
+following|adj|tiếp theo, sau đây
+food|n|đồ ăn
+foot|n|bàn chân (on foot: đi bộ)
+football|n|bóng đá
+for|prep|cho; trong (khoảng thời gian); vì
+force|v|buộc; n: lực
+forecast|n|dự báo
+foreign|adj|nước ngoài
+foreigner|n|người nước ngoài
+forever|adv|mãi mãi
+forget|v|quên
+fork|n|cái nĩa
+form|n|mẫu đơn; hình thức
+formal|adj|trang trọng
+format|n|định dạng
+fortieth|num|thứ bốn mươi
+fortunately|adv|may mắn thay
+forty|num|bốn mươi
+forward|adv|về phía trước (look forward to: mong chờ)
+found|v|thành lập; (quá khứ của find) đã tìm thấy
+founder|n|người sáng lập
+four|num|bốn
+fourteen|num|mười bốn
+fourteenth|num|thứ mười bốn
+fourth|num|thứ tư
+fragrant|adj|thơm
+frame|n|khung
+fraud|n|sự gian lận, lừa đảo
+freak|v|(freak out) hoảng loạn
+free|adj|miễn phí; rảnh
+freedom|n|sự tự do
+freelancer|n|người làm việc tự do
+freeze|v|đóng băng; (máy) bị đơ
+freezing|adj|lạnh cóng
+frequently|adv|thường xuyên
+fresh|adj|tươi; trong lành
+fridge|n|tủ lạnh
+friend|n|bạn bè
+friendly|adj|thân thiện
+friendship|n|tình bạn
+frighten|v|làm sợ hãi
+frog|n|con ếch
+from|prep|từ
+front|n|phía trước
+fruit|n|trái cây
+frustrate|v|làm bực bội, nản lòng
+fry|v|chiên, rán
+fu|n|(tên riêng) — Phú Quốc (Phu Quoc)
+full|adj|đầy; no
+fully|adv|hoàn toàn
+fun|n|niềm vui; adj: vui
+function|n|chức năng
+funding|n|nguồn vốn, kinh phí
+funnily|adv|(funnily enough) buồn cười là
+funny|adj|buồn cười
+furnish|v|trang bị đồ nội thất
+furniture|n|đồ nội thất
+future|n|tương lai
+gadget|n|thiết bị nhỏ, đồ công nghệ
+gain|v|đạt được; tăng (gain weight: tăng cân)
+game|n|trò chơi; trận đấu
+gan|n|(tên riêng) — Gangnam
+gap|n|khoảng cách, khoảng trống
+garage|n|gara
+garbage|n|rác
+garden|n|vườn
+garlic|n|tỏi
+gas|n|xăng; khí ga
+gate|n|cổng
+gather|v|tụ tập; thu thập
+gathering|n|buổi tụ họp
+gel|n|gel (hand gel: gel rửa tay)
+general|adj|chung, tổng quát
+generally|adv|nói chung
+generate|v|tạo ra
+generation|n|thế hệ
+generous|adj|hào phóng
+genre|n|thể loại
+gentle|adj|nhẹ nhàng
+geographically|adv|về mặt địa lý
+geography|n|địa lý
+get|v|nhận được; trở nên; đến
+giant|adj|khổng lồ
+gift|n|món quà
+gigabyte|n|gigabyte (GB)
+ginger|n|gừng
+girl|n|cô gái
+give|v|cho, đưa
+glad|adj|vui mừng
+glamping|n|cắm trại tiện nghi (glamorous camping)
+glass|n|thủy tinh; cái ly
+global|adj|toàn cầu
+glue|n|keo dán
+go|v|đi
+goal|n|mục tiêu; bàn thắng
+golden|adj|bằng vàng; màu vàng óng
+golf|n|môn đánh golf
+good|adj|tốt
+goosebumps|n|nổi da gà
+government|n|chính phủ
+grab|v|chộp lấy; tranh thủ (grab a coffee: đi uống cà phê)
+grade|n|điểm; lớp
+gradually|adv|dần dần
+graduation|n|lễ tốt nghiệp
+grain|n|hạt ngũ cốc
+grandchild|n|cháu
+granddaughter|n|cháu gái
+grandfather|n|ông
+grandma|n|bà
+grandmother|n|bà
+grandparent|n|ông bà
+grass|n|cỏ
+grateful|adj|biết ơn
+gray|adj|màu xám
+greasy|adj|nhiều dầu mỡ
+great|adj|tuyệt vời; lớn
+green|adj|màu xanh lá
+greet|v|chào hỏi
+greeting|n|lời chào
+grill|v|nướng (trên vỉ)
+grip|n|sự cầm nắm
+grocery|n|hàng tạp hóa
+groom|n|chú rể
+ground|n|mặt đất
+group|n|nhóm
+grow|v|lớn lên; trồng
+growe|v|(dạng sai của grow) phát triển
+growth|n|sự tăng trưởng
+guard|n|bảo vệ
+guess|v|đoán
+guest|n|khách
+guesthouse|n|nhà nghỉ
+guide|n|hướng dẫn viên; v: hướng dẫn
+guilty|adj|có lỗi, áy náy
+guitar|n|đàn ghi-ta
+guy|n|anh chàng (guys: mọi người)
+gym|n|phòng tập thể hình
+habit|n|thói quen
+hack|v|xâm nhập trái phép (máy tính)
+haggle|v|mặc cả
+hail|n|mưa đá
+hair|n|tóc
+hairline|n|chân tóc
+hairstyle|n|kiểu tóc
+half|n|một nửa
+halfway|adv|nửa đường
+hall|n|hội trường; sảnh
+hallway|n|hành lang
+hand|n|bàn tay
+handle|v|xử lý; n: tay cầm
+handling|n|sự xử lý
+handover|n|sự bàn giao
+hang|v|treo (hang out: đi chơi)
+hanging|adj|treo lơ lửng
+happen|v|xảy ra
+happy|adj|vui vẻ, hạnh phúc
+hard|adj|khó; cứng; adv: chăm chỉ
+hardly|adv|hầu như không
+hardware|n|phần cứng
+hardworking|adj|chăm chỉ
+harm|n|sự tổn hại
+harmful|adj|có hại
+harvest|n|mùa thu hoạch
+hassle|n|sự phiền phức
+have|v|có; ăn, uống
+hawker|n|người bán hàng rong
+haze|n|sương khói, mù
+he|pron|anh ấy, ông ấy
+head|n|cái đầu; v: đi về hướng
+headline|n|tiêu đề bài báo
+headphone|n|tai nghe chụp
+health|n|sức khỏe
+healthy|adj|khỏe mạnh; lành mạnh
+hear|v|nghe thấy
+hearing|n|thính giác
+heart|n|trái tim
+heartwarming|adj|ấm lòng
+heat|n|sức nóng
+heater|n|máy sưởi; bình nóng lạnh
+heatwave|n|đợt nắng nóng
+heavily|adv|nặng nề; rất nhiều
+heavy|adj|nặng; (mưa, giao thông) lớn
+hello|int|xin chào
+helmet|n|mũ bảo hiểm
+help|v|giúp đỡ
+helpful|adj|hữu ích; hay giúp đỡ
+her|pron|cô ấy; của cô ấy
+herb|n|rau thơm, thảo mộc
+here|adv|ở đây
+hi|int|chào
+high|adj|cao
+highly|adv|rất, hết sức
+highway|n|đường cao tốc
+hike|v|đi bộ đường dài
+hilarious|adj|rất buồn cười
+hill|n|ngọn đồi
+himself|pron|chính anh ấy
+hindsight|n|sự nhìn lại (in hindsight: nhìn lại thì)
+his|det|của anh ấy
+historic|adj|có tính lịch sử
+history|n|lịch sử
+hit|v|đánh, va vào; (bài hát) ăn khách
+hmm|int|ừm
+hoa|n|(tiếng Việt) hoa — Hoa Lu, Ninh Binh...
+hobby|n|sở thích
+hold|v|cầm; tổ chức (hold on: chờ chút)
+holder|n|người giữ; giá đỡ
+hole|n|cái lỗ
+holiday|n|ngày lễ; kỳ nghỉ
+home|n|nhà
+homemade|adj|tự làm ở nhà
+homesick|adj|nhớ nhà
+homestay|n|nhà dân cho khách ở
+homestays|n|(số nhiều) homestay
+hometown|n|quê nhà
+homework|n|bài tập về nhà
+honest|adj|thật thà (to be honest: thành thật mà nói)
+honestly|adv|thành thật mà nói
+honey|n|mật ong
+honeymoon|n|tuần trăng mật
+hook|n|cái móc
+hope|v|hy vọng
+hopeful|adj|đầy hy vọng
+horror|n|kinh dị
+hospital|n|bệnh viện
+hospitalize|v|cho nhập viện
+host|n|chủ nhà; người dẫn chương trình
+hostel|n|nhà nghỉ giá rẻ (ở phòng tập thể)
+hot|adj|nóng; cay
+hotel|n|khách sạn
+hotter|adj|nóng hơn
+hour|n|giờ
+house|n|ngôi nhà
+household|adj|thuộc gia đình (household chores: việc nhà)
+houseplant|n|cây trồng trong nhà
+housewarming|n|tiệc tân gia
+housework|n|việc nhà
+housing|n|nhà ở
+how|adv|như thế nào
+however|adv|tuy nhiên
+howl|v|hú (gió, chó)
+hug|v|ôm
+huge|adj|rất lớn
+humid|adj|ẩm ướt, oi
+humor|n|sự hài hước
+hundred|num|một trăm
+hungry|adj|đói
+hurry|v|vội vàng
+hurt|v|làm đau; bị đau
+husband|n|chồng
+hydrate|v|cấp nước (stay hydrated: uống đủ nước)
+hype|n|sự thổi phồng, quảng bá rầm rộ
+i|pron|tôi
+ice|n|đá, băng
+iceberg|n|tảng băng trôi
+idea|n|ý tưởng
+ideal|adj|lý tưởng
+ideally|adv|lý tưởng nhất là
+identical|adj|giống hệt
+identification|n|sự nhận dạng; giấy tờ tùy thân
+identity|n|danh tính
+if|conj|nếu
+image|n|hình ảnh
+imagine|v|tưởng tượng
+immediately|adv|ngay lập tức
+impact|n|tác động
+importance|n|tầm quan trọng
+important|adj|quan trọng
+importantly|adv|quan trọng là
+impossible|adj|không thể
+impress|v|gây ấn tượng
+impression|n|ấn tượng
+improve|v|cải thiện
+improvement|n|sự cải thiện
+impulse|n|sự bốc đồng (impulse buy: mua theo cảm hứng)
+in|prep|trong, ở
+incident|n|sự việc, sự cố
+include|v|bao gồm
+inclusive|adj|bao gồm (all-inclusive: trọn gói)
+income|n|thu nhập
+inconvenience|n|sự bất tiện
+inconvenient|adj|bất tiện
+increase|v|tăng
+incredible|adj|đáng kinh ngạc
+incredibly|adv|cực kỳ
+independent|adj|độc lập
+indicate|v|chỉ ra, cho biết
+individual|adj|riêng lẻ; n: cá nhân
+individually|adv|riêng từng cái
+indoor|adj|trong nhà
+indoors|adv|ở trong nhà
+industrial|adj|thuộc công nghiệp
+industry|n|ngành công nghiệp
+influencer|n|người có ảnh hưởng (trên mạng)
+information|n|thông tin
+infrastructure|n|cơ sở hạ tầng
+ing|n|(đuôi -ing của động từ)
+ingredient|n|nguyên liệu
+injure|v|làm bị thương
+inside|prep|bên trong
+insist|v|khăng khăng, nài nỉ
+inspect|v|kiểm tra
+inspection|n|sự kiểm tra
+inspire|v|truyền cảm hứng
+install|v|cài đặt; lắp đặt
+installment|n|khoản trả góp
+instance|n|ví dụ (for instance: chẳng hạn)
+instant|adj|ăn liền; tức thì
+instantly|adv|ngay lập tức
+instead|adv|thay vào đó
+instruction|n|hướng dẫn
+instrumental|adj|(nhạc) không lời
+insurance|n|bảo hiểm
+intelligence|n|trí thông minh (artificial intelligence: trí tuệ nhân tạo)
+intense|adj|dữ dội, mãnh liệt
+interactive|adj|tương tác
+interest|n|sự quan tâm; sở thích; lãi suất
+interior|n|nội thất; bên trong
+international|adj|quốc tế
+internationally|adv|ở phạm vi quốc tế
+internet|n|mạng internet
+internship|n|kỳ thực tập
+intersection|n|ngã tư
+interview|n|cuộc phỏng vấn
+interviewer|n|người phỏng vấn
+into|prep|vào trong
+introduce|v|giới thiệu
+invest|v|đầu tư
+investment|n|khoản đầu tư
+investor|n|nhà đầu tư
+invite|v|mời
+involve|v|liên quan; bao gồm
+iron|n|bàn là; sắt
+island|n|hòn đảo
+isolate|v|cô lập
+issue|n|vấn đề
+it|pron|nó
+item|n|món đồ, mục
+itinerary|n|lịch trình
+its|det|của nó
+itself|pron|chính nó
+jack|n|giắc cắm; cái kích (xe)
+jacket|n|áo khoác
+jam|n|mứt; sự ùn tắc (traffic jam: kẹt xe)
+jar|n|cái lọ, hũ

@@ -382,6 +382,7 @@ def validate(questions, answers, sources, class_q):
 
 # ---------------------------------------------------------------- outputs
 from vocab_build import build_vocab, app_payload  # noqa: E402
+from dict_build import build_dict  # noqa: E402
 
 
 def write_jsonl(path, rows):
@@ -488,6 +489,10 @@ def main():
     results["vocab_complete"] = "FAIL" if any(i["check"] == "vocab_complete" for i in issues) else "PASS"
     results["vocab_user_app_kept"] = "PASS" if vstats["from_app"] == 618 else "FAIL"
 
+    # ---- từ điển tra từ
+    dstats = build_dict(issue)
+    results["dict_glossary"] = "FAIL" if any(i["check"].startswith("dict_") and i["severity"] == "FAIL" for i in issues) else "PASS"
+
     write_jsonl(KB / "05_QUESTION_BANK_SEED.jsonl", questions)
     write_jsonl(KB / "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", answers)
     write_jsonl(KB / "12_CLASS_QUESTION_BANK.jsonl", class_q)
@@ -580,8 +585,10 @@ def main():
             "sample_answer_sets": len(sets),
             "sources": len(sources),
             "vocab_items": vstats["total"],
+            "dict_gloss_entries": dstats["gloss_entries"],
         },
         "vocab": vstats,
+        "dictionary": dstats,
         "questions_by_topic": dict(Counter(q["topic"] for q in questions)),
         "questions_by_prompt_type": dict(Counter(q["prompt_type"] for q in questions)),
         "questions_by_category": dict(Counter(q["topic_category"] for q in questions)),

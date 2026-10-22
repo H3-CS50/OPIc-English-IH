@@ -1,0 +1,480 @@
+pedestrian|n|người đi bộ
+pediatrician|n|bác sĩ nhi khoa
+peer|n|người đồng trang lứa
+pencil|n|bút chì
+peninsula|n|bán đảo
+penny|n|đồng xu (worth every penny: đáng từng đồng)
+people|n|mọi người, người ta
+per|prep|mỗi
+percent|n|phần trăm
+perfect|adj|hoàn hảo
+perfectly|adv|một cách hoàn hảo
+perform|v|biểu diễn; thực hiện
+performance|n|buổi biểu diễn; hiệu suất
+perhaps|adv|có lẽ
+period|n|giai đoạn, khoảng thời gian
+person|n|người
+personal|adj|cá nhân
+personality|n|tính cách
+personally|adv|về phần tôi; trực tiếp
+perspective|n|góc nhìn
+pesticide|n|thuốc trừ sâu
+pet|n|thú cưng
+pharmacy|n|hiệu thuốc
+phish|v|lừa đảo lấy thông tin (phishing)
+pho|n|phở
+phone|n|điện thoại
+photo|n|bức ảnh
+physical|adj|thuộc thể chất
+physically|adv|về mặt thể chất
+piano|n|đàn piano
+pick|v|chọn; hái (pick up: đón; nhặt)
+pickup|n|việc đón (pick-up service: dịch vụ đưa đón/thu gom)
+picnic|n|chuyến dã ngoại
+picture|n|bức tranh, ảnh
+piece|n|mảnh, miếng; món (đồ)
+pile|n|đống
+pink|adj|màu hồng
+pizza|n|bánh pizza
+place|n|nơi chốn
+plain|adj|đơn giản, trơn
+plan|n|kế hoạch; v: lên kế hoạch
+plane|n|máy bay
+plant|n|cây; nhà máy; v: trồng
+plastic|n|nhựa
+plate|n|đĩa
+play|v|chơi; n: vở kịch
+playe|v|(dạng sai của play) chơi
+player|n|người chơi; cầu thủ
+playground|n|sân chơi
+playlist|n|danh sách phát (nhạc)
+please|adv|làm ơn; v: làm hài lòng
+plot|n|cốt truyện
+plumber|n|thợ sửa ống nước
+plus|conj|thêm vào đó
+pocket|n|túi (quần, áo)
+podcast|n|chương trình podcast
+point|n|điểm; ý
+poison|n|chất độc (food poisoning: ngộ độc thực phẩm)
+police|n|cảnh sát
+policy|n|chính sách
+polite|adj|lịch sự
+politely|adv|một cách lịch sự
+politics|n|chính trị
+pollute|v|làm ô nhiễm
+pollution|n|sự ô nhiễm
+polo|n|áo polo; môn polo
+pool|n|bể bơi
+poor|adj|nghèo; kém
+pop|n|nhạc pop; v: ghé qua (pop in)
+popcorn|n|bỏng ngô
+popular|adj|phổ biến, được ưa chuộng
+population|n|dân số
+pork|n|thịt lợn
+portable|adj|di động, xách tay
+portion|n|khẩu phần
+portrait|n|chân dung
+position|n|vị trí
+positive|adj|tích cực
+possible|adj|có thể
+post|v|đăng (bài); n: bài đăng
+postcard|n|bưu thiếp
+poster|n|áp phích
+postpone|v|hoãn
+posture|n|tư thế
+pot|n|nồi; chậu
+pour|v|đổ, rót; (mưa) như trút
+power|n|năng lượng, điện; quyền lực
+practical|adj|thực tế
+practically|adv|gần như; về mặt thực tế
+practice|v|luyện tập
+praise|v|khen ngợi
+pray|v|cầu nguyện
+pre|adj|(tiền tố) trước — pre-order: đặt trước
+predictable|adj|dễ đoán
+prefer|v|thích hơn
+preferably|adv|tốt nhất là
+preferr|v|(dạng sai của prefer) thích hơn
+pregnancy|n|thai kỳ
+preparation|n|sự chuẩn bị
+prepare|v|chuẩn bị
+prepay|v|trả trước
+prescription|n|đơn thuốc
+present|n|món quà; hiện tại; v: trình bày
+presentation|n|bài thuyết trình
+president|n|tổng thống; chủ tịch
+press|v|nhấn
+pressure|n|áp lực
+pretend|v|giả vờ
+pretty|adv|khá; adj: xinh
+prevent|v|ngăn ngừa
+price|n|giá
+pricey|adj|đắt đỏ
+print|v|in
+prioritize|v|ưu tiên
+priority|n|sự ưu tiên
+privacy|n|quyền riêng tư
+private|adj|riêng tư
+prize|n|giải thưởng
+pro|n|ưu điểm (pros and cons); dân chuyên nghiệp
+probably|adv|có lẽ
+problem|n|vấn đề
+procedure|n|thủ tục, quy trình
+process|n|quy trình
+produce|v|sản xuất
+producer|n|nhà sản xuất
+product|n|sản phẩm
+production|n|sự sản xuất
+professional|adj|chuyên nghiệp
+program|n|chương trình
+progress|n|sự tiến bộ
+project|n|dự án
+promise|v|hứa
+promote|v|thăng chức; quảng bá
+promotion|n|sự thăng chức; khuyến mãi
+proper|adj|đúng, phù hợp
+properly|adv|đúng cách
+propose|v|đề xuất; cầu hôn
+protect|v|bảo vệ
+protective|adj|bảo hộ (protective equipment: đồ bảo hộ)
+proud|adj|tự hào
+prove|v|chứng minh
+provide|v|cung cấp
+province|n|tỉnh
+pub|n|quán rượu
+public|adj|công cộng
+publish|v|xuất bản, đăng
+pull|v|kéo
+purchase|v|mua; n: món hàng đã mua
+purely|adv|hoàn toàn, thuần túy
+purifier|n|máy lọc (air purifier: máy lọc không khí)
+purpose|n|mục đích
+push|v|đẩy
+put|v|đặt, để
+puzzle|n|câu đố; trò ghép hình
+quality|n|chất lượng
+quarter|n|một phần tư; quý
+question|n|câu hỏi
+queue|n|hàng (người xếp hàng)
+quick|adj|nhanh
+quickly|adv|nhanh chóng
+quiet|adj|yên tĩnh
+quit|v|từ bỏ; nghỉ việc
+quite|adv|khá
+quiz|n|bài kiểm tra nhanh
+rack|n|giá, kệ
+radio|n|đài phát thanh
+raid|n|cuộc đột kích
+rain|n|mưa
+raincoat|n|áo mưa
+rainwater|n|nước mưa
+rainy|adj|có mưa (rainy season: mùa mưa)
+raise|v|nâng lên; nuôi dạy
+range|n|phạm vi; dãy
+rank|v|xếp hạng
+rapper|n|ca sĩ rap
+rare|adj|hiếm
+rarely|adv|hiếm khi
+rate|n|tỷ lệ; giá
+rather|adv|khá; thà (would rather)
+rattle|v|kêu lạch cạch
+raw|adj|sống, chưa nấu
+reach|v|đạt tới; với tới
+react|v|phản ứng
+reaction|n|phản ứng
+read|v|đọc
+reader|n|người đọc
+ready|adj|sẵn sàng
+real|adj|thật
+reality|n|thực tế (reality show: truyền hình thực tế)
+realize|v|nhận ra
+really|adv|thật sự
+rear|adj|phía sau
+rearrange|v|sắp xếp lại
+reason|n|lý do
+reasonable|adj|hợp lý, phải chăng
+receipt|n|hóa đơn, biên lai
+receive|v|nhận
+recent|adj|gần đây
+recently|adv|gần đây
+reception|n|quầy lễ tân; tiệc chiêu đãi
+receptionist|n|lễ tân
+recharge|v|sạc lại; nạp lại năng lượng
+recipe|n|công thức nấu ăn
+recommend|v|giới thiệu, khuyên dùng
+record|v|ghi âm, ghi lại; n: kỷ lục
+recover|v|hồi phục
+recyclable|adj|có thể tái chế
+recycle|v|tái chế
+recycling|n|việc tái chế
+red|adj|màu đỏ
+redecorate|v|trang trí lại
+redo|v|làm lại
+reduce|v|giảm
+refill|v|đổ đầy lại
+refresh|v|làm sảng khoái; làm mới
+refund|n|tiền hoàn lại
+refundable|adj|được hoàn tiền
+refuse|v|từ chối
+regard|n|sự quan tâm (regarding: về việc)
+region|n|vùng, khu vực
+registration|n|sự đăng ký
+regret|v|hối tiếc
+regular|adj|thường xuyên; n: khách quen
+regularly|adv|thường xuyên
+regulation|n|quy định
+relate|v|liên quan; đồng cảm (relate to)
+relationship|n|mối quan hệ
+relative|n|họ hàng
+relax|v|thư giãn
+relaxation|n|sự thư giãn
+release|v|phát hành; thả
+reliable|adj|đáng tin cậy
+relief|n|sự nhẹ nhõm
+relieve|v|làm giảm (relieve stress: giảm căng thẳng)
+rely|v|dựa vào
+remember|v|nhớ
+remind|v|nhắc nhở
+reminder|n|lời nhắc
+remote|adj|xa xôi; từ xa (remote control: điều khiển)
+remove|v|loại bỏ
+renew|v|gia hạn
+renovate|v|cải tạo, sửa sang
+rent|n|tiền thuê; v: thuê
+renter|n|người thuê
+repaint|v|sơn lại
+repair|v|sửa chữa
+repeat|v|lặp lại
+rephrase|v|diễn đạt lại
+replace|v|thay thế
+reply|v|trả lời
+report|n|báo cáo
+request|n|yêu cầu
+require|v|yêu cầu, đòi hỏi
+requirement|n|yêu cầu
+reschedule|v|dời lịch
+research|n|nghiên cứu
+reservation|n|sự đặt chỗ
+reset|v|cài đặt lại
+resident|n|cư dân
+residential|adj|thuộc khu dân cư
+resolve|v|giải quyết
+resort|n|khu nghỉ dưỡng
+respect|v|tôn trọng
+respond|v|phản hồi
+responsibility|n|trách nhiệm
+responsible|adj|chịu trách nhiệm
+rest|n|sự nghỉ ngơi; phần còn lại
+restart|v|khởi động lại
+restaurant|n|nhà hàng
+restrict|v|hạn chế
+result|n|kết quả
+retiree|n|người về hưu
+return|v|trở về; trả lại
+reusable|adj|dùng nhiều lần
+reuse|v|tái sử dụng
+review|n|bài đánh giá; v: ôn lại
+reward|n|phần thưởng
+rewind|v|tua lại
+rhythm|n|nhịp điệu
+rice|n|gạo; cơm
+rich|adj|giàu; (đồ ăn) béo, đậm
+rid|v|(get rid of) loại bỏ
+ride|v|đi (xe đạp, xe máy); cưỡi
+right|adj|đúng; bên phải
+ring|v|reo; n: chiếc nhẫn
+rise|v|tăng; mọc
+riser|n|(early riser) người dậy sớm
+risk|n|rủi ro
+ritual|n|nghi lễ
+river|n|sông
+riverbank|n|bờ sông
+road|n|con đường
+roadside|n|ven đường
+roast|v|quay, nướng
+robe|n|áo choàng
+robot|n|người máy (robot vacuum: robot hút bụi)
+rock|n|đá; nhạc rock
+rod|n|cần (fishing rod: cần câu)
+role|n|vai trò (role-play: đóng vai)
+roll|v|lăn; cuộn (spring roll: nem cuốn)
+roller|n|con lăn (roller coaster: tàu lượn siêu tốc)
+romantic|adj|lãng mạn
+roof|n|mái nhà
+rooftop|n|sân thượng
+room|n|phòng; chỗ trống
+rooster|n|gà trống
+root|n|rễ; gốc (root cause: nguyên nhân gốc)
+rotate|v|xoay; luân phiên
+rough|adj|gồ ghề; khó khăn
+round|adj|tròn (round-trip: khứ hồi)
+route|n|tuyến đường
+routine|n|thói quen hằng ngày
+row|n|hàng, dãy
+royal|adj|thuộc hoàng gia
+rude|adj|thô lỗ
+ruin|v|làm hỏng
+rule|n|quy tắc
+run|v|chạy; vận hành
+rural|adj|thuộc nông thôn
+rush|v|vội vàng (rush hour: giờ cao điểm)
+sack|n|bao tải
+sadly|adv|đáng buồn là
+safe|adj|an toàn
+safety|n|sự an toàn
+salad|n|món rau trộn
+salary|n|lương
+sale|n|đợt giảm giá; sự bán
+sales|n|doanh số; bộ phận bán hàng
+salesperson|n|nhân viên bán hàng
+salmon|n|cá hồi
+salt|n|muối
+same|adj|giống nhau
+sample|n|mẫu
+sampling|n|việc lấy mẫu
+sand|n|cát
+sandal|n|dép xăng-đan
+sandcastle|n|lâu đài cát
+sandwich|n|bánh mì kẹp
+satisfy|v|làm hài lòng
+sauce|n|nước sốt
+sauna|n|phòng xông hơi
+sausage|n|xúc xích
+save|v|tiết kiệm; cứu; lưu
+savings|n|tiền tiết kiệm
+savory|adj|mặn, đậm vị
+savvy|adj|am hiểu (tech-savvy: rành công nghệ)
+saw|v|(quá khứ của see) đã thấy
+say|v|nói
+scam|n|vụ lừa đảo
+scammer|n|kẻ lừa đảo
+scan|v|quét
+scare|v|làm sợ
+scarf|n|khăn quàng
+scary|adj|đáng sợ
+scene|n|cảnh
+scenery|n|phong cảnh
+schedule|n|lịch trình
+school|n|trường học
+science|n|khoa học
+scooter|n|xe tay ga
+scorch|v|làm cháy sém (scorching hot: nóng như thiêu)
+score|n|điểm số
+scrap|n|mảnh vụn, phế liệu
+scratch|n|vết xước (from scratch: từ đầu)
+screen|n|màn hình
+screw|n|đinh vít
+scroll|v|cuộn (màn hình)
+scuba|n|lặn có bình dưỡng khí
+sea|n|biển
+seafood|n|hải sản
+search|v|tìm kiếm
+season|n|mùa
+seat|n|chỗ ngồi
+second|num|thứ hai; n: giây
+secretly|adv|một cách bí mật
+section|n|phần, khu vực
+security|n|an ninh
+sedentary|adj|ít vận động
+see|v|nhìn thấy; gặp
+seem|v|có vẻ
+sell|v|bán
+seller|n|người bán
+semiconductor|n|chất bán dẫn
+send|v|gửi
+sense|n|cảm giác; giác quan (sense of humor: khiếu hài hước)
+separate|adj|riêng biệt; v: tách
+serial|adj|nối tiếp (serial number: số sê-ri)
+series|n|loạt; phim bộ
+serious|adj|nghiêm trọng; nghiêm túc
+seriously|adv|nghiêm túc
+serve|v|phục vụ
+service|n|dịch vụ
+session|n|buổi, phiên
+set|v|đặt; n: bộ
+setting|n|cài đặt; bối cảnh
+settle|v|ổn định (settle down)
+seven|num|bảy
+several|det|vài
+severe|adj|nghiêm trọng, khắc nghiệt
+shade|n|bóng râm
+shady|adj|có bóng râm
+shake|v|lắc; rung
+shallow|adj|nông
+shape|n|hình dạng (in shape: khỏe mạnh, cân đối)
+share|v|chia sẻ
+sharp|adj|sắc; (giờ) đúng
+she|pron|cô ấy
+sheet|n|tờ; ga trải giường
+shelf|n|cái kệ
+shell|n|vỏ (sò, ốc)
+shelve|v|xếp lên kệ
+shift|n|ca làm việc
+ship|v|giao hàng, vận chuyển; n: con tàu
+shipment|n|lô hàng
+shirt|n|áo sơ mi
+shock|n|cú sốc
+shoe|n|giày
+shook|v|(quá khứ của shake) đã lắc, rung
+shop|n|cửa hàng; v: mua sắm
+shopper|n|người mua sắm
+shore|n|bờ (biển, hồ)
+short|adj|ngắn; thấp
+should|aux|nên
+shout|v|hét
+show|v|cho xem; n: chương trình
+shower|n|vòi sen; sự tắm
+shred|v|xé nhỏ, thái sợi
+shrimp|n|con tôm
+shut|v|đóng
+shuttle|n|xe đưa đón (shuttle bus)
+shy|adj|nhút nhát
+sick|adj|ốm
+side|n|bên, phía
+sidewalk|n|vỉa hè
+sightsee|v|đi ngắm cảnh (sightseeing: tham quan)
+sign|n|biển báo; dấu hiệu; v: ký
+signal|n|tín hiệu
+signature|n|chữ ký; (signature dish) món đặc trưng
+significant|adj|đáng kể
+silence|n|sự im lặng
+similar|adj|giống nhau, tương tự
+similarity|n|điểm giống nhau
+simple|adj|đơn giản
+simply|adv|đơn giản là
+since|prep|từ khi; vì
+sing|v|hát
+singe|v|làm cháy xém
+singer|n|ca sĩ
+single|adj|đơn; độc thân
+sink|n|bồn rửa; v: chìm
+sister|n|chị gái, em gái
+sit|v|ngồi
+site|n|địa điểm; trang web
+sitting|n|việc ngồi
+situation|n|tình huống
+six|num|sáu
+sixtieth|num|thứ sáu mươi
+sixty|num|sáu mươi
+size|n|kích cỡ
+skate|v|trượt pa-tanh, trượt băng
+ski|v|trượt tuyết
+skill|n|kỹ năng
+skincare|n|chăm sóc da
+skinny|adj|gầy
+skip|v|bỏ qua
+sky|n|bầu trời
+sleep|v|ngủ
+sleeper|n|giường nằm (sleeper bus: xe giường nằm)
+sleepy|adj|buồn ngủ
+slice|n|lát mỏng
+slide|n|cầu trượt; trang chiếu
+slideshow|n|trình chiếu ảnh
+slightly|adv|hơi, một chút
+slip|v|trượt chân
+slipper|n|dép đi trong nhà
+slippery|adj|trơn
+slope|n|dốc
+slow|adj|chậm
+slowly|adv|chậm rãi
+small|adj|nhỏ

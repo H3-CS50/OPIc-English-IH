@@ -1,14 +1,15 @@
 // Tab 📒 Từ vựng — tích hợp app OPIc AL Vocab (618 mục gốc) + phần mở rộng có nguồn.
 import { $, escapeHtml as esc, toast } from './util.js';
+import { dictResultsHTML, bindDictResults } from './lookup.js';
 import { kb } from './data.js';
 import { speak } from './speech.js';
 import {
   TOPICS, ALL, S, saveState, isNew, isLearned, isDue, st, grade, resetProgress, stats, studyQueue, quiz, search, speakable,
-  ORIGINAL_COUNT, migrateOldFlashcards,
+  ORIGINAL_COUNT, migrateOldFlashcards, MY_TOPIC, removeMyWord,
 } from './vocab-core.js';
 
 const SRC = new Map(kb.sources.map((s) => [s.source_id, s]));
-const srcLabel = (id) => (id === 'SRC-U16' ? 'bộ OPIc AL Vocab của bạn' : id === 'SRC-AI-0002' ? 'flashcard v1 của app' : SRC.get(id)?.publisher_or_author || id);
+const srcLabel = (id) => (id === 'mine' ? 'bạn tự lưu khi tra từ' : id === 'SRC-U16' ? 'bộ OPIc AL Vocab của bạn' : id === 'SRC-AI-0002' ? 'flashcard v1 của app' : SRC.get(id)?.publisher_or_author || id);
 
 let stack = [];
 let cur = { v: 'home', q: '' };
@@ -34,17 +35,19 @@ const topbar = (title, right = '') =>
 // ---------- Trang chủ ----------
 function homeHTML() {
   const s = stats();
-  const extra = ALL.length - ORIGINAL_COUNT;
+  const mine = MY_TOPIC.items.length;
+  const extra = ALL.length - ORIGINAL_COUNT - mine;
   return `
   <div class="v-head"><h2>📒 Từ vựng OPIc</h2>
-    <p class="muted small">${ALL.length} từ &amp; cụm từ · ${TOPICS.length} chủ đề · gồm ${ORIGINAL_COUNT} mục từ app OPIc AL Vocab và ${extra} mục bổ sung</p></div>
+    <p class="muted small">${ALL.length - mine} từ &amp; cụm từ · ${TOPICS.length - 1} chủ đề · gồm ${ORIGINAL_COUNT} mục từ app OPIc AL Vocab và ${extra} mục bổ sung${mine ? ` · ⭐ ${mine} từ trong Sổ từ` : ''}</p></div>
   <div class="stat-row"><div class="stat"><b>${s.learned}</b><span>Đã thuộc</span></div><div class="stat"><b>${s.seen}</b><span>Đã học</span></div><div class="stat"><b>${s.due}</b><span>Cần ôn</span></div></div>
   <div class="row"><button class="btn primary" data-v="study" data-k="all">▶ Học hôm nay</button><button class="btn" data-v="quiz" data-k="all">🎯 Kiểm tra 10 câu</button></div>
   <div class="banner small">💡 Mỗi ngày: ôn hết thẻ đến hạn + ${S.set.newPer} từ mới. Khi lật thẻ, đọc to câu ví dụ 2–3 lần rồi tự đặt 1 câu về bản thân. Không cụm từ nào tự làm bạn lên điểm — dùng đúng lúc, đúng chức năng mới có tác dụng.</div>
-  <input type="search" id="v-search" placeholder="🔍 Tìm từ (Anh hoặc Việt)…" value="${esc(cur.q || '')}">
+  <input type="search" id="v-search" placeholder="🔍 Tra từ điển Anh ↔ Việt, tìm cụm từ…" value="${esc(cur.q || '')}" autocapitalize="off" autocomplete="off">
+  <p class="muted small v-tip-tap">👆 Mẹo: chạm vào bất kỳ từ tiếng Anh nào trong app (câu hỏi, bài mẫu, ví dụ) để xem phiên âm và nghĩa.</p>
   <div id="v-results"></div>
   <div class="list-section">Chủ đề</div>
-  ${TOPICS.map(deckRow).join('')}
+  ${[MY_TOPIC, ...TOPICS.filter((t) => t !== MY_TOPIC)].filter((t) => t.items.length).map(deckRow).join('')}
   <div class="list-section">Cài đặt</div>
   ${settingsHTML()}`;
 }
@@ -76,8 +79,16 @@ function settingsHTML() {
 function fillResults() {
   const el = $('v-results');
   if (!el) return;
-  const r = search(cur.q || '');
-  el.innerHTML = (cur.q || '').trim() ? `<p class="muted small">${r.length} kết quả</p>` + r.slice(0, 50).map(itemRow).join('') : '';
+  const q = (cur.q || '').trim();
+  if (!q) {
+    el.innerHTML = '';
+    return;
+  }
+  const r = search(q);
+  const dict = dictResultsHTML(q);
+  el.innerHTML = dict + (r.length ? `<div class="list-section">📒 Trong bộ Từ vựng (${r.length})</div>` + r.slice(0, 50).map(itemRow).join('') : '') ||
+    '<p class="muted small">Không tìm thấy. Thử gõ từ khác, hoặc gõ không dấu.</p>';
+  bindDictResults(el);
 }
 
 // ---------- Học ----------
@@ -163,7 +174,7 @@ function quizHTML() {
     })
     .join('')}</div>
   ${c.pick >= 0
-    ? `${it.ex ? `<div class="card v-ex-box" data-v="say" data-id="${it.idx}" data-f="ex">🔊 ${esc(it.ex)}</div>` : ''}<button class="btn primary btn-block" data-v="next">${c.i + 1 < c.qs.length ? 'Câu tiếp →' : 'Xem kết quả'}</button>`
+    ? `${it.ex ? `<div class="card v-ex-box"><button class="btn small-btn" data-v="say" data-id="${it.idx}" data-f="ex" aria-label="Nghe">🔊</button> <span class="v-ex">${esc(it.ex)}</span></div>` : ''}<button class="btn primary btn-block" data-v="next">${c.i + 1 < c.qs.length ? 'Câu tiếp →' : 'Xem kết quả'}</button>`
     : ''}`;
 }
 
@@ -193,7 +204,7 @@ function quizDone() {
 // ---------- Xem danh sách ----------
 function listHTML() {
   const t = TOPICS[cur.k];
-  const srcs = [...new Set(t.items.flatMap((it) => it.s))].map(srcLabel);
+  const srcs = t.mine ? ['từ bạn lưu khi chạm tra từ'] : [...new Set(t.items.flatMap((it) => it.s))].map(srcLabel);
   return `${topbar(`${t.icon} ${t.vi}`, `${t.items.length} mục`)}
   <p class="muted small">Nguồn: ${esc(srcs.join(' · '))}. Câu ví dụ do AI viết, chưa có giáo viên duyệt.</p>
   <input type="search" id="v-filter" placeholder="🔍 Lọc trong chủ đề…" value="${esc(cur.q || '')}">
@@ -211,9 +222,9 @@ function itemRow(it) {
   return `<div class="v-item"><div class="v-it-main">
     <div class="v-it-en"><i class="v-dot ${dot}"></i>${esc(it.en)}${it.new ? ' <span class="chip chip-new">mới</span>' : ''}</div>
     <div class="v-it-vi">${esc(it.vi)}</div>
-    ${it.ex ? `<div class="v-it-ex" data-v="say" data-id="${it.idx}" data-f="ex">${esc(it.ex)}</div>` : ''}
+    ${it.ex ? `<div class="v-it-ex">${esc(it.ex)}</div>` : ''}
     ${it.n ? `<div class="v-it-note">💡 ${esc(it.n)}</div>` : ''}
-  </div><button class="btn small-btn" data-v="say" data-id="${it.idx}" data-f="en" aria-label="Nghe">🔊</button></div>`;
+  </div><div class="v-it-btns"><button class="btn small-btn" data-v="say" data-id="${it.idx}" data-f="en" aria-label="Nghe từ">🔊</button>${it.ex ? `<button class="btn small-btn" data-v="say" data-id="${it.idx}" data-f="ex" aria-label="Nghe câu ví dụ">▶ câu</button>` : ''}${it.mine ? `<button class="btn small-btn" data-v="unmine" data-id="${it.idx}" aria-label="Bỏ khỏi Sổ từ">✕</button>` : ''}</div></div>`;
 }
 
 // ---------- Render & sự kiện ----------
@@ -227,6 +238,7 @@ function render() {
       cur.q = e.target.value;
       fillResults();
     });
+    $('v-results').addEventListener('ipa-ready', fillResults);
   } else if (cur.v === 'study') root.innerHTML = studyHTML();
   else if (cur.v === 'quiz') root.innerHTML = quizHTML();
   else if (cur.v === 'list') {
@@ -261,6 +273,13 @@ function onClick(e) {
     const c = cur;
     back();
     (c.v === 'quiz' ? startQuiz : startStudy)(c.k);
+  } else if (v === 'unmine') {
+    const it = ALL[Number(b.dataset.id)];
+    if (it?.mine) {
+      removeMyWord(it.en);
+      toast(`Đã bỏ "${it.en}" khỏi Sổ từ.`);
+      render();
+    }
   } else if (v === 'say') {
     const it = ALL[Number(b.dataset.id)];
     say(b.dataset.f === 'ex' ? it.ex : it.en);

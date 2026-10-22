@@ -1,0 +1,440 @@
+jazz|n|nhạc jazz
+jeans|n|quần bò, quần jean
+jet|n|máy bay phản lực (jet lag: mệt do lệch múi giờ)
+job|n|công việc
+jog|v|chạy bộ chậm
+join|v|tham gia
+joke|n|câu đùa
+juicy|adj|mọng nước
+jump|v|nhảy
+junk|n|đồ bỏ đi (junk food: đồ ăn vặt không lành mạnh)
+just|adv|vừa mới; chỉ
+karaoke|n|karaoke
+keep|v|giữ; tiếp tục
+kettle|n|ấm đun nước
+key|n|chìa khóa; adj: then chốt
+khaki|adj|màu kaki
+kid|n|đứa trẻ
+kill|v|giết (kill time: giết thời gian)
+kilo|n|ki-lô-gam
+kilometer|n|ki-lô-mét
+kimchi|n|kim chi
+kind|n|loại; adj: tử tế
+kindergarten|n|trường mẫu giáo
+kitchen|n|nhà bếp
+kite|n|cái diều
+knee|n|đầu gối
+knock|v|gõ; đánh đổ (knock over)
+know|v|biết
+knowledge|n|kiến thức
+kumquat|n|cây quất
+kung|n|(kung fu) võ công phu
+label|n|nhãn
+lack|n|sự thiếu
+lag|n|độ trễ (jet lag: mệt do lệch múi giờ)
+lake|n|hồ
+laminate|v|ép plastic, ép lớp
+lamp|n|đèn bàn, đèn
+land|n|đất; v: hạ cánh
+landlord|n|chủ nhà (cho thuê)
+landmark|n|địa danh nổi bật
+landscape|n|phong cảnh
+landslide|n|sạt lở đất
+lane|n|làn đường; ngõ nhỏ
+language|n|ngôn ngữ
+lantern|n|đèn lồng
+laptop|n|máy tính xách tay
+large|adj|lớn
+last|adj|cuối cùng; trước (last week: tuần trước); v: kéo dài
+late|adj|muộn
+lately|adv|gần đây
+laugh|v|cười
+launch|v|ra mắt
+laundry|n|quần áo cần giặt; việc giặt giũ
+law|n|luật
+lawn|n|bãi cỏ
+lay|v|đặt, để
+layer|n|lớp
+layout|n|cách bố trí
+layover|n|thời gian quá cảnh
+lead|v|dẫn dắt; dẫn đến
+leader|n|người lãnh đạo, trưởng nhóm
+leak|v|rò rỉ
+lean|v|dựa vào; adj: (thịt) nạc
+learn|v|học
+leather|n|da (thuộc)
+leave|v|rời đi; để lại; n: kỳ nghỉ phép
+left|adj|bên trái; (quá khứ của leave) đã rời đi
+leftover|n|đồ ăn thừa
+leg|n|chân
+legend|n|truyền thuyết; huyền thoại
+leisure|n|thời gian rảnh
+lemon|n|chanh vàng
+less|adj|ít hơn
+lesson|n|bài học
+let|v|để, cho phép
+letter|n|lá thư; chữ cái
+lettuce|n|rau xà lách
+level|n|cấp độ, mức
+library|n|thư viện
+license|n|giấy phép (driver's license: bằng lái)
+lie|v|nằm; nói dối
+life|n|cuộc sống
+lifeguard|n|nhân viên cứu hộ
+lifestyle|n|lối sống
+lifetime|n|cả đời
+lift|v|nâng lên
+light|n|ánh sáng; đèn; adj: nhẹ
+lightning|n|tia chớp
+like|v|thích; prep: giống như
+likely|adj|có khả năng
+lime|n|chanh (xanh)
+limestone|n|đá vôi
+limit|n|giới hạn
+line|n|hàng; dòng; tuyến
+link|n|đường liên kết
+lion|n|sư tử (lion dance: múa lân)
+list|n|danh sách
+listen|v|nghe
+literally|adv|theo nghĩa đen; thực sự
+litter|n|rác vứt bừa bãi
+little|adj|nhỏ; ít
+live|v|sống; adj: trực tiếp
+lively|adj|sôi động
+livestream|n|phát trực tiếp
+living|n|cuộc sống, sinh kế (living room: phòng khách)
+lobby|n|sảnh
+local|adj|địa phương
+locate|v|đặt ở, tọa lạc
+location|n|vị trí
+lock|v|khóa
+log|v|ghi lại (log in: đăng nhập)
+logical|adj|hợp lý
+logo|n|biểu tượng, logo
+long|adj|dài; lâu
+look|v|nhìn; trông có vẻ
+loop|n|vòng lặp
+loose|adj|lỏng; rộng
+lose|v|mất; thua
+lot|n|nhiều (a lot of); bãi (parking lot: bãi đỗ xe)
+loud|adj|to, ồn
+love|v|yêu, rất thích
+lover|n|người yêu thích (music lover: người mê nhạc)
+low|adj|thấp
+loyal|adj|trung thành
+luck|n|sự may mắn
+luckily|adv|may mắn là
+lucky|adj|may mắn
+luggage|n|hành lý
+lunch|n|bữa trưa
+lunchtime|n|giờ ăn trưa
+luxurious|adj|sang trọng
+luxury|n|sự xa xỉ; adj: cao cấp
+lyric|n|lời bài hát
+machine|n|máy móc
+magical|adj|kỳ diệu
+main|adj|chính
+mainly|adv|chủ yếu
+maintain|v|duy trì; bảo dưỡng
+maintenance|n|sự bảo trì
+major|adj|chính, lớn; n: chuyên ngành
+make|v|làm, tạo ra
+mall|n|trung tâm thương mại
+man|n|người đàn ông
+manage|v|quản lý; xoay xở được
+management|n|ban quản lý; sự quản lý
+manager|n|quản lý
+mango|n|xoài
+manufacturer|n|nhà sản xuất
+manufacturing|n|sản xuất
+many|det|nhiều
+map|n|bản đồ
+marathon|n|cuộc chạy marathon
+marinate|v|ướp
+mark|n|dấu; điểm
+market|n|chợ; thị trường
+marriage|n|hôn nhân
+marry|v|kết hôn
+mask|n|khẩu trang; mặt nạ
+mat|n|tấm thảm nhỏ, chiếu
+match|n|trận đấu; v: hợp với
+material|n|vật liệu; tài liệu
+math|n|môn toán
+matter|v|quan trọng; n: vấn đề
+mattress|n|đệm, nệm
+may|aux|có thể; (May) tháng Năm
+maybe|adv|có lẽ
+meal|n|bữa ăn
+mean|v|có nghĩa là; adj: xấu tính
+meaningful|adj|ý nghĩa
+means|n|phương tiện, cách thức
+meanwhile|adv|trong khi đó
+meat|n|thịt
+mechanic|n|thợ máy
+medical|adj|thuộc y tế
+medicine|n|thuốc; y học
+meditation|n|thiền
+medium|adj|trung bình, vừa
+meet|v|gặp
+meeting|n|cuộc họp
+melody|n|giai điệu
+melt|v|tan chảy
+member|n|thành viên
+membership|n|tư cách hội viên
+memorable|adj|đáng nhớ
+memory|n|kỷ niệm; trí nhớ
+mental|adj|thuộc tinh thần
+mentally|adv|về mặt tinh thần
+mention|v|đề cập
+menu|n|thực đơn
+mess|n|sự bừa bộn
+message|n|tin nhắn
+messy|adj|bừa bộn
+metal|n|kim loại
+meter|n|mét; đồng hồ đo
+metro|n|tàu điện, đường sắt đô thị
+mi|n|(tiếng Việt) mì — banh mi: bánh mì
+microwave|n|lò vi sóng
+mid|adj|giữa (mid-autumn: trung thu)
+middle|n|ở giữa
+midnight|n|nửa đêm
+might|aux|có thể (khả năng thấp)
+milk|n|sữa
+million|num|triệu
+mind|n|tâm trí; v: phiền (do you mind...?)
+mine|pron|của tôi
+minimum|n|mức tối thiểu
+minister|n|bộ trưởng
+minor|adj|nhỏ, không đáng kể
+minority|n|thiểu số (ethnic minority: dân tộc thiểu số)
+minute|n|phút
+miss|v|nhớ; lỡ (chuyến xe); trượt
+mistake|n|lỗi sai
+misunderstanding|n|sự hiểu lầm
+mix|v|trộn
+mixe|v|(dạng sai của mix) trộn
+mobile|adj|di động
+mode|n|chế độ
+model|n|mẫu; người mẫu
+modern|adj|hiện đại
+mom|n|mẹ
+moment|n|khoảnh khắc
+money|n|tiền
+monk|n|nhà sư
+month|n|tháng
+monthly|adj|hằng tháng
+mood|n|tâm trạng
+moon|n|mặt trăng
+mooncakes|n|bánh trung thu
+moonlight|n|ánh trăng
+mop|v|lau nhà; n: cây lau nhà
+more|adj|nhiều hơn
+morning|n|buổi sáng
+mosquito|n|con muỗi
+most|adj|nhiều nhất; hầu hết
+mostly|adv|chủ yếu
+motel|n|nhà nghỉ ven đường
+mother|n|mẹ
+motivate|v|tạo động lực
+motorbike|n|xe máy
+mountain|n|núi
+mountainous|adj|nhiều núi
+mouth|n|miệng
+move|v|di chuyển; chuyển nhà
+movie|n|bộ phim
+much|adj|nhiều
+mud|n|bùn
+muddy|adj|lầy lội
+multinational|adj|đa quốc gia
+multitask|v|làm nhiều việc cùng lúc
+muscle|n|cơ bắp
+muscular|adj|cơ bắp
+museum|n|bảo tàng
+music|n|âm nhạc
+musician|n|nhạc sĩ
+must|aux|phải
+my|det|của tôi
+myself|pron|chính tôi
+name|n|tên
+nap|n|giấc ngủ ngắn
+narrow|adj|hẹp
+nation|n|quốc gia
+national|adj|thuộc quốc gia
+natural|adj|tự nhiên
+naturally|adv|một cách tự nhiên
+nature|n|thiên nhiên
+navy|adj|xanh nước biển đậm
+near|prep|gần
+nearby|adj|gần đó
+nearly|adv|gần như
+necessary|adj|cần thiết
+need|v|cần
+negative|adj|tiêu cực
+neighbor|n|hàng xóm
+neighborhood|n|khu phố, khu dân cư
+neighbourhood|n|(Anh–Anh) khu phố
+neither|det|không ... cũng không
+nerve|n|thần kinh; sự can đảm
+nervous|adj|lo lắng, hồi hộp
+net|n|lưới; mạng
+neutral|adj|trung lập
+never|adv|không bao giờ
+new|adj|mới
+newly|adv|mới (newly built: mới xây)
+news|n|tin tức
+newspaper|n|tờ báo
+newsstand|n|sạp báo
+next|adj|tiếp theo; bên cạnh
+nice|adj|đẹp, dễ chịu; tử tế
+nicely|adv|một cách tốt đẹp
+night|n|ban đêm
+nightmare|n|cơn ác mộng
+nine|num|chín
+ninety|num|chín mươi
+no|det|không
+nobody|pron|không ai
+noise|n|tiếng ồn
+noisy|adj|ồn ào
+non|adj|không (non-stop: không ngừng)
+none|pron|không cái nào
+noodle|n|mì, bún, phở (sợi)
+noon|n|buổi trưa
+nor|conj|cũng không
+normal|adj|bình thường
+normally|adv|thường thì
+north|n|phía bắc
+northern|adj|thuộc phía bắc
+not|adv|không
+note|n|ghi chú
+notebook|n|sổ ghi chép
+nothing|pron|không có gì
+notice|v|để ý; n: thông báo
+noticeably|adv|một cách rõ rệt
+notification|n|thông báo
+novel|n|tiểu thuyết
+now|adv|bây giờ
+nowadays|adv|ngày nay
+nowhere|adv|không nơi nào (in the middle of nowhere: ở nơi khỉ ho cò gáy)
+number|n|số
+nutrition|n|dinh dưỡng
+nutshell|n|(in a nutshell) tóm lại
+o'clock|adv|giờ (đúng)
+obesity|n|bệnh béo phì
+observe|v|quan sát
+obsess|v|ám ảnh
+obvious|adj|rõ ràng
+occasion|n|dịp
+occur|v|xảy ra
+ocean|n|đại dương
+of|prep|của
+off|adv|tắt; nghỉ (day off: ngày nghỉ)
+offer|v|đề nghị; cung cấp
+office|n|văn phòng
+officer|n|cán bộ, viên chức
+official|adj|chính thức
+often|adv|thường
+oh|int|ồ
+oil|n|dầu
+okay|adj|ổn, được
+old|adj|cũ; già
+olive|n|ô liu
+on|prep|trên; vào (ngày)
+once|adv|một lần; từng
+one|num|một
+onion|n|hành tây
+online|adj|trực tuyến
+only|adv|chỉ
+onto|prep|lên trên
+open|v|mở
+openly|adv|công khai, cởi mở
+opinion|n|ý kiến
+option|n|lựa chọn
+optional|adj|không bắt buộc
+or|conj|hoặc
+orange|n|quả cam; màu cam
+order|v|gọi món, đặt hàng; n: thứ tự
+ordinary|adj|bình thường
+organic|adj|hữu cơ
+organization|n|tổ chức
+organize|v|tổ chức; sắp xếp
+orientation|n|buổi định hướng
+original|adj|nguyên bản, gốc
+other|adj|khác
+otherwise|adv|nếu không thì
+our|det|của chúng tôi
+ours|pron|của chúng tôi
+ourselves|pron|chính chúng tôi
+out|adv|ra ngoài
+outage|n|sự cố mất (điện, mạng)
+outbreak|n|sự bùng phát (dịch)
+outdoor|adj|ngoài trời
+outfit|n|bộ trang phục
+outgo|v|(outgoing) hướng ngoại; xuất đi
+outside|adv|bên ngoài
+over|prep|trên; hơn; qua
+overall|adv|nhìn chung
+overcrowd|v|quá tải người (overcrowded: quá đông)
+overload|v|làm quá tải
+overnight|adv|qua đêm
+overpass|n|cầu vượt
+overrate|v|đánh giá quá cao (overrated: được khen quá lời)
+overseas|adv|ở nước ngoài
+oversize|adj|quá khổ
+overtime|n|giờ làm thêm
+overwhelming|adj|choáng ngợp
+owe|v|nợ
+own|adj|của riêng; v: sở hữu
+owner|n|chủ sở hữu
+oyster|n|con hàu
+p|n|(p.m.) buổi chiều/tối
+pace|n|nhịp độ
+pack|v|đóng gói; xếp hành lý
+package|n|gói hàng; gói (package tour: tour trọn gói)
+packaging|n|bao bì, việc đóng gói
+page|n|trang
+pagoda|n|chùa
+pain|n|cơn đau
+painful|adj|đau đớn
+paint|v|sơn; vẽ
+pair|n|đôi
+palace|n|cung điện
+palm|n|cây cọ; lòng bàn tay
+pancake|n|bánh kếp
+pandemic|n|đại dịch
+panel|n|tấm, bảng (solar panel: tấm pin mặt trời)
+panic|n|sự hoảng loạn
+panick|v|(dạng của panic) hoảng loạn
+pants|n|quần dài
+papaya|n|đu đủ
+paper|n|giấy
+paperwork|n|giấy tờ, thủ tục
+parade|n|cuộc diễu hành
+parasite|n|ký sinh trùng
+parent|n|bố hoặc mẹ (parents: bố mẹ)
+park|n|công viên; v: đỗ xe
+part|n|phần
+partial|adj|một phần
+particular|adj|cụ thể, đặc biệt
+particularly|adv|đặc biệt là
+partly|adv|một phần
+partner|n|đối tác; bạn đời
+party|n|bữa tiệc
+pass|v|đi qua; trôi qua; đậu (thi)
+passport|n|hộ chiếu
+password|n|mật khẩu
+past|n|quá khứ
+pate|n|pa-tê
+path|n|lối đi, con đường nhỏ
+patience|n|sự kiên nhẫn
+patient|adj|kiên nhẫn; n: bệnh nhân
+patiently|adv|kiên nhẫn
+pattaya|n|Pattaya (thành phố biển ở Thái Lan)
+pattern|n|họa tiết; mô hình
+pause|v|tạm dừng
+pave|v|lát (đường)
+pay|v|trả tiền
+payment|n|sự thanh toán
+peace|n|hòa bình; sự yên bình
+peaceful|adj|yên bình
+peach|n|quả đào (peach blossom: hoa đào)
+peak|n|đỉnh; cao điểm (peak season: mùa cao điểm)

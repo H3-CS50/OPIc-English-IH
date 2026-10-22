@@ -1,0 +1,422 @@
+# Nghĩa tiếng Việt (AI soạn, 2026-10-22) cho từ gốc xuất hiện trong nội dung app.
+# Mỗi dòng: từ|loại từ|nghĩa (các nghĩa cách nhau bằng "; ")
+a|det|một; mỗi
+able|adj|có thể, có khả năng
+about|prep|về; khoảng
+above|prep|ở trên; hơn
+abroad|adv|ở nước ngoài, ra nước ngoài
+absorb|v|hấp thụ; thu hút (sự chú ý)
+accept|v|chấp nhận
+access|n|sự truy cập, quyền sử dụng
+accessible|adj|dễ tiếp cận, dễ sử dụng
+accessory|n|phụ kiện
+accident|n|tai nạn; sự tình cờ
+accidentally|adv|vô tình, tình cờ
+accommodation|n|chỗ ở
+accord|n|sự phù hợp (according to: theo như)
+account|n|tài khoản; sự giải thích
+accurate|adj|chính xác
+accurately|adv|một cách chính xác
+achievement|n|thành tựu
+acoustic|adj|(nhạc) mộc, không dùng điện
+across|prep|ngang qua; ở phía bên kia
+act|v|hành động; đóng vai, diễn
+action|n|hành động
+active|adj|năng động, tích cực
+actively|adv|một cách tích cực
+activity|n|hoạt động
+actor|n|nam diễn viên
+actress|n|nữ diễn viên
+actually|adv|thực ra, thật ra
+ad|n|quảng cáo
+add|v|thêm vào; cộng
+addicted|adj|nghiện
+addition|n|sự thêm vào (in addition: ngoài ra)
+address|n|địa chỉ
+admire|v|ngưỡng mộ
+admit|v|thừa nhận; cho vào
+adult|n|người lớn
+advance|n|sự tiến bộ (in advance: trước)
+advantage|n|lợi thế, ưu điểm
+adventure|n|cuộc phiêu lưu
+advertise|v|quảng cáo
+advertisement|n|quảng cáo
+advice|n|lời khuyên
+affect|v|ảnh hưởng đến
+afford|v|có đủ khả năng (chi trả)
+affordable|adj|giá phải chăng
+afraid|adj|sợ; e rằng
+after|prep|sau, sau khi
+afternoon|n|buổi chiều
+afterwards|adv|sau đó
+again|adv|lại, lần nữa
+against|prep|chống lại; dựa vào
+age|n|tuổi; thời đại
+agency|n|đại lý, công ty dịch vụ
+agent|n|người đại lý, nhân viên
+aging|adj|già đi, đang già hóa
+ago|adv|cách đây (thời gian)
+agree|v|đồng ý
+ahead|adv|phía trước; trước
+aim|v|nhắm đến, hướng tới
+air|n|không khí
+airline|n|hãng hàng không
+airport|n|sân bay
+aisle|n|lối đi (giữa các hàng ghế, kệ hàng)
+alarm|n|chuông báo, báo thức
+album|n|album (ảnh, nhạc)
+alcohol|n|rượu, cồn
+alcoholic|adj|có cồn
+all|det|tất cả
+alley|n|ngõ, hẻm
+almost|adv|gần như, suýt
+alone|adj|một mình
+along|prep|dọc theo
+already|adv|đã, rồi
+also|adv|cũng
+alternative|n|phương án khác, lựa chọn thay thế
+although|conj|mặc dù
+always|adv|luôn luôn
+amaze|v|làm kinh ngạc
+amazing|adj|tuyệt vời, đáng kinh ngạc
+among|prep|trong số, giữa
+amount|n|số lượng
+analysis|n|sự phân tích
+ancestor|n|tổ tiên
+and|conj|và
+angle|n|góc, góc độ
+angry|adj|tức giận
+animal|n|động vật
+animate|v|làm hoạt hình; làm sinh động
+animation|n|hoạt hình
+anise|n|hồi (gia vị)
+anniversary|n|ngày kỷ niệm
+announcement|n|thông báo
+annoy|v|làm phiền, làm bực mình
+annual|adj|hằng năm
+another|det|một ... khác
+answer|n|câu trả lời
+anxious|adj|lo lắng
+any|det|bất kỳ; nào (câu hỏi, phủ định)
+anymore|adv|nữa (phủ định)
+anyone|pron|bất kỳ ai
+anything|pron|bất cứ thứ gì
+anytime|adv|bất cứ lúc nào
+anyway|adv|dù sao thì
+anywhere|adv|bất cứ đâu
+ao|n|(tiếng Việt) áo — ao dai: áo dài
+apart|adv|cách nhau; riêng ra
+apartment|n|căn hộ
+apologize|v|xin lỗi
+app|n|ứng dụng
+apparently|adv|hóa ra, nghe nói là
+appliance|n|thiết bị gia dụng
+application|n|ứng dụng; đơn xin
+apply|v|nộp đơn; áp dụng
+appointment|n|cuộc hẹn
+appreciate|v|cảm kích, trân trọng
+apricot|n|quả mơ
+area|n|khu vực
+argue|v|tranh cãi
+argument|n|cuộc tranh cãi; lý lẽ
+arise|v|nảy sinh
+around|prep|xung quanh; khoảng
+arrange|v|sắp xếp
+arrangement|n|sự sắp xếp
+arrive|v|đến nơi
+art|n|nghệ thuật
+article|n|bài báo
+artificial|adj|nhân tạo
+artist|n|nghệ sĩ, họa sĩ
+as|conj|như; vì; khi
+aside|adv|sang một bên
+ask|v|hỏi; yêu cầu
+asleep|adj|đang ngủ
+assemble|v|lắp ráp; tập hợp
+assembly|n|sự lắp ráp (assembly line: dây chuyền lắp ráp)
+assistant|n|trợ lý
+at|prep|tại, ở; vào lúc
+atmosphere|n|bầu không khí
+attend|v|tham dự
+attention|n|sự chú ý
+attract|v|thu hút
+attraction|n|điểm tham quan; sự hấp dẫn
+attractive|adj|hấp dẫn
+audience|n|khán giả
+audit|n|cuộc kiểm tra, kiểm toán
+aunt|n|cô, dì, bác gái
+authentication|n|sự xác thực
+authority|n|nhà chức trách; quyền lực
+automatic|adj|tự động
+automatically|adv|một cách tự động
+automation|n|tự động hóa
+autumn|n|mùa thu
+ava|n|Ava (nhân vật hỏi bài trong OPIc)
+available|adj|có sẵn, còn trống
+avoid|v|tránh
+aware|adj|nhận thức được, biết
+awareness|n|nhận thức
+away|adv|xa, đi khỏi
+awesome|adj|tuyệt vời
+awkward|adj|ngượng ngùng, khó xử
+back|adv|trở lại; phía sau
+background|n|bối cảnh, lý lịch
+backpack|n|ba lô
+backpacking|n|du lịch bụi
+backup|n|bản sao lưu; phương án dự phòng
+backyard|n|sân sau
+bacterium|n|vi khuẩn
+bad|adj|xấu, tệ
+badminton|n|cầu lông
+bag|n|túi, cặp
+baggage|n|hành lý
+bake|v|nướng (bánh)
+bakery|n|tiệm bánh
+balance|n|sự cân bằng
+balcony|n|ban công
+ball|n|quả bóng
+ballad|n|bản ballad (nhạc chậm, trữ tình)
+balloon|n|bóng bay
+bamboo|n|tre
+banana|n|chuối
+band|n|ban nhạc
+bang|n|tiếng nổ lớn
+banh|n|(tiếng Việt) bánh
+bank|n|ngân hàng; bờ sông
+banking|n|ngân hàng (dịch vụ)
+banner|n|băng rôn
+bar|n|quán bar; thanh
+barbecue|n|tiệc nướng, đồ nướng
+barber|n|thợ cắt tóc
+barely|adv|vừa đủ, hầu như không
+bargain|n|món hời; v: mặc cả
+barrier|n|rào cản
+base|n|nền tảng, cơ sở
+baseball|n|bóng chày
+basement|n|tầng hầm
+basic|adj|cơ bản
+basically|adv|về cơ bản
+basics|n|những điều cơ bản
+basket|n|giỏ, rổ
+batch|n|lô, mẻ
+bath|n|sự tắm; bồn tắm
+bathroom|n|phòng tắm
+battery|n|pin
+be|v|thì, là, ở
+beach|n|bãi biển
+bean|n|hạt đậu
+beat|v|đánh bại; đập
+beautiful|adj|đẹp
+because|conj|bởi vì
+become|v|trở nên, trở thành
+bed|n|giường
+bedroom|n|phòng ngủ
+beef|n|thịt bò
+beer|n|bia
+before|prep|trước, trước khi
+begin|v|bắt đầu
+beginner|n|người mới bắt đầu
+beginning|n|lúc đầu, phần mở đầu
+behave|v|cư xử
+behavior|n|hành vi, cách cư xử
+behind|prep|phía sau
+belief|n|niềm tin
+believable|adj|đáng tin
+believe|v|tin
+belly|n|bụng
+belong|v|thuộc về
+below|prep|ở dưới
+belt|n|thắt lưng
+bench|n|ghế dài
+bend|v|uốn cong; cúi
+benefit|n|lợi ích; phúc lợi
+besides|adv|ngoài ra
+between|prep|giữa
+bicycle|n|xe đạp
+big|adj|to, lớn
+bigger|adj|to hơn
+bike|n|xe đạp; xe máy (nói thân mật)
+bill|n|hóa đơn
+bin|n|thùng rác, thùng chứa
+binge|v|làm quá đà (binge-watch: xem liền một mạch)
+bird|n|con chim
+birth|n|sự ra đời
+birthday|n|sinh nhật
+bit|n|một chút
+black|adj|màu đen
+blackboard|n|bảng đen
+blanket|n|chăn
+blast|n|vụ nổ; (have a blast) vui hết cỡ
+blender|n|máy xay sinh tố
+block|n|khối; dãy nhà; v: chặn
+blockbuster|n|phim bom tấn
+blood|n|máu
+blossom|n|hoa (của cây ăn quả)
+blow|v|thổi
+blue|adj|màu xanh dương; buồn
+blur|v|làm mờ
+blurry|adj|mờ, nhòe
+board|n|tấm bảng; v: lên (tàu, xe)
+boat|n|thuyền
+body|n|cơ thể
+boil|v|đun sôi, luộc
+bone|n|xương
+bonfire|n|lửa trại
+bonus|n|tiền thưởng
+book|n|sách; v: đặt (vé, phòng)
+booking|n|sự đặt chỗ
+bookshelf|n|giá sách
+bookstore|n|hiệu sách
+boot|n|ủng, bốt
+booth|n|quầy, gian hàng, buồng
+border|n|biên giới
+bore|v|làm chán
+boring|adj|nhàm chán
+born|adj|được sinh ra
+borrow|v|mượn
+boss|n|sếp
+both|det|cả hai
+bother|v|làm phiền; bận tâm
+bottle|n|chai
+bottom|n|đáy, phần dưới cùng
+bowl|n|cái bát, tô
+box|n|hộp
+boy|n|cậu bé, con trai
+braise|v|om, kho
+branch|n|cành cây; chi nhánh
+brand|n|thương hiệu
+brave|adj|dũng cảm
+bread|n|bánh mì
+break|v|làm vỡ, hỏng; n: giờ nghỉ
+breakdown|n|sự hỏng hóc; sự suy sụp
+breakfast|n|bữa sáng
+breath|n|hơi thở
+breathing|n|sự thở
+breathtaking|adj|đẹp ngoạn mục
+breed|n|giống (vật nuôi)
+breeze|n|gió nhẹ
+brick|n|gạch
+bride|n|cô dâu
+bridge|n|cây cầu
+brief|adj|ngắn gọn
+bright|adj|sáng; thông minh
+bring|v|mang đến
+broad|adj|rộng
+broadcast|v|phát sóng
+broke|adj|cháy túi, hết tiền
+broom|n|cái chổi
+broth|n|nước dùng
+brother|n|anh trai, em trai
+brown|adj|màu nâu
+browse|v|lướt xem
+bubble|n|bong bóng (bubble tea: trà sữa trân châu)
+bucket|n|cái xô
+budget|n|ngân sách
+buffalo|n|con trâu
+buffet|n|tiệc đứng, buffet
+build|v|xây dựng
+building|n|tòa nhà
+bumpy|adj|gập ghềnh, xóc
+bun|n|bánh mì tròn nhỏ; (tiếng Việt) bún
+bungalow|n|nhà gỗ một tầng (ở khu nghỉ dưỡng)
+burning|adj|đang cháy; nóng rát
+burr|int|brr (tiếng rùng mình vì lạnh)
+burst|v|vỡ tung, bùng nổ
+bus|n|xe buýt
+business|n|việc kinh doanh; công việc
+bustle|n|sự nhộn nhịp
+busy|adj|bận rộn; đông đúc
+but|conj|nhưng
+button|n|nút bấm; cúc áo
+buy|v|mua
+buyer|n|người mua
+buying|n|việc mua
+buzz|n|tiếng vo ve; sự náo nhiệt
+by|prep|bởi; bằng; cạnh; trước (thời hạn)
+cabin|n|cabin; nhà gỗ nhỏ
+cabinet|n|tủ (có ngăn, cánh)
+cable|n|dây cáp (cable car: cáp treo)
+cafe|n|quán cà phê
+cafeteria|n|căng tin
+cake|n|bánh ngọt
+calendar|n|lịch
+call|v|gọi; gọi điện
+calm|adj|bình tĩnh
+calmly|adv|một cách bình tĩnh
+calorie|n|calo
+camera|n|máy ảnh
+camp|v|cắm trại; n: trại
+campaign|n|chiến dịch
+campsite|n|khu cắm trại
+can|aux|có thể; n: lon
+cancel|v|hủy
+cancellation|n|sự hủy bỏ
+candidate|n|ứng viên
+candle|n|cây nến
+candlelight|n|ánh nến
+candy|n|kẹo
+cannot|aux|không thể
+canteen|n|căng tin
+cap|n|mũ lưỡi trai; nắp
+capital|n|thủ đô; vốn
+car|n|ô tô
+card|n|thẻ; thiệp
+cardboard|n|bìa các-tông
+care|n|sự chăm sóc; v: quan tâm
+career|n|sự nghiệp
+careful|adj|cẩn thận
+carefully|adv|một cách cẩn thận
+carry|v|mang, xách
+cart|n|xe đẩy; giỏ hàng (online)
+cartoon|n|phim hoạt hình
+case|n|trường hợp; cái hộp
+cash|n|tiền mặt
+cashless|adj|không dùng tiền mặt
+cast|n|dàn diễn viên
+casual|adj|thường ngày, thoải mái
+casually|adv|một cách bình thường, thoải mái
+catch|v|bắt; bắt kịp
+catchy|adj|(giai điệu) dễ nhớ, bắt tai
+category|n|loại, hạng mục
+cause|v|gây ra; n: nguyên nhân
+cave|n|hang động
+ceiling|n|trần nhà
+celebrate|v|kỷ niệm, ăn mừng
+celebration|n|lễ kỷ niệm, buổi ăn mừng
+celebrity|n|người nổi tiếng
+cell|n|tế bào (cell phone: điện thoại di động)
+center|n|trung tâm
+central|adj|ở trung tâm
+ceramic|adj|bằng gốm
+certain|adj|chắc chắn; nhất định
+certainly|adv|chắc chắn
+cha|n|(tiếng Việt) chả — bun cha: bún chả
+chain|n|chuỗi (cửa hàng); dây xích
+chair|n|ghế
+challenge|n|thử thách
+chance|n|cơ hội; khả năng
+change|v|thay đổi; n: tiền thừa
+channel|n|kênh
+chaotic|adj|hỗn loạn
+character|n|nhân vật; tính cách
+characteristic|n|đặc điểm
+charge|v|sạc (pin); tính phí
+charger|n|bộ sạc
+charity|n|từ thiện
+chart|n|biểu đồ; bảng xếp hạng
+chase|v|đuổi theo
+chat|v|trò chuyện
+che|n|(tiếng Việt) chè
+cheap|adj|rẻ
+check|v|kiểm tra
+checklist|n|danh sách kiểm tra
+checkout|n|quầy thanh toán; việc trả phòng
+cheer|v|cổ vũ (cheer up: vui lên)
+chemical|n|hóa chất
+cherry|n|quả anh đào
+chi|n|(tên riêng) Chí — Ho Chi Minh
+chicken|n|con gà; thịt gà
+child|n|đứa trẻ
+childhood|n|thời thơ ấu
+chili|n|ớt
+chill|v|làm lạnh; (chill out) thư giãn

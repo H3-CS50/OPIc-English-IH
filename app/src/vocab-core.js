@@ -24,6 +24,45 @@ const BY_ID = new Map(ALL.map((it) => [it.id, it]));
 export const getItem = (id) => BY_ID.get(id);
 export const ORIGINAL_COUNT = ALL.filter((it) => !it.new).length;
 
+// ---------- Sổ từ của tôi (từ người dùng lưu khi tra từ) ----------
+export const MY_TOPIC = { id: 'mine', vi: 'Sổ từ của tôi', icon: '⭐', prompt_types: [], kb_topics: [], idx: TOPICS.length, items: [], mine: true };
+TOPICS.push(MY_TOPIC);
+const myKey = (en) => `mine::${String(en).toLowerCase()}`;
+function reindex() {
+  ALL.forEach((it, i) => (it.idx = i));
+}
+function addMineItem(w) {
+  const item = { id: myKey(w.en), t: MY_TOPIC.idx, en: w.en, vi: w.vi, ex: w.ex || '', n: w.ipa ? `Phiên âm: ${w.ipa}` : '', mine: 1, s: [], topic: MY_TOPIC };
+  item.key = norm(`${item.en} ${item.vi} ${item.ex}`);
+  item.idx = ALL.length;
+  ALL.push(item);
+  MY_TOPIC.items.unshift(item);
+  BY_ID.set(item.id, item);
+  return item;
+}
+for (const w of [...store.get('mywords', [])].reverse()) if (w?.en && w?.vi) addMineItem(w);
+const saveMine = () => store.set('mywords', MY_TOPIC.items.map((it) => ({ en: it.en, vi: it.vi, ex: it.ex, ipa: (it.n || '').replace('Phiên âm: ', '') })));
+export const isMine = (en) => BY_ID.has(myKey(en));
+export function addMyWord({ en, vi, ex = '', ipa = '' }) {
+  if (!en || !vi || isMine(en)) return null;
+  const it = addMineItem({ en, vi, ex, ipa });
+  saveMine();
+  return it;
+}
+export function removeMyWord(en) {
+  const id = myKey(en);
+  const it = BY_ID.get(id);
+  if (!it) return false;
+  ALL.splice(ALL.indexOf(it), 1);
+  MY_TOPIC.items.splice(MY_TOPIC.items.indexOf(it), 1);
+  BY_ID.delete(id);
+  delete S.p[id];
+  reindex();
+  saveMine();
+  saveState();
+  return true;
+}
+
 // ---------- Trạng thái (lưu trên máy) ----------
 const DEFAULT_SET = { dir: 'en', auto: true, rate: 0.9, newPer: 20 };
 export const S = { p: {}, set: { ...DEFAULT_SET } };

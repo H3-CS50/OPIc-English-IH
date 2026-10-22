@@ -1,0 +1,66 @@
+# Tên riêng và từ viết tắt hay gặp trong câu hỏi, bài mẫu.
+january|n|tháng Một
+february|n|tháng Hai
+march|n|tháng Ba; v: diễu hành
+april|n|tháng Tư
+june|n|tháng Sáu
+july|n|tháng Bảy
+august|n|tháng Tám
+september|n|tháng Chín
+october|n|tháng Mười
+november|n|tháng Mười Một
+december|n|tháng Mười Hai
+monday|n|thứ Hai
+tuesday|n|thứ Ba
+wednesday|n|thứ Tư
+thursday|n|thứ Năm
+friday|n|thứ Sáu
+saturday|n|thứ Bảy
+sunday|n|Chủ nhật
+vietnam|n|Việt Nam
+vietnamese|adj|thuộc Việt Nam; n: người Việt, tiếng Việt
+hanoi|n|Hà Nội
+saigon|n|Sài Gòn
+japan|n|Nhật Bản
+japanese|adj|thuộc Nhật Bản; tiếng Nhật
+korea|n|Hàn Quốc
+korean|adj|thuộc Hàn Quốc; tiếng Hàn
+china|n|Trung Quốc
+chinese|adj|thuộc Trung Quốc; tiếng Trung
+thailand|n|Thái Lan
+thai|adj|thuộc Thái Lan; người Thái
+laos|n|Lào
+lao|adj|thuộc Lào
+singapore|n|Singapore
+canada|n|Canada
+europe|n|châu Âu
+asia|n|châu Á
+asian|adj|thuộc châu Á
+english|n|tiếng Anh; adj: thuộc nước Anh
+italian|adj|thuộc Ý; tiếng Ý
+western|adj|thuộc phương Tây
+southeast|n|đông nam (Southeast Asia: Đông Nam Á)
+christmas|n|Lễ Giáng sinh
+halloween|n|lễ Halloween
+thanksgiving|n|Lễ Tạ ơn
+tet|n|Tết (Nguyên đán)
+lunar|adj|thuộc âm lịch (Lunar New Year: Tết Nguyên đán)
+valentine|n|ngày Lễ tình nhân (Valentine's Day)
+buddhist|adj|thuộc đạo Phật
+youtube|n|YouTube (mạng chia sẻ video)
+facebook|n|Facebook (mạng xã hội)
+instagram|n|Instagram (mạng chia sẻ ảnh)
+tiktok|n|TikTok (mạng video ngắn)
+bluetooth|n|kết nối Bluetooth
+atm|n|cây rút tiền ATM
+gps|n|định vị GPS
+tv|n|ti vi
+qr|n|mã QR
+id|n|giấy tờ tùy thân (ID card: căn cước)
+hr|n|phòng nhân sự (Human Resources)
+oqc|n|kiểm tra chất lượng xuất hàng (Outgoing Quality Control)
+wi|n|(Wi-Fi) mạng không dây
+covid|n|COVID-19 (bệnh do virus corona)
+thirtieth|num|thứ ba mươi
+media|n|truyền thông (social media: mạng xã hội)
+ai|n|AI, trí tuệ nhân tạo

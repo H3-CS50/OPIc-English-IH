@@ -265,3 +265,59 @@ export async function grade(settings, ctx, audio, signal) {
     return { error: e instanceof CoachError ? e.message : `Lỗi: ${e?.message || e}` };
   }
 }
+
+// ---------------- Tra từ bằng AI (dùng chung key đã nhập) ----------------
+const WORD_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['headword', 'ipa', 'pos_vi', 'meaning_vi', 'explanation_vi', 'example_en', 'example_vi'],
+  properties: {
+    headword: { type: 'string', description: 'dictionary form of the word or phrase' },
+    ipa: { type: 'string', description: 'General American IPA between slashes, e.g. /ˈwɔːtər/' },
+    pos_vi: { type: 'string', description: 'part of speech in Vietnamese, e.g. danh từ' },
+    meaning_vi: { type: 'string', description: 'short Vietnamese meaning that fits the given sentence' },
+    explanation_vi: { type: 'string', description: '1-2 short Vietnamese sentences on usage, register or common collocations' },
+    example_en: { type: 'string' },
+    example_vi: { type: 'string' },
+  },
+};
+const WORD_SYSTEM =
+  'You are a concise English–Vietnamese learner dictionary for Vietnamese adults preparing for the OPIc speaking test. ' +
+  'Given an English word (and optionally the sentence it appeared in), return its dictionary form, General American IPA, ' +
+  'part of speech and the Vietnamese meaning that fits that sentence. Keep Vietnamese natural and short. ' +
+  'If the word is a proper noun or not English, say so in explanation_vi. Output JSON only.';
+
+export async function lookupWordAI(settings, word, sentence = '') {
+  const user = `WORD: ${word}\nSENTENCE: ${sentence || '(none)'}`;
+  try {
+    if (settings.provider === 'claude') {
+      const key = settings.keys?.claude;
+      if (!key) return { error: 'Chưa có API key Claude. Thêm ở tab Cài đặt.' };
+      const body = { model: settings.models.claude, max_tokens: 1024, system: WORD_SYSTEM, messages: [{ role: 'user', content: user }], output_config: { format: { type: 'json_schema', schema: WORD_SCHEMA } } };
+      const res = await fetch(CLAUDE_URL, { method: 'POST', headers: claudeHeaders(key), body: JSON.stringify(body) }).catch(() => null);
+      if (!res) return { error: 'Không kết nối được tới Claude. Kiểm tra mạng.' };
+      if (!res.ok) return { error: claudeFriendly(res.status, await readError(res)) };
+      const data = await res.json();
+      const text = (data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
+      return { result: parseJson(text) };
+    }
+    if (settings.provider === 'gemini') {
+      const key = settings.keys?.gemini;
+      if (!key) return { error: 'Chưa có API key Gemini. Thêm ở tab Cài đặt.' };
+      const body = {
+        systemInstruction: { parts: [{ text: WORD_SYSTEM }] },
+        contents: [{ role: 'user', parts: [{ text: user }] }],
+        generationConfig: { responseMimeType: 'application/json', temperature: 0.2, maxOutputTokens: 1024, responseJsonSchema: WORD_SCHEMA },
+      };
+      const res = await fetch(geminiUrl(settings.models.gemini), { method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, body: JSON.stringify(body) }).catch(() => null);
+      if (!res) return { error: 'Không kết nối được tới Gemini. Kiểm tra mạng.' };
+      if (!res.ok) return { error: geminiFriendly(res.status, await readError(res)) };
+      const data = await res.json();
+      const text = (data.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('');
+      return { result: parseJson(text) };
+    }
+    return { error: 'Chưa chọn AI. Vào Cài đặt → AI Coach để nhập key Gemini hoặc Claude.' };
+  } catch (e) {
+    return { error: `Lỗi: ${e?.message || e}` };
+  }
+}

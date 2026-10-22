@@ -7,6 +7,9 @@ import { TEMPLATE_HEADER, TEMPLATE_ROWS, xlsxTemplate, csvTemplate, jsonTemplate
 import { readFileSync } from 'node:fs';
 import * as V from '../src/vocab-core.js';
 import vocabData from '../src/vocab.json';
+import * as D from '../src/dict.js';
+import { sentenceAround } from '../src/lookup.js';
+import kbData from '../src/kb.json';
 import { join } from 'node:path';
 import { normalizeResult, buildUserMessage } from '../src/coach.js';
 
@@ -122,7 +125,7 @@ async function templateTests() {
 {
   ok(V.ALL.length === vocabData.items.length && V.ALL.length > 1000, `vocab items ${V.ALL.length}`);
   ok(V.ORIGINAL_COUNT === 618, `618 items from OPIc AL Vocab kept (got ${V.ORIGINAL_COUNT})`);
-  ok(V.TOPICS.length === 24 && V.TOPICS.every((t) => t.items.length > 0), 'vocab topics all non-empty');
+  ok(V.TOPICS.length === 25 && V.TOPICS.filter((t) => !t.mine).every((t) => t.items.length > 0), 'vocab topics all non-empty (+ Sổ từ)');
   ok(V.ALL.every((it) => it.en && it.vi && it.ex), 'every vocab item has meaning + example');
   ok(new Set(V.ALL.map((it) => it.id)).size === V.ALL.length, 'vocab ids unique');
   const now = new Date('2026-10-22T09:00:00').getTime();
@@ -155,6 +158,58 @@ async function templateTests() {
   ok(moved === 2 && V.stats().learned === 2, `old flashcards migrated (${moved})`);
   ok(V.migrateOldFlashcards(now) === 0, 'migration runs once');
   V.resetProgress();
+}
+
+// ---------- Từ điển / tra từ ----------
+{
+  const L = (w) => D.lookupWord(w).lemma;
+  const cases = { went: 'go', children: 'child', studies: 'study', running: 'run', making: 'make', stopped: 'stop', biggest: 'big', happier: 'happy', cities: 'city', "I'm": 'i', "can't": 'can', tried: 'try', leaves: 'leave', better: 'better' };
+  for (const [w, want] of Object.entries(cases)) {
+    const got = L(w);
+    ok(got === want || (w === 'better' && got), `lemma ${w} → ${want} (got ${got})`);
+  }
+  // Mọi từ trong nội dung app phải tra được nghĩa (trừ tên riêng / chữ tiếng Việt không dấu)
+  const texts = [];
+  for (const q of kbData.questions) texts.push(q.question_text, q.sample_ih || '');
+  for (const st of kbData.answer_sets) for (const l of Object.values(st.levels)) texts.push(l.text);
+  for (const it of vocabData.items) texts.push(it.en, it.ex);
+  const forms = new Map();
+  for (const t of texts) for (const m of t.matchAll(/[A-Za-z]+(?:'[a-z]+)?/g)) {
+    const w = m[0];
+    const mid = m.index > 0 && !/[.!?"]\s*$/.test(t.slice(Math.max(0, m.index - 3), m.index));
+    const k = w.toLowerCase();
+    const f = forms.get(k) || { n: 0, cap: 0 };
+    f.n++;
+    if (/^[A-Z]/.test(w) && mid) f.cap++;
+    forms.set(k, f);
+  }
+  const miss = [];
+  let covered = 0;
+  let total = 0;
+  for (const [w, f] of forms) {
+    if (f.cap >= Math.max(1, 0.8 * f.n) && w !== 'i') continue; // tên riêng
+    total++;
+    if (D.lookupWord(w).entry) covered++;
+    else miss.push(w);
+  }
+  const pct = covered / total;
+  ok(pct >= 0.985, `dictionary covers ${(pct * 100).toFixed(1)}% of word forms in app content; missing e.g. ${miss.slice(0, 40).join(', ')}`);
+  if (process.env.DICT_MISS) console.log('MISS', miss.join(' '));
+  ok(D.searchDict('bank')[0]?.w === 'bank', 'dict search EN exact first');
+  ok(D.searchDict('ngan hang').some((r) => r.w === 'bank'), 'dict search VI (no diacritics) → bank');
+  ok(D.searchDict('đi').slice(0, 5).some((r) => r.w === 'go'), 'dict search VI → go in top 5');
+  ok(D.searchDict('di').length > 0, 'ascii query still works');
+  ok(D.searchDict('studies').some((r) => r.w === 'study'), 'dict search inflected form → lemma');
+  const ipaText = readFileSync(join(process.env.FIXTURES, '..', '..', 'www', 'dict', 'ipa-en.txt'), 'utf8');
+  ok(D.setIpaText(ipaText) > 100000, 'IPA loaded');
+  ok(/^\/.+\/$/.test(D.ipaOf('hello')) && !/ɹ|ɫ/.test(D.ipaOf('really')), `IPA hello ${D.ipaOf('hello')} / really ${D.ipaOf('really')}`);
+  ok(D.ipaOf('went', 'go') === D.ipaOf('went') && D.ipaOf('xyzq', 'go') === D.ipaOf('go'), 'IPA falls back to lemma');
+  ok(sentenceAround('I live in Hanoi. It was raining when I left. Then I came back.', 'raining') === 'It was raining when I left.', 'sentence around tapped word');
+  const n0 = V.ALL.length;
+  const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });
+  ok(it && V.isMine('reluctant') && V.ALL.length === n0 + 1 && V.MY_TOPIC.items.length === 1, 'add to Sổ từ');
+  ok(V.addMyWord({ en: 'reluctant', vi: 'x' }) === null, 'no duplicate in Sổ từ');
+  ok(V.removeMyWord('reluctant') && V.ALL.length === n0 && V.ALL.every((x, i) => x.idx === i), 'remove from Sổ từ + reindex');
 }
 
 templateTests()

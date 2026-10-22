@@ -1,0 +1,551 @@
+smart|adj|thông minh
+smartphone|n|điện thoại thông minh
+smartwatch|n|đồng hồ thông minh
+smell|v|ngửi; có mùi; n: mùi
+smile|v|cười, mỉm cười
+smog|n|khói bụi
+smoking|n|việc hút thuốc
+smoothly|adv|suôn sẻ
+snack|n|đồ ăn vặt
+snail|n|con ốc sên
+sneaker|n|giày thể thao
+snow|n|tuyết
+so|adv|rất; vì vậy
+soak|v|ngâm; làm ướt sũng
+soap|n|xà phòng
+soccer|n|bóng đá
+social|adj|thuộc xã hội (social media: mạng xã hội)
+socialize|v|giao lưu
+society|n|xã hội
+soda|n|nước ngọt có ga
+sofa|n|ghế sofa
+soft|adj|mềm
+software|n|phần mềm
+solar|adj|thuộc mặt trời (solar panel: tấm pin mặt trời)
+sole|adj|duy nhất; n: đế giày
+solution|n|giải pháp
+solve|v|giải quyết
+some|det|một vài, một ít
+someday|adv|một ngày nào đó
+somehow|adv|bằng cách nào đó
+someone|pron|ai đó
+something|pron|cái gì đó
+sometimes|adv|đôi khi
+somewhere|adv|ở đâu đó
+son|n|con trai
+song|n|bài hát
+soon|adv|sớm
+sore|adj|đau (sore throat: đau họng)
+sorry|adj|xin lỗi; tiếc
+sort|n|loại (sort of: kiểu như); v: phân loại
+sound|n|âm thanh; v: nghe có vẻ
+soundtrack|n|nhạc phim
+soup|n|súp, canh
+sour|adj|chua
+source|n|nguồn
+south|n|phía nam
+southern|adj|thuộc phía nam
+souvenir|n|quà lưu niệm
+space|n|không gian, khoảng trống
+spacious|adj|rộng rãi
+spam|n|tin rác
+spare|adj|dư, rảnh (spare time: thời gian rảnh)
+speak|v|nói
+speaker|n|người nói; loa
+special|adj|đặc biệt
+specialize|v|chuyên về
+specialty|n|đặc sản; chuyên môn
+specific|adj|cụ thể
+specifically|adv|cụ thể là
+specification|n|thông số kỹ thuật
+speech|n|bài phát biểu
+speechless|adj|không nói nên lời
+spend|v|tiêu (tiền); dành (thời gian)
+spice|n|gia vị
+spicy|adj|cay
+spiky|adj|có gai, lởm chởm
+spill|v|làm đổ, tràn
+split|v|chia (split the bill: chia tiền)
+splurge|v|vung tiền
+spoil|v|làm hỏng; chiều hư
+spoiler|n|tiết lộ nội dung phim
+spoon|n|cái thìa
+sport|n|thể thao
+spot|n|chỗ, điểm
+spotless|adj|sạch bong
+spray|v|xịt, phun
+spread|v|lan truyền; trải ra
+spring|n|mùa xuân; lò xo
+sprout|n|mầm (bean sprouts: giá đỗ)
+square|n|quảng trường; hình vuông
+squeeze|v|vắt; chen chúc
+squid|n|con mực
+stable|adj|ổn định
+stack|n|chồng, đống
+staff|n|nhân viên
+stage|n|sân khấu; giai đoạn
+stain|n|vết bẩn
+stair|n|bậc thang (stairs: cầu thang)
+stall|n|quầy hàng, sạp
+stand|v|đứng; chịu đựng (can't stand)
+standard|n|tiêu chuẩn
+star|n|ngôi sao
+start|v|bắt đầu
+startup|n|công ty khởi nghiệp
+starve|v|đói lả
+state|n|trạng thái; bang
+station|n|nhà ga, trạm
+stay|v|ở lại; giữ (stay healthy)
+steam|v|hấp
+steep|adj|dốc
+step|n|bước
+stew|n|món hầm
+stick|v|dính; bám (stick to: kiên trì với)
+sticker|n|nhãn dán
+sticky|adj|dính
+still|adv|vẫn
+stir|v|khuấy (stir-fried: xào)
+stock|n|hàng tồn kho (out of stock: hết hàng)
+stomachache|n|đau bụng
+stool|n|ghế đẩu
+stop|v|dừng; n: điểm dừng
+storage|n|kho chứa; bộ nhớ lưu trữ
+store|n|cửa hàng; v: lưu trữ
+storm|n|cơn bão
+story|n|câu chuyện; tầng nhà
+stove|n|bếp (lò)
+straight|adv|thẳng
+strain|n|sự căng (eye strain: mỏi mắt)
+strange|adj|lạ
+stranger|n|người lạ
+strategy|n|chiến lược
+straw|n|ống hút; rơm
+stream|v|phát trực tuyến; n: dòng suối
+street|n|đường phố
+stress|n|căng thẳng
+stressful|adj|gây căng thẳng
+stretch|v|giãn cơ, duỗi
+strict|adj|nghiêm khắc
+strike|v|đánh; (bão) đổ bộ
+strong|adj|mạnh; (cà phê) đậm
+strongly|adv|mạnh mẽ
+student|n|học sinh, sinh viên
+studio|n|xưởng; căn hộ một phòng
+study|v|học
+stuff|n|đồ đạc, thứ
+stun|v|làm sững sờ (stunning: tuyệt đẹp)
+stunt|n|pha mạo hiểm
+style|n|phong cách
+stylish|adj|sành điệu
+sua|n|(tiếng Việt) sữa — ca phe sua da: cà phê sữa đá
+subscription|n|gói đăng ký
+suburb|n|ngoại ô
+subway|n|tàu điện ngầm
+success|n|sự thành công
+successful|adj|thành công
+such|det|như vậy, thật là
+sudden|adj|đột ngột
+suddenly|adv|đột nhiên
+sugar|n|đường
+sugary|adj|nhiều đường
+suggest|v|gợi ý
+suggestion|n|lời gợi ý
+suit|v|phù hợp; n: bộ com-lê
+suitable|adj|phù hợp
+suitcase|n|va li
+sum|v|(sum up) tóm tắt
+summer|n|mùa hè
+sun|n|mặt trời
+sunbathe|v|tắm nắng
+sunny|adj|nắng
+sunrise|n|bình minh
+sunscreen|n|kem chống nắng
+sunset|n|hoàng hôn
+super|adv|siêu, cực kỳ
+superhero|n|siêu anh hùng
+supermarket|n|siêu thị
+supervisor|n|người giám sát
+supplier|n|nhà cung cấp
+support|v|hỗ trợ
+supportive|adj|hay ủng hộ, hỗ trợ
+suppose|v|cho là
+sure|adj|chắc chắn
+surf|v|lướt sóng; lướt (web)
+surface|n|bề mặt
+surgery|n|ca phẫu thuật
+surprise|n|sự ngạc nhiên; v: làm ngạc nhiên
+surprisingly|adv|đáng ngạc nhiên là
+surround|v|bao quanh
+survey|n|khảo sát
+survive|v|sống sót
+suspicious|adj|đáng ngờ
+swap|v|đổi
+sweat|n|mồ hôi; v: đổ mồ hôi
+sweater|n|áo len
+sweaty|adj|đẫm mồ hôi
+sweep|v|quét
+sweet|adj|ngọt; dễ thương
+swim|v|bơi
+swimsuit|n|đồ bơi
+swing|n|cái xích đu
+swinge|v|(dạng sai) — xem swing
+switch|v|chuyển, đổi; n: công tắc
+system|n|hệ thống
+table|n|cái bàn
+tablecloth|n|khăn trải bàn
+tablet|n|máy tính bảng; viên thuốc
+taboo|n|điều kiêng kỵ
+tackle|v|giải quyết (vấn đề)
+tai|n|(tên riêng) — Tai, Thái
+take|v|cầm, lấy; mất (thời gian); đi (xe)
+takeaway|n|đồ ăn mang đi
+talk|v|nói chuyện
+talkative|adj|nói nhiều
+tall|adj|cao
+tank|n|bình chứa (fill up the tank: đổ đầy bình)
+tap|n|vòi nước; v: chạm nhẹ
+tape|n|băng dính
+target|n|mục tiêu, chỉ tiêu
+task|n|nhiệm vụ
+taste|n|vị; v: nếm
+tasty|adj|ngon
+taxi|n|xe taxi
+tea|n|trà
+teach|v|dạy
+teacher|n|giáo viên
+team|n|đội, nhóm
+teamwork|n|làm việc nhóm
+tease|v|trêu chọc
+tech|n|công nghệ (viết tắt)
+technician|n|kỹ thuật viên
+technology|n|công nghệ
+teenager|n|thanh thiếu niên
+television|n|ti vi, truyền hình
+tell|v|kể; bảo
+teller|n|giao dịch viên (ngân hàng)
+temperature|n|nhiệt độ
+temple|n|đền
+temporarily|adv|tạm thời
+ten|num|mười
+tend|v|có xu hướng
+tender|adj|mềm (thịt)
+tense|adj|căng thẳng
+tent|n|cái lều
+tenth|num|thứ mười
+term|n|thuật ngữ; kỳ hạn (in terms of: về mặt)
+terrace|n|sân hiên; ruộng bậc thang (rice terraces)
+terrible|adj|tồi tệ
+terrify|v|làm khiếp sợ
+test|n|bài kiểm tra
+text|n|văn bản; tin nhắn
+th|n|(đuôi số thứ tự: 5th, 10th...)
+than|conj|hơn
+thank|v|cảm ơn
+thanks|int|cảm ơn
+that|det|đó, kia; conj: rằng
+thatch|n|mái tranh
+the|det|(mạo từ xác định)
+theater|n|nhà hát; rạp chiếu phim
+their|det|của họ
+theme|n|chủ đề (theme park: công viên giải trí)
+themselves|pron|chính họ
+then|adv|sau đó; lúc đó
+theoretical|adj|thuộc lý thuyết
+there|adv|ở đó
+they|pron|họ
+thick|adj|dày
+thin|adj|mỏng; gầy
+thing|n|thứ, điều
+think|v|nghĩ
+thinke|v|(dạng sai của think) nghĩ
+third|num|thứ ba
+thirteen|num|mười ba
+thirty|num|ba mươi
+this|det|này
+though|conj|mặc dù; adv: tuy nhiên
+thought|n|suy nghĩ
+thoughtful|adj|chu đáo
+thousand|num|nghìn
+three|num|ba
+thrill|v|làm phấn khích (thrilled: vui sướng)
+thriller|n|phim giật gân
+throat|n|cổ họng
+through|prep|qua, xuyên qua
+throw|v|ném (throw away: vứt đi)
+thunder|n|sấm
+thunderstorm|n|giông bão
+ticket|n|vé
+tidy|adj|gọn gàng; v: dọn dẹp
+tight|adj|chật; (lịch) kín
+tightly|adv|chặt
+tile|n|gạch lát
+time|n|thời gian; lần
+timer|n|đồng hồ hẹn giờ
+timing|n|thời điểm, canh giờ
+tiny|adj|rất nhỏ
+tip|n|mẹo; tiền boa
+tire|n|lốp xe; v: làm mệt
+title|n|tiêu đề
+to|prep|đến; để
+toast|n|bánh mì nướng; lời chúc (nâng ly)
+today|adv|hôm nay
+tofu|n|đậu phụ
+together|adv|cùng nhau
+togethers|n|(get-togethers) buổi họp mặt
+toilet|n|nhà vệ sinh
+tomato|n|cà chua
+tomb|n|lăng mộ
+tomorrow|adv|ngày mai
+tonight|adv|tối nay
+too|adv|cũng; quá
+tool|n|công cụ
+toolkit|n|bộ công cụ
+tooth|n|răng
+toothache|n|đau răng
+top|n|đỉnh
+topic|n|chủ đề
+total|adj|tổng cộng
+totally|adv|hoàn toàn
+touch|v|chạm (keep in touch: giữ liên lạc)
+tough|adj|khó khăn; cứng
+tour|n|chuyến tham quan
+tourism|n|du lịch
+tourist|n|khách du lịch
+toward|prep|về phía
+towards|prep|về phía; đối với
+towel|n|khăn tắm
+tower|n|tòa tháp
+town|n|thị trấn
+toy|n|đồ chơi
+trace|n|dấu vết
+track|n|đường ray; đường chạy; v: theo dõi
+trade|n|thương mại
+tradition|n|truyền thống
+traditional|adj|truyền thống
+traffic|n|giao thông
+trail|n|đường mòn
+trailer|n|đoạn giới thiệu phim
+train|n|tàu hỏa; v: đào tạo
+trainer|n|huấn luyện viên
+transfer|v|chuyển (tiền); chuyển tiếp
+transition|n|sự chuyển đổi
+translation|n|bản dịch
+transport|n|sự vận chuyển, giao thông
+transportation|n|phương tiện đi lại
+trap|v|mắc kẹt
+trash|n|rác
+travel|v|đi du lịch, đi lại
+traveler|n|người đi du lịch
+tray|n|cái khay
+treadmill|n|máy chạy bộ
+treat|v|đối xử; chiêu đãi; n: món ngon, phần thưởng
+treaty|n|hiệp ước
+tree|n|cây
+trek|v|đi bộ đường dài (đường khó)
+trend|n|xu hướng
+trendy|adj|hợp mốt
+trick|n|mẹo; trò lừa
+trip|n|chuyến đi
+tropical|adj|nhiệt đới
+trouble|n|rắc rối
+trouser|n|quần dài (trousers)
+truck|n|xe tải
+true|adj|đúng, thật
+trunk|n|cốp xe; thân cây
+trust|v|tin tưởng
+try|v|thử; cố gắng
+tuan|n|(tên riêng) Tuấn
+turn|v|rẽ; quay; trở thành (turn on/off: bật/tắt)
+turtle|n|con rùa
+twelve|num|mười hai
+twenty|num|hai mươi
+twice|adv|hai lần
+twist|n|tình tiết bất ngờ (plot twist)
+two|num|hai
+type|n|loại
+typhoon|n|bão nhiệt đới
+typical|adj|điển hình
+typically|adv|thường thì
+umbrella|n|cái ô
+uncle|n|chú, bác, cậu
+under|prep|dưới
+understand|v|hiểu
+underwater|adj|dưới nước
+unemployment|n|tình trạng thất nghiệp
+unexpected|adj|bất ngờ
+unforgettable|adj|không thể quên
+unfortunately|adv|không may là
+unhappy|adj|không vui
+unhealthy|adj|không lành mạnh
+uniform|n|đồng phục
+uninstall|v|gỡ cài đặt
+unique|adj|độc đáo, duy nhất
+unit|n|đơn vị; căn hộ
+university|n|trường đại học
+unknown|adj|không rõ, chưa biết
+unless|conj|trừ khi
+unlike|prep|không giống như
+unlock|v|mở khóa
+unpack|v|dỡ hành lý
+unpredictable|adj|khó đoán
+unprepared|adj|chưa chuẩn bị
+unsweeten|v|(unsweetened) không đường
+until|prep|cho đến khi
+unusual|adj|khác thường
+unwind|v|thư giãn
+up|adv|lên
+upbeat|adj|vui tươi, sôi động
+update|v|cập nhật
+upload|v|tải lên
+upset|adj|buồn bực; (dạ dày) khó chịu
+urban|adj|thuộc đô thị
+urgent|adj|khẩn cấp
+usage|n|cách dùng; mức sử dụng
+use|v|sử dụng
+useful|adj|hữu ích
+user|n|người dùng
+usual|adj|thường lệ
+usually|adv|thường thường
+utility|n|tiện ích (utility bills: hóa đơn điện nước)
+vacation|n|kỳ nghỉ
+vacuum|v|hút bụi
+valley|n|thung lũng
+variety|n|sự đa dạng
+vary|v|thay đổi, khác nhau
+vase|n|lọ hoa
+vegan|adj|thuần chay
+vegetable|n|rau củ
+vegetarian|adj|ăn chay
+vendor|n|người bán hàng
+ventilation|n|sự thông gió
+verification|n|sự xác minh
+version|n|phiên bản
+very|adv|rất
+video|n|video
+view|n|quang cảnh; quan điểm
+village|n|làng
+viral|adj|lan truyền nhanh (go viral)
+visa|n|thị thực
+visible|adj|có thể nhìn thấy
+visit|v|thăm
+visitor|n|khách tham quan
+visual|adj|thuộc thị giác (visual inspection: kiểm tra ngoại quan)
+vividly|adv|rõ ràng, sống động
+vocational|adj|thuộc nghề nghiệp (vocational school: trường nghề)
+voice|n|giọng nói
+volleyball|n|bóng chuyền
+volunteer|n|tình nguyện viên
+vomit|v|nôn
+voucher|n|phiếu giảm giá
+wait|v|chờ đợi
+waiter|n|bồi bàn
+wake|v|thức dậy
+walk|v|đi bộ
+wall|n|bức tường
+wallet|n|ví
+wander|v|đi lang thang
+want|v|muốn
+war|n|chiến tranh
+wardrobe|n|tủ quần áo
+warehouse|n|nhà kho
+warm|adj|ấm
+warn|v|cảnh báo
+warning|n|lời cảnh báo
+warranty|n|bảo hành
+wash|v|rửa, giặt
+waste|v|lãng phí; n: rác thải
+watch|v|xem; n: đồng hồ đeo tay
+water|n|nước; v: tưới
+waterfall|n|thác nước
+watermelon|n|dưa hấu
+waterproof|adj|chống nước
+wave|n|con sóng; v: vẫy tay
+way|n|cách; con đường
+we|pron|chúng tôi, chúng ta
+weak|adj|yếu
+wear|v|mặc, đeo, đội
+weather|n|thời tiết
+website|n|trang web
+wedding|n|đám cưới
+wedge|n|miếng hình nêm
+week|n|tuần
+weekday|n|ngày trong tuần (thứ 2–6)
+weekend|n|cuối tuần
+weekly|adj|hằng tuần
+weight|n|cân nặng
+weird|adj|kỳ lạ
+welcome|v|chào đón
+well|adv|tốt, giỏi; int: à, ừm
+west|n|phía tây
+wet|adj|ướt
+what|pron|cái gì
+whatever|pron|bất cứ thứ gì
+wheel|n|bánh xe
+when|adv|khi nào; conj: khi
+whenever|conj|bất cứ khi nào
+where|adv|ở đâu
+whereabouts|n|nơi ở, chỗ ở hiện tại
+whereas|conj|trong khi đó
+whether|conj|liệu, dù ... hay không
+which|pron|cái nào
+whichever|pron|bất cứ cái nào
+while|conj|trong khi
+white|adj|màu trắng
+who|pron|ai
+whole|adj|toàn bộ
+whom|pron|ai (tân ngữ)
+whose|pron|của ai
+why|adv|tại sao
+wide|adj|rộng
+wife|n|vợ
+will|aux|sẽ
+willing|adj|sẵn lòng
+win|v|thắng
+wind|n|gió
+window|n|cửa sổ
+windy|adj|nhiều gió
+winter|n|mùa đông
+wipe|v|lau
+wire|n|dây điện
+wireless|adj|không dây
+wish|v|ước; n: điều ước
+with|prep|với
+withdraw|v|rút (tiền)
+within|prep|trong vòng
+without|prep|không có
+woman|n|người phụ nữ
+won|v|(quá khứ của win) đã thắng
+wonder|v|tự hỏi
+wood|n|gỗ
+wooden|adj|bằng gỗ
+word|n|từ
+work|v|làm việc; (máy) hoạt động
+workday|n|ngày làm việc
+worker|n|công nhân
+workload|n|khối lượng công việc
+workout|n|buổi tập luyện
+workplace|n|nơi làm việc
+workshop|n|hội thảo thực hành; xưởng
+world|n|thế giới
+worldwide|adj|toàn cầu
+worry|v|lo lắng
+worth|adj|đáng giá
+would|aux|sẽ (giả định); thường hay (quá khứ)
+wrap|v|gói, bọc
+write|v|viết
+wrong|adj|sai
+yard|n|sân
+year|n|năm
+yellow|adj|màu vàng
+yes|adv|vâng, có
+yesterday|adv|hôm qua
+yet|adv|chưa; conj: nhưng
+yoga|n|yoga
+yogurt|n|sữa chua
+you|pron|bạn
+young|adj|trẻ
+your|det|của bạn
+yourself|pron|chính bạn
+youth|n|tuổi trẻ; thanh niên
+zipper|n|khóa kéo
+an|det|một (dùng trước nguyên âm)

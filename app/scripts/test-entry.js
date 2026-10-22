@@ -1,6 +1,7 @@
 // Kiểm thử logic không cần giao diện: tạo đề thi thử, đoán dạng câu, nhập CSV, chuẩn hoá kết quả AI.
 import './test-setup.js';
 import { buildMock, rebuildTail } from '../src/mock.js';
+import * as SC from '../src/scripts-core.js';
 import { surveyTopics, normalizeSurvey, DEFAULT_SURVEY, levelToDiff } from '../src/mock-survey.js';
 import { guessPromptType, importPack, importFile, allQuestions, listPacks } from '../src/data.js';
 import { readXlsx } from '../src/xlsx.js';
@@ -234,6 +235,29 @@ async function templateTests() {
       }
       if (k === 19) ok(true, 'rebuild tail ×20');
     }
+  }
+  // Sổ kịch bản + nói theo + học thuộc
+  {
+    const c1 = SC.compareSpeech("I'm going to the park with 3 friends.", 'i am going to park with three friend');
+    ok(c1.words.map((w) => w.ok).join() === 'true,true,true,false,true,true,true,false' && c1.score === 75, `compare speech ${JSON.stringify(c1.words)} ${c1.score}`);
+    const c2 = SC.compareSpeech('Hello, world!', 'hello world');
+    ok(c2.score === 100 && !c2.extra.length, 'compare exact');
+    ok(SC.compareSpeech('Hi there.', '').score === 0, 'compare empty');
+    ok(SC.compareSpeech('one two', 'one banana two').extra.join() === 'banana', 'compare extra');
+    ok(SC.splitSentences('I live in Hanoi. It was fun! Why? Yes').length === 4, 'split sentences');
+    const t = 'The beautiful mountain village was quiet and peaceful in the early morning.';
+    const m0 = SC.maskedWords(t, 0), m2 = SC.maskedWords(t, 2), m4 = SC.maskedWords(t, 4);
+    ok(m0.every((x) => !x.hidden) && m4.every((x) => x.hidden) && m2.filter((x) => x.hidden).length === Math.round(m2.length / 2), 'mask levels');
+    ok(m2.filter((x) => x.hidden).every((x) => !['the', 'and', 'in', 'was'].includes(x.w.toLowerCase())), 'content words hidden first');
+    ok(JSON.stringify(SC.maskedWords(t, 2, 5)) === JSON.stringify(SC.maskedWords(t, 2, 5)), 'mask deterministic');
+    const a = SC.addScript({ text: 'My hometown is small.', source: 'mine', question_text: 'Q' });
+    const b = SC.addScript({ text: 'my  hometown is small', source: 'ai' });
+    ok(a.script && !a.existed && b.existed && b.script.id === a.script.id, 'script dedupe');
+    SC.markPracticed(a.script.id, 80);
+    SC.markPracticed(a.script.id, 60);
+    ok(SC.getScript(a.script.id).practiced === 2 && SC.getScript(a.script.id).best === 80, 'script practice best');
+    SC.removeScript(a.script.id);
+    ok(!SC.getScript(a.script.id), 'script remove');
   }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });

@@ -2,7 +2,8 @@
 import pkg from '../package.json';
 import { $, toast } from './util.js';
 import { initSettings, onSettingsChange } from './settings.js';
-import { initPractice, refreshPracticeFilters, isRecording } from './practice.js';
+import { initPractice, refreshPracticeFilters, isRecording, openQuestion } from './practice.js';
+import { initScripts, stopScripts } from './scripts.js';
 import { initMock, mockBusy } from './mock.js';
 import { initLearn, refreshLearn } from './learn.js';
 import { initProgress, renderProgress } from './progress.js';
@@ -17,6 +18,7 @@ function showTab(name) {
   if (name === current) return;
   if (current === 'mock' && mockBusy()) return toast('Đang thi thử. Bấm "Kết thúc" để thoát bài thi.', 3500);
   if (current === 'practice' && isRecording()) return toast('Hãy dừng ghi âm trước khi chuyển tab.');
+  if (current === 'learn') stopScripts();
   current = name;
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.id === `tab-${name}`));
   document.querySelectorAll('.tabbar button').forEach((b) => b.classList.toggle('active', b.dataset.tab === name));
@@ -40,6 +42,8 @@ initLearn();
 initProgress();
 initVocab();
 initLookup();
+initScripts();
+window.addEventListener('opic:open-question', (e) => openQuestion(e.detail));
 onMyWordsChange(() => current === 'vocab' && refreshVocab());
 initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });
 

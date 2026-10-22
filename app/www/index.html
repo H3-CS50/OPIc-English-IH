@@ -83,6 +83,7 @@
         <button class="btn" id="btn-copy">📋 Copy nhờ Claude</button>
         <button class="btn" id="btn-sample">📖 Bài mẫu</button>
         <button class="btn" id="btn-selfcheck">✅ Tự kiểm tra</button>
+        <button class="btn" id="btn-save-script">📜 Lưu kịch bản</button>
       </div>
 
       <div id="sample-box" class="card md" hidden></div>
@@ -192,6 +193,7 @@
     <!-- ================= Học ================= -->
     <section id="tab-learn" class="tab">
       <nav class="subnav">
+        <button data-sub="scripts">📜 Kịch bản</button>
         <button data-sub="bank">Câu hỏi</button>
         <button data-sub="samples">Bài mẫu 3 cấp</button>
         <button data-sub="levels">IM·IH·AL</button>
@@ -199,6 +201,7 @@
         <button data-sub="docs">Tài liệu</button>
       </nav>
 
+      <div id="learn-scripts" class="learn-pane" hidden><div id="scripts-root"></div></div>
       <div id="learn-bank" class="learn-pane">
         <div class="filters">
           <select id="b-source" aria-label="Bộ câu hỏi" class="full"></select>

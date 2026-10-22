@@ -8,6 +8,7 @@ import { grade, buildCopyPrompt, providerReady } from './coach.js';
 import { renderFeedback } from './feedback.js';
 import { addAttempt } from './history.js';
 import { settings, saveSettings } from './settings.js';
+import { quickSave } from './scripts.js';
 
 // Thời lượng gợi ý theo mục tiêu (thiết kế của app, không phải quy định của bài thi).
 const DURATION = { IM: [60, 90], IH: [90, 120], AL: [105, 150] };
@@ -395,7 +396,7 @@ export function renderSampleSet(set, level) {
     <div class="segmented">${tabs}</div>
     <p class="muted small">Nhân vật: ${escapeHtml(set.persona_vi)}</p>
     <div class="sample-text en-text">${escapeHtml(lv.text)}</div>
-    <div class="row wrap"><button class="btn" data-speak-sample>🔊 Nghe bài mẫu</button><span class="muted small">${lv.word_count} từ — độ dài là hệ quả của việc phát triển ý, không phải tiêu chí chấm.</span></div>
+    <div class="row wrap"><button class="btn" data-speak-sample>🔊 Nghe bài mẫu</button><button class="btn" data-shadow-sample>🗣️ Nói theo</button><button class="btn" data-save-sample>📜 Lưu</button><span class="muted small">${lv.word_count} từ — độ dài là hệ quả của việc phát triển ý, không phải tiêu chí chấm.</span></div>
     <h4>Bài ${level} thể hiện</h4><ul>${lv.demonstrates.map((d) => `<li>${escapeHtml(d)}</li>`).join('')}</ul>
     <h4>Để lên mức tiếp theo</h4><p>${escapeHtml(lv.next_level)}</p>
     <details><summary><b>Khác nhau giữa IM – IH – AL</b></summary><ul>${set.key_differences_vi.map((d) => `<li>${escapeHtml(d)}</li>`).join('')}</ul></details>
@@ -415,6 +416,12 @@ export function bindSampleSet(container, set, initial) {
       }),
     );
     container.querySelector('[data-speak-sample]')?.addEventListener('click', () => speak(set.levels[level].text, settings.ttsRate).catch((e) => toast(e.message)));
+    const payload = () => {
+      const q = getQuestion(set.question_id);
+      return { question_id: set.question_id, question_text: q?.question_text || '', topic: q?.topic || '', text: set.levels[level].text, source: 'sample', level };
+    };
+    container.querySelector('[data-save-sample]')?.addEventListener('click', () => quickSave(payload()));
+    container.querySelector('[data-shadow-sample]')?.addEventListener('click', () => quickSave(payload(), { open: true, mode: 'shadow' }));
   };
   draw();
 }
@@ -432,11 +439,14 @@ function onSample() {
     box.innerHTML = `<h3>📖 Bài mẫu mục tiêu IH</h3>
       <p class="muted small">${escapeHtml(kb.class_persona_vi || '')}</p>
       <div class="sample-text en-text">${escapeHtml(q.sample_ih)}</div>
-      <div class="row wrap"><button class="btn" data-speak-ih>🔊 Nghe bài mẫu</button><span class="muted small">${q.sample_wc} từ</span></div>
+      <div class="row wrap"><button class="btn" data-speak-ih>🔊 Nghe bài mẫu</button><button class="btn" data-shadow-ih>🗣️ Nói theo</button><button class="btn" data-save-ih>📜 Lưu</button><span class="muted small">${q.sample_wc} từ</span></div>
       <div class="small"><b>Khung đã dùng:</b> <span class="en-text">${escapeHtml(q.answer_framework)}</span></div>
       <div class="callout"><b>🚫 Đừng học thuộc:</b> lấy khung và cụm từ hay, rồi kể chuyện thật của bạn. Câu trả lời học thuộc dễ bị nhận ra và không giúp lên level.</div>
       <p class="muted small">Bài mẫu do AI viết cho câu hỏi của lớp, nhắm mức IH để luyện tập — không phải bài thi thật hay điểm chính thức. Muốn lên AL: thêm diễn biến bất ngờ, lý do và suy nghĩ của bạn; muốn ở mức IM an toàn: nói gọn các ý chính.</p>`;
     box.querySelector('[data-speak-ih]').addEventListener('click', () => speak(q.sample_ih, settings.ttsRate).catch((e) => toast(e.message)));
+    const payload = { question_id: q.question_id, question_text: q.question_text, topic: q.topic, text: q.sample_ih, source: 'sample', level: 'IH' };
+    box.querySelector('[data-save-ih]').addEventListener('click', () => quickSave(payload));
+    box.querySelector('[data-shadow-ih]').addEventListener('click', () => quickSave(payload, { open: true, mode: 'shadow' }));
   } else if (q.user_sample) {
     box.innerHTML = `<h3>📖 Bài mẫu bạn đã nhập</h3><div class="en-text">${md(q.user_sample)}</div>
       <p class="muted small">Nội dung do bạn cung cấp; app không xác định cấp độ của bài này.</p>`;
@@ -516,6 +526,18 @@ export function initPractice() {
   $('btn-copy').addEventListener('click', onCopy);
   $('btn-sample').addEventListener('click', onSample);
   $('btn-selfcheck').addEventListener('click', onSelfCheck);
+  $('btn-save-script').addEventListener('click', () => {
+    if (st.recording) return toast('Hãy dừng ghi trước đã.');
+    const text = $('transcript').value.trim();
+    if (!text) return toast('Chưa có lời nói để lưu. Nói hoặc gõ câu trả lời vào ô trước.', 3500);
+    quickSave({ question_id: st.q?.question_id, question_text: st.q?.question_text, topic: st.q?.topic, text, source: 'mine', level: settings.target });
+  });
+  $('feedback-box').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-save-expanded]');
+    if (!b) return;
+    const text = b.closest('details')?.querySelector('.en-text')?.textContent || '';
+    quickSave({ question_id: st.q?.question_id, question_text: st.q?.question_text, topic: st.q?.topic, text, source: 'ai', level: settings.target });
+  });
   renderLevel();
   const p = pool();
   st.q = p.length ? pick(p) : null;

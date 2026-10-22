@@ -321,3 +321,58 @@ export async function lookupWordAI(settings, word, sentence = '') {
     return { error: `Lỗi: ${e?.message || e}` };
   }
 }
+
+// ---------- Đọc kịch bản từ ảnh chụp ----------
+const SCRIPT_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['question', 'script', 'note_vi'],
+  properties: {
+    question: { type: 'string', description: 'The OPIc question shown in the image, if any; empty string if none.' },
+    script: { type: 'string', description: 'The English answer script, transcribed exactly.' },
+    note_vi: { type: 'string', description: 'Short note in Vietnamese about unreadable parts; empty if none.' },
+  },
+};
+const SCRIPT_SYSTEM = `You transcribe photos of English speaking-test answer scripts (printed or handwritten).
+Copy the English text exactly as written: keep the learner's own wording, do not correct grammar, do not add sentences.
+Join lines broken by the page into normal paragraphs. Skip Vietnamese notes, page numbers and decorations.
+If a question/prompt is visible, put it in "question" and the answer in "script". Write [?] for words you cannot read and mention them in note_vi (Vietnamese).`;
+
+export async function readScriptImageAI(settings, base64, mimeType = 'image/jpeg') {
+  const user = 'Transcribe the answer script in this photo.';
+  try {
+    if (settings.provider === 'claude') {
+      const key = settings.keys?.claude;
+      if (!key) return { error: 'Chưa có API key Claude. Thêm ở tab Cài đặt.' };
+      const body = {
+        model: settings.models.claude,
+        max_tokens: 4096,
+        system: SCRIPT_SYSTEM,
+        messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: mimeType, data: base64 } }, { type: 'text', text: user }] }],
+        output_config: { format: { type: 'json_schema', schema: SCRIPT_SCHEMA } },
+      };
+      const res = await fetch(CLAUDE_URL, { method: 'POST', headers: claudeHeaders(key), body: JSON.stringify(body) }).catch(() => null);
+      if (!res) return { error: 'Không kết nối được tới Claude. Kiểm tra mạng.' };
+      if (!res.ok) return { error: claudeFriendly(res.status, await readError(res)) };
+      const data = await res.json();
+      return { result: parseJson((data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('')) };
+    }
+    if (settings.provider === 'gemini') {
+      const key = settings.keys?.gemini;
+      if (!key) return { error: 'Chưa có API key Gemini. Thêm ở tab Cài đặt.' };
+      const body = {
+        systemInstruction: { parts: [{ text: SCRIPT_SYSTEM }] },
+        contents: [{ role: 'user', parts: [{ inlineData: { mimeType, data: base64 } }, { text: user }] }],
+        generationConfig: { responseMimeType: 'application/json', temperature: 0, maxOutputTokens: 4096, responseJsonSchema: SCRIPT_SCHEMA },
+      };
+      const res = await fetch(geminiUrl(settings.models.gemini), { method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, body: JSON.stringify(body) }).catch(() => null);
+      if (!res) return { error: 'Không kết nối được tới Gemini. Kiểm tra mạng.' };
+      if (!res.ok) return { error: geminiFriendly(res.status, await readError(res)) };
+      const data = await res.json();
+      return { result: parseJson((data.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('')) };
+    }
+    return { error: 'Đọc ảnh cần AI. Vào Cài đặt → AI Coach để nhập key Gemini hoặc Claude.' };
+  } catch (e) {
+    return { error: `Lỗi: ${e?.message || e}` };
+  }
+}

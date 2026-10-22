@@ -11,6 +11,7 @@ import {
   selfLevelHTML, levelToDiff, suggestLevel, clampLevel,
 } from './mock-survey.js';
 import { saveMockRecord } from './mock-history.js';
+import { quickSave } from './scripts.js';
 
 const TOTAL_SECONDS = 40 * 60;
 
@@ -373,7 +374,7 @@ function renderReview() {
         <p class="en-text">${escapeHtml(q.question_text)}</p>
         ${a.audio ? `<audio controls src="${a.audio.url}"></audio>` : ''}
         <label class="field"><span>Lời nói (có thể sửa chỗ máy nghe nhầm)</span><textarea rows="4" data-tr="${i}">${escapeHtml(a.transcript)}</textarea></label>
-        <div class="row"><button class="btn primary" data-grade="${i}">🤖 Chấm câu này</button></div>
+        <div class="row wrap"><button class="btn primary" data-grade="${i}">🤖 Chấm câu này</button><button class="btn" data-save-mine="${i}">📜 Lưu kịch bản</button></div>
         <div class="mock-fb">${a.result ? renderFeedback(a.result, { showRetry: false }) : ''}</div>
       </details>`;
     })
@@ -381,6 +382,16 @@ function renderReview() {
   $('mock-list')
     .querySelectorAll('[data-tr]')
     .forEach((t) => t.addEventListener('input', () => (ms.answers[+t.dataset.tr].transcript = t.value)));
+  $('mock-list').onclick = (e) => {
+    const save = e.target.closest('[data-save-mine]');
+    const exp = e.target.closest('[data-save-expanded]');
+    if (!save && !exp) return;
+    const i = +(save ? save.dataset.saveMine : exp.closest('[data-i]').dataset.i);
+    const q = ms.items[i];
+    const text = save ? ms.answers[i].transcript.trim() : exp.closest('details').querySelector('.en-text')?.textContent || '';
+    if (!text) return toast('Câu này chưa có lời nói (dạng chữ) để lưu.');
+    quickSave({ question_id: q.question_id, question_text: q.question_text, topic: q.topic, text, source: save ? 'mine' : 'ai', level: settings.target });
+  };
   $('mock-list')
     .querySelectorAll('[data-grade]')
     .forEach((b) => b.addEventListener('click', () => gradeOne(+b.dataset.grade, true)));

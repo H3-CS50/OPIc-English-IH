@@ -155,11 +155,32 @@ Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần b�
 
 | Mục | Nội dung |
 |---|---|
+| 📜 Kịch bản | Sổ kịch bản của bạn: đọc, nghe, học thuộc ý và nói theo (xem phần dưới) |
 | Câu hỏi | Toàn bộ câu hỏi. Tìm theo từ khóa, lọc theo bộ câu hỏi, nhóm, dạng câu, cấp độ. Bấm vào câu để luyện ngay |
 | Bài mẫu 3 cấp | 24 câu, mỗi câu có 3 bài IM – IH – AL cùng một nhân vật. So sánh để thấy khác biệt về cách tổ chức ý, không chỉ độ dài |
 | IM·IH·AL | Mỗi mức cần thể hiện gì, điểm hay bị kẹt và cách luyện. Kèm thông tin chính thức về OPIc của ACTFL |
 | Khung trả lời | Khung phát triển ý cho từng dạng câu, có nút luyện ngẫu nhiên dạng đó |
 | Tài liệu | Hướng dẫn này, thư viện bài mẫu và mẹo, thông tin về bộ dữ liệu |
+
+## 📜 Sổ kịch bản & nói theo
+
+**Lưu vào sổ** từ nhiều chỗ:
+- Tab Luyện: bấm **📜 Lưu kịch bản** để lưu lời nói trong ô (sửa chỗ máy nghe nhầm trước khi lưu).
+- Nhận xét của AI Coach: mở **📝 Bản phát triển từ bài của bạn** → **📜 Lưu bản này**.
+- Bài mẫu (3 cấp hoặc bài mẫu IH của lớp): bấm **📜 Lưu**, hoặc **🗣️ Nói theo** để lưu và mở ngay chế độ nói theo.
+- Thi thử, phần xem lại: **📜 Lưu kịch bản** ở từng câu.
+- Tab Học → **📜 Kịch bản** → **✍️ Viết mới**, hoặc **📷 Chụp ảnh kịch bản**: AI đọc chữ trong ảnh (in hoặc viết tay), bạn kiểm tra rồi lưu. Chụp ảnh cần key Gemini hoặc Claude; ảnh chỉ gửi tới AI bạn chọn, app không lưu ảnh.
+
+Cùng một nội dung chỉ lưu một lần. Sổ lưu trên máy, không cần mạng.
+
+**Ba chế độ khi mở một kịch bản**
+- **📖 Đọc:** nghe cả bài bằng giọng đọc, chạm vào từ để tra nghĩa, sửa hoặc xoá, **🎤 Luyện câu này** để quay lại tab Luyện.
+- **🙈 Học thuộc:** ẩn 25% → 50% → 75% → 100% số từ. Từ nội dung (dài) bị ẩn trước, từ nhỏ như "the, and" ẩn sau. Nói to cả bài, chạm vào ô trống khi quên. **🔀 Đổi từ ẩn** để luyện với bộ từ khác.
+- **🗣️ Nói theo (shadowing):** từng câu một — **🔊 Nghe câu** (hoặc **🐢 Nghe chậm**) → **🎙️ Nói theo** → **⏹ Dừng & chấm**. Từ máy nghe đúng hiện màu xanh, từ thiếu hoặc nghe thành từ khác hiện màu đỏ, kèm % khớp. Nói hết các câu thì app lưu điểm trung bình tốt nhất vào sổ.
+
+Lưu ý: nói theo chỉ so **chữ máy nhận dạng được** với câu gốc. Không chấm ngữ điệu, trọng âm hay độ tự nhiên. Từ đỏ thường do nói chưa rõ, nuốt âm cuối, hoặc nói quá nhanh. Cần máy hỗ trợ chuyển giọng nói thành chữ (APK trên Android hoặc Chrome).
+
+Lời khuyên từ lớp: học thuộc **ý và cụm từ**, không thuộc nguyên văn cả bài.
 
 ## 📈 Tab Tiến bộ
 

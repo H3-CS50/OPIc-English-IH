@@ -4,9 +4,10 @@ import { kb, docs, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptype
 import { openQuestion, bindSampleSet } from './practice.js';
 import { speak } from './speech.js';
 import { settings } from './settings.js';
+import { refreshScripts } from './scripts.js';
 
 let sub = store.get('learnSub', 'bank');
-if (!['bank', 'samples', 'levels', 'frameworks', 'docs'].includes(sub)) sub = 'bank';
+if (!['scripts', 'bank', 'samples', 'levels', 'frameworks', 'docs'].includes(sub)) sub = 'bank';
 
 function showSub(name) {
   sub = name;
@@ -15,6 +16,7 @@ function showSub(name) {
   document.querySelectorAll('#tab-learn .learn-pane').forEach((p) => (p.hidden = p.id !== `learn-${name}`));
   if (name === 'bank') renderBank();
   if (name === 'samples') renderSampleList();
+  if (name === 'scripts') refreshScripts();
   window.scrollTo(0, 0);
 }
 
@@ -177,6 +179,7 @@ export function initLearn() {
     const d = docs.find((x) => x.file === file);
     if (d) openDoc(d.id);
   });
+  window.addEventListener('opic:learn-sub', (e) => showSub(e.detail));
   showSub(sub);
 }
 

@@ -83,7 +83,7 @@ export function renderFeedback(r, { showRetry = true } = {}) {
 
     <details class="fb-sec"><summary><b>🔎 Phân tích theo FACT</b></summary>${factRows}${delivery}</details>
 
-    ${r.expanded_example_en ? `<details class="fb-sec"><summary><b>📝 Bản phát triển từ bài của bạn</b></summary><p class="en-text">${escapeHtml(r.expanded_example_en)}</p><p class="muted small">Đây là minh họa để tham khảo cách phát triển ý. Đừng học thuộc.</p></details>` : ''}
+    ${r.expanded_example_en ? `<details class="fb-sec"><summary><b>📝 Bản phát triển từ bài của bạn</b></summary><p class="en-text">${escapeHtml(r.expanded_example_en)}</p><p class="muted small">Đây là minh họa để tham khảo cách phát triển ý. Đừng học thuộc.</p><button class="btn" data-save-expanded>📜 Lưu bản này vào Sổ kịch bản</button></details>` : ''}
 
     ${r.transcript_used ? `<details class="fb-sec"><summary><b>🗒️ AI nghe được</b></summary><p class="en-text">${escapeHtml(r.transcript_used)}</p></details>` : ''}
 

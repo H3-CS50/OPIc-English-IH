@@ -6,6 +6,7 @@ import { initPractice, refreshPracticeFilters, isRecording } from './practice.js
 import { initMock, mockBusy } from './mock.js';
 import { initLearn, refreshLearn } from './learn.js';
 import { initProgress, renderProgress } from './progress.js';
+import { initHelp } from './help.js';
 
 const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
@@ -34,6 +35,7 @@ initPractice();
 initMock();
 initLearn();
 initProgress();
+initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });
 
 let packCount = -1;
 onSettingsChange(() => {

@@ -31,6 +31,10 @@ const V1_NOTE =
   '> ℹ️ Tài liệu thư viện v1 do AI viết, chưa được giáo viên kiểm định. Các con số như thời lượng hay số câu chỉ là kinh nghiệm từ tài liệu luyện thi, không phải quy định chính thức. Xem mục **IM·IH·AL** trong tab Học để biết thông tin đã đối chiếu với ACTFL.\n\n';
 
 const docs = [
+  (() => {
+    const md = readFileSync(join(root, 'HUONG_DAN_SU_DUNG.md'), 'utf8');
+    return { id: 'guide', file: 'HUONG_DAN_SU_DUNG.md', title: 'Hướng dẫn sử dụng app', section: 'Hướng dẫn', md };
+  })(),
   kbDoc('03_IM_IH_AL_PROFICIENCY_MATRIX.md', 'kb/03', 'Cấp độ & thông tin chính thức', 'Ma trận IM / IH / AL theo FACT'),
   kbDoc('02_OFFICIAL_FINDINGS.md', 'kb/02', 'Cấp độ & thông tin chính thức', 'Thông tin chính thức về OPIc (ACTFL)'),
   ...listMd('01-cau-hoi-bai-mau', 'Thư viện v1: câu hỏi & bài mẫu IH', 'v1').map((d) => ({ ...d, md: V1_NOTE + d.md })),

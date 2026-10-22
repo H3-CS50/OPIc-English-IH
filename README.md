@@ -8,6 +8,8 @@ App Android và bộ dữ liệu luyện nói **OPIc English**, theo lộ trình
 
 Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở để cài. Bản mới cài đè lên bản cũ (kể cả bản "OPIc IH" v1) và giữ nguyên lịch sử luyện tập.
 
+📖 **Hướng dẫn sử dụng:** [`HUONG_DAN_SU_DUNG.md`](HUONG_DAN_SU_DUNG.md). Trong app: bấm nút **?** góc trên bên phải, hoặc tab Học → Tài liệu, hoặc Cài đặt → Hướng dẫn. Lần đầu mở app có màn giới thiệu 5 trang.
+
 ### App có gì
 
 | Tab | Tính năng |
@@ -29,7 +31,8 @@ Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở
 
 ## 🔧 Cập nhật nội dung
 
-1. Sửa `tools/kb/questions_src.py` (thêm câu với số id mới), `answers_src_*.py` hoặc `OPIC_OQC_KNOWLEDGE_BASE_V1/07_AI_COACH_GRADING_PROMPT.md`.
+1. Hướng dẫn sử dụng trong app lấy từ `HUONG_DAN_SU_DUNG.md`; tiêu đề `##` nào chứa "Tab Luyện", "Tab Thi thử"… sẽ được nút **?** mở đúng mục theo tab đang xem.
+   Sửa `tools/kb/questions_src.py` (thêm câu với số id mới), `answers_src_*.py` hoặc `OPIC_OQC_KNOWLEDGE_BASE_V1/07_AI_COACH_GRADING_PROMPT.md`.
    Câu hỏi của lớp: `tools/kb/class_pack/class_questions_src.json`, bài mẫu IH trong `tools/kb/class_pack/ans_*.py`, dạng câu trong `tools/kb/class_pack/class_meta.py`.
 2. Push lên GitHub. CI chạy kiểm định dữ liệu và kiểm thử logic, rồi build APK và đăng lên Releases.
 

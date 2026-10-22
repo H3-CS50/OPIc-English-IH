@@ -46,6 +46,25 @@
 | `shopping` | Mua sắm | Shopping | unexpected | 5 |
 | `geography` | Địa lý đất nước | Geography | unexpected | 3 |
 | `industry` | Ngành nghề / việc làm | Industry & jobs | unexpected | 2 |
+| `bars` | Quán bar / quán nhậu | Bars & pubs | survey | 0 |
+| `coffee_shops` | Quán cà phê | Coffee shops | unexpected | 0 |
+| `gatherings` | Tụ tập / lễ kỷ niệm | Gatherings & celebrations | unexpected | 0 |
+| `food` | Món ăn | Food | unexpected | 0 |
+| `fashion` | Thời trang | Fashion | unexpected | 0 |
+| `free_time` | Thời gian rảnh | Free time | unexpected | 0 |
+| `hotels` | Khách sạn | Hotels | unexpected | 0 |
+| `newspapers` | Báo chí | Newspapers | unexpected | 0 |
+| `television` | Truyền hình | Television | unexpected | 0 |
+| `text_messages` | Tin nhắn | Text messages | unexpected | 0 |
+| `id_cards` | Giấy tờ tùy thân | Identification cards | unexpected | 0 |
+| `rp_shopping` | Role-play: cửa hàng mới / để quên ví | Role-play: new store | role_play | 0 |
+| `rp_food_store` | Role-play: cửa hàng thực phẩm | Role-play: food store | role_play | 0 |
+| `rp_geography` | Role-play: hỏi bạn về địa lý nước bạn | Role-play: friend abroad | role_play | 0 |
+| `rp_weather` | Role-play: thời tiết khi đi du lịch | Role-play: weather on vacation | role_play | 0 |
+| `rp_business_trip` | Role-play: công tác nước ngoài | Role-play: business trip | role_play | 0 |
+| `rp_housing` | Role-play: thuê nhà | Role-play: renting a house | role_play | 0 |
+| `rp_store_sale` | Role-play: cửa hàng giảm giá | Role-play: store sale | role_play | 0 |
+| `rp_train` | Role-play: mua vé tàu | Role-play: train ticket | role_play | 0 |
 | `rp_hotel` | Role-play: khách sạn | Role-play: hotel | role_play | 3 |
 | `rp_clothing` | Role-play: cửa hàng quần áo | Role-play: clothing store | role_play | 3 |
 | `rp_cinema` | Role-play: rạp phim | Role-play: movie theater | role_play | 3 |

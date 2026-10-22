@@ -119,7 +119,7 @@ input[type=file] { width: 100%; margin: 6px 0; }
 .level-switch button.active[data-level=IH] { background: var(--lv-IH); border-color: var(--lv-IH); color: #fff; }
 .level-switch button.active[data-level=AL] { background: var(--lv-AL); border-color: var(--lv-AL); color: #fff; }
 .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 0; }
-.filters select:last-child { grid-column: 1 / -1; }
+.filters select:last-child, .filters select.full { grid-column: 1 / -1; }
 .filters select { font-size: 14px; padding: 8px 10px; }
 
 .banner { background: var(--surface-2); border-left: 4px solid var(--primary); border-radius: 10px; padding: 10px 12px; margin: 12px 0 0; font-size: 15px; }
@@ -132,6 +132,7 @@ input[type=file] { width: 100%; margin: 6px 0; }
 .chip-type { color: var(--primary); }
 .chip-oqc { color: var(--warn); }
 .chip-sample { color: var(--ok); }
+.chip-class { color: var(--lv-IH); }
 .q-text { font-size: 18px; line-height: 1.5; margin: 8px 0 10px; font-weight: 500; }
 .q-hidden { font-style: italic; }
 .hints { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; margin-top: 6px; }

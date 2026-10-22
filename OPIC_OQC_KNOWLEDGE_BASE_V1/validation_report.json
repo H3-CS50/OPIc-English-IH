@@ -2,6 +2,7 @@
   "generated_on": "2026-10-22",
   "checks": {
     "schema_question": "PASS",
+    "schema_class_question": "PASS",
     "schema_sample_answer": "PASS",
     "schema_source": "PASS",
     "unique_question_ids": "PASS",
@@ -9,6 +10,8 @@
     "unique_source_ids": "PASS",
     "provenance_links": "PASS",
     "target_language_english_only": "PASS",
+    "class_samples_complete": "PASS",
+    "class_samples_not_copied": "PASS",
     "level_label_type": "PASS",
     "question_near_duplicates": "PASS",
     "answer_sets_complete": "PASS",

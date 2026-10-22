@@ -26,6 +26,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 | `08_DATA_SCHEMA.json` | JSON Schema: source, question, sample_answer, coach_result, practice_session (MVP), progress (Later) |
 | `09_APK_CONTENT_PRODUCT_SPEC.md` | Module app, ưu tiên P0/P1/P2, kiến trúc hiện tại và kiến trúc FastAPI + SQL Server sau này |
 | `10_QA_AND_GAP_REPORT.md` | Kết quả kiểm định, khoảng trống, mâu thuẫn giữa nguồn, quyền sử dụng, việc cần làm tiếp |
+| `12_CLASS_QUESTION_BANK.jsonl` | 258 câu hỏi của lớp (người dùng tự soạn) + 1 bài mẫu IH do AI viết cho mỗi câu *(file sinh tự động)* |
 | `11_DATASET_MANIFEST.json` | Số lượng record, trạng thái kiểm định, checksum SHA-256 *(file sinh tự động)* |
 | `validation_report.json` | Chi tiết từng phép kiểm tra tự động *(file sinh tự động)* |
 
@@ -35,7 +36,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 |---|---|---|
 | `content_origin` | `AI_generated_original` | Do Claude viết mới cho dự án |
 | | `official_excerpt_reference` | Trích ngắn từ tài liệu ACTFL, có ghi nguồn |
-| | `user_provided` | Người dùng tự nhập trong app; không đóng gói vào APK |
+| | `user_provided` | Câu hỏi của người dùng. `origin_set: class` = bộ câu hỏi của lớp, đóng gói trong APK (người dùng sở hữu); `origin_set: imported` = tự nhập trong app, chỉ lưu trên máy |
 | `target_practice_levels` | IM / IH / AL | Câu phù hợp để luyện ở mức nào. **Không phải** độ khó chính thức |
 | `level_label_type` | `practice_target_not_official_rating` | Bắt buộc với mọi bài mẫu |
 | `difficulty_design` | easy / medium / challenging | Nhãn sư phạm của app |
@@ -48,6 +49,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 1. Sửa nguồn trong `tools/kb/`:
    - `questions_src.py`: thêm câu với **số id mới**, không đánh số lại.
    - `answers_src_*.py`, `sources.py`, `taxonomy.py`.
+   - Câu hỏi của lớp: `class_pack/class_questions_src.json` (câu hỏi), `class_pack/ans_*.py` (bài mẫu IH), `class_pack/class_meta.py` (dạng câu, chủ đề).
    - Prompt AI Coach: sửa trong `07_AI_COACH_GRADING_PROMPT.md`.
 2. Chạy `python3 tools/kb/build_kb.py`. Script kiểm định schema, ID, liên kết nguồn, ngôn ngữ, câu trùng và bí mật. Nếu có lỗi FAIL, script trả mã lỗi.
 3. Push lên GitHub. CI chạy lại bước 2. Nếu đạt, CI build APK và đăng lên Releases.
@@ -55,7 +57,7 @@ Bộ dữ liệu và tài liệu nền cho app Android **OPIc OQC**. App giúp n
 ## Nguyên tắc đã áp dụng
 
 - ACTFL là chuẩn cho format và tiêu chí. Tài liệu bên ngoài chỉ dùng để gợi ý chủ đề, dạng câu và chiến lược học.
-- Không chép câu hỏi hay bài mẫu từ tài liệu có bản quyền. Tài liệu người dùng cung cấp chỉ dùng làm tham khảo nội bộ (`REUSE_RIGHTS_UNCLEAR`).
+- Không chép câu hỏi hay bài mẫu từ tài liệu có bản quyền. Tài liệu người dùng cung cấp chỉ dùng làm tham khảo nội bộ (`REUSE_RIGHTS_UNCLEAR`), trừ bộ câu hỏi của lớp (SRC-U10) mà người dùng xác nhận là tự soạn.
 - Không quy level về số từ, từ khó hay idiom. Ba bài mẫu khác nhau ở cách thực hiện nhiệm vụ và tổ chức ý.
 - Chỉ có transcript thì không đánh giá phát âm hay độ trôi chảy.
 - Khuyến khích cá nhân hóa, không khuyến khích học thuộc.

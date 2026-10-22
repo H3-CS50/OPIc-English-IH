@@ -1,6 +1,6 @@
 // Màn hình Luyện nói: chọn câu → nghe → nói/ghi âm → AI Coach → nói lại.
 import { $, escapeHtml, toast, fmtTime, countWords, copyText, pick, md } from './util.js';
-import { kb, allQuestions, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL } from './data.js';
+import { kb, allQuestions, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf } from './data.js';
 import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe } from './speech.js';
 import { grade, buildCopyPrompt, providerReady } from './coach.js';
 import { renderFeedback } from './feedback.js';
@@ -32,10 +32,15 @@ const st = {
   lastAttemptId: null,
 };
 
-const filters = { category: '', topic: '', ptype: '' };
+const filters = { source: '', category: '', topic: '', ptype: '' };
 
 // ---------- Bộ lọc ----------
 function fillFilters() {
+  const sources = Object.keys(SOURCE_LABEL).filter((k) => allQuestions().some((q) => originOf(q) === k));
+  $('f-source').innerHTML =
+    `<option value="">Mọi bộ câu hỏi (${allQuestions().length})</option>` +
+    sources.map((k) => `<option value="${k}">${SOURCE_LABEL[k]} (${allQuestions().filter((q) => originOf(q) === k).length})</option>`).join('');
+  $('f-source').value = filters.source;
   const cats = Object.keys(CATEGORY_LABEL).filter((c) => allQuestions().some((q) => q.topic_category === c));
   $('f-category').innerHTML = `<option value="">Tất cả nhóm</option>` + cats.map((c) => `<option value="${c}">${CATEGORY_LABEL[c]}</option>`).join('');
   $('f-category').value = filters.category;
@@ -48,7 +53,13 @@ function fillFilters() {
   $('f-ptype').value = filters.ptype;
 }
 function fillTopics() {
-  const topics = [...new Set(allQuestions().filter((q) => !filters.category || q.topic_category === filters.category).map((q) => q.topic))];
+  const topics = [
+    ...new Set(
+      allQuestions()
+        .filter((q) => (!filters.source || originOf(q) === filters.source) && (!filters.category || q.topic_category === filters.category))
+        .map((q) => q.topic),
+    ),
+  ];
   $('f-topic').innerHTML = `<option value="">Mọi chủ đề</option>` + topics.map((t) => `<option value="${t}">${escapeHtml(topicLabel(t))}</option>`).join('');
   if (!topics.includes(filters.topic)) filters.topic = '';
   $('f-topic').value = filters.topic;
@@ -100,7 +111,9 @@ function renderQuestion() {
     <span class="chip chip-type">${escapeHtml(ptypeLabel(q.prompt_type))}</span>
     ${q.oqc_branch ? '<span class="chip chip-oqc">OQC</span>' : ''}
     ${set ? '<span class="chip chip-sample">có bài mẫu 3 cấp</span>' : ''}
-    ${q.content_origin === 'user_provided' ? '<span class="chip">câu tự nhập</span>' : ''}`;
+    ${q.sample_ih ? '<span class="chip chip-sample">có bài mẫu IH</span>' : ''}
+    ${originOf(q) === 'class' ? '<span class="chip chip-class">câu hỏi của lớp</span>' : ''}
+    ${originOf(q) === 'imported' ? '<span class="chip">câu tự nhập</span>' : ''}`;
   $('q-text').textContent = q.question_text;
   $('q-text').hidden = !!settings.hideText;
   $('q-hidden').hidden = !settings.hideText;
@@ -400,6 +413,15 @@ function onSample() {
   if (set) {
     box.innerHTML = '<div id="sample-inner"></div>';
     bindSampleSet($('sample-inner'), set, settings.target);
+  } else if (q.sample_ih) {
+    box.innerHTML = `<h3>📖 Bài mẫu mục tiêu IH</h3>
+      <p class="muted small">${escapeHtml(kb.class_persona_vi || '')}</p>
+      <div class="sample-text en-text">${escapeHtml(q.sample_ih)}</div>
+      <div class="row wrap"><button class="btn" data-speak-ih>🔊 Nghe bài mẫu</button><span class="muted small">${q.sample_wc} từ</span></div>
+      <div class="small"><b>Khung đã dùng:</b> <span class="en-text">${escapeHtml(q.answer_framework)}</span></div>
+      <div class="callout"><b>🚫 Đừng học thuộc:</b> lấy khung và cụm từ hay, rồi kể chuyện thật của bạn. Câu trả lời học thuộc dễ bị nhận ra và không giúp lên level.</div>
+      <p class="muted small">Bài mẫu do AI viết cho câu hỏi của lớp, nhắm mức IH để luyện tập — không phải bài thi thật hay điểm chính thức. Muốn lên AL: thêm diễn biến bất ngờ, lý do và suy nghĩ của bạn; muốn ở mức IM an toàn: nói gọn các ý chính.</p>`;
+    box.querySelector('[data-speak-ih]').addEventListener('click', () => speak(q.sample_ih, settings.ttsRate).catch((e) => toast(e.message)));
   } else if (q.user_sample) {
     box.innerHTML = `<h3>📖 Bài mẫu bạn đã nhập</h3><div class="en-text">${md(q.user_sample)}</div>
       <p class="muted small">Nội dung do bạn cung cấp; app không xác định cấp độ của bài này.</p>`;
@@ -436,6 +458,11 @@ function onSelfCheck() {
 // ---------- Khởi tạo ----------
 export function initPractice() {
   fillFilters();
+  $('f-source').addEventListener('change', (e) => {
+    filters.source = e.target.value;
+    fillTopics();
+    nextQuestion();
+  });
   $('f-category').addEventListener('change', (e) => {
     filters.category = e.target.value;
     fillTopics();

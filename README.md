@@ -12,9 +12,9 @@ Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở
 
 | Tab | Tính năng |
 |---|---|
-| 🎤 **Luyện** | Chọn mục tiêu IM/IH/AL. Lọc theo nhóm, chủ đề, dạng câu, có nhánh OQC tùy chọn. Nghe câu hỏi, ẩn/hiện chữ, xem gợi ý khung. 📝 Chuyển giọng nói thành chữ hoặc 🎙️ ghi âm. **AI Coach** nhận xét theo FACT, chỉ ra một khoảng trống chính và giao **bài nói lại**. Có 📖 bài mẫu 3 cấp, ✅ tự kiểm tra, 📋 copy nhờ Claude chấm |
-| 📝 **Thi thử** | 15 câu trong 40 phút: giới thiệu → 3 combo → role-play → câu nâng cao. Chọn chủ đề Survey và độ khó. Nghe lại câu hỏi 1 lần. Sau khi nộp: chấm từng câu hoặc cả bài, xem ước tính tổng |
-| 📚 **Học** | 142 câu hỏi; 24 bộ bài mẫu IM/IH/AL; ma trận cấp độ; khung trả lời; tài liệu; flashcard |
+| 🎤 **Luyện** | Chọn mục tiêu IM/IH/AL. Lọc theo bộ câu hỏi (của lớp / của app), nhóm, chủ đề, dạng câu, có nhánh OQC tùy chọn. Nghe câu hỏi, ẩn/hiện chữ, xem gợi ý khung. 📝 Chuyển giọng nói thành chữ hoặc 🎙️ ghi âm. **AI Coach** nhận xét theo FACT, chỉ ra một khoảng trống chính và giao **bài nói lại**. Có 📖 bài mẫu (3 cấp với câu của app, bài mẫu IH với câu của lớp), ✅ tự kiểm tra, 📋 copy nhờ Claude chấm |
+| 📝 **Thi thử** | 15 câu trong 40 phút: giới thiệu → 3 combo → role-play → câu nâng cao. Chọn nguồn câu hỏi (lớp / app / cả hai), chủ đề Survey và độ khó. Nghe lại câu hỏi 1 lần. Sau khi nộp: chấm từng câu hoặc cả bài, xem ước tính tổng |
+| 📚 **Học** | 258 câu hỏi của lớp (mỗi câu có bài mẫu IH) + 142 câu hỏi của app; 24 bộ bài mẫu IM/IH/AL; ma trận cấp độ; khung trả lời; tài liệu; flashcard |
 | 📈 **Tiến bộ** | Thống kê, chuỗi ngày luyện, ước tính theo dạng câu, 🎯 luyện điểm yếu, lịch sử |
 | ⚙️ **Cài đặt** | Chọn AI: **Claude** (chấm theo chữ), **Gemini** (nghe được ghi âm, có gói miễn phí) hoặc chỉ copy. Key chỉ lưu trên máy. Nhập bộ câu hỏi riêng (JSON/CSV) |
 
@@ -30,10 +30,11 @@ Vào [Releases](../../releases/latest), tải file **`OPIc-OQC.apk`** rồi mở
 ## 🔧 Cập nhật nội dung
 
 1. Sửa `tools/kb/questions_src.py` (thêm câu với số id mới), `answers_src_*.py` hoặc `OPIC_OQC_KNOWLEDGE_BASE_V1/07_AI_COACH_GRADING_PROMPT.md`.
+   Câu hỏi của lớp: `tools/kb/class_pack/class_questions_src.json`, bài mẫu IH trong `tools/kb/class_pack/ans_*.py`, dạng câu trong `tools/kb/class_pack/class_meta.py`.
 2. Push lên GitHub. CI chạy kiểm định dữ liệu và kiểm thử logic, rồi build APK và đăng lên Releases.
 
 ## ⚠️ Lưu ý
 
-- Câu hỏi và bài mẫu do AI viết mới, **chưa có giáo viên duyệt**. Xem [`10_QA_AND_GAP_REPORT.md`](OPIC_OQC_KNOWLEDGE_BASE_V1/10_QA_AND_GAP_REPORT.md).
+- 258 câu hỏi của lớp do người dùng tự soạn. Các câu hỏi khác và mọi bài mẫu do AI viết, **chưa có giáo viên duyệt**. Xem [`10_QA_AND_GAP_REPORT.md`](OPIC_OQC_KNOWLEDGE_BASE_V1/10_QA_AND_GAP_REPORT.md).
 - **Đừng học thuộc bài mẫu.** ACTFL lưu ý rằng lời nói học thuộc có thể khiến thí sinh không vượt được mức Novice. Hãy học khung và cụm từ, rồi kể chuyện thật của bạn.
 - Khi chấm, câu hỏi và bài nói được gửi tới nhà cung cấp AI bạn chọn. Đừng đưa thông tin nội bộ công ty vào câu trả lời.

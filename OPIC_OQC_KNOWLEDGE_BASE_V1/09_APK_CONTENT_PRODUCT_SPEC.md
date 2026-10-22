@@ -75,6 +75,7 @@ Cột tiếng Việt dùng kiểu `NVARCHAR`.
 | **Daily Practice / điểm yếu** | P1 | ✅ (nút trong tab Tiến bộ) | `attempts` | Chọn dạng câu có ước tính thấp nhất hoặc chưa luyện | Ít dữ liệu → chọn ngẫu nhiên | Hiện lý do chọn |
 | **Progress** | P1 | ✅ | `attempts` (localStorage, tối đa 400) | Tổng, 7 ngày, chuỗi ngày, phân bố, theo dạng câu, lịch sử | localStorage đầy; xóa app mất dữ liệu | Tự cắt bớt khi đầy; nút Copy JSON |
 | **Import question pack** | P1 | ✅ | File JSON/CSV của người dùng | → câu `user_provided`, chỉ lưu trên máy | Tài liệu bản quyền chưa rõ | Không đóng gói vào APK; người dùng tự chịu trách nhiệm nội dung |
+| **Câu hỏi của lớp** | P0 | ✅ | `12_CLASS_QUESTION_BANK.jsonl` (258 câu, `origin_set: class`) | Lọc "Bộ câu hỏi" ở tab Luyện/Học; nguồn thi thử lớp/app/cả hai; bài mẫu IH + nghe bài mẫu | Bài mẫu IH do AI viết; dạng câu gán tay | Người dùng xác nhận quyền (SRC-U10); callout "Đừng học thuộc"; unit test 258 câu đều có bài mẫu |
 | **Self-check (không AI)** | P1 | ✅ | `expected_evidence` | Checklist → lưu tự đánh giá | — | — |
 | **Shadowing / phát âm** | P2 | ⏳ | bài mẫu + TTS | Nghe bài mẫu (đã có nút 🔊), so sánh ghi âm | Đánh giá phát âm bằng AI chưa kiểm định | Thu thập mẫu có nhãn trước |
 | **Backend FastAPI + SQL Server** | P2 | ⏳ | toàn bộ schema 08 | Đồng bộ đa thiết bị, giữ key trên server | Chi phí AI; bảo mật dữ liệu giọng nói | Pen-test, rate limit, chính sách consent |

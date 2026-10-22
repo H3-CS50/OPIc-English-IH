@@ -149,8 +149,114 @@ def build_answers(questions):
     return out
 
 
+# ---------------------------------------------------------------- class questions
+def build_class():
+    """258 câu hỏi của lớp (người dùng tự soạn) + 1 bài mẫu IH/câu do AI viết."""
+    import importlib.util
+    cp = HERE / "class_pack"
+    sys.path.insert(0, str(cp))
+    from class_meta import TYPES, CODES, TOPIC_MAP, RP_TOPIC_MAP, PERSONA_VI
+    src = json.loads((cp / "class_questions_src.json").read_text(encoding="utf-8"))["questions"]
+    ans = {}
+    for f in sorted(cp.glob("ans_*.py")):
+        spec = importlib.util.spec_from_file_location(f.stem, f)
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        for k in m.A:
+            if k in ans:
+                issue("FAIL", "class_answers", f"duplicate answer index {k} in {f.name}")
+        ans.update(m.A)
+    if len(TYPES) != len(src):
+        issue("FAIL", "class_meta", f"TYPES has {len(TYPES)} items, questions {len(src)}")
+    missing = [i for i in range(len(src)) if i not in ans]
+    if missing:
+        issue("FAIL", "class_answers", f"missing answers for indices {missing[:10]}")
+
+    # Nhóm combo: các câu liền nhau cùng loại + cùng chủ đề, cắt thành nhóm 3 (Combo-3, role-play) hoặc 2 (Combo-2).
+    def key(i):
+        q = src[i]
+        return ("RV",) if CODES[TYPES[i]] == "roleplay_ask_ava" else (q["type"], q["topic"])
+    runs, cur = [], [0]
+    for i in range(1, len(src)):
+        if key(i) == key(cur[-1]):
+            cur.append(i)
+        else:
+            runs.append(cur)
+            cur = [i]
+    runs.append(cur)
+    combo_of = {}
+    seq = Counter()
+    for run in runs:
+        k = key(run[0])
+        size = len(run) if k == ("RV",) else (2 if src[run[0]]["type"] == "Combo-2" else 3)
+        for j in range(0, len(run), size):
+            chunk = run[j:j + size]
+            q0 = src[chunk[0]]
+            tkey = "rp_ask_ava" if k == ("RV",) else (RP_TOPIC_MAP if q0["type"] == "Role-plays" else TOPIC_MAP).get(q0["topic"], "x")
+            seq[tkey] += 1
+            cid = f"CL-{tkey}-{q0['type'][:6].lower()}-{seq[tkey]}"
+            for order, idx in enumerate(chunk, 1):
+                combo_of[idx] = (cid, order)
+
+    out = []
+    for i, q in enumerate(src):
+        ptype = CODES[TYPES[i]]
+        p_label, funcs, frames, diff, slot = PROMPT_TYPES[ptype]
+        if q["type"] == "Role-plays":
+            topic = RP_TOPIC_MAP.get(q["topic"])
+            cat = "role_play"
+        else:
+            topic = TOPIC_MAP.get(q["topic"])
+            cat = "issue" if q["type"] == "Combo-2" else ("survey" if q["category"] == "Survey" else "unexpected")
+            slot = "adv" if q["type"] == "Combo-2" else "combo"
+            if q["type"] == "Combo-2":
+                diff = "challenging"
+        if topic not in TOPICS:
+            issue("FAIL", "class_taxonomy", f"CL-{i + 1:04d}: unknown topic {q['topic']}")
+            continue
+        text = ans.get(i, "").strip()
+        cid, order = combo_of[i]
+        out.append({
+            "question_id": f"CL-{i + 1:04d}",
+            "test_language": "English",
+            "topic": topic,
+            "topic_label_vi": TOPICS[topic][0],
+            "topic_category": cat,
+            "subtopic": p_label,
+            "question_text": q["question_text"],
+            "prompt_type": ptype,
+            "communicative_functions": funcs,
+            "time_frame_targets": frames,
+            "target_practice_levels": ["IH", "AL"] if diff == "challenging" else list(LEVELS),
+            "difficulty_design": diff,
+            "mock_slot": slot,
+            "combo_id": cid,
+            "combo_order": order,
+            "oqc_branch": False,
+            "source_id": "SRC-U10",
+            "source_url": None,
+            "content_origin": "user_provided",
+            "copyright_status": "user_owned",
+            "expected_evidence": EXPECTED_EVIDENCE[ptype],
+            "follow_up_questions": [],
+            "scaffolding_hints": [],
+            "answer_framework": FRAMEWORKS[ptype],
+            "review_status": "ai_checked",
+            "schema_version": SCHEMA_VERSION,
+            "origin_set": "class",
+            "source_index": i,
+            "class_type": q["type"],
+            "sample_answer_ih": text,
+            "sample_word_count": words(text),
+            "sample_origin": "AI_generated_original",
+            "sample_level_label_type": "practice_target_not_official_rating",
+            "sample_persona_vi": PERSONA_VI,
+        })
+    return out
+
+
 # ---------------------------------------------------------------- validation
-def validate(questions, answers, sources):
+def validate(questions, answers, sources, class_q):
     schema = schemas.bundle()
     res = {}
 
@@ -165,11 +271,12 @@ def validate(questions, answers, sources):
         res[f"schema_{entity}"] = "PASS" if bad == 0 else "FAIL"
 
     check("question", questions, "question_id")
+    check("class_question", class_q, "question_id")
     check("sample_answer", answers, "answer_id")
     check("source", sources, "source_id")
 
     # unique ids
-    for name, rows, key in (("question", questions, "question_id"), ("answer", answers, "answer_id"), ("source", sources, "source_id")):
+    for name, rows, key in (("question", questions + class_q, "question_id"), ("answer", answers, "answer_id"), ("source", sources, "source_id")):
         c = Counter(r[key] for r in rows)
         d = [k for k, v in c.items() if v > 1]
         res[f"unique_{name}_ids"] = "PASS" if not d else "FAIL"
@@ -178,7 +285,7 @@ def validate(questions, answers, sources):
 
     # provenance: every source_id referenced exists
     src_ids = {s["source_id"] for s in sources}
-    missing = {r["source_id"] for r in questions + answers if r["source_id"] and r["source_id"] not in src_ids}
+    missing = {r["source_id"] for r in questions + answers + class_q if r["source_id"] and r["source_id"] not in src_ids}
     res["provenance_links"] = "PASS" if not missing else "FAIL"
     for m in missing:
         issue("FAIL", "provenance", f"unknown source_id {m}")
@@ -196,7 +303,30 @@ def validate(questions, answers, sources):
         if vi.search(r["answer_text"]) or hangul.search(r["answer_text"]):
             lang_bad += 1
             issue("FAIL", "language", f"{r['answer_id']}: non-English characters in answer_text")
+    for r in class_q:
+        for t in (r["question_text"], r["sample_answer_ih"]):
+            if vi.search(t) or hangul.search(t):
+                lang_bad += 1
+                issue("FAIL", "language", f"{r['question_id']}: non-English characters")
     res["target_language_english_only"] = "PASS" if lang_bad == 0 else "FAIL"
+
+    # Câu hỏi của lớp: đủ bài mẫu, độ dài hợp lý, không lặp nguyên văn bài mẫu
+    short = [r["question_id"] for r in class_q if r["sample_word_count"] < (40 if r["prompt_type"] == "roleplay_ask_ava" else 80)]
+    res["class_samples_complete"] = "PASS" if class_q and all(r["sample_answer_ih"] for r in class_q) and not short else "FAIL"
+    for q in short:
+        issue("FAIL", "class_samples", f"{q}: sample answer too short")
+    sims = []
+    cs = [(r["question_id"], r["sample_answer_ih"]) for r in class_q]
+    for i in range(len(cs)):
+        for j in range(i + 1, len(cs)):
+            if abs(len(cs[i][1]) - len(cs[j][1])) > 200:
+                continue
+            r = difflib.SequenceMatcher(None, cs[i][1], cs[j][1]).quick_ratio()
+            if r > 0.9 and difflib.SequenceMatcher(None, cs[i][1], cs[j][1]).ratio() > 0.7:
+                sims.append((cs[i][0], cs[j][0]))
+    res["class_samples_not_copied"] = "PASS" if not sims else "NEEDS_REVIEW"
+    for a, b in sims:
+        issue("NEEDS_REVIEW", "class_samples", f"{a} ~ {b} sample answers very similar")
 
     # level labels
     lbl_bad = [a for a in answers if a["level_label_type"] != "practice_target_not_official_rating"]
@@ -241,7 +371,7 @@ def validate(questions, answers, sources):
 
     # sensitive content check (simple patterns): no company-internal identifiers / secrets
     secret = re.compile(r"(api[_-]?key|sk-ant-|AIza[0-9A-Za-z_-]{20,}|password\s*[:=]|samsung)", re.I)
-    sec_bad = [r for r in questions + answers if secret.search(json.dumps(r, ensure_ascii=False))]
+    sec_bad = [r for r in questions + answers + class_q if secret.search(json.dumps(r, ensure_ascii=False))]
     res["no_secrets_or_company_names"] = "PASS" if not sec_bad else "NEEDS_REVIEW"
     for r in sec_bad:
         issue("NEEDS_REVIEW", "sensitive", f"{r.get('question_id') or r.get('answer_id')}: matches sensitive pattern")
@@ -328,21 +458,23 @@ def main():
     KB.mkdir(exist_ok=True)
     questions = build_questions()
     answers = build_answers(questions)
+    class_q = build_class()
     sources = [{**s, "access_date": ACCESS_DATE} for s in SOURCES]
     # reorder keys to schema order
     sources = [{k: s[k] for k in schemas.SOURCE["required"]} for s in sources]
 
-    results, sets = validate(questions, answers, sources)
+    results, sets = validate(questions, answers, sources, class_q)
 
     write_jsonl(KB / "05_QUESTION_BANK_SEED.jsonl", questions)
     write_jsonl(KB / "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", answers)
+    write_jsonl(KB / "12_CLASS_QUESTION_BANK.jsonl", class_q)
     write_sources_csv(KB / "01_SOURCE_REGISTER.csv", sources)
     write_taxonomy_md(KB / "04_QUESTION_TAXONOMY.md", questions)
     (KB / "08_DATA_SCHEMA.json").write_text(json.dumps(schemas.bundle(), ensure_ascii=False, indent=2), encoding="utf-8")
 
     # re-parse every JSONL line to prove it parses
     parse_ok = True
-    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl"):
+    for fn in ("05_QUESTION_BANK_SEED.jsonl", "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl", "12_CLASS_QUESTION_BANK.jsonl"):
         for i, line in enumerate((KB / fn).read_text(encoding="utf-8").splitlines(), 1):
             try:
                 json.loads(line)
@@ -359,7 +491,13 @@ def main():
     app_q = [{k: q[k] for k in ("question_id", "topic", "topic_category", "question_text", "prompt_type", "target_practice_levels",
                                "difficulty_design", "mock_slot", "combo_id", "combo_order", "oqc_branch", "expected_evidence",
                                "follow_up_questions", "scaffolding_hints", "answer_framework", "time_frame_targets",
-                               "content_origin")} for q in questions]
+                               "content_origin")} | {"origin_set": "app"} for q in questions]
+    for q in class_q:
+        app_q.append({k: q[k] for k in ("question_id", "topic", "topic_category", "question_text", "prompt_type", "target_practice_levels",
+                                        "difficulty_design", "mock_slot", "combo_id", "combo_order", "oqc_branch", "expected_evidence",
+                                        "follow_up_questions", "scaffolding_hints", "answer_framework", "time_frame_targets",
+                                        "content_origin", "origin_set", "class_type")}
+                     | {"sample_ih": q["sample_answer_ih"], "sample_wc": q["sample_word_count"]})
     app_sets = []
     for sid, lv in sorted(sets.items()):
         any_a = lv["IM"]
@@ -379,6 +517,7 @@ def main():
         "frameworks": FRAMEWORKS,
         "questions": app_q,
         "answer_sets": app_sets,
+        "class_persona_vi": class_q[0]["sample_persona_vi"] if class_q else "",
         "sources": [{k: s[k] for k in ("source_id", "title", "publisher_or_author", "tier", "url", "access_status")} for s in sources],
     }
     (APP_SRC / "kb.json").write_text(json.dumps(kb_json, ensure_ascii=False), encoding="utf-8")
@@ -411,6 +550,7 @@ def main():
         "test_language": "English",
         "record_counts": {
             "questions": len(questions),
+            "class_questions": len(class_q),
             "sample_answers": len(answers),
             "sample_answer_sets": len(sets),
             "sources": len(sources),
@@ -421,6 +561,9 @@ def main():
         "questions_by_target_level": {l: sum(l in q["target_practice_levels"] for q in questions) for l in LEVELS},
         "questions_by_content_origin": dict(Counter(q["content_origin"] for q in questions)),
         "oqc_branch_questions": sum(q["oqc_branch"] for q in questions),
+        "class_questions_by_type": dict(Counter(q["class_type"] for q in class_q)),
+        "class_questions_by_prompt_type": dict(Counter(q["prompt_type"] for q in class_q)),
+        "class_sample_word_count_range": [min((q["sample_word_count"] for q in class_q), default=0), max((q["sample_word_count"] for q in class_q), default=0)],
         "sample_answers_by_level": dict(Counter(a["target_practice_level"] for a in answers)),
         "sample_answer_word_count_range": {l: [min(a["word_count"] for a in answers if a["target_practice_level"] == l),
                                                max(a["word_count"] for a in answers if a["target_practice_level"] == l)] for l in LEVELS},

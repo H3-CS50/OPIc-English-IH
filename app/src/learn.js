@@ -1,6 +1,6 @@
 // Tab Học: ngân hàng câu hỏi, bài mẫu 3 cấp, cấp độ IM/IH/AL, khung trả lời, tài liệu, flashcard.
 import { $, escapeHtml, md, store, toast } from './util.js';
-import { kb, docs, flashcards, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, allQuestions } from './data.js';
+import { kb, docs, flashcards, filterQuestions, getQuestion, sampleSetFor, topicLabel, ptypeLabel, CATEGORY_LABEL, SOURCE_LABEL, originOf, allQuestions } from './data.js';
 import { openQuestion, bindSampleSet } from './practice.js';
 import { speak } from './speech.js';
 import { settings } from './settings.js';
@@ -18,8 +18,12 @@ function showSub(name) {
 }
 
 // ---------- Ngân hàng câu hỏi ----------
-const bf = { category: '', ptype: '', level: '', search: '' };
+const bf = { source: '', category: '', ptype: '', level: '', search: '' };
 function fillBankFilters() {
+  const sources = Object.keys(SOURCE_LABEL).filter((k) => allQuestions().some((q) => originOf(q) === k));
+  $('b-source').innerHTML =
+    `<option value="">Mọi bộ câu hỏi</option>` + sources.map((k) => `<option value="${k}">${SOURCE_LABEL[k]}</option>`).join('');
+  $('b-source').value = bf.source;
   const cats = Object.keys(CATEGORY_LABEL).filter((c) => allQuestions().some((q) => q.topic_category === c));
   $('b-category').innerHTML = `<option value="">Tất cả nhóm</option>` + cats.map((c) => `<option value="${c}">${CATEGORY_LABEL[c]}</option>`).join('');
   $('b-ptype').innerHTML = `<option value="">Mọi dạng câu</option>` + Object.entries(kb.prompt_types).map(([k, v]) => `<option value="${k}">${escapeHtml(v.vi)}</option>`).join('');
@@ -30,7 +34,7 @@ function renderBank() {
   $('bank-list').innerHTML = list
     .map(
       (q) => `<button class="list-item q-item" data-q="${q.question_id}">
-        <div class="q-item-meta"><span class="chip">${escapeHtml(q.topic === 'imported' ? q.topic_text || 'Tự nhập' : topicLabel(q.topic))}</span><span class="chip chip-type">${escapeHtml(ptypeLabel(q.prompt_type))}</span>${q.oqc_branch ? '<span class="chip chip-oqc">OQC</span>' : ''}${sampleSetFor(q.question_id) ? '<span class="chip chip-sample">bài mẫu</span>' : ''}</div>
+        <div class="q-item-meta"><span class="chip">${escapeHtml(q.topic === 'imported' ? q.topic_text || 'Tự nhập' : topicLabel(q.topic))}</span><span class="chip chip-type">${escapeHtml(ptypeLabel(q.prompt_type))}</span>${q.oqc_branch ? '<span class="chip chip-oqc">OQC</span>' : ''}${sampleSetFor(q.question_id) ? '<span class="chip chip-sample">bài mẫu 3 cấp</span>' : ''}${q.sample_ih ? '<span class="chip chip-sample">bài mẫu IH</span>' : ''}${originOf(q) === 'class' ? '<span class="chip chip-class">lớp</span>' : ''}</div>
         <div class="q-item-text">${escapeHtml(q.question_text)}</div>
         <div class="muted small">${q.question_id} · luyện cho ${q.target_practice_levels.join(', ')}</div></button>`,
     )
@@ -206,6 +210,7 @@ export function initLearn() {
   document.querySelectorAll('#tab-learn .subnav button').forEach((b) => b.addEventListener('click', () => showSub(b.dataset.sub)));
   fillBankFilters();
   for (const [id, key] of [
+    ['b-source', 'source'],
     ['b-category', 'category'],
     ['b-ptype', 'ptype'],
     ['b-level', 'level'],

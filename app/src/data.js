@@ -17,9 +17,17 @@ export const CATEGORY_LABEL = {
   imported: 'Câu hỏi tự nhập',
 };
 
+export const SOURCE_LABEL = { class: 'Câu hỏi của lớp', app: 'Ngân hàng của app', imported: 'Câu hỏi tự nhập' };
+export const originOf = (q) => q.origin_set || (q.content_origin === 'user_provided' ? 'imported' : 'app');
+
 // ---------- Bộ câu hỏi tự nhập (lưu trên máy) ----------
 let packs = store.get('packs', []);
 const savePacks = () => store.set('packs', packs);
+// Bộ câu hỏi của lớp nay đã có sẵn trong app: bỏ bản tự nhập cũ để không bị trùng.
+if (packs.some((p) => p.name === 'Câu hỏi từ tài liệu lớp (List câu hỏi)')) {
+  packs = packs.filter((p) => p.name !== 'Câu hỏi từ tài liệu lớp (List câu hỏi)');
+  savePacks();
+}
 
 export const listPacks = () => packs.map((p) => ({ id: p.id, name: p.name, count: p.questions.length, created: p.created }));
 export function deletePack(id) {
@@ -116,6 +124,7 @@ function normalizeImported(raw, packId, i) {
     answer_framework: kb.frameworks[ptype] || '',
     time_frame_targets: pt?.time_frames || ['present'],
     content_origin: 'user_provided',
+    origin_set: 'imported',
     user_sample: String(raw.sample_answer || raw.answer || raw['Answer (Sample)'] || raw.Answer || '').trim(),
   };
 }
@@ -175,10 +184,11 @@ export const sampleSetFor = (qid) => setsByQ.get(qid);
 export const getCombo = (id) => combos.get(id) || [];
 export const comboIds = () => [...combos.keys()];
 
-export function filterQuestions({ category = '', topic = '', ptype = '', level = '', oqc = true, search = '' } = {}) {
+export function filterQuestions({ source = '', category = '', topic = '', ptype = '', level = '', oqc = true, search = '' } = {}) {
   const s = search.trim().toLowerCase();
   return all.filter(
     (q) =>
+      (!source || originOf(q) === source) &&
       (!category || q.topic_category === category) &&
       (!topic || q.topic === topic) &&
       (!ptype || q.prompt_type === ptype) &&

@@ -29,6 +29,22 @@ for (let n = 0; n < 300; n++) {
   ok(new Set(m.map((q) => q.question_id)).size === 15, 'no duplicate question');
 }
 
+// Thi thử chỉ từ câu hỏi của lớp / chỉ từ app
+for (let n = 0; n < 200; n++) {
+  const source = n % 2 ? 'class' : 'app';
+  const diff = n % 3 ? '56' : '34';
+  const m = buildMock({ topics: [], diff, oqc: false, source });
+  ok(m.length === 15, `mock(${source}) length ${m.length}`);
+  ok(m.slice(1).every((q) => (q.origin_set || 'app') === source), `mock(${source}) uses only ${source} after Q1`);
+  ok(m[11].prompt_type === 'roleplay_problem' && m[12].prompt_type === 'roleplay_experience', `mock(${source}) Q12–13 types`);
+  ok(m.slice(1, 7).every((q) => q.topic_category === 'survey'), `mock(${source}) survey`);
+  if (diff === '56') ok(m.slice(13).every((q) => q.topic_category === 'issue'), `mock(${source}) advanced`);
+  ok(new Set(m.map((q) => q.question_id)).size === 15, `mock(${source}) no duplicate`);
+}
+const cls = allQuestions().filter((q) => q.origin_set === 'class');
+ok(cls.length === 258, `258 class questions (got ${cls.length})`);
+ok(cls.every((q) => q.sample_ih && q.sample_ih.length > 150), 'every class question has an IH sample');
+
 const cases = [
   ["I'd like to give you a situation. Call the store and ask three or four questions about the phone.", 'roleplay_ask'],
   ["I'm sorry, but there is a problem I need you to resolve. Offer two or three alternatives.", 'roleplay_problem'],

@@ -28,13 +28,25 @@ const ms = {
 };
 
 // ---------- Tạo đề ----------
+// Mỗi combo được phân loại theo mock_slot của câu hỏi; nguồn: app (ngân hàng của app) hoặc class (câu hỏi của lớp).
 function comboInfo() {
   const out = [];
   for (const id of comboIds()) {
     const qs = getCombo(id);
     if (!qs.length || id.startsWith('U-')) continue;
-    const kind = id === 'C-intro' ? 'intro' : id.startsWith('RP-') ? 'rp' : id.startsWith('ADV-') ? 'adv' : 'combo';
-    out.push({ id, kind, topic: qs[0].topic, category: qs[0].topic_category, oqc: qs.some((q) => q.oqc_branch), qs });
+    const slots = new Set(qs.map((q) => q.mock_slot));
+    const kind = slots.has('intro')
+      ? 'intro'
+      : qs.every((q) => q.prompt_type === 'roleplay_ask_ava')
+        ? 'ava'
+        : [...slots].some((x) => x.startsWith('rp_'))
+          ? 'rp'
+          : slots.has('adv')
+            ? 'adv'
+            : 'combo';
+    const need = kind === 'rp' || kind === 'combo' ? 3 : kind === 'adv' ? 2 : 1;
+    if (qs.length < need) continue;
+    out.push({ id, kind, source: qs[0].origin_set || 'app', topic: qs[0].topic, category: qs[0].topic_category, oqc: qs.some((q) => q.oqc_branch), qs });
   }
   return out;
 }
@@ -42,9 +54,14 @@ function comboInfo() {
 const SECTION = (i) =>
   i === 0 ? 'Giới thiệu' : i <= 3 ? 'Combo 1' : i <= 6 ? 'Combo 2' : i <= 9 ? 'Combo 3' : i <= 12 ? 'Role-play' : 'Câu nâng cao';
 
-export function buildMock({ topics, diff, oqc }) {
-  const info = comboInfo().filter((c) => oqc || !c.oqc);
-  const intro = pick(info.find((c) => c.kind === 'intro').qs.filter((q) => oqc || !q.oqc_branch));
+// source: 'both' | 'app' | 'class'
+export function buildMock({ topics, diff, oqc, source = 'both' }) {
+  const all = comboInfo().filter((c) => oqc || !c.oqc);
+  const intro = pick(all.find((c) => c.kind === 'intro').qs.filter((q) => oqc || !q.oqc_branch));
+  let info = all.filter((c) => source === 'both' || c.source === source);
+  // Nguồn quá ít câu cho một phần nào đó thì lấy thêm từ nguồn còn lại.
+  const enough = (k, cat, n) => info.filter((c) => c.kind === k && (!cat || c.category === cat)).length >= n;
+  if (!enough('combo', 'survey', 2) || !enough('combo', 'unexpected', 2) || !enough('rp', null, 1) || !enough('adv', null, 1)) info = all;
   const survey = info.filter((c) => c.kind === 'combo' && c.category === 'survey');
   const chosen = survey.filter((c) => !topics.length || topics.includes(c.topic));
   const pool = chosen.length ? chosen : survey;
@@ -60,14 +77,11 @@ export function buildMock({ topics, diff, oqc }) {
     surveyCombos.push(pick(rest.length ? rest : survey.filter((c) => c !== surveyCombos[0])));
   }
   const unexpected = shuffle(info.filter((c) => c.kind === 'combo' && c.category === 'unexpected'));
-  const rpSets = info.filter((c) => c.kind === 'rp' && c.id !== 'RP-ava');
-  const rp = pick(rpSets);
+  const rp = pick(info.filter((c) => c.kind === 'rp'));
   let rpQs = [...rp.qs];
   // Đôi khi câu 11 là dạng "hãy hỏi tôi 3–4 câu".
-  if (Math.random() < 0.25) {
-    const ava = info.find((c) => c.id === 'RP-ava');
-    if (ava) rpQs = [pick(ava.qs), ...rpQs.slice(1)];
-  }
+  const avas = info.filter((c) => c.kind === 'ava');
+  if (avas.length && Math.random() < 0.25) rpQs = [pick(pick(avas).qs), ...rpQs.slice(1)];
   let last;
   if (diff === '56') last = pick(info.filter((c) => c.kind === 'adv')).qs.slice(0, 2);
   else last = unexpected[1].qs.slice(0, 2);
@@ -76,7 +90,11 @@ export function buildMock({ topics, diff, oqc }) {
 
 // ---------- Màn hình chuẩn bị ----------
 function renderSetup() {
-  const surveyTopics = [...new Set(comboInfo().filter((c) => c.kind === 'combo' && c.category === 'survey').map((c) => c.topic))];
+  const src = settings.mockSource || 'both';
+  document.querySelectorAll('[name=mock-source]').forEach((r) => (r.checked = r.value === src));
+  const surveyTopics = [
+    ...new Set(comboInfo().filter((c) => c.kind === 'combo' && c.category === 'survey' && (src === 'both' || c.source === src)).map((c) => c.topic)),
+  ];
   const saved = settings.mockTopics || [];
   $('mock-topics').innerHTML = surveyTopics
     .map((t) => `<label class="check chip-check"><input type="checkbox" value="${t}" ${saved.includes(t) ? 'checked' : ''}> ${escapeHtml(topicLabel(t))}</label>`)
@@ -100,9 +118,10 @@ function start() {
   settings.mockTopics = topics;
   settings.mockDiff = diff;
   settings.includeOqc = $('mock-oqc').checked;
+  settings.mockSource = document.querySelector('[name=mock-source]:checked')?.value || 'both';
   saveSettings();
   if (settings.mode === 'transcribe' && !canTranscribe()) return toast('Thiết bị không hỗ trợ chuyển giọng nói thành chữ. Chọn chế độ 🎙️ Ghi âm.', 4500);
-  ms.items = buildMock({ topics, diff, oqc: settings.includeOqc });
+  ms.items = buildMock({ topics, diff, oqc: settings.includeOqc, source: settings.mockSource });
   ms.answers = ms.items.map(() => ({ transcript: '', audio: null, seconds: 0, result: null, error: '' }));
   ms.idx = 0;
   ms.clock = TOTAL_SECONDS;
@@ -347,6 +366,13 @@ export function initMock() {
   document.querySelectorAll('#mock-setup .seg[data-mode]').forEach((b) =>
     b.addEventListener('click', () => {
       settings.mode = b.dataset.mode;
+      saveSettings();
+      renderSetup();
+    }),
+  );
+  document.querySelectorAll('[name=mock-source]').forEach((r) =>
+    r.addEventListener('change', () => {
+      settings.mockSource = r.value;
       saveSettings();
       renderSetup();
     }),

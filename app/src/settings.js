@@ -172,5 +172,5 @@ export function initSettings({ version }) {
     toast((await copyText(data)) ? '✅ Đã copy dữ liệu luyện tập (JSON). Dán vào ghi chú hoặc email để lưu.' : '⚠️ Không copy được.', 4000);
   });
 
-  $('app-version').textContent = `OPIc OQC · phiên bản ${version} · bộ dữ liệu ${kb.dataset_version} · ${kb.questions.length} câu hỏi · ${kb.answer_sets.length} bộ bài mẫu`;
+  $('app-version').textContent = `OPIc OQC · phiên bản ${version} · bộ dữ liệu ${kb.dataset_version} · ${kb.questions.filter((q) => q.origin_set === 'app').length} câu hỏi của app · ${kb.questions.filter((q) => q.origin_set === 'class').length} câu hỏi của lớp (có bài mẫu IH) · ${kb.answer_sets.length} bộ bài mẫu 3 cấp`;
 }

@@ -10,6 +10,7 @@ Ngày: 2026-10-22 · Phiên bản dữ liệu 1.0.0
 | Kiểm tra | Kết quả |
 |---|---|
 | `schema_question` | **PASS** |
+| `schema_class_question` | **PASS** |
 | `schema_sample_answer` | **PASS** |
 | `schema_source` | **PASS** |
 | `unique_question_ids` | **PASS** |
@@ -17,6 +18,8 @@ Ngày: 2026-10-22 · Phiên bản dữ liệu 1.0.0
 | `unique_source_ids` | **PASS** |
 | `provenance_links` | **PASS** |
 | `target_language_english_only` | **PASS** |
+| `class_samples_complete` | **PASS** |
+| `class_samples_not_copied` | **PASS** |
 | `level_label_type` | **PASS** |
 | `question_near_duplicates` | **PASS** |
 | `answer_sets_complete` | **PASS** |
@@ -38,7 +41,7 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 | 3 | Language validation: câu hỏi và bài mẫu là tiếng Anh tự nhiên | **PASS (tự động) / NEEDS_REVIEW (người)** | Đã tự đọc lại; chưa có người bản ngữ hoặc giáo viên duyệt |
 | 4 | Target-language validation: không lẫn tiếng Hàn hay tiếng Việt trong trường tiếng Anh | **PASS** | Kiểm tra bằng regex |
 | 5 | Level-label validation: phân biệt official, author-reported, analyst estimate, practice target | **PASS** | Bài mẫu: `practice_target_not_official_rating`. Nhãn "IH+" trong tài liệu người dùng ghi là author-reported (SRC-U08) |
-| 6 | Copyright validation: nội dung chưa rõ quyền không vào APK | **PASS** | APK chỉ chứa nội dung AI viết mới, 1 câu trích ACTFL rất ngắn, và tài liệu v1 do AI viết |
+| 6 | Copyright validation: nội dung chưa rõ quyền không vào APK | **PASS** | APK chứa nội dung AI viết mới, 1 câu trích ACTFL rất ngắn, tài liệu v1 do AI viết, và 258 câu hỏi của lớp mà người dùng xác nhận là tự soạn (SRC-U10, `user_owned`) |
 | 7 | Question duplication | **PASS** | Không có cặp câu nào giống nhau ≥ 0.8 |
 | 8 | Answer quality: các mức khác nhau về năng lực thể hiện, không chỉ độ dài | **PASS (tự động) / NEEDS_REVIEW (người)** | Độ trùng văn bản giữa các mức < 0.6. Có `key_differences_vi` cho từng bộ |
 | 9 | Hallucination audit | **PASS (tự kiểm)** | Đã gỡ các claim chưa xác minh khỏi tài liệu v1 (độ khó 1–6, "dưới 1 phút không thể IH", "tự sửa lỗi là điểm cộng") |
@@ -80,7 +83,8 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 
 ## 4. Quyền sử dụng chưa rõ
 
-- **Tài liệu người dùng (SRC-U01…U15): REUSE_RIGHTS_UNCLEAR.** Gồm sách, slide của giáo viên và lớp SEVT, bảng câu hỏi. Các tài liệu này chỉ dùng để tham khảo phân loại; **không** đóng gói vào APK. Người dùng có thể tự nhập bộ câu hỏi của mình vào app (chỉ lưu trên máy).
+- **Tài liệu người dùng (SRC-U01…U15, trừ U10): REUSE_RIGHTS_UNCLEAR.** Gồm sách, slide của giáo viên và lớp SEVT, bảng câu hỏi. Các tài liệu này chỉ dùng để tham khảo phân loại; **không** đóng gói vào APK. Người dùng có thể tự nhập bộ câu hỏi của mình vào app (chỉ lưu trên máy).
+- **Bộ câu hỏi của lớp (SRC-U10, `List câu hỏi.pdf`): USER_OWNED.** Ngày 2026-10-22 người dùng xác nhận đây là câu hỏi tự soạn và yêu cầu đưa vào app. 258 câu nằm trong `12_CLASS_QUESTION_BANK.jsonl` và trong APK (mục "Câu hỏi của lớp"). Mỗi câu có 1 bài mẫu IH do AI viết (`sample_origin: AI_generated_original`), là mục tiêu luyện tập, không phải bài thi thật. Dạng câu của từng câu do AI gán tay, cần người kiểm tra mẫu.
 - **ACTFL Guidelines và Can-Do:** chỉ được dùng cho mục đích giáo dục phi lợi nhuận. Nếu app được thương mại hóa, cần xin phép ACTFL cho phần mô tả level, hoặc thay bằng mô tả hoàn toàn tự xây dựng.
 - **Tên "OPIc":** là tên bài thi của ACTFL. **Chưa kiểm tra** đăng ký nhãn hiệu. Trước khi phát hành công khai hoặc thu phí, nên đổi tên app hoặc tìm hiểu quy định dùng tên.
 - **Learner answers trong `OPIc_Questions.xlsx`:** thuộc về người viết. Không dùng làm bài mẫu trong APK.
@@ -102,6 +106,8 @@ Số lỗi FAIL: 0 · cần xem lại: 0. Chi tiết trong `validation_report.js
 - Kết quả có thể dao động giữa các lần chấm và giữa các model. App giới hạn độ tin cậy từng câu ở mức "trung bình".
 
 ## 7. Dữ liệu cần thu thập tiếp
+
+- Giáo viên duyệt mẫu 258 bài mẫu IH của bộ câu hỏi lớp (ưu tiên role-play và câu hỏi Ava).
 
 - Bộ ghi âm có rating chính thức (có đồng ý của người nói) để hiệu chỉnh prompt.
 - Thêm bài mẫu cho các dạng còn ít:

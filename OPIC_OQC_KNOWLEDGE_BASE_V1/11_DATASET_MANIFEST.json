@@ -6,6 +6,7 @@
   "test_language": "English",
   "record_counts": {
     "questions": 142,
+    "class_questions": 258,
     "sample_answers": 72,
     "sample_answer_sets": 24,
     "sources": 27
@@ -85,6 +86,32 @@
     "AI_generated_original": 141
   },
   "oqc_branch_questions": 8,
+  "class_questions_by_type": {
+    "Combo-3": 156,
+    "Role-plays": 48,
+    "Combo-2": 54
+  },
+  "class_questions_by_prompt_type": {
+    "description": 44,
+    "routine": 26,
+    "past_recent": 20,
+    "comparison_change": 32,
+    "problem_experience": 10,
+    "preference_opinion": 5,
+    "memorable_experience": 22,
+    "past_first": 19,
+    "roleplay_ask": 14,
+    "roleplay_problem": 14,
+    "roleplay_experience": 14,
+    "roleplay_ask_ava": 6,
+    "news_report": 9,
+    "issue_concern": 15,
+    "comparison_two": 8
+  },
+  "class_sample_word_count_range": [
+    96,
+    159
+  ],
   "sample_answers_by_level": {
     "IM": 24,
     "IH": 24,
@@ -117,6 +144,7 @@
   },
   "validation_status": {
     "schema_question": "PASS",
+    "schema_class_question": "PASS",
     "schema_sample_answer": "PASS",
     "schema_source": "PASS",
     "unique_question_ids": "PASS",
@@ -124,6 +152,8 @@
     "unique_source_ids": "PASS",
     "provenance_links": "PASS",
     "target_language_english_only": "PASS",
+    "class_samples_complete": "PASS",
+    "class_samples_not_copied": "PASS",
     "level_label_type": "PASS",
     "question_near_duplicates": "PASS",
     "answer_sets_complete": "PASS",
@@ -140,17 +170,18 @@
     "Descriptor ACTFL được tóm tắt/diễn giải, không chép nguyên văn; cần đối chiếu PDF trước khi phát hành thương mại."
   ],
   "checksums_sha256": {
-    "00_README.md": "f6d45602879e85b877e8815ed497196f0eb71246fc44f6f8519517a148643e55",
-    "01_SOURCE_REGISTER.csv": "77321d702bef47ead78e34597e242c36632093e018392fb104a0cb115d2f88e0",
+    "00_README.md": "164fabd5ffe1f522f2b0f3b899862f25c99ba5a82debcb52d1e43fc15da604fc",
+    "01_SOURCE_REGISTER.csv": "b958a5e1b11acae67f7760a80c69c88aebb7e9e5610e4c4c486d32d927b3fe1d",
     "02_OFFICIAL_FINDINGS.md": "add8c8a9c6228620b7231849bed556260c4eb47d3051a07eb61b53493a86bd2e",
     "03_IM_IH_AL_PROFICIENCY_MATRIX.md": "ec6a4d39784ad77756abb190705cb42bde8fe19151e3dbd3280de73a34d3d109",
-    "04_QUESTION_TAXONOMY.md": "29f361d5057cc4500d84272ca602bac4e353e7c30ab2aa28f3abd1b73b7eb036",
+    "04_QUESTION_TAXONOMY.md": "9c2642193d646ddd0e881d9b9dbd16785ac955a025393cfd4fe7b751a8771faf",
     "05_QUESTION_BANK_SEED.jsonl": "b3589e8d675c3c6dd3021bcd2d142c46cd3fcac00c3ce747b04ac6c189907d61",
     "06_IM_IH_AL_SAMPLE_ANSWERS.jsonl": "dc48205a06311e8c3d92e5505117b7172da39c32c0c85f5e14f57403019b30c0",
     "07_AI_COACH_GRADING_PROMPT.md": "79519a30f7a9cbdb16e280e6c1c90d8acd45fbab28a0798723c03b0513cef324",
-    "08_DATA_SCHEMA.json": "b05782e114471217ec61cfd21c340cfa97b49a486f7955b9475bed2092733a6f",
-    "09_APK_CONTENT_PRODUCT_SPEC.md": "aa7663ce01e50bdc203ecd8e802725597cb3c0339ba662769feb3416b05c8411",
-    "10_QA_AND_GAP_REPORT.md": "b97523b11584fd6de9afb1734eb7d2a067663ce673748879957bb196fc9365e0",
-    "validation_report.json": "674ed82ee8a38921969fca4158f89fd7ff3750e48e8d888d06e61e04b8cf8592"
+    "08_DATA_SCHEMA.json": "1c0998313fa3f14a82049dac5a1e4c5c94ada14a1e2f9a5babca77b16e8c9f97",
+    "09_APK_CONTENT_PRODUCT_SPEC.md": "31b5473d830e4797c453bf193d1b1fdd0136e77bebee5807f32ec798780fca22",
+    "10_QA_AND_GAP_REPORT.md": "ac2169fc7e63370e9b1d85d174bdf7436122f7899ef795bc04102272f4dd1f65",
+    "12_CLASS_QUESTION_BANK.jsonl": "41ffb5aca4c8223a80ee79833b70a01e231d8fe84a6de1f1a0bc27d467d5dc5e",
+    "validation_report.json": "1df95c8d0b48089b5475b2ef9038c3c341465a3beccb2e63fab05ab1545ee7e8"
   }
 }

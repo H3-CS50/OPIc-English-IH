@@ -49,7 +49,7 @@ QUESTION = {
         "oqc_branch": {"type": "boolean"},
         "source_id": _str, "source_url": {"type": ["string", "null"]},
         "content_origin": {"enum": CONTENT_ORIGINS},
-        "copyright_status": {"enum": ["original", "short_quote_official", "user_provided_unclear", "permission_granted"]},
+        "copyright_status": {"enum": ["original", "short_quote_official", "user_provided_unclear", "user_owned", "permission_granted"]},
         "expected_evidence": _strs, "follow_up_questions": _strs, "scaffolding_hints": _strs, "answer_framework": _str,
         "review_status": {"enum": REVIEW_STATUSES},
         "schema_version": _str,
@@ -162,6 +162,26 @@ COACH_RESULT = {
     },
 }
 
+# Câu hỏi của lớp: câu hỏi do người dùng tự soạn + 1 bài mẫu IH do AI viết.
+CLASS_QUESTION = {
+    "x-status": "MVP",
+    "type": "object", "additionalProperties": False,
+    "required": QUESTION["required"] + ["origin_set", "source_index", "class_type", "sample_answer_ih", "sample_word_count",
+                                        "sample_origin", "sample_level_label_type", "sample_persona_vi"],
+    "properties": {
+        **QUESTION["properties"],
+        "question_id": {"type": "string", "pattern": "^CL-\\d{4}$"},
+        "origin_set": {"const": "class"},
+        "source_index": {"type": "integer"},
+        "class_type": {"enum": ["Combo-3", "Combo-2", "Role-plays"]},
+        "sample_answer_ih": {"type": "string", "minLength": 40},
+        "sample_word_count": {"type": "integer"},
+        "sample_origin": {"const": "AI_generated_original"},
+        "sample_level_label_type": {"const": "practice_target_not_official_rating"},
+        "sample_persona_vi": _str,
+    },
+}
+
 PRACTICE_SESSION = {
     "x-status": "MVP",
     "description": "Một lần luyện (lưu cục bộ trên máy, KHÔNG lưu file ghi âm)",
@@ -199,7 +219,7 @@ def bundle():
         "title": "OPIc OQC knowledge base & app data schema",
         "x-schema-version": "1.0",
         "$defs": {
-            "source": SOURCE, "question": QUESTION, "sample_answer": SAMPLE_ANSWER,
+            "source": SOURCE, "question": QUESTION, "class_question": CLASS_QUESTION, "sample_answer": SAMPLE_ANSWER,
             "coach_result": COACH_RESULT, "practice_session": PRACTICE_SESSION, "progress": PROGRESS,
         },
     }

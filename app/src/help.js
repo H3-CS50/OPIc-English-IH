@@ -16,7 +16,7 @@ const SLIDES = [
       ['📒', 'Tab <b>Từ vựng</b>: hơn 1.200 từ & cụm từ, ôn theo lịch, kiểm tra nhanh'],
       ['👆', '<b>Chạm vào từ tiếng Anh bất kỳ</b> để xem phiên âm và nghĩa'],
       ['📖', 'Bài mẫu, khung trả lời, tài liệu'],
-      ['📝', 'Thi thử 15 câu trong 40 phút'],
+      ['📝', 'Thi thử 15 câu trong 40 phút, có Survey và tự đánh giá như thi thật'],
     ],
   },
   {

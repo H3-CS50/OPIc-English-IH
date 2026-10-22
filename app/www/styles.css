@@ -473,3 +473,19 @@ body.no-scroll { overflow: hidden; }
 .lk-mt-text { font-size: 17px; font-weight: 600; }
 .lk-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0 4px; }
 .lk-link { border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; font-size: 13.5px; text-decoration: none; color: var(--primary); background: var(--surface); }
+
+/* ---------- Thi thử: survey + self-assessment ---------- */
+.sv-box { margin-top: 8px; }
+.sv-box > summary { list-style: none; display: inline-flex; }
+.sv-box > summary::-webkit-details-marker { display: none; }
+.sv-box[open] > summary { margin-bottom: 6px; }
+.sv-part { border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px 4px; margin: 10px 0; }
+.sv-part legend { font-weight: 700; font-size: 14px; padding: 0 4px; }
+.sv-group-t { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 6px; }
+.sv-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.sv-tag { font-size: 13px; padding: 3px 9px; border-radius: 999px; background: var(--border); }
+.sa-row { border-top: 1px solid var(--border); padding: 9px 0; }
+.sa-row:first-child { border-top: none; }
+.sa-off { opacity: 0.5; }
+.col-btns { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+.mock-flow { font-size: 13px; color: var(--muted); margin-top: 4px; }

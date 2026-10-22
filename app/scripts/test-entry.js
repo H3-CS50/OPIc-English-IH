@@ -1,6 +1,7 @@
 // Kiểm thử logic không cần giao diện: tạo đề thi thử, đoán dạng câu, nhập CSV, chuẩn hoá kết quả AI.
 import './test-setup.js';
-import { buildMock } from '../src/mock.js';
+import { buildMock, rebuildTail } from '../src/mock.js';
+import { surveyTopics, normalizeSurvey, DEFAULT_SURVEY, levelToDiff } from '../src/mock-survey.js';
 import { guessPromptType, importPack, importFile, allQuestions, listPacks } from '../src/data.js';
 import { readXlsx } from '../src/xlsx.js';
 import { TEMPLATE_HEADER, TEMPLATE_ROWS, xlsxTemplate, csvTemplate, jsonTemplate } from '../src/templates.js';
@@ -211,6 +212,29 @@ async function templateTests() {
   ok(D.parseMT({ responseStatus: 200, responseData: { translatedText: 'serendipity' } }, 'serendipity') === '', 'untranslated MT ignored');
   ok(D.parseMT({ responseStatus: 429, responseData: { translatedText: 'MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS' } }, 'x') === '', 'MT quota warning ignored');
   ok(D.MT_URL('hello') === 'https://api.mymemory.translated.net/get?q=hello&langpair=en|vi', 'MT url');
+  // Survey → chủ đề, chọn lại độ khó sau câu 7
+  {
+    const st = surveyTopics({ ...DEFAULT_SURVEY, work: 'none', leisure: ['movies', 'overseas'], discuss: ['environment'] }, { oqc: false });
+    ok(st.topics.includes('movies') && st.topics.includes('overseas_trips') && st.topics.includes('housing') && !st.topics.includes('work'), `survey topics ${st.topics}`);
+    ok(st.discuss.join() === 'recycling', `survey discuss ${st.discuss}`);
+    ok(surveyTopics({ ...DEFAULT_SURVEY, discuss: ['global_work'] }, { oqc: false }).discuss.join() === 'industry', 'no OQC discuss when OQC off');
+    ok(normalizeSurvey({ work: 'bogus', leisure: ['x', 'music'] }).work === 'company' && normalizeSurvey({ leisure: ['x', 'music'] }).leisure.join() === 'music', 'normalize survey');
+    ok(levelToDiff(4) === '34' && levelToDiff(5) === '56', 'level → diff');
+    for (let k = 0; k < 20; k++) {
+      const m = buildMock({ topics: st.topics, discuss: st.discuss, diff: '34', oqc: false });
+      const t = rebuildTail(m, { diff: '56', discuss: ['recycling'], oqc: false });
+      if (!(t.length === 15 && t.slice(0, 7).every((q, i) => q === m[i]) && t.slice(13).every((q) => q.topic_category === 'issue') && new Set(t.map((q) => q.question_id)).size === 15)) {
+        ok(false, 'rebuild tail harder');
+        break;
+      }
+      const e = rebuildTail(m, { diff: '34', oqc: false });
+      if (!(e.slice(13).every((q) => q.topic_category === 'unexpected') && new Set(e.map((q) => q.question_id)).size === 15)) {
+        ok(false, 'rebuild tail easier');
+        break;
+      }
+      if (k === 19) ok(true, 'rebuild tail ×20');
+    }
+  }
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });
   ok(it && V.isMine('reluctant') && V.ALL.length === n0 + 1 && V.MY_TOPIC.items.length === 1, 'add to Sổ từ');

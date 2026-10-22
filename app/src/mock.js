@@ -5,7 +5,12 @@ import { createTranscriber, createRecorder, speak, stopSpeaking, canTranscribe }
 import { grade, providerReady } from './coach.js';
 import { renderFeedback, renderCompact, levelBadge } from './feedback.js';
 import { addAttempt } from './history.js';
-import { settings, saveSettings } from './settings.js';
+import { settings, saveSettings, onSettingsChange } from './settings.js';
+import {
+  normalizeSurvey, surveyTopics, surveySummary, surveyFormHTML, readSurveyForm,
+  selfLevelHTML, levelToDiff, suggestLevel, clampLevel,
+} from './mock-survey.js';
+import { saveMockRecord } from './mock-history.js';
 
 const TOTAL_SECONDS = 40 * 60;
 
@@ -55,13 +60,49 @@ const SECTION = (i) =>
   i === 0 ? 'Giới thiệu' : i <= 3 ? 'Combo 1' : i <= 6 ? 'Combo 2' : i <= 9 ? 'Combo 3' : i <= 12 ? 'Role-play' : 'Câu nâng cao';
 
 // source: 'both' | 'app' | 'class'
-export function buildMock({ topics, diff, oqc, source = 'both' }) {
+function pools({ oqc, source = 'both' }) {
   const all = comboInfo().filter((c) => oqc || !c.oqc);
-  const intro = pick(all.find((c) => c.kind === 'intro').qs.filter((q) => oqc || !q.oqc_branch));
   let info = all.filter((c) => source === 'both' || c.source === source);
   // Nguồn quá ít câu cho một phần nào đó thì lấy thêm từ nguồn còn lại.
   const enough = (k, cat, n) => info.filter((c) => c.kind === k && (!cat || c.category === cat)).length >= n;
   if (!enough('combo', 'survey', 2) || !enough('combo', 'unexpected', 2) || !enough('rp', null, 1) || !enough('adv', null, 1)) info = all;
+  return { all, info };
+}
+
+const hardness = (c) => c.qs.filter((q) => q.difficulty_design === 'challenging').length;
+// Chọn ngẫu nhiên, nghiêng về combo khó hơn khi hard = true.
+const pickCombo = (list, hard) => {
+  if (!hard || list.length < 2) return pick(list);
+  const top = Math.max(...list.map(hardness));
+  const hardList = list.filter((c) => hardness(c) === top);
+  return pick(hardList.length ? hardList : list);
+};
+
+// Câu 8–15: combo đột xuất, role-play, 2 câu cuối (nâng cao nếu cấp 5–6).
+function tailItems(info, { diff, discuss = [], hard = false, exclude = new Set(), avoidTopics = new Set() }) {
+  const unexp = info.filter((c) => c.kind === 'combo' && c.category === 'unexpected' && !exclude.has(c.id));
+  const fresh = unexp.filter((c) => !avoidTopics.has(c.topic));
+  const u1 = pickCombo(fresh.length ? fresh : unexp, hard);
+  const rp = pick(info.filter((c) => c.kind === 'rp' && !exclude.has(c.id)));
+  let rpQs = [...rp.qs];
+  // Đôi khi câu 11 là dạng "hãy hỏi tôi 3–4 câu".
+  const avas = info.filter((c) => c.kind === 'ava');
+  if (avas.length && Math.random() < 0.25) rpQs = [pick(pick(avas).qs), ...rpQs.slice(1)];
+  let last;
+  if (diff === '56') {
+    const adv = info.filter((c) => c.kind === 'adv' && !exclude.has(c.id));
+    const liked = adv.filter((c) => discuss.includes(c.topic));
+    last = pickCombo(liked.length ? liked : adv, hard).qs.slice(0, 2);
+  } else {
+    const rest = unexp.filter((c) => c !== u1 && c.topic !== u1.topic);
+    last = pickCombo(rest.length ? rest : unexp.filter((c) => c !== u1), false).qs.slice(0, 2);
+  }
+  return [...u1.qs, ...rpQs, ...last];
+}
+
+export function buildMock({ topics = [], discuss = [], diff, oqc, source = 'both', hard = false }) {
+  const { all, info } = pools({ oqc, source });
+  const intro = pick(all.find((c) => c.kind === 'intro').qs.filter((q) => oqc || !q.oqc_branch));
   const survey = info.filter((c) => c.kind === 'combo' && c.category === 'survey');
   const chosen = survey.filter((c) => !topics.length || topics.includes(c.topic));
   const pool = chosen.length ? chosen : survey;
@@ -76,30 +117,53 @@ export function buildMock({ topics, diff, oqc, source = 'both' }) {
     const rest = pool.filter((c) => c !== surveyCombos[0]);
     surveyCombos.push(pick(rest.length ? rest : survey.filter((c) => c !== surveyCombos[0])));
   }
-  const unexpected = shuffle(info.filter((c) => c.kind === 'combo' && c.category === 'unexpected'));
-  const rp = pick(info.filter((c) => c.kind === 'rp'));
-  let rpQs = [...rp.qs];
-  // Đôi khi câu 11 là dạng "hãy hỏi tôi 3–4 câu".
-  const avas = info.filter((c) => c.kind === 'ava');
-  if (avas.length && Math.random() < 0.25) rpQs = [pick(pick(avas).qs), ...rpQs.slice(1)];
-  let last;
-  if (diff === '56') last = pick(info.filter((c) => c.kind === 'adv')).qs.slice(0, 2);
-  else last = unexpected[1].qs.slice(0, 2);
-  return [intro, ...surveyCombos[0].qs, ...surveyCombos[1].qs, ...unexpected[0].qs, ...rpQs, ...last];
+  const head = [intro, ...surveyCombos[0].qs, ...surveyCombos[1].qs];
+  return [...head, ...tailItems(info, { diff, discuss, hard, exclude: new Set(surveyCombos.map((c) => c.id)) })];
+}
+
+// Sau câu 7: đổi độ khó cho phần còn lại (câu 8–15), giữ nguyên 7 câu đầu.
+export function rebuildTail(items, { diff, discuss = [], oqc, source = 'both', hard = false }) {
+  const { info } = pools({ oqc, source });
+  const head = items.slice(0, 7);
+  const used = new Set(head.map((q) => q.combo_id).filter(Boolean));
+  const topics = new Set(head.map((q) => q.topic));
+  return [...head, ...tailItems(info, { diff, discuss, hard, exclude: used, avoidTopics: topics })];
 }
 
 // ---------- Màn hình chuẩn bị ----------
+const TARGET_HINT = {
+  IM: 'Gợi ý: tự đánh giá cấp 3–4. Đề không có câu nâng cao ở cuối.',
+  IH: 'Gợi ý: tự đánh giá cấp 5 hoặc 6. Hai cấp này đều 15 câu, độ khó tương đương.',
+  AL: 'Gợi ý: tự đánh giá cấp 6 để có câu so sánh và câu về vấn đề xã hội.',
+};
+
+function currentSurvey() {
+  if (!settings.survey && settings.mockTopics?.length) {
+    // Bản cũ chỉ lưu danh sách chủ đề — chuyển sang khảo sát.
+    const map = { movies: 'movies', parks: 'parks', beach: 'beach', bars: 'bars', music: 'music', walking: 'walking', vacation_home: 'vacation_home', domestic_trips: 'domestic', overseas_trips: 'overseas' };
+    const leisure = settings.mockTopics.map((t) => map[t]).filter(Boolean);
+    settings.survey = normalizeSurvey({ leisure: leisure.length ? leisure : undefined });
+  }
+  return normalizeSurvey(settings.survey);
+}
+
+function renderSurveySummary() {
+  const sum = surveySummary(currentSurvey());
+  $('mock-survey-sum').innerHTML = `<div>${escapeHtml(sum.head)}</div>
+    <div class="sv-tags">${sum.leisure.map((x) => `<span class="sv-tag">${escapeHtml(x)}</span>`).join('') || '<span class="muted">Chưa chọn hoạt động nào — đề sẽ lấy chủ đề ngẫu nhiên.</span>'}</div>
+    ${sum.discuss.length ? `<div class="muted">Đề tài thảo luận: ${sum.discuss.map(escapeHtml).join(', ')}</div>` : ''}`;
+}
+
 function renderSetup() {
   const src = settings.mockSource || 'both';
   document.querySelectorAll('[name=mock-source]').forEach((r) => (r.checked = r.value === src));
-  const surveyTopics = [
-    ...new Set(comboInfo().filter((c) => c.kind === 'combo' && c.category === 'survey' && (src === 'both' || c.source === src)).map((c) => c.topic)),
-  ];
-  const saved = settings.mockTopics || [];
-  $('mock-topics').innerHTML = surveyTopics
-    .map((t) => `<label class="check chip-check"><input type="checkbox" value="${t}" ${saved.includes(t) ? 'checked' : ''}> ${escapeHtml(topicLabel(t))}</label>`)
-    .join('');
-  document.querySelectorAll('[name=mock-diff]').forEach((r) => (r.checked = r.value === (settings.mockDiff || (settings.target === 'IM' ? '34' : '56'))));
+  document.querySelectorAll('#mock-target .seg').forEach((b) => b.classList.toggle('active', b.dataset.target === settings.target));
+  $('mock-target-hint').textContent = TARGET_HINT[settings.target] || '';
+  $('mock-survey-form').innerHTML = surveyFormHTML(currentSurvey());
+  renderSurveySummary();
+  const lvl = settings.mockSelf || (settings.mockDiff === '34' ? 4 : settings.mockDiff === '56' ? 5 : suggestLevel(settings.target));
+  $('mock-self').innerHTML = selfLevelHTML(clampLevel(lvl));
+  $('mock-reselect').checked = settings.mockReselect !== false;
   $('mock-oqc').checked = settings.includeOqc;
   document.querySelectorAll('#mock-setup .seg[data-mode]').forEach((b) => b.classList.toggle('active', b.dataset.mode === settings.mode));
 }
@@ -113,19 +177,24 @@ function show(phase) {
 }
 
 function start() {
-  const topics = [...document.querySelectorAll('#mock-topics input:checked')].map((i) => i.value);
-  const diff = document.querySelector('[name=mock-diff]:checked')?.value || '56';
-  settings.mockTopics = topics;
-  settings.mockDiff = diff;
+  settings.survey = readSurveyForm($('mock-survey-form'));
+  settings.mockSelf = +(document.querySelector('[name=mock-self]:checked')?.value || suggestLevel(settings.target));
+  settings.mockReselect = $('mock-reselect').checked;
   settings.includeOqc = $('mock-oqc').checked;
   settings.mockSource = document.querySelector('[name=mock-source]:checked')?.value || 'both';
   saveSettings();
   if (settings.mode === 'transcribe' && !canTranscribe()) return toast('Thiết bị không hỗ trợ chuyển giọng nói thành chữ. Chọn chế độ 🎙️ Ghi âm.', 4500);
-  ms.items = buildMock({ topics, diff, oqc: settings.includeOqc, source: settings.mockSource });
+  const { topics, discuss } = surveyTopics(settings.survey, { oqc: settings.includeOqc });
+  ms.level = settings.mockSelf;
+  ms.level0 = ms.level;
+  ms.reselected = null;
+  ms.discuss = discuss;
+  ms.items = buildMock({ topics, discuss, diff: levelToDiff(ms.level), oqc: settings.includeOqc, source: settings.mockSource, hard: ms.level === 6 });
   ms.answers = ms.items.map(() => ({ transcript: '', audio: null, seconds: 0, result: null, error: '' }));
   ms.idx = 0;
   ms.clock = TOTAL_SECONDS;
   ms.mockId = uid();
+  ms.started = Date.now();
   clearInterval(ms.clockId);
   ms.clockId = setInterval(() => {
     ms.clock--;
@@ -137,6 +206,32 @@ function start() {
     }
   }, 1000);
   show('run');
+  showReselect(false);
+  renderQuestion();
+}
+
+// ---------- Chọn lại độ khó sau câu 7 ----------
+function showReselect(on) {
+  $('mock-reselect-panel').hidden = !on;
+  $('mock-q-card').hidden = on;
+  $('mock-recorder').hidden = on;
+  $('mock-next').hidden = on;
+  if (on) {
+    $('mock-progress').textContent = 'Xong 7/15 câu';
+    $('mock-section').textContent = 'Chọn lại độ khó';
+  }
+}
+
+function applyReselect(delta) {
+  const before = ms.level;
+  ms.level = clampLevel(ms.level + delta);
+  ms.reselected = delta;
+  const hard = delta > 0 || ms.level === 6;
+  const tail = rebuildTail(ms.items, { diff: levelToDiff(ms.level), discuss: ms.discuss, oqc: settings.includeOqc, source: settings.mockSource, hard });
+  ms.items = tail;
+  showReselect(false);
+  toast(delta === 0 ? 'Giữ độ khó như cũ.' : ms.level === before ? 'Đã ở mức giới hạn của app — giữ nguyên cấp, chọn câu khó hơn.' : `Phần còn lại theo cấp ${ms.level}.`, 3000);
+  ms.idx = 7;
   renderQuestion();
 }
 
@@ -222,6 +317,10 @@ async function stopRec() {
 async function next() {
   await stopRec();
   await stopSpeaking();
+  if (ms.idx === 6 && settings.mockReselect && ms.reselected === null) {
+    showReselect(true);
+    return;
+  }
   if (ms.idx < ms.items.length - 1) {
     ms.idx++;
     renderQuestion();
@@ -232,8 +331,10 @@ async function finish() {
   await stopRec();
   await stopSpeaking();
   clearInterval(ms.clockId);
+  showReselect(false);
   show('review');
   renderReview();
+  recordMock();
 }
 
 // ---------- Xem lại & chấm ----------
@@ -242,7 +343,8 @@ function renderSummary() {
   const scores = graded.map((a) => LEVEL_SCORE[a.result.practice_level_estimate.label]).filter((s) => s != null).sort((x, y) => x - y);
   const answered = ms.answers.filter((a) => a.transcript.trim() || a.audio).length;
   const used = TOTAL_SECONDS - Math.max(0, ms.clock);
-  let html = `<div class="stat-row"><div class="stat"><b>${answered}/${ms.items.length}</b><span>câu đã trả lời</span></div>
+  const flow = `Tự đánh giá cấp ${ms.level0}${ms.reselected !== null && ms.level !== ms.level0 ? ` → cấp ${ms.level} sau câu 7` : ms.reselected !== null ? ' · giữ nguyên sau câu 7' : ''}`;
+  let html = `<div class="mock-flow">${flow}</div><div class="stat-row"><div class="stat"><b>${answered}/${ms.items.length}</b><span>câu đã trả lời</span></div>
     <div class="stat"><b>${fmtTime(used)}</b><span>thời gian làm bài</span></div>
     <div class="stat"><b>${graded.length}</b><span>câu đã chấm</span></div></div>`;
   if (scores.length) {
@@ -338,7 +440,28 @@ async function gradeOne(i, single = false) {
   resEl.innerHTML = renderCompact(result);
   item.querySelector('.mock-fb').innerHTML = renderFeedback(result, { showRetry: false });
   renderSummary();
+  recordMock();
   return true;
+}
+
+// Lưu kết quả bài thi thử để vẽ biểu đồ tiến bộ.
+function recordMock() {
+  if (!ms.answers.some((a) => a.transcript.trim() || a.audio)) return; // bỏ trống cả bài thì không lưu
+  const graded = ms.answers.filter((a) => a.result);
+  const scores = graded.map((a) => LEVEL_SCORE[a.result.practice_level_estimate.label]).filter((x) => x != null).sort((x, y) => x - y);
+  saveMockRecord({
+    id: ms.mockId,
+    at: ms.started || Date.now(),
+    target: settings.target,
+    self: ms.level0,
+    selfEnd: ms.level,
+    answered: ms.answers.filter((a) => a.transcript.trim() || a.audio).length,
+    total: ms.items.length,
+    seconds: TOTAL_SECONDS - Math.max(0, ms.clock),
+    graded: scores.length,
+    label: scores.length ? scoreToLabel(scores[Math.floor((scores.length - 1) / 2)]) : null,
+    gaps: [...new Set(graded.map((a) => a.result.main_gap?.point_vi).filter(Boolean))].slice(0, 3),
+  });
 }
 
 async function gradeAll() {
@@ -377,7 +500,31 @@ export function initMock() {
       renderSetup();
     }),
   );
+  document.querySelectorAll('#mock-target .seg').forEach((b) =>
+    b.addEventListener('click', () => {
+      settings.target = b.dataset.target;
+      settings.mockSelf = suggestLevel(settings.target);
+      saveSettings();
+      renderSetup();
+    }),
+  );
+  $('mock-survey-form').addEventListener('change', () => {
+    settings.survey = readSurveyForm($('mock-survey-form'));
+    saveSettings();
+    renderSurveySummary();
+  });
+  $('mock-self').addEventListener('change', (e) => {
+    settings.mockSelf = +e.target.value;
+    saveSettings();
+  });
+  document.querySelectorAll('[data-reselect]').forEach((b) => b.addEventListener('click', () => applyReselect(+b.dataset.reselect)));
   $('btn-mock-start').addEventListener('click', start);
+  // Đổi mục tiêu ở tab Luyện tập thì cập nhật ở đây.
+  onSettingsChange(() => {
+    if (ms.phase !== 'setup') return;
+    document.querySelectorAll('#mock-target .seg').forEach((b) => b.classList.toggle('active', b.dataset.target === settings.target));
+    $('mock-target-hint').textContent = TARGET_HINT[settings.target] || '';
+  });
   $('mock-rec').addEventListener('click', () => (ms.recording ? stopRec() : startRec()));
   $('mock-replay').addEventListener('click', () => playQuestion());
   $('mock-toggle-text').addEventListener('click', () => {

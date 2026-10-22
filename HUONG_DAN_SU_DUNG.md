@@ -83,14 +83,16 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 
 ## 📝 Tab Thi thử
 
-Bài thi thử gồm **15 câu trong 40 phút**: giới thiệu → 3 combo chủ đề → role-play (câu 11–13) → câu nâng cao (câu 14–15). Cấu trúc này lấy từ tài liệu luyện thi, là thiết kế luyện tập của app, không phải đề thi thật.
+Bài thi thử đi đúng các bước như khi thi: **Background Survey → Self-Assessment → 15 câu trong 40 phút**. Đề gồm giới thiệu → 3 combo chủ đề → role-play (câu 11–13) → 2 câu cuối. Đây là đề luyện tập của app, không phải đề thi thật.
 
 **Trước khi thi**
-1. **Nguồn câu hỏi:** chỉ câu của lớp, chỉ câu của app, hoặc cả hai.
-2. **Chủ đề Survey:** tick những chủ đề bạn sẽ chọn khi đi thi thật.
-3. **Mức đề:** độ khó 3–4 (mục tiêu IM–IH) hoặc 5–6 (mục tiêu IH–AL, câu 14–15 nâng cao).
-4. **Cách trả lời:** 📝 chuyển thành chữ hoặc 🎙️ ghi âm.
-5. Bấm **▶ Bắt đầu thi thử**.
+1. **🎯 Mục tiêu:** chọn IM, IH hoặc AL. App gợi ý cấp tự đánh giá phù hợp (IM → cấp 4, IH → cấp 5, AL → cấp 6). Mục tiêu này dùng chung với tab Luyện và khi AI chấm.
+2. **Background Survey:** bấm **✏️ Làm / sửa khảo sát** và chọn như khi đi thi: công việc, đi học, nơi ở, hoạt động giải trí – thể thao – du lịch, đề tài thảo luận. Combo 1–2 lấy từ chủ đề bạn chọn. Đề tài thảo luận dùng cho câu 14–15 ở cấp 5–6. App nhớ khảo sát cho lần sau.
+3. **Self-Assessment:** chọn cấp 3–6. Cấp 3–4: câu 14–15 là combo thường. Cấp 5–6: câu 14–15 là câu nâng cao (so sánh, vấn đề xã hội); cấp 6 ưu tiên câu khó hơn. App không có đề cấp 1–2.
+4. **Tuỳ chọn:** bật/tắt **chọn lại độ khó sau câu 7**, câu hỏi nhánh OQC, nguồn câu hỏi (của lớp, của app hoặc cả hai).
+5. **Cách trả lời:** 📝 chuyển thành chữ hoặc 🎙️ ghi âm, rồi bấm **▶ Bắt đầu thi thử**.
+
+**Chọn lại độ khó sau câu 7:** xong câu 7, app hỏi bạn muốn phần còn lại **Dễ hơn / Tương tự / Khó hơn**. Khó hơn thì tăng 1 cấp (tối đa cấp 6) và chọn combo khó hơn; dễ hơn thì giảm 1 cấp (tối thiểu cấp 3). Câu 8–15 được tạo lại theo cấp mới. Bài thi OPIc tại Hàn Quốc có bước này; nếu kỳ thi của bạn không có thì tắt trong Tuỳ chọn.
 
 **Trong khi thi**
 - App tự đọc câu hỏi, chữ được ẩn như thi thật. Bấm **👁️ Hiện chữ** nếu cần.
@@ -102,7 +104,7 @@ Bài thi thử gồm **15 câu trong 40 phút**: giới thiệu → 3 combo ch�
 **Sau khi thi**
 - Mở từng câu để xem câu hỏi, nghe lại ghi âm và sửa chỗ máy nghe nhầm.
 - Bấm **🤖 Chấm câu này** hoặc **🤖 Chấm tất cả**.
-- **Ước tính cả bài** là trung vị các câu đã chấm, kèm những điểm cần cải thiện lặp lại.
+- **Ước tính cả bài** là trung vị các câu đã chấm, kèm những điểm cần cải thiện lặp lại. Dòng đầu cho biết cấp tự đánh giá và cấp sau khi chọn lại.
 - Ghi âm chỉ giữ trong phiên thi. Đóng app hoặc làm bài mới là mất.
 
 ## 📒 Tab Từ vựng

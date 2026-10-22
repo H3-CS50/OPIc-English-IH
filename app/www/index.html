@@ -95,27 +95,42 @@
       <div id="mock-setup">
         <div class="card">
           <h2>📝 Thi thử 15 câu</h2>
-          <p class="small">Mô phỏng cấu trúc thường gặp trong tài liệu luyện thi: giới thiệu → 3 combo → role-play (11–13) → câu nâng cao (14–15). Tổng 40 phút. Mỗi câu được nghe lại 1 lần. <span class="muted">Đây là thiết kế luyện tập của app, không phải đề thi thật.</span></p>
+          <p class="small">Đi đúng các bước như khi thi: <b>Background Survey → Self-Assessment → 15 câu trong 40 phút</b>. Đề gồm giới thiệu → 3 combo → role-play (11–13) → 2 câu cuối. Mỗi câu nghe lại được 1 lần. <span class="muted">Đây là đề luyện tập của app, không phải đề thi thật.</span></p>
         </div>
         <div class="card">
-          <h3>Nguồn câu hỏi</h3>
+          <h3>🎯 Mục tiêu của bạn</h3>
+          <div class="segmented" id="mock-target">
+            <button class="seg" data-target="IM">IM</button>
+            <button class="seg" data-target="IH">IH</button>
+            <button class="seg" data-target="AL">AL</button>
+          </div>
+          <p class="muted small" id="mock-target-hint"></p>
+        </div>
+        <div class="card">
+          <h3>1. Background Survey</h3>
+          <div id="mock-survey-sum" class="small"></div>
+          <details id="mock-survey-box" class="sv-box">
+            <summary class="btn">✏️ Làm / sửa khảo sát</summary>
+            <p class="muted small">Chọn như bạn sẽ chọn khi đi thi. Combo 1–2 lấy từ các chủ đề bạn chọn ở phần 1, 3, 4.</p>
+            <div id="mock-survey-form"></div>
+          </details>
+        </div>
+        <div class="card">
+          <h3>2. Self-Assessment (tự đánh giá)</h3>
+          <p class="muted small">Cấp bạn chọn quyết định độ khó của đề. Cấp 3–4: câu 14–15 là combo thường. Cấp 5–6: câu 14–15 là câu nâng cao (so sánh, vấn đề xã hội).</p>
+          <div id="mock-self"></div>
+        </div>
+        <div class="card">
+          <h3>3. Tuỳ chọn</h3>
+          <label class="check"><input type="checkbox" id="mock-reselect"> <span>Chọn lại độ khó sau câu 7 (dễ hơn / tương tự / khó hơn)<br><span class="muted small">Bài thi OPIc tại Hàn Quốc có bước này. Nếu kỳ thi của bạn không có thì tắt đi.</span></span></label>
+          <label class="check"><input type="checkbox" id="mock-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
+          <div class="muted small" style="margin-top:8px">Nguồn câu hỏi</div>
           <label class="check"><input type="radio" name="mock-source" value="both"> Cả hai bộ (câu hỏi của lớp + ngân hàng app)</label>
           <label class="check"><input type="radio" name="mock-source" value="class"> Chỉ câu hỏi của lớp</label>
           <label class="check"><input type="radio" name="mock-source" value="app"> Chỉ ngân hàng của app</label>
         </div>
         <div class="card">
-          <h3>1. Chủ đề bạn chọn trong Background Survey</h3>
-          <p class="muted small">Chọn các chủ đề bạn sẽ chọn khi đi thi. Đề thi thử lấy 2 combo từ các chủ đề này.</p>
-          <div id="mock-topics" class="chip-grid"></div>
-        </div>
-        <div class="card">
-          <h3>2. Mức đề</h3>
-          <label class="check"><input type="radio" name="mock-diff" value="34"> Độ khó 3–4 · mục tiêu IM–IH (câu 14–15 là combo thường)</label>
-          <label class="check"><input type="radio" name="mock-diff" value="56"> Độ khó 5–6 · mục tiêu IH–AL (câu 14–15 nâng cao)</label>
-          <label class="check"><input type="checkbox" id="mock-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
-        </div>
-        <div class="card">
-          <h3>3. Cách trả lời</h3>
+          <h3>4. Cách trả lời</h3>
           <div class="segmented">
             <button data-mode="transcribe" class="seg">📝 Chuyển thành chữ</button>
             <button data-mode="record" class="seg">🎙️ Ghi âm (nghe lại được)</button>
@@ -130,7 +145,17 @@
           <div><b id="mock-progress">Câu 1/15</b><div class="muted small" id="mock-section"></div></div>
           <div class="mock-clock" id="mock-clock">40:00</div>
         </div>
-        <div class="card question-card">
+        <div class="card" id="mock-reselect-panel" hidden>
+          <h3>Chọn lại độ khó</h3>
+          <p class="small">Bạn đã xong 7 câu. Bạn muốn phần còn lại (câu 8–15) thế nào so với 7 câu vừa rồi?</p>
+          <div class="col-btns">
+            <button class="btn" data-reselect="-1">🙂 Dễ hơn</button>
+            <button class="btn" data-reselect="0">😐 Tương tự</button>
+            <button class="btn" data-reselect="1">💪 Khó hơn</button>
+          </div>
+          <p class="muted small">Đồng hồ 40 phút vẫn chạy trong lúc chọn.</p>
+        </div>
+        <div class="card question-card" id="mock-q-card">
           <p class="q-text" id="mock-q-text" hidden></p>
           <p class="q-hidden muted" id="mock-q-hidden">Đang đọc câu hỏi… (chữ ẩn giống thi thật)</p>
           <div class="row">
@@ -138,7 +163,7 @@
             <button class="btn" id="mock-toggle-text">👁️ Hiện chữ</button>
           </div>
         </div>
-        <div class="recorder">
+        <div class="recorder" id="mock-recorder">
           <button class="rec-btn" id="mock-rec" aria-label="Ghi"><span class="rec-dot"></span></button>
           <div class="timer"><span id="mock-timer">0:00</span></div>
           <p class="muted small" id="mock-rec-status"></p>

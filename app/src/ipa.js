@@ -27,6 +27,15 @@ function ipaHTML(ipa, focus = null, clickable = true) {
     .join('')}/</span>`;
 }
 
+// Câu mẫu để soi phát âm (nhiều âm khó với người Việt: th, s/ʃ, r/l, âm cuối, -ed/-s).
+const PRON_SAMPLES = [
+  'I think this is the third time I have visited this beautiful place.',
+  'She usually washes her clothes on Sunday mornings.',
+  'We walked around the lake and talked about our plans.',
+  'The weather was really nice, so we decided to go hiking.',
+  'I would like to ask a few questions about the hotel rooms.',
+];
+
 // ---------- Trang chính ----------
 function homeHTML() {
   const p = ipaProgress();
@@ -38,6 +47,7 @@ function homeHTML() {
         <button class="btn" data-go="chart">🔣 Bảng âm</button>
         <button class="btn" data-go="practice">🎯 Luyện tập</button>
         <button class="btn" data-go="lookup">🔎 Tra cách đọc</button>
+        <button class="btn" data-ipa-pron>🔍 Soi phát âm</button>
       </div>
     </div>
     <h3 class="section-h">📖 8 bài học</h3>
@@ -279,6 +289,7 @@ function onClick(e) {
   if (d.sym) return openSound(d.sym);
   if (d.lesson) return go('lesson', { lesson: LESSONS.find((l) => l.id === d.lesson) });
   if (d.go) return go(d.go);
+  if ('ipaPron' in d) return window.dispatchEvent(new CustomEvent('opic:pron', { detail: { text: '', choices: PRON_SAMPLES } }));
   if ('back' in d) return back();
   if (d.done) {
     markLesson(d.done);
@@ -328,6 +339,17 @@ export function openIpaWord(word) {
   window.scrollTo(0, 0);
 }
 
+// Mở bài của một âm (từ Soi phát âm).
+export function openIpaSound(sym) {
+  if (!soundOf(sym)) return;
+  window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'learn' }));
+  window.dispatchEvent(new CustomEvent('opic:learn-sub', { detail: 'ipa' }));
+  ui.back = [];
+  ui.view = 'home';
+  openSound(sym);
+  window.scrollTo(0, 0);
+}
+
 export function initIpa() {
   const el = root();
   el.addEventListener('click', onClick);
@@ -345,6 +367,7 @@ export function initIpa() {
     }, 250);
   });
   window.addEventListener('opic:ipa-word', (e) => openIpaWord(e.detail));
+  window.addEventListener('opic:ipa-sound', (e) => openIpaSound(e.detail));
   render();
 }
 export const refreshIpa = () => render();

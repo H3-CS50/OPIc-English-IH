@@ -17,6 +17,9 @@ import { targetDuration } from './durations.js';
 import { logActivity } from './activity.js';
 import { weekTest, weekDone } from './week.js';
 import { recordSpoken } from './roadmap-core.js';
+import { createTimingTracker, pausesFromBlob } from './analysis.js';
+import { analyze, renderAnalysis, analysisChips, logAnalysis } from './analysis-ui.js';
+import { openPron, pronChoicesFrom } from './pron.js';
 import { startAmbience, stopAmbience, setAmbienceMuted, ambienceSupported, ambiencePlaying } from './ambience.js';
 
 const TOTAL_SECONDS = 40 * 60;
@@ -195,7 +198,7 @@ function launch(items) {
     return false;
   }
   ms.items = items;
-  ms.answers = ms.items.map(() => ({ transcript: '', audio: null, seconds: 0, result: null, error: '' }));
+  ms.answers = ms.items.map(() => ({ transcript: '', audio: null, seconds: 0, result: null, error: '', timing: null, pron: null }));
   ms.idx = 0;
   ms.clock = TOTAL_SECONDS;
   ms.mockId = uid();
@@ -360,7 +363,10 @@ async function startRec() {
   const a = ms.answers[ms.idx];
   try {
     if (settings.mode === 'transcribe') {
+      ms.tracker = createTimingTracker();
+      ms.tracker.start();
       ms.transcriber = createTranscriber((t) => {
+        ms.tracker?.update(t);
         a.transcript = t;
         $('mock-live').textContent = t.length > 160 ? '…' + t.slice(-160) : t;
       });
@@ -394,10 +400,13 @@ async function stopRec() {
   if (ms.transcriber) {
     a.transcript = await ms.transcriber.stop();
     ms.transcriber = null;
+    a.timing = mergeTiming(a.timing, ms.tracker?.stop());
+    ms.tracker = null;
   }
   if (ms.recorder) {
     a.audio = await ms.recorder.stop();
     ms.recorder = null;
+    if (a.audio) pausesFromBlob(a.audio.blob).then((t) => (a.timing = t));
   }
   recordSpoken(ms.items[ms.idx]?.question_id, { words: countWords(a.transcript), seconds: a.seconds });
   $('mock-rec-status').textContent = `Đã lưu câu trả lời (${fmtTime(a.seconds)}). Bấm "${$('mock-next').textContent}" để tiếp tục.`;
@@ -426,6 +435,15 @@ async function finish() {
   show('review');
   renderReview();
   recordMock();
+  // Ghi âm cần vài giây để tính khoảng ngừng: vẽ lại phân tích rồi lưu chỉ số.
+  setTimeout(() => {
+    if (ms.phase !== 'review') return;
+    ms.items.forEach((q, i) => {
+      renderItemAnalysis(i);
+      logAnalysis(answerAnalysis(i), { qid: q.question_id, ptype: q.prompt_type, target: settings.target });
+    });
+    renderSummary();
+  }, 1500);
 }
 
 // ---------- Xem lại & chấm ----------
@@ -449,7 +467,45 @@ function renderSummary() {
       <div class="small">${Object.entries(dist).map(([k, v]) => `${levelBadge(k)} × ${v}`).join(' ')}</div>
       ${gaps.length ? `<h4>Điểm cần cải thiện lặp lại</h4><ul class="small">${gaps.map((g) => `<li>${escapeHtml(g)}</li>`).join('')}</ul>` : ''}`;
   }
+  html += overallAnalysisHTML();
   $('mock-summary').innerHTML = html;
+}
+
+// Nói một câu nhiều lần (dừng rồi ghi tiếp): gộp các khoảng ngừng.
+function mergeTiming(prev, next) {
+  if (!next) return prev;
+  if (!prev) return next;
+  return { ...prev, gaps: [...prev.gaps, ...next.gaps] };
+}
+const answerAnalysis = (i) => {
+  const a = ms.answers[i];
+  return analyze({ text: a.transcript.trim() || a.result?.transcript_used || '', seconds: a.seconds, target: settings.target, ptype: ms.items[i].prompt_type, timing: a.timing, ai: a.result, pron: a.pron });
+};
+function renderItemAnalysis(i) {
+  const item = $('mock-list')?.querySelector(`[data-i="${i}"]`);
+  if (!item) return;
+  const an = answerAnalysis(i);
+  item.querySelector('.mock-an').innerHTML = renderAnalysis(an, { pronButton: !!ms.answers[i].audio });
+  item.querySelector('.mock-an-chips').innerHTML = analysisChips(an);
+}
+// Tổng hợp cả bài: tốc độ trung bình, số lần ngừng dài, từ nối, lỗi dễ thấy.
+function overallAnalysisHTML() {
+  const list = ms.items.map((_, i) => answerAnalysis(i)).filter((x) => x.words >= 15);
+  if (!list.length) return '';
+  const avg = (arr) => (arr.length ? Math.round(arr.reduce((p, c) => p + c, 0) / arr.length) : null);
+  const wpm = avg(list.map((x) => x.fluency.wpm).filter((x) => x != null));
+  const pauses = list.reduce((p, x) => p + (x.fluency.longPauses || 0), 0);
+  const conns = avg(list.map((x) => x.complexity.connectors.length));
+  const errs = list.flatMap((x) => x.accuracy.easy);
+  const byRule = {};
+  errs.forEach((e) => (byRule[e.vi] = (byRule[e.vi] || 0) + 1));
+  const topErr = Object.entries(byRule).sort((a, b) => b[1] - a[1])[0];
+  const missing = list.filter((x) => x.complexity.missingTenses.length).length;
+  return `<div class="an-sum"><h4>📊 Phân tích cả bài (${list.length} câu)</h4>
+    <div class="stat-row"><div class="stat"><b>${wpm ?? '–'}</b><span>từ/phút trung bình</span></div><div class="stat"><b>${pauses}</b><span>lần ngừng dài</span></div><div class="stat"><b>${conns ?? '–'}</b><span>từ nối mỗi câu</span></div></div>
+    ${topErr ? `<p class="small">🎯 Lỗi dễ thấy lặp nhiều nhất (${topErr[1]} lần): ${escapeHtml(topErr[0])}</p>` : ''}
+    ${missing ? `<p class="small">⏳ ${missing} câu kể chuyện / so sánh dùng ít thì quá khứ hoặc hiện tại.</p>` : ''}
+    <p class="muted small">Mở từng câu bên dưới để xem phân tích chi tiết.</p></div>`;
 }
 
 function renderReview() {
@@ -464,15 +520,42 @@ function renderReview() {
         <p class="en-text">${escapeHtml(q.question_text)}</p>
         ${a.audio ? `<audio controls src="${a.audio.url}"></audio>` : ''}
         <label class="field"><span>Lời nói (có thể sửa chỗ máy nghe nhầm)</span><textarea rows="4" data-tr="${i}">${escapeHtml(a.transcript)}</textarea></label>
-        <div class="row wrap"><button class="btn primary" data-grade="${i}">🤖 Chấm câu này</button><button class="btn" data-save-mine="${i}">📜 Lưu kịch bản</button></div>
+        <div class="mock-an-chips"></div>
+        <div class="row wrap"><button class="btn primary" data-grade="${i}">🤖 Chấm câu này</button><button class="btn" data-save-mine="${i}">📜 Lưu kịch bản</button>${a.audio ? `<button class="btn" data-pron-item="${i}">🔍 Soi phát âm</button>` : ''}</div>
+        <details class="mock-an-box"><summary class="small">📊 Phân tích câu này</summary><div class="mock-an"></div></details>
         <div class="mock-fb">${a.result ? renderFeedback(a.result, { showRetry: false }) : ''}</div>
       </details>`;
     })
     .join('');
+  ms.items.forEach((_, i) => renderItemAnalysis(i));
+  let anT = null;
   $('mock-list')
     .querySelectorAll('[data-tr]')
-    .forEach((t) => t.addEventListener('input', () => (ms.answers[+t.dataset.tr].transcript = t.value)));
+    .forEach((t) =>
+      t.addEventListener('input', () => {
+        ms.answers[+t.dataset.tr].transcript = t.value;
+        clearTimeout(anT);
+        anT = setTimeout(() => {
+          renderItemAnalysis(+t.dataset.tr);
+          renderSummary();
+        }, 800);
+      }),
+    );
   $('mock-list').onclick = (e) => {
+    const pr = e.target.closest('[data-pron-item], [data-pron-open]');
+    if (pr) {
+      const i = +(pr.dataset.pronItem ?? pr.closest('[data-i]').dataset.i);
+      const a = ms.answers[i];
+      return openPron({
+        text: a.transcript.trim(),
+        audio: a.audio && a.seconds <= 120 ? a.audio : null,
+        choices: pronChoicesFrom(a.transcript),
+        onResult: (r) => {
+          a.pron = r;
+          renderItemAnalysis(i);
+        },
+      });
+    }
     const save = e.target.closest('[data-save-mine]');
     const exp = e.target.closest('[data-save-expanded]');
     if (!save && !exp) return;
@@ -540,6 +623,7 @@ async function gradeOne(i, single = false) {
   });
   resEl.innerHTML = renderCompact(result);
   item.querySelector('.mock-fb').innerHTML = renderFeedback(result, { showRetry: false });
+  renderItemAnalysis(i);
   renderSummary();
   recordMock();
   return true;

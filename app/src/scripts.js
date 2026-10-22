@@ -139,6 +139,7 @@ function shadowHTML(s) {
         <button class="btn" data-sc="say">🔊 Nghe câu</button>
         <button class="btn" data-sc="slow">🐢 Nghe chậm</button>
         <button class="btn ${ui.listening ? 'danger' : 'primary'}" data-sc="shadow-rec" ${can ? '' : 'disabled'}>${ui.listening ? '⏹ Dừng & chấm' : '🎙️ Nói theo'}</button>
+        <button class="btn" data-sc="pron">🔍 Soi phát âm</button>
       </div>
       ${can ? '' : '<p class="small">⚠️ Máy này không hỗ trợ nhận dạng giọng nói nên không chấm được. Bạn vẫn nghe và nói theo được.</p>'}
       <div class="row between">
@@ -336,6 +337,9 @@ function onClick(e) {
       return speak(sents[ui.sIdx], Math.max(0.5, settings.ttsRate - 0.3)).catch((er) => toast(er.message));
     case 'shadow-rec':
       return shadowRec();
+    case 'pron':
+      stopAll();
+      return window.dispatchEvent(new CustomEvent('opic:pron', { detail: { text: sents[ui.sIdx], choices: sents.filter((x) => x.split(/\s+/).length >= 4) } }));
     case 'prev':
     case 'next':
       stopAll();

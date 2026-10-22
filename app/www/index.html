@@ -22,8 +22,10 @@
       <div class="segmented practice-views">
         <button class="seg" data-pview="road">🗺️ Lộ trình</button>
         <button class="seg" data-pview="free">🎤 Luyện tự do</button>
+        <button class="seg" data-pview="talk">💬 Giám khảo AI</button>
       </div>
       <div id="practice-road" hidden><div id="roadmap-root"></div></div>
+      <div id="practice-talk" hidden><div id="talk-root"></div></div>
       <div id="practice-free">
       <div class="level-switch" role="radiogroup" aria-label="Mục tiêu">
         <span class="muted small">Mục tiêu</span>
@@ -84,11 +86,14 @@
         <p class="muted small">Ghi âm chỉ giữ tạm trong phiên này, không lưu vào máy.</p>
       </div>
 
+      <div id="analysis-box" class="card" hidden></div>
+
       <div class="actions">
         <button class="btn primary" id="btn-grade">🤖 AI Coach</button>
         <button class="btn" id="btn-copy">📋 Copy nhờ Claude</button>
         <button class="btn" id="btn-sample">📖 Bài mẫu</button>
         <button class="btn" id="btn-selfcheck">✅ Tự kiểm tra</button>
+        <button class="btn" id="btn-pron">🔍 Soi phát âm</button>
         <button class="btn" id="btn-save-script">📜 Lưu kịch bản</button>
       </div>
 
@@ -455,6 +460,15 @@
   <div id="lk" class="lk" hidden>
     <div class="lk-backdrop" data-lk="close"></div>
     <div class="lk-sheet" role="dialog" aria-modal="true" aria-label="Tra từ"><div id="lk-body"></div></div>
+  </div>
+
+  <!-- ================= Soi phát âm ================= -->
+  <div id="pron" class="sheet" role="dialog" aria-modal="true" aria-label="Soi phát âm" hidden>
+    <div class="sheet-head">
+      <b>🔍 Soi phát âm</b>
+      <div class="sheet-actions"><button class="btn small-btn" id="pron-close" aria-label="Đóng">✕ Đóng</button></div>
+    </div>
+    <div class="sheet-scroll" id="pron-scroll"><div id="pron-body" class="pron-body"></div></div>
   </div>
 
   <div id="toast" class="toast" hidden></div>

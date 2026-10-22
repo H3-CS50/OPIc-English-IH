@@ -25,6 +25,9 @@ import * as WK from '../src/week.js';
 import { groupPost } from '../src/group-net.js';
 import { saveExam, listExams, removeExam } from '../src/group.js';
 import { looksEnglish, importRealQuestions, REAL_PACK_NAME } from '../src/data.js';
+import * as AN from '../src/analysis.js';
+import { analyze, renderAnalysis, logAnalysis, analysisLog, analysisTrend, clearAnalysisLog } from '../src/analysis-ui.js';
+import { checkPronunciationAI, normalizePron, examinerTurn, examinerFeedback } from '../src/coach.js';
 
 let fails = 0;
 const ok = (cond, msg) => {
@@ -463,8 +466,118 @@ async function groupTests() {
   }
 }
 
+// ---------- Phân tích bài nói, soi phát âm, giám khảo AI ----------
+async function speechTests() {
+  const w = AN.words;
+  ok(AN.fillerStats(w('um so I uh think you know it is um good')).total === 4, 'filler count');
+  ok(JSON.stringify(AN.repetitions(w('I I went to the the park I went I went'))) === JSON.stringify(['i', 'the', 'i went']), `repetitions ${JSON.stringify(AN.repetitions(w('I I went to the the park I went I went')))}`);
+  ok(AN.repetitions(w('it was very very good and so so cheap')).length === 0, 'intentional repeats ignored');
+  ok(AN.mattr(w('a b c d')) === 1 && AN.mattr(w('go go go go')) === 0.25, 'mattr short texts');
+  ok(AN.connectorsUsed(w('I like it because it is cheap but on the other hand it is far')).join() === 'because,but,on the other hand', 'connectors');
+  const tm = AN.tenseMarkers(w("Last year I went to Da Lat and we stayed in a hotel. I used to hate it. Now I usually go there and I'm going to visit again. I will go. I've been there twice."));
+  ok(tm.past >= 3 && tm.present >= 2 && tm.future >= 2 && tm.perfect >= 1, `tense markers ${JSON.stringify(tm)}`);
+  ok(AN.tenseMarkers(w('I am interested and excited, I need a bed')).past === 0, 'ed adjectives are not past');
+  ok(AN.tenseMarkers(w('I am going to the park')).future === 0, 'going to + place is not future');
+  // Lỗi dễ thấy
+  const e = (t) => AN.easyErrors(t).map((x) => `${x.from}=>${x.to}`);
+  ok(e('She go to work early.').join() === 'she go=>she goes', `third person ${e('She go to work early.')}`);
+  ok(e('Does she go to work? I can help him study.').length === 0, 'no false third person after aux');
+  ok(e('I am agree with you.').join() === 'i am agree=>I agree', 'am agree');
+  ok(e("I didn't went there.").join() === "didn't went=>didn't go", `did + past ${e("I didn't went there.")}`);
+  ok(e('It is more better. I can to swim. We discussed about it. I went to home.').length === 4, `misc rules ${e('It is more better. I can to swim. We discussed about it. I went to home.')}`);
+  ok(e('I bought a apple and a hour later a university friend called.').join() === 'a apple=>an apple', `a/an ${e('I bought a apple and a hour later a university friend called.')}`);
+  ok(e('My wife and I are tired. How much is it? Are there any rooms?').length === 0, 'no false be errors across sentences');
+  ok(e('I have lived here since five years.').join() === 'since five years=>for five years', 'since → for');
+  // Không báo nhầm trên bài mẫu của lớp
+  let fp = 0;
+  for (const q of kbData.questions) if (q.sample_ih && AN.easyErrors(q.sample_ih).length) fp++;
+  ok(fp === 0, `false positives on class samples: ${fp}`);
+  // Đánh giá tổng
+  const im = kbData.answer_sets[0].levels.IM.text;
+  const al = kbData.answer_sets[0].levels.AL.text;
+  const aIM = analyze({ text: im, seconds: 70, target: 'IM', ptype: 'self_introduction' });
+  const aAL = analyze({ text: al, seconds: 110, target: 'AL', ptype: 'self_introduction' });
+  ok(aIM.fluency.wpm > 0 && aAL.complexity.connectors.length >= aIM.complexity.connectors.length, 'AL sample richer than IM');
+  const short = analyze({ text: 'I like it', seconds: 5, target: 'IH' });
+  ok(short.fluency.level === 'na' && short.complexity.level === 'na' && /15 từ/.test(short.tip), 'too short → na');
+  const past = analyze({ text: 'I usually go to the park on weekends and I like to walk there because it is quiet and green and there are many trees and I feel relaxed', seconds: 30, target: 'IH', ptype: 'memorable_experience' });
+  ok(past.complexity.missingTenses.includes('past') && /quá khứ/.test(past.tip), 'past-tense reminder for story questions');
+  const slow = analyze({ text: Array(40).fill('word').map((x, i) => `${x}${i}`).join(' '), seconds: 60, target: 'IH', timing: { gaps: [3.5, 4, 5, 1.2], source: 'asr', firstWordDelay: 6 } });
+  ok(slow.fluency.wpm === 40 && slow.fluency.longPauses === 3 && slow.fluency.level === 'ok' || slow.fluency.level === 'work', `slow fluency ${JSON.stringify(slow.fluency)}`);
+  const withAi = analyze({ text: im, seconds: 60, target: 'IM', ai: { language_fixes: [{ impact: 'affects_meaning' }, { impact: 'affects_meaning' }], delivery: { pronunciation: { status: 'assessed', observation_vi: 'Rõ' } } } });
+  ok(withAi.accuracy.source === 'ai' && withAi.accuracy.level === 'work' && withAi.pronunciation.source === 'ai', 'AI result feeds accuracy & pronunciation');
+  const withPron = analyze({ text: im, seconds: 60, target: 'IM', pron: { overall: { clarity: 'clear', summary_vi: 'Tốt' }, words: [] } });
+  ok(withPron.pronunciation.level === 'good', 'pron result feeds pronunciation');
+  ok(aIM.complexity.phrases.length >= 0 && analyze({ text: 'To be honest, I would say that on the other hand it is fine and at the end of the day I am happy with it', seconds: 20, target: 'IH' }).complexity.phrases.some((p) => /to be honest/i.test(p.en)), 'good phrases from vocab bank');
+  const html = renderAnalysis(aIM);
+  ok(/Độ trôi chảy/.test(html) && /Độ phong phú/.test(html) && /Độ chính xác/.test(html) && /Phát âm/.test(html) && /data-pron-open/.test(html), 'analysis card renders 4 areas');
+  // Nhịp nói
+  let t = 0;
+  const tr = AN.createTimingTracker(() => t);
+  tr.start();
+  t = 2000; tr.update('I');
+  t = 2500; tr.update('I live');
+  t = 6500; tr.update('I live in');
+  t = 7000; tr.update('I live in Hanoi');
+  const tim = tr.stop();
+  ok(tim.firstWordDelay === 2 && tim.gaps.length === 1 && tim.gaps[0] === 4, `timing tracker ${JSON.stringify(tim)}`);
+  const rate = 8000;
+  const sig = new Float32Array(rate * 6);
+  const tone = (from, to) => { for (let i = Math.round(from * rate); i < to * rate; i++) sig[i] = 0.3 * Math.sin(i / 3); };
+  tone(0.5, 2); tone(2.1, 3); tone(5, 5.8);
+  for (let i = 0; i < sig.length; i++) sig[i] += (Math.random() - 0.5) * 0.002;
+  const pz = AN.pausesFromSamples(sig, rate);
+  ok(pz.gaps.length === 1 && Math.abs(pz.gaps[0] - 2) < 0.15 && Math.abs(pz.firstWordDelay - 0.5) < 0.1 && pz.speakingRatio > 0.5 && pz.speakingRatio < 0.65, `audio pauses ${JSON.stringify(pz)}`);
+  ok(AN.pausesFromSamples(new Float32Array(rate), rate).speakingRatio === 0, 'silent audio');
+  // Nhật ký + xu hướng
+  clearAnalysisLog();
+  for (let i = 0; i < 12; i++) logAnalysis({ ...aIM, fluency: { ...aIM.fluency, wpm: 60 + i * 5 } }, { qid: `Q${i}`, now: 1e12 + i * 3e5 });
+  logAnalysis({ ...aIM, fluency: { ...aIM.fluency, wpm: 200 } }, { qid: 'Q11', now: 1e12 + 11 * 3e5 + 1000 });
+  ok(analysisLog().length === 12 && analysisLog().at(-1).wpm === 200, 'same question within 2 min overwrites');
+  const tr2 = analysisTrend(analysisLog(), 5);
+  ok(tr2.recent.wpm > tr2.before.wpm, 'trend compares recent vs before');
+  clearAnalysisLog();
+
+  // Soi phát âm + giám khảo AI (fetch giả)
+  const np = normalizePron({ heard_text: 'I tink so', overall: { clarity: 'weird' }, words: [{ position: 1, word: 'think', sound: '/θ/', severity: 'major', issue_vi: 'x', tip_vi: 'y' }, { position: 99, word: 'so', sound: 'ɹ' }] }, 3);
+  ok(np.overall.clarity === 'mostly_clear' && np.words[0].sound === 'θ' && np.words[1].position === -1 && np.words[1].sound === 'r', 'normalizePron');
+  const realFetch = globalThis.fetch;
+  const bodies = [];
+  globalThis.fetch = async (url, opts) => {
+    const b = JSON.parse(opts.body);
+    bodies.push({ url, b });
+    const sys = b.body?.systemInstruction?.parts?.[0]?.text || b.systemInstruction?.parts?.[0]?.text || b.system || '';
+    let out = {};
+    if (/pronunciation coach/.test(sys)) out = { heard_text: 'I tink this is good', overall: { clarity: 'mostly_clear', summary_vi: 'Khá rõ', rhythm_vi: '' }, words: [{ position: 1, word: 'think', expected_ipa: '/θɪŋk/', heard_ipa: '/tɪŋk/', sound: 'θ', severity: 'major', issue_vi: 'Đọc th thành t', tip_vi: 'Đặt lưỡi giữa hai hàm răng' }], top_tips_vi: ['Luyện âm th'], limitations_vi: [] };
+    else if (/examiner avatar/.test(sys)) out = { reply_en: '', say_en: 'You mentioned your park. What do you usually do there?', say_vi: 'Bạn nhắc tới công viên...' };
+    else out = { level: 'IH', confidence: 'high', overall_vi: 'Tốt', strengths_vi: ['a'], improve_vi: ['b'], better_versions: [{ yours: 'I go park', better_en: 'I go to the park', why_vi: 'thiếu to the' }], next_step_vi: 'c' };
+    const gem = { candidates: [{ content: { parts: [{ text: JSON.stringify(out) }] } }] };
+    if (b.action === 'ai') return { ok: true, status: 200, json: async () => ({ ok: true, status: 200, data: gem }) };
+    if (String(url).includes('anthropic')) return { ok: true, status: 200, json: async () => ({ content: [{ type: 'text', text: JSON.stringify(out) }] }) };
+    return { ok: true, status: 200, json: async () => gem };
+  };
+  try {
+    const gs = { provider: 'group', keys: {}, models: { gemini: 'm', claude: 'c' }, group: { url: 'https://x/exec', uid: 'abcdefgh12', registered: true } };
+    const blob = new Blob(['abc'], { type: 'audio/webm' });
+    const pr = await checkPronunciationAI(gs, { audio: { blob, mimeType: 'audio/webm' }, reference: 'I think this is good' });
+    ok(pr.result?.words[0].word === 'think' && pr.result.words[0].position === 1, `pron via group ${JSON.stringify(pr)}`);
+    const pb = bodies.at(-1).b.body;
+    ok(/0:I 1:think/.test(pb.contents[0].parts[0].text) && pb.contents[0].parts[1].inlineData.mimeType === 'audio/webm', 'pron request has numbered reference + audio');
+    ok((await checkPronunciationAI({ ...gs, provider: 'claude' }, { audio: { blob } })).error, 'pron needs Gemini');
+    const turn = await examinerTurn(gs, { level: 'IH', history: [{ role: 'examiner', text: 'Tell me about a park.' }, { role: 'learner', text: 'I go to Thong Nhat park.' }], task: 'Ask question 2 of 4.' });
+    ok(/park/.test(turn.result?.say_en), 'examiner turn');
+    ok(/Learner: I go to Thong Nhat park/.test(bodies.at(-1).b.body.contents[0].parts[0].text) && /YOUR TASK THIS TURN:\nAsk question 2/.test(bodies.at(-1).b.body.contents[0].parts[0].text), 'examiner prompt has transcript + task');
+    const fb = await examinerFeedback({ provider: 'claude', keys: { claude: 'k' }, models: { claude: 'c' } }, { level: 'IH', history: [{ role: 'learner', text: 'hi' }] });
+    ok(fb.result?.confidence === 'low' && fb.result.better_versions.length === 1, 'examiner feedback via Claude, confidence capped');
+    ok(bodies.at(-1).b.output_config?.format?.type === 'json_schema', 'Claude structured output');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+}
+
 templateTests()
   .then(groupTests)
+  .then(speechTests)
   .catch((e) => {
     fails++;
     console.error('FAIL template tests threw', e);

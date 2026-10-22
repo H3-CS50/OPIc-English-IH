@@ -10,6 +10,9 @@ import { addAttempt } from './history.js';
 import { settings, saveSettings } from './settings.js';
 import { quickSave } from './scripts.js';
 import { recordSpoken } from './roadmap-core.js';
+import { createTimingTracker, pausesFromBlob } from './analysis.js';
+import { analyze, renderAnalysis, logAnalysis } from './analysis-ui.js';
+import { openPron, pronChoicesFrom } from './pron.js';
 
 import { targetDuration } from './durations.js';
 export { targetDuration };
@@ -28,6 +31,9 @@ const st = {
   abort: null,
   lastResult: null,
   lastAttemptId: null,
+  timing: null,
+  tracker: null,
+  pron: null,
 };
 
 const filters = { source: '', category: '', topic: '', ptype: '' };
@@ -160,6 +166,10 @@ function resetAttempt({ keepRetry = true } = {}) {
   $('sample-box').hidden = true;
   $('selfcheck-box').hidden = true;
   $('feedback-box').hidden = true;
+  $('analysis-box').hidden = true;
+  st.timing = null;
+  st.pron = null;
+  st.lastResult = null;
   $('rec-status').textContent = 'Bấm nút đỏ để bắt đầu nói';
   st.abort?.abort();
   if (!keepRetry) st.retry = null;
@@ -271,7 +281,10 @@ async function startRecording() {
   try {
     if (settings.mode === 'transcribe') {
       if (!canTranscribe()) throw new Error('Thiết bị này không hỗ trợ chuyển giọng nói thành chữ. Hãy dùng chế độ 🎙️ Ghi âm.');
+      st.tracker = createTimingTracker();
+      st.tracker.start();
       st.transcriber = createTranscriber((text) => {
+        st.tracker?.update(text);
         $('transcript').value = text;
         updateWordCount();
       });
@@ -310,6 +323,8 @@ async function stopRecording() {
   if (st.transcriber) {
     await st.transcriber.stop();
     st.transcriber = null;
+    st.timing = st.tracker?.stop() || null;
+    st.tracker = null;
   }
   if (st.recorder) {
     st.audio = await st.recorder.stop();
@@ -317,11 +332,45 @@ async function stopRecording() {
     if (st.audio) {
       $('audio').src = st.audio.url;
       $('audio-box').hidden = false;
+      st.timing = await pausesFromBlob(st.audio.blob);
     }
   }
   const words = countWords($('transcript').value);
   if (st.q && recordSpoken(st.q.question_id, { words, seconds: st.seconds })) renderComboBanner();
   $('rec-status').textContent = `Xong! ${fmtTime(st.seconds)}${words ? ` · ${words} từ` : ''}. Giờ nhờ AI Coach nhận xét, hoặc tự kiểm tra.`;
+  showAnalysis({ log: true });
+}
+
+// ---------- Phân tích bài nói (tự động, không tốn lượt AI) ----------
+function currentText() {
+  const typed = $('transcript').value.trim();
+  return typed || st.lastResult?.transcript_used || '';
+}
+function showAnalysis({ log = false } = {}) {
+  if (!st.q || (!st.seconds && !$('transcript').value.trim())) return;
+  const a = analyze({ text: currentText(), seconds: st.seconds, target: settings.target, ptype: st.q.prompt_type, timing: st.timing, ai: st.lastResult, pron: st.pron });
+  const box = $('analysis-box');
+  box.innerHTML = renderAnalysis(a);
+  box.hidden = false;
+  if (log) logAnalysis(a, { qid: st.q.question_id, ptype: st.q.prompt_type, target: settings.target });
+}
+let anTimer = null;
+function onTranscriptEdit() {
+  clearTimeout(anTimer);
+  if (st.recording || $('analysis-box').hidden) return;
+  anTimer = setTimeout(() => showAnalysis({ log: true }), 800);
+}
+
+function onPron() {
+  if (st.recording) return toast('Hãy dừng ghi trước đã.');
+  const text = $('transcript').value.trim();
+  const done = (r) => {
+    st.pron = r;
+    showAnalysis();
+  };
+  // Chế độ Ghi âm: soi luôn đoạn vừa nói. Chế độ chữ: chọn 1–3 câu để đọc lại.
+  if (st.audio && st.seconds <= 120) return openPron({ text, audio: st.audio, choices: pronChoicesFrom(text), onResult: done });
+  openPron({ text: pronChoicesFrom(text)[0] || '', choices: pronChoicesFrom(text || st.q?.question_text || ''), onResult: done });
 }
 
 // ---------- Chấm ----------
@@ -388,6 +437,7 @@ async function onGrade() {
   const att = addAttempt({ ...baseAttempt(ctx, settings.provider), coach_result: result });
   st.lastResult = result;
   st.lastAttemptId = att.attempt_id;
+  showAnalysis();
   box.innerHTML = renderFeedback(result);
   box.querySelector('[data-action=retry]')?.addEventListener('click', startRetry);
 }
@@ -552,7 +602,12 @@ export function initPractice() {
     renderQuestion();
   });
   $('btn-hints').addEventListener('click', () => renderHints($('hints-box').hidden));
-  $('transcript').addEventListener('input', updateWordCount);
+  $('transcript').addEventListener('input', () => {
+    updateWordCount();
+    onTranscriptEdit();
+  });
+  $('btn-pron').addEventListener('click', onPron);
+  $('analysis-box').addEventListener('click', (e) => e.target.closest('[data-pron-open]') && onPron());
   $('btn-grade').addEventListener('click', onGrade);
   $('btn-copy').addEventListener('click', onCopy);
   $('btn-sample').addEventListener('click', onSample);

@@ -6,6 +6,7 @@ import { TEMPLATE_HEADER, TEMPLATE_ROWS, TEMPLATE_BASENAME, MIME, xlsxTemplate, 
 import { saveFile, shareFile } from './filesave.js';
 import { clearAttempts, listAttempts } from './history.js';
 import { clearMocks } from './mock-history.js';
+import { clearAnalysisLog } from './analysis-ui.js';
 
 const legacyKey = store.get('apiKey', '');
 const saved = store.get('settings', {});
@@ -219,6 +220,7 @@ export function initSettings({ version }) {
     if (!confirm('Xoá toàn bộ lịch sử luyện tập trên máy này? Không thể hoàn tác.')) return;
     clearAttempts();
     clearMocks();
+    clearAnalysisLog();
     toast('Đã xoá lịch sử luyện tập.');
     saveSettings();
   });

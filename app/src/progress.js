@@ -13,6 +13,7 @@ import { openScript } from './scripts.js';
 import { summary, badges, EXP_RULES, MAX_DAY_EXP, onActivity } from './activity.js';
 import { weekTest, weekDone, weekLevelFor } from './week.js';
 import { renderGroup } from './group.js';
+import { analysisLog, analysisTrend } from './analysis-ui.js';
 
 const CORE_TYPES = [
   'description', 'routine', 'past_recent', 'memorable_experience', 'problem_experience', 'comparison_change',
@@ -140,6 +141,32 @@ function mockCard() {
   </div>`;
 }
 
+// ---------- Xu hướng phân tích bài nói ----------
+function speechCard() {
+  const t = analysisTrend(analysisLog());
+  if (!t)
+    return `<div class="card"><h3>📊 Tốc độ nói & từ nối</h3><p class="muted small">Nói xong ít nhất 3 câu (mỗi câu từ 15 từ) ở tab Luyện hoặc Thi thử để thấy xu hướng tốc độ nói, số lần ngừng và từ nối.</p></div>`;
+  const ROWS = [
+    ['wpm', 'Tốc độ nói', 'từ/phút', 0, true],
+    ['pausesPerMin', 'Ngừng dài', 'lần/phút', 1, false],
+    ['connectors', 'Từ nối', 'mỗi câu', 1, true],
+    ['diversity', 'Đa dạng từ', '0–1', 2, true],
+    ['words', 'Độ dài', 'từ/câu', 0, true],
+  ];
+  const f = (v, d) => (v == null ? '–' : v.toLocaleString('vi-VN', { maximumFractionDigits: d, minimumFractionDigits: d }));
+  return `<div class="card"><h3>📊 Tốc độ nói & từ nối</h3>
+    <table class="an-trend"><thead><tr><th></th><th>${Math.min(10, t.count)} câu gần nhất</th>${t.before ? '<th>10 câu trước</th><th></th>' : ''}</tr></thead><tbody>
+    ${ROWS.map(([k, vi, unit, d, up]) => {
+      const r = t.recent[k];
+      const b = t.before?.[k];
+      const diff = r != null && b != null ? r - b : null;
+      const eps = d ? 0.5 * 10 ** -d : 1;
+      const arrow = diff == null || Math.abs(diff) < eps ? '' : diff > 0 === up ? '<span class="an-up">▲</span>' : '<span class="an-down">▼</span>';
+      return `<tr><td>${vi} <span class="muted small">${unit}</span></td><td><b>${f(r, d)}</b></td>${t.before ? `<td>${f(b, d)}</td><td>${arrow}</td>` : ''}</tr>`;
+    }).join('')}</tbody></table>
+    <p class="muted small">Tính từ ${t.count} câu đã nói. ▲ tốt lên, ▼ kém đi. Gợi ý: IH khoảng 100+ từ/phút, ít hơn 1 lần ngừng dài mỗi phút, 7+ từ nối mỗi câu.</p></div>`;
+}
+
 function renderStats() {
   const s = stats();
   const maxDist = Math.max(1, ...Object.values(s.dist));
@@ -148,6 +175,7 @@ function renderStats() {
     ${expCard()}
     ${planCard()}
     ${mockCard()}
+    ${speechCard()}
     <div class="stat-row">
       <div class="stat"><b>${s.total}</b><span>lần luyện</span></div>
       <div class="stat"><b>${s.last7}</b><span>7 ngày qua</span></div>

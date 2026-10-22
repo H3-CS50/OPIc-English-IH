@@ -127,7 +127,9 @@ function setView(v) {
   document.querySelectorAll('.practice-views .seg').forEach((b) => b.classList.toggle('active', b.dataset.pview === v));
   $('practice-road').hidden = v !== 'road';
   $('practice-free').hidden = v !== 'free';
+  $('practice-talk').hidden = v !== 'talk';
   if (v === 'road') renderRoadmap();
+  window.dispatchEvent(new CustomEvent('opic:pview-changed', { detail: v }));
 }
 
 function onClick(e) {
@@ -183,5 +185,5 @@ export function initRoadmap() {
   onRoadmapChange(refresh);
   onMocksChange(refresh);
   onSettingsChange(refresh);
-  setView(ui.view === 'free' ? 'free' : 'road');
+  setView(['free', 'talk'].includes(ui.view) ? ui.view : 'road');
 }

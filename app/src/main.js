@@ -13,6 +13,8 @@ import { initHelp } from './help.js';
 import { initVocab, refreshVocab } from './vocab.js';
 import { initLookup, onMyWordsChange } from './lookup.js';
 import { initGroup } from './group.js';
+import { initPron } from './pron.js';
+import { initTalk, stopTalk } from './talk.js';
 
 const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', vocab: 'Từ vựng', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
@@ -25,6 +27,7 @@ function showTab(name) {
     stopScripts();
     stopIpa();
   }
+  if (current === 'practice') stopTalk();
   current = name;
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.id === `tab-${name}`));
   document.querySelectorAll('.tabbar button').forEach((b) => b.classList.toggle('active', b.dataset.tab === name));
@@ -52,6 +55,8 @@ initVocab();
 initLookup();
 initScripts();
 initIpa();
+initTalk();
+initPron();
 initRoadmap();
 window.addEventListener('opic:open-question', (e) => openQuestion(e.detail));
 onMyWordsChange(() => current === 'vocab' && refreshVocab());

@@ -71,6 +71,7 @@ const QUICK = [
   ['Học', 'Tab Học'],
   ['Tiến bộ', 'Tab Tiến bộ'],
   ['Cài đặt', 'Tab Cài đặt'],
+  ['Nhập câu hỏi', 'Nhập bộ câu hỏi'],
   ['API key', 'API key'],
   ['Câu hỏi của lớp', 'Câu hỏi của lớp'],
   ['Mẹo', 'Mẹo'],

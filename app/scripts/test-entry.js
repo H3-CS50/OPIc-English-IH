@@ -1,7 +1,11 @@
 // Kiểm thử logic không cần giao diện: tạo đề thi thử, đoán dạng câu, nhập CSV, chuẩn hoá kết quả AI.
 import './test-setup.js';
 import { buildMock } from '../src/mock.js';
-import { guessPromptType, importPack, allQuestions } from '../src/data.js';
+import { guessPromptType, importPack, importFile, allQuestions, listPacks } from '../src/data.js';
+import { readXlsx } from '../src/xlsx.js';
+import { TEMPLATE_HEADER, TEMPLATE_ROWS, xlsxTemplate, csvTemplate, jsonTemplate } from '../src/templates.js';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { normalizeResult, buildUserMessage } from '../src/coach.js';
 
 let fails = 0;
@@ -69,5 +73,55 @@ ok(Array.isArray(r.language_fixes) && r.fact.accuracy.status, 'defaults filled')
 const msg = buildUserMessage({ question: 'Q?', ptype: 'routine', ptypeLabel: 'x', expected: ['a'], target: 'IH', inputMode: 'transcript_only', seconds: 60, transcript: 'one two three', retry: { gap: 'g', goal: 'goal' } });
 ok(msg.includes('WORD COUNT (transcript): 3') && msg.includes('THIS IS A RETRY'), 'user message');
 
-console.log(fails ? `${fails} FAILED` : 'ALL TESTS PASSED');
-process.exit(fails ? 1 : 0);
+// File mẫu nhập câu hỏi: CSV / JSON / Excel phải nhập lại được đúng 3 câu.
+async function templateTests() {
+  const byText = (t) => allQuestions().find((q) => q.question_text === t);
+  const nCsv = importPack(csvTemplate(), 'mau.csv');
+  ok(nCsv === 3, `csv template imports 3 (got ${nCsv})`);
+  ok(byText(TEMPLATE_ROWS[0][0])?.user_sample === TEMPLATE_ROWS[0][2], 'csv template keeps sample answer');
+  ok(byText(TEMPLATE_ROWS[1][0])?.prompt_type === 'past_first', 'template row 2 → past_first');
+  ok(byText(TEMPLATE_ROWS[2][0])?.prompt_type === 'roleplay_ask', 'template row 3 → roleplay_ask');
+  ok(importPack(jsonTemplate(), 'mau.json') === 3 && listPacks().some((p) => p.name === 'Bộ câu hỏi của tôi'), 'json template imports 3 with pack name');
+
+  const table = await readXlsx(xlsxTemplate());
+  const pad = (rows) => rows.map((r) => [0, 1, 2].map((i) => r[i] ?? ''));
+  ok(JSON.stringify(pad(table)) === JSON.stringify([TEMPLATE_HEADER, ...TEMPLATE_ROWS]), 'xlsx template round-trips (first sheet only)');
+  const nX = await importFile(new File([xlsxTemplate()], 'mau_bo_cau_hoi_OPIc.xlsx'));
+  ok(nX === 3 && listPacks().some((p) => p.name === 'mau_bo_cau_hoi_OPIc'), 'xlsx template imports 3 via importFile');
+
+  // File Excel do phần mềm khác tạo: có dòng tiêu đề phụ, ô trống, số, ký tự đặc biệt, sheet thứ hai.
+  for (const fx of ['openpyxl_sample.xlsx', 'libreoffice_sample.xlsx']) {
+    const buf = readFileSync(join(process.env.FIXTURES, fx));
+    const t = await readXlsx(buf);
+    ok(t[1]?.[2] === 'Questions', `${fx}: header row read`);
+    ok(t[2]?.[3] === 'I work at a factory <OQC> team, "quality" checks.', `${fx}: special chars decoded (${t[2]?.[3]})`);
+    ok(t[2]?.[0] === '1', `${fx}: number cell as text`);
+    ok(t[6]?.[2] === 'Describe the last trip you took. Where did you go?', `${fx}: gap row kept at right index`);
+    const n = await importFile(new File([buf], fx));
+    ok(n === 3, `${fx}: imports 3 valid questions (got ${n})`);
+  }
+  let err = '';
+  try {
+    await importFile(new File([new Uint8Array([1, 2, 3])], 'old.xls'));
+  } catch (e) {
+    err = e.message;
+  }
+  ok(/xlsx/.test(err), 'old .xls gives a clear error');
+  err = '';
+  try {
+    importPack('Name,Topic\nabc,def\n', 'bad.csv');
+  } catch (e) {
+    err = e.message;
+  }
+  ok(/Questions/.test(err), 'missing Questions column gives a clear error');
+}
+
+templateTests()
+  .catch((e) => {
+    fails++;
+    console.error('FAIL template tests threw', e);
+  })
+  .finally(() => {
+    console.log(fails ? `${fails} FAILED` : 'ALL TESTS PASSED');
+    process.exit(fails ? 1 : 0);
+  });

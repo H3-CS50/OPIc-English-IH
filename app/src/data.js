@@ -2,6 +2,7 @@
 import kb from './kb.json';
 import content from './content.json';
 import { store, uid } from './util.js';
+import { readXlsx } from './xlsx.js';
 
 export { kb, content };
 
@@ -130,27 +131,21 @@ function normalizeImported(raw, packId, i) {
 }
 const kbPromptType = (p) => (p && kb.prompt_types[p] ? p : null);
 
-// Trả về số câu đã nhập. Hỗ trợ JSON (mảng câu hỏi hoặc {questions:[...]}) và CSV/TSV có cột "question"/"Questions".
-export function importPack(text, filename = 'pack') {
+// Dòng tiêu đề → danh sách {question_text, topic, sample_answer}. Dùng cho CSV và Excel.
+function rowsFromTable(table) {
+  const hi = table.findIndex((r) => r.some((c) => /^(question_text|questions?|câu hỏi)$/i.test(String(c ?? '').trim())));
+  if (hi < 0) throw new Error('Không thấy cột "Questions" trong file. Hãy dùng file mẫu và giữ nguyên dòng tiêu đề.');
+  const header = table[hi].map((h) => String(h ?? '').trim());
+  const qi = header.findIndex((h) => /^(question_text|questions?|câu hỏi)$/i.test(h));
+  const ti = header.findIndex((h) => /^(topic|chủ đề)$/i.test(h));
+  const ai = header.findIndex((h) => /^(answer|answer \(sample\)|sample_answer|bài mẫu)$/i.test(h));
+  return table.slice(hi + 1).map((r) => ({ question_text: r[qi] ?? '', topic: ti >= 0 ? r[ti] ?? '' : '', sample_answer: ai >= 0 ? r[ai] ?? '' : '' }));
+}
+
+function addPack(name, rows) {
   const id = uid();
-  let rows = [];
-  let name = filename.replace(/\.[^.]+$/, '');
-  const trimmed = text.trim().replace(/^﻿/, '');
-  if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
-    const data = JSON.parse(trimmed);
-    rows = Array.isArray(data) ? data : data.questions || [];
-    if (!Array.isArray(data) && data.pack_name) name = data.pack_name;
-  } else {
-    const table = parseCsv(trimmed);
-    const header = table[0].map((h) => h.trim());
-    const qi = header.findIndex((h) => /^(question_text|questions?|câu hỏi)$/i.test(h));
-    if (qi < 0) throw new Error('Không thấy cột "Questions" hoặc "question_text" trong file.');
-    const ti = header.findIndex((h) => /^(topic|chủ đề)$/i.test(h));
-    const ai = header.findIndex((h) => /^(answer|answer \(sample\)|sample_answer|bài mẫu)$/i.test(h));
-    rows = table.slice(1).map((r) => ({ question_text: r[qi], topic: ti >= 0 ? r[ti] : '', sample_answer: ai >= 0 ? r[ai] : '' }));
-  }
   const questions = rows.map((r, i) => normalizeImported(typeof r === 'string' ? { question_text: r } : r, id, i)).filter(Boolean);
-  if (!questions.length) throw new Error('File không có câu hỏi hợp lệ.');
+  if (!questions.length) throw new Error('File không có câu hỏi hợp lệ (mỗi câu cần ít nhất 10 ký tự).');
   packs.push({ id, name, created: new Date().toISOString(), questions });
   if (!savePacks()) {
     packs.pop();
@@ -158,6 +153,36 @@ export function importPack(text, filename = 'pack') {
   }
   rebuild();
   return questions.length;
+}
+
+const baseName = (filename) => filename.replace(/\.[^.]+$/, '');
+
+// Trả về số câu đã nhập. Hỗ trợ JSON (mảng câu hỏi hoặc {questions:[...]}) và CSV/TSV có cột "Questions".
+export function importPack(text, filename = 'pack') {
+  let name = baseName(filename);
+  const trimmed = text.trim().replace(/^\uFEFF/, '');
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+    let data;
+    try {
+      data = JSON.parse(trimmed);
+    } catch {
+      throw new Error('File JSON bị lỗi cú pháp. Hãy so với file mẫu JSON.');
+    }
+    if (!Array.isArray(data) && data.pack_name) name = data.pack_name;
+    return addPack(name, Array.isArray(data) ? data : data.questions || []);
+  }
+  return addPack(name, rowsFromTable(parseCsv(trimmed)));
+}
+
+// Nhập từ file người dùng chọn: .xlsx, .csv, .tsv, .txt, .json.
+export async function importFile(file) {
+  if (/\.xlsx$/i.test(file.name)) {
+    return addPack(baseName(file.name), rowsFromTable(await readXlsx(await file.arrayBuffer())));
+  }
+  if (/\.(xls|xlsm|ods|numbers|docx?|pdf)$/i.test(file.name)) {
+    throw new Error('Chưa đọc được loại file này. Hãy lưu lại dạng Excel .xlsx hoặc .csv rồi nhập lại.');
+  }
+  return importPack(await file.text(), file.name);
 }
 
 // ---------- Chỉ mục ----------

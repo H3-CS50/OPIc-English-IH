@@ -17,4 +17,4 @@ await esbuild.build({
     '@capacitor-community/text-to-speech': join(here, 'dev-stubs', 'text-to-speech.js'),
   },
 });
-execFileSync(process.execPath, [out], { stdio: 'inherit' });
+execFileSync(process.execPath, [out], { stdio: 'inherit', env: { ...process.env, FIXTURES: join(here, 'fixtures') } });

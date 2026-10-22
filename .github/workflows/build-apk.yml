@@ -55,6 +55,9 @@ jobs:
       - name: Cài thư viện
         run: npm ci
 
+      - name: Ghi số phiên bản vào app (khớp tên bản trên Releases)
+        run: npm pkg set version=2.0.${{ github.run_number }}
+
       - name: Build giao diện và nội dung
         run: npm run build
 

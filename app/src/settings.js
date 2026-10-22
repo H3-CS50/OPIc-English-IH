@@ -1,7 +1,9 @@
 // Cài đặt (lưu trên máy) + màn hình Cài đặt.
 import { $, store, toast, escapeHtml } from './util.js';
 import { CLAUDE_MODELS, GEMINI_MODELS, checkClaudeKey, checkGeminiKey } from './coach.js';
-import { importPack, listPacks, deletePack, kb } from './data.js';
+import { importFile, listPacks, deletePack, kb } from './data.js';
+import { TEMPLATE_HEADER, TEMPLATE_ROWS, TEMPLATE_BASENAME, MIME, xlsxTemplate, csvTemplate, jsonTemplate } from './templates.js';
+import { saveFile, shareFile } from './filesave.js';
 import { clearAttempts, listAttempts } from './history.js';
 
 const legacyKey = store.get('apiKey', '');
@@ -58,6 +60,56 @@ function renderPacks() {
         }
       }),
     );
+}
+
+// ---------- File mẫu nhập câu hỏi ----------
+function renderTemplatePreview() {
+  const rows = [TEMPLATE_HEADER, ...TEMPLATE_ROWS];
+  const cols = ['A', 'B', 'C'];
+  $('tpl-preview').innerHTML = `<table><colgroup><col class="c-num"><col class="c-a"><col class="c-b"><col></colgroup>
+    <tr><th class="corner"></th>${cols.map((c) => `<th>${c}</th>`).join('')}</tr>
+    ${rows
+      .map(
+        (r, i) => `<tr class="${i === 0 ? 'head' : ''}"><th>${i + 1}</th>${r
+          .map((v) => (v ? `<td title="${escapeHtml(v)}"><span class="clamp">${escapeHtml(v)}</span></td>` : '<td class="empty">(trống)</td>'))
+          .join('')}</tr>`,
+      )
+      .join('')}
+  </table>`;
+}
+
+function showTplStatus(html) {
+  const el = $('tpl-status');
+  el.hidden = false;
+  el.innerHTML = html;
+}
+
+async function downloadTemplate(kind) {
+  const filename = `${TEMPLATE_BASENAME}.${kind}`;
+  const content = kind === 'xlsx' ? xlsxTemplate() : kind === 'csv' ? csvTemplate() : jsonTemplate();
+  try {
+    const where = await saveFile(filename, content, MIME[kind]);
+    showTplStatus(`✅ Đã lưu vào ${escapeHtml(where)}.<br>Mở app <b>Files / Quản lý file</b> → <b>Download</b> để mở file, sửa xong thì làm tiếp bước 2.`);
+  } catch (err) {
+    showTplStatus(`⚠️ Không lưu được file (${escapeHtml(err.message || String(err))}). Hãy bấm <b>📤 Gửi mẫu</b> để gửi file sang Zalo hoặc email của bạn.`);
+  }
+}
+
+async function shareTemplate() {
+  try {
+    const ok = await shareFile(`${TEMPLATE_BASENAME}.xlsx`, xlsxTemplate(), MIME.xlsx, 'Gửi file mẫu câu hỏi');
+    if (!ok) showTplStatus('Thiết bị này không hỗ trợ gửi file. Hãy bấm <b>⬇️ Tải file mẫu Excel</b>.');
+  } catch (err) {
+    showTplStatus(`⚠️ Không mở được bảng chia sẻ (${escapeHtml(err.message || String(err))}).`);
+  }
+}
+
+function initTemplates() {
+  renderTemplatePreview();
+  $('tpl-xlsx').addEventListener('click', () => downloadTemplate('xlsx'));
+  $('tpl-csv').addEventListener('click', () => downloadTemplate('csv'));
+  $('tpl-json').addEventListener('click', () => downloadTemplate('json'));
+  $('tpl-share').addEventListener('click', shareTemplate);
 }
 
 function syncProviderUi() {
@@ -149,16 +201,17 @@ export function initSettings({ version }) {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
-      const n = importPack(await file.text(), file.name);
-      toast(`✅ Đã nhập ${n} câu hỏi`);
+      const n = await importFile(file);
+      toast(`✅ Đã nhập ${n} câu hỏi. Xem ở tab Luyện → Bộ câu hỏi → Câu hỏi tự nhập.`, 4500);
       renderPacks();
       saveSettings();
     } catch (err) {
-      toast(`⚠️ ${err.message}`, 4500);
+      toast(`⚠️ ${err.message}`, 5500);
     }
     e.target.value = '';
   });
   renderPacks();
+  initTemplates();
 
   $('btn-clear-data').addEventListener('click', () => {
     if (!confirm('Xoá toàn bộ lịch sử luyện tập trên máy này? Không thể hoàn tác.')) return;

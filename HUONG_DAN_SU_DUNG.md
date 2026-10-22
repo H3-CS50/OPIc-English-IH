@@ -128,9 +128,28 @@ Bài thi thử gồm **15 câu trong 40 phút**: giới thiệu → 3 combo ch�
 
 - **🤖 AI Coach:** chọn Claude, Gemini, hoặc Không dùng (chỉ Copy). Chọn model, dán key, bấm **Kiểm tra key**.
 - **🔊 Giọng đọc & luyện tập:** tốc độ đọc câu hỏi; tự đọc câu hỏi khi đổi câu; luôn hiện gợi ý; có gồm câu hỏi nhánh OQC / nhà máy hay không.
-- **📥 Nhập bộ câu hỏi của bạn:** thêm câu hỏi riêng từ file `.json` hoặc `.csv`. File CSV cần cột `Questions`; có thể thêm cột `Topic` và `Answer (Sample)`. Câu tự nhập chỉ nằm trên máy bạn.
+- **📥 Nhập bộ câu hỏi của bạn:** thêm câu hỏi riêng theo 3 bước, xem mục *📥 Nhập bộ câu hỏi riêng* bên dưới.
 - **🗂️ Dữ liệu:** **📤 Copy dữ liệu (JSON)** để sao lưu lịch sử; **🗑️ Xoá lịch sử**.
 - **❓ Hướng dẫn:** mở lại hướng dẫn này hoặc màn chào mừng.
+
+## 📥 Nhập bộ câu hỏi riêng
+
+Vào **⚙️ Cài đặt → 📥 Nhập bộ câu hỏi của bạn**, làm theo 3 bước:
+
+1. **Tải file mẫu:** bấm **⬇️ Tải file mẫu Excel (.xlsx)**. File được lưu vào thư mục **Download (Tải xuống)** của điện thoại. Muốn soạn trên máy tính thì bấm **📤 Gửi mẫu qua Zalo, email…** để gửi file sang máy tính.
+2. **Điền câu hỏi:** mở file bằng Excel, Google Sheets hoặc WPS. Giữ nguyên dòng tiêu đề, xoá 3 dòng ví dụ, mỗi dòng điền một câu hỏi rồi lưu lại.
+3. **Nhập vào app:** bấm **📂 Chọn file để nhập** và chọn file vừa lưu.
+
+| Cột | Bắt buộc? | Ghi gì |
+|---|---|---|
+| `Questions` | Có | Câu hỏi tiếng Anh, mỗi dòng một câu |
+| `Topic` | Không | Chủ đề, ví dụ Work, Travel |
+| `Answer (Sample)` | Không | Bài mẫu của bạn, nếu có |
+
+- App nhận file **.xlsx**, **.csv** và **.json**. File Excel đời cũ (.xls) cần lưu lại dạng .xlsx.
+- App chỉ đọc **sheet đầu tiên**. Tên file sẽ thành tên bộ câu hỏi.
+- App tự đoán dạng câu (miêu tả, kể chuyện, role-play…) từ nội dung câu hỏi.
+- Câu mới nằm ở tab **Luyện → ô Bộ câu hỏi → Câu hỏi tự nhập**. Muốn bỏ thì bấm **Xoá** cạnh tên bộ câu hỏi trong Cài đặt.
 
 ## 🔑 Lấy API key
 
@@ -189,6 +208,11 @@ Tăng âm lượng media. Kiểm tra điện thoại đã có giọng đọc ti�
 - *Key sai hoặc hết hạn:* vào Cài đặt, dán lại key, bấm **Kiểm tra key**.
 - *Hết hạn mức / gửi quá nhanh:* đợi một lát rồi thử lại, hoặc chọn model khác.
 - *Claude không nghe được ghi âm:* gõ lời nói vào ô chữ, dùng chế độ 📝, hoặc chuyển sang Gemini.
+
+**Nhập file câu hỏi bị báo lỗi?**
+- *Không thấy cột "Questions":* dòng tiêu đề phải có ô ghi đúng chữ `Questions`. Dễ nhất là tải file mẫu rồi điền vào.
+- *Không có câu hỏi hợp lệ:* mỗi câu cần ít nhất 10 ký tự.
+- *File .xls hoặc loại file khác:* mở bằng Excel hoặc Google Sheets rồi lưu lại dạng .xlsx hoặc .csv.
 
 **Dữ liệu của tôi lưu ở đâu?**
 Lịch sử luyện tập và key chỉ lưu trên điện thoại này. App không lưu file ghi âm. Gỡ app là mất dữ liệu, nên thỉnh thoảng bấm **📤 Copy dữ liệu (JSON)** để sao lưu.

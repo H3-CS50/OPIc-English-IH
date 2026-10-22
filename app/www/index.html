@@ -276,10 +276,50 @@
         <label class="check"><input type="checkbox" id="include-oqc"> Gồm câu hỏi nhánh OQC / nhà máy</label>
       </div>
 
-      <div class="card">
+      <div class="card" id="import-card">
         <h2>📥 Nhập bộ câu hỏi của bạn</h2>
-        <p class="small">Thêm câu hỏi riêng (ví dụ từ lớp học) từ file <b>.json</b> hoặc <b>.csv</b>. File CSV cần cột <code>Questions</code>; có thể thêm <code>Topic</code> và <code>Answer (Sample)</code>. Câu tự nhập chỉ nằm trên máy bạn.</p>
-        <input type="file" id="pack-file" accept=".json,.csv,.tsv,.txt,application/json,text/csv">
+        <p class="small">Thêm câu hỏi riêng (của lớp, của nhóm học…) vào app trong 3 bước. Câu tự nhập chỉ nằm trên máy bạn.</p>
+
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <b>Tải file mẫu về máy</b>
+            <p class="small muted">File mẫu trông như thế này. Mở bằng Excel, Google Sheets hoặc WPS:</p>
+            <div class="sheet-preview" id="tpl-preview"></div>
+            <button class="btn primary btn-block" id="tpl-xlsx">⬇️ Tải file mẫu Excel (.xlsx)</button>
+            <div class="tpl-more">
+              <button class="btn small-btn" id="tpl-share">📤 Gửi mẫu qua Zalo, email…</button>
+              <button class="btn small-btn" id="tpl-csv">⬇️ Mẫu .csv</button>
+              <button class="btn small-btn" id="tpl-json">⬇️ Mẫu .json</button>
+            </div>
+            <p class="small tpl-status" id="tpl-status" hidden></p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <b>Điền câu hỏi của bạn vào file</b>
+            <table class="col-table">
+              <tr><th>Cột</th><th>Ghi gì</th></tr>
+              <tr><td><code>Questions</code><span class="tag-req">bắt buộc</span></td><td>Câu hỏi tiếng Anh, mỗi dòng một câu</td></tr>
+              <tr><td><code>Topic</code><span class="tag-opt">có thể trống</span></td><td>Chủ đề, ví dụ Work, Travel</td></tr>
+              <tr><td><code>Answer (Sample)</code><span class="tag-opt">có thể trống</span></td><td>Bài mẫu của bạn, nếu có</td></tr>
+            </table>
+            <p class="small muted">Giữ nguyên dòng tiêu đề, xoá 3 dòng ví dụ, rồi lưu file như bình thường (.xlsx hoặc .csv).</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <b>Nhập file vào app</b>
+            <label class="btn btn-block file-btn" for="pack-file">📂 Chọn file để nhập</label>
+            <input type="file" id="pack-file" class="visually-hidden">
+            <p class="small muted">Nhận file .xlsx, .csv và .json. Câu mới nằm ở tab Luyện → ô Bộ câu hỏi → <b>Câu hỏi tự nhập</b>.</p>
+          </div>
+        </div>
+
         <div id="pack-list"></div>
       </div>
 

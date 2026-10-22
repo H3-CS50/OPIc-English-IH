@@ -132,19 +132,22 @@ Gộp toàn bộ app **OPIc AL Vocab** (618 mục, 16 chủ đề) và phần b�
 
 ## 👆 Tra từ & từ điển
 
-**Chạm vào một từ tiếng Anh bất kỳ** trong câu hỏi. bài mẫu. câu ví dụ. nhận xét của AI → hiện bảng tra gồm:
+**Chạm vào một từ tiếng Anh bất kỳ** trong câu hỏi, bài mẫu, câu ví dụ, nhận xét của AI → hiện bảng tra gồm:
 - **Phiên âm** Anh–Mỹ (IPA) và nút **🔊** nghe đọc.
-- **Nghĩa tiếng Việt** và loại từ. Nếu bạn chạm vào dạng biến đổi (went. studies. children…). app tự tìm **dạng gốc** (go. study. child).
-- **Câu đang đọc**. và các **cụm từ trong bộ Từ vựng** có chứa từ đó.
-- **⭐ Lưu vào Sổ từ:** từ được thêm vào chủ đề **⭐ Sổ từ của tôi** ở tab Từ vựng. ôn theo lịch như các thẻ khác. Bỏ lưu bằng nút ✕ trong danh sách.
-- **🔎 Hỏi AI:** AI (key Gemini/Claude trong Cài đặt) giải thích nghĩa **đúng với câu đang đọc**. kèm ví dụ. Kết quả được lưu lại trên máy để lần sau mở nhanh.
+- **Nghĩa tiếng Việt** và loại từ. Nếu bạn chạm vào dạng biến đổi (went, studies, children…), app tự tìm **dạng gốc** (go, study, child).
+- **Câu đang đọc**, và các **cụm từ trong bộ Từ vựng** có chứa từ đó.
+- **🌐 Tra trên mạng:** nút mở **Glosbe Anh–Việt**, **Google Dịch**, **Cambridge (Anh–Anh)**, **Oxford (Anh–Anh)** trong trình duyệt, đúng từ đang tra.
+- **⭐ Lưu vào Sổ từ:** từ được thêm vào chủ đề **⭐ Sổ từ của tôi** ở tab Từ vựng, ôn theo lịch như các thẻ khác. Bỏ lưu bằng nút ✕ trong danh sách.
+- **🔎 Hỏi AI:** AI (key Gemini/Claude trong Cài đặt) giải thích nghĩa **đúng với câu đang đọc**, kèm ví dụ. Kết quả được lưu lại trên máy để lần sau mở nhanh.
+
+**Từ chưa có nghĩa sẵn trong app** (ngoài khoảng 2.800 từ gốc): nếu máy có mạng, app tự lấy **nghĩa tham khảo bằng dịch máy** (dịch vụ miễn phí MyMemory; chỉ gửi đi đúng từ đó) và hiện ngay trong bảng tra. Dịch máy có thể chưa đúng ngữ cảnh, nên bấm các nút **🌐 Tra trên mạng** hoặc **🔎 Hỏi AI** để xem kỹ hơn. Nghĩa đã tra được lưu lại trên máy, lần sau không cần mạng.
 
 **Từ điển Anh ↔ Việt:** gõ vào ô tìm ở đầu tab **📒 Từ vựng**.
-- Gõ tiếng Anh (kể cả dạng biến đổi) hoặc tiếng Việt. có dấu hay không dấu đều được.
-- Kết quả gồm mục **📖 Từ điển** (từ đơn. có phiên âm) và **📒 Trong bộ Từ vựng** (cụm từ. mẫu câu).
-- Từ chưa có nghĩa sẵn vẫn có phiên âm; bấm vào để hỏi AI.
+- Gõ tiếng Anh (kể cả dạng biến đổi) hoặc tiếng Việt, có dấu hay không dấu đều được.
+- Kết quả gồm mục **📖 Từ điển** (từ đơn, có phiên âm) và **📒 Trong bộ Từ vựng** (cụm từ, mẫu câu).
+- Từ chưa có nghĩa sẵn vẫn có phiên âm; bấm vào để xem nghĩa dịch máy, mở từ điển trên mạng hoặc hỏi AI.
 
-**Dữ liệu:** nghĩa tiếng Việt cho khoảng 2.814 từ gốc — toàn bộ các từ xuất hiện trong câu hỏi. bài mẫu và bộ Từ vựng — do AI soạn cho app. chưa có giáo viên duyệt. Phiên âm của khoảng 125.000 từ lấy từ bộ phát âm CMU (giấy phép MIT). Tất cả chạy không cần mạng. trừ nút Hỏi AI.
+**Dữ liệu:** nghĩa tiếng Việt cho khoảng 2.800 từ gốc — toàn bộ các từ xuất hiện trong câu hỏi, bài mẫu và bộ Từ vựng — do AI soạn cho app, chưa có giáo viên duyệt. Phiên âm của khoảng 125.000 từ lấy từ bộ phát âm CMU (giấy phép MIT). Phần này chạy không cần mạng; chỉ dịch máy, các trang từ điển và nút Hỏi AI cần mạng.
 
 ## 📚 Tab Học
 

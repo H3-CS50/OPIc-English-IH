@@ -1,7 +1,7 @@
 // Chạm vào một từ tiếng Anh bất kỳ → bảng tra: phiên âm, nghĩa tiếng Việt, cụm từ liên quan,
 // lưu vào Sổ từ, hỏi AI nghĩa trong câu. Cũng cung cấp kết quả "Từ điển" cho ô tìm ở tab Từ vựng.
 import { $, escapeHtml as esc, toast, store } from './util.js';
-import { lookupWord, loadIpa, ipaOf, ipaLoaded, POS_VI, searchDict, cleanWord } from './dict.js';
+import { lookupWord, loadIpa, ipaOf, ipaLoaded, POS_VI, searchDict, cleanWord, dictLinks, machineTranslate } from './dict.js';
 import { ALL, isMine, addMyWord, removeMyWord, speakable, norm } from './vocab-core.js';
 import { lookupWordAI } from './coach.js';
 import { settings } from './settings.js';
@@ -73,13 +73,13 @@ function aiCacheKey(w, s) {
   return `${w}|${(s || '').slice(0, 80)}`;
 }
 function sheetHTML() {
-  const { word, sentence, r, ai, aiLoading, aiError } = cur;
+  const { word, sentence, r, ai, aiLoading, aiError, mt, mtLoading, mtError } = cur;
   const head = r.lemma || word;
   const ipa = ipaOf(word, r.lemma) || (ai?.ipa ?? '');
   const meanings = r.entry ? r.entry[1].split(/;\s*/) : [];
   const phrases = relatedPhrases(word, r.lemma);
   const saved = isMine(head);
-  const canSave = !!(r.entry || ai);
+  const canSave = !!(r.entry || ai || mt);
   const aiReady = settings.provider === 'claude' || settings.provider === 'gemini';
   return `
   <div class="lk-head">
@@ -90,7 +90,10 @@ function sheetHTML() {
   ${r.lemma && r.lemma !== word ? `<p class="small muted">Dạng gốc: <b>${esc(r.lemma)}</b></p>` : ''}
   ${r.entry
     ? `<div class="lk-mean"><span class="chip">${esc(POS_VI[r.entry[0]] || r.entry[0])}</span><ul>${meanings.map((m) => `<li>${esc(m)}</li>`).join('')}</ul></div>`
-    : `<p class="small">Chưa có nghĩa sẵn cho từ này trong app.${aiReady ? ' Bấm <b>🔎 Hỏi AI</b> để tra.' : ' Nhập key AI ở <b>Cài đặt</b> để tra bằng AI.'}</p>`}
+    : `<p class="small">Chưa có nghĩa sẵn cho từ này trong app.${aiReady ? ' Bấm <b>🔎 Hỏi AI</b> để AI giải thích theo câu.' : ''}</p>
+       ${mtLoading ? '<p class="small muted"><span class="spinner"></span> Đang tra trên mạng…</p>' : ''}
+       ${mt ? `<div class="lk-mt"><div class="small muted">🌐 Nghĩa tham khảo (dịch máy MyMemory):</div><div class="lk-mt-text">${esc(mt)}</div><div class="muted small">Dịch máy có thể chưa đúng ngữ cảnh — mở từ điển bên dưới để xem đầy đủ.</div></div>` : ''}
+       ${mtError ? `<p class="small muted">${esc(mtError)}</p>` : ''}`}
   ${sentence ? `<p class="lk-sent">“${esc(sentence)}”</p>` : ''}
   ${phrases.length ? `<div class="small"><b>📒 Trong bộ Từ vựng:</b><ul class="lk-phr">${phrases.map((it) => `<li><b>${esc(it.en)}</b> — ${esc(it.vi)}</li>`).join('')}</ul></div>` : ''}
   ${aiLoading ? '<p class="small muted"><span class="spinner"></span> AI đang tra…</p>' : ''}
@@ -101,6 +104,7 @@ function sheetHTML() {
       ${ai.explanation_vi ? `<div class="small muted">${esc(ai.explanation_vi)}</div>` : ''}
       ${ai.example_en ? `<div class="small"><i>${esc(ai.example_en)}</i>${ai.example_vi ? `<br>${esc(ai.example_vi)}` : ''}</div>` : ''}
       <div class="muted small">Do AI trả lời, có thể chưa chính xác.</div></div>` : ''}
+  <div class="lk-links"><span class="small muted">🌐 Tra trên mạng:</span> ${dictLinks(head).map((l) => `<a class="lk-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>
   <div class="row">
     ${saved
       ? `<button class="btn" data-lk="unsave">✓ Đã lưu · Bỏ lưu</button>`
@@ -115,11 +119,41 @@ export function openLookup(word, sentence = '') {
   if (!w) return;
   const r = lookupWord(w);
   const cached = store.get('aiLookup', {})[aiCacheKey(w, sentence)];
-  cur = { word: w, sentence, r, ai: cached || null, aiLoading: false, aiError: '' };
+  cur = { word: w, sentence, r, ai: cached || null, aiLoading: false, aiError: '', mt: '', mtLoading: false, mtError: '' };
   render();
   $('lk').hidden = false;
   if (!ipaLoaded()) loadIpa().then(render, () => render());
+  if (!r.entry && !cached) fetchMT(cur);
 }
+
+// Từ chưa có nghĩa sẵn: khi có mạng, lấy nghĩa tham khảo bằng dịch máy (có lưu tạm trên máy).
+async function fetchMT(ref) {
+  const cache = store.get('mtCache', {});
+  if (cache[ref.word]) {
+    ref.mt = cache[ref.word];
+    return render();
+  }
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    ref.mtError = 'Máy đang không có mạng — chưa tra trên mạng được.';
+    return render();
+  }
+  ref.mtLoading = true;
+  render();
+  try {
+    ref.mt = await machineTranslate(ref.word);
+    if (ref.mt) {
+      const keys = Object.keys(cache);
+      if (keys.length > 300) delete cache[keys[0]];
+      cache[ref.word] = ref.mt;
+      store.set('mtCache', cache);
+    } else ref.mtError = 'Không tìm thấy nghĩa dịch máy — thử các từ điển bên dưới.';
+  } catch {
+    ref.mtError = 'Không kết nối được dịch vụ tra trên mạng — thử mở từ điển bên dưới.';
+  }
+  ref.mtLoading = false;
+  if (cur === ref) render();
+}
+
 function close() {
   $('lk').hidden = true;
   cur = null;
@@ -151,7 +185,7 @@ async function askAI() {
 function save() {
   const { word, sentence, r, ai } = cur;
   const en = r.lemma || ai?.headword?.toLowerCase() || word;
-  const vi = r.entry ? r.entry[1] : ai?.meaning_vi;
+  const vi = r.entry ? r.entry[1] : ai?.meaning_vi || (cur.mt ? `${cur.mt} (dịch máy)` : '');
   if (!vi) return;
   addMyWord({ en, vi, ex: sentence || ai?.example_en || '', ipa: ipaOf(word, r.lemma) || ai?.ipa || '' });
   toast(`⭐ Đã lưu "${en}" vào Sổ từ (tab Từ vựng).`);
@@ -204,7 +238,7 @@ export function dictResultsHTML(q) {
   }
   if (isWord && !rows.some((r) => r.w === en || r.w === lookupWord(en).lemma)) {
     const ipa = ipaOf(en);
-    html += `<button class="lk-row lk-row-miss" data-lkword="${esc(en)}"><span class="lk-row-w">${esc(en)}</span> <span class="lk-row-ipa">${esc(ipa)}</span><span class="lk-row-m muted">Chưa có nghĩa sẵn — bấm để xem phiên âm và hỏi AI</span></button>`;
+    html += `<button class="lk-row lk-row-miss" data-lkword="${esc(en)}"><span class="lk-row-w">${esc(en)}</span> <span class="lk-row-ipa">${esc(ipa)}</span><span class="lk-row-m muted">Chưa có nghĩa sẵn — bấm để tra trên mạng (dịch máy, Glosbe, Google Dịch…) hoặc hỏi AI</span></button>`;
   }
   return html;
 }

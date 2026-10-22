@@ -164,3 +164,36 @@ export function searchDict(q, limit = 30) {
   hits.sort((a, b) => a[0] - b[0] || a[1].w.length - b[1].w.length || a[1].w.localeCompare(b[1].w));
   return hits.slice(0, limit).map((h) => h[1]);
 }
+
+// ---------- Tra trên mạng ----------
+// Liên kết mở trang từ điển trong trình duyệt (cần mạng).
+export function dictLinks(word) {
+  const w = encodeURIComponent(cleanWord(word).replace(/'s$/, ''));
+  return [
+    { label: 'Glosbe Anh–Việt', url: `https://glosbe.com/en/vi/${w}` },
+    { label: 'Google Dịch', url: `https://translate.google.com/?sl=en&tl=vi&op=translate&text=${w}` },
+    { label: 'Cambridge (Anh–Anh)', url: `https://dictionary.cambridge.org/dictionary/english/${w}` },
+    { label: 'Oxford (Anh–Anh)', url: `https://www.oxfordlearnersdictionaries.com/search/english/?q=${w}` },
+  ];
+}
+
+// Nghĩa tham khảo bằng dịch máy MyMemory (miễn phí, không cần key; ~5.000 ký tự/ngày cho mỗi máy).
+export const MT_URL = (w) => `https://api.mymemory.translated.net/get?q=${encodeURIComponent(w)}&langpair=en|vi`;
+export function parseMT(json, word) {
+  const t = String(json?.responseData?.translatedText || '').trim();
+  const status = Number(json?.responseStatus ?? 200);
+  if (status !== 200 || !t || /MYMEMORY WARNING|QUERY LENGTH|INVALID/i.test(t)) return '';
+  if (t.toLowerCase() === String(word).toLowerCase()) return '';
+  return t.length > 120 ? `${t.slice(0, 117)}…` : t;
+}
+export async function machineTranslate(word, timeoutMs = 8000) {
+  const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const timer = ctrl && setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(MT_URL(cleanWord(word)), ctrl ? { signal: ctrl.signal } : {});
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return parseMT(await res.json(), word);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}

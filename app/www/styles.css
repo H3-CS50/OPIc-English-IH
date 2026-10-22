@@ -469,3 +469,7 @@ body.no-scroll { overflow: hidden; }
 .lk-row-ipa { color: var(--primary); font-size: 14px; margin-left: 4px; }
 .lk-row-m { display: block; font-size: 14px; margin-top: 2px; }
 .lk-row-miss { border-style: dashed; }
+.lk-mt { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; margin: 6px 0; }
+.lk-mt-text { font-size: 17px; font-weight: 600; }
+.lk-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0 4px; }
+.lk-link { border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; font-size: 13.5px; text-decoration: none; color: var(--primary); background: var(--surface); }

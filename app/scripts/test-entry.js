@@ -205,6 +205,12 @@ async function templateTests() {
   ok(/^\/.+\/$/.test(D.ipaOf('hello')) && !/ɹ|ɫ/.test(D.ipaOf('really')), `IPA hello ${D.ipaOf('hello')} / really ${D.ipaOf('really')}`);
   ok(D.ipaOf('went', 'go') === D.ipaOf('went') && D.ipaOf('xyzq', 'go') === D.ipaOf('go'), 'IPA falls back to lemma');
   ok(sentenceAround('I live in Hanoi. It was raining when I left. Then I came back.', 'raining') === 'It was raining when I left.', 'sentence around tapped word');
+  const links = D.dictLinks("Serendipity's");
+  ok(links.length === 4 && links.every((l) => /^https:\/\//.test(l.url)) && links[0].url === 'https://glosbe.com/en/vi/serendipity', 'dictionary links');
+  ok(D.parseMT({ responseStatus: 200, responseData: { translatedText: 'sự tình cờ may mắn' } }, 'serendipity') === 'sự tình cờ may mắn', 'parse MyMemory result');
+  ok(D.parseMT({ responseStatus: 200, responseData: { translatedText: 'serendipity' } }, 'serendipity') === '', 'untranslated MT ignored');
+  ok(D.parseMT({ responseStatus: 429, responseData: { translatedText: 'MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS' } }, 'x') === '', 'MT quota warning ignored');
+  ok(D.MT_URL('hello') === 'https://api.mymemory.translated.net/get?q=hello&langpair=en|vi', 'MT url');
   const n0 = V.ALL.length;
   const it = V.addMyWord({ en: 'reluctant', vi: 'miễn cưỡng', ex: 'He was reluctant to go.' });
   ok(it && V.isMine('reluctant') && V.ALL.length === n0 + 1 && V.MY_TOPIC.items.length === 1, 'add to Sổ từ');

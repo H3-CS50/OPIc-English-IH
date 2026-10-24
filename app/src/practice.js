@@ -28,6 +28,7 @@ const st = {
   plays: 0,
   retry: null,
   banner: '',
+  drama: null, // { ep, q, qid, bannerHTML } khi trả lời câu hỏi OPIc Drama
   abort: null,
   lastResult: null,
   lastAttemptId: null,
@@ -175,14 +176,16 @@ function resetAttempt({ keepRetry = true } = {}) {
   if (!keepRetry) st.retry = null;
 }
 
-export function openQuestion(qid, { banner = '', combo = null } = {}) {
+// drama = { ep, q, bannerHTML() } khi mở từ OPIc Drama (Luyện → 🎬 Drama)
+export function openQuestion(qid, { banner = '', combo = null, drama = null } = {}) {
   const q = getQuestion(qid);
   if (!q) return toast('Không tìm thấy câu hỏi.');
   if (st.recording) return toast('Hãy dừng ghi trước khi đổi câu.');
   st.q = q;
   st.plays = 0;
   st.combo = combo;
-  st.banner = combo ? comboBannerHTML() : banner;
+  st.drama = drama;
+  st.banner = combo ? comboBannerHTML() : drama ? drama.bannerHTML() : banner;
   resetAttempt({ keepRetry: false });
   renderQuestion();
   window.dispatchEvent(new CustomEvent('opic:show-tab', { detail: 'practice' }));
@@ -193,6 +196,7 @@ export function openQuestion(qid, { banner = '', combo = null } = {}) {
 function nextQuestion() {
   if (st.recording) return toast('Hãy dừng ghi trước khi đổi câu.');
   const p = pool();
+  st.drama = null;
   if (!p.length) {
     st.q = null;
     renderQuestion();
@@ -206,6 +210,7 @@ function nextQuestion() {
   st.plays = 0;
   st.banner = '';
   st.combo = null;
+  st.drama = null;
   resetAttempt({ keepRetry: false });
   renderQuestion();
   if (settings.autoListen) listen();
@@ -225,6 +230,12 @@ function comboBannerHTML() {
       <button class="btn small-btn" data-combo-nav="map">🗺️ Lộ trình</button>
     </div>
     <div class="muted small">Nói đủ 15 từ hoặc 20 giây trở lên là câu được tính ✓. Chấm AI hoặc tự kiểm tra để lên ★★, ★★★.</div></div>`;
+}
+// OPIc Drama: cập nhật khung kết quả mở khoá sau khi chấm.
+export function refreshDramaBanner() {
+  if (!st.drama) return;
+  st.banner = st.drama.bannerHTML();
+  renderBanner();
 }
 function renderComboBanner() {
   if (!st.combo) return;
@@ -353,6 +364,8 @@ function showAnalysis({ log = false } = {}) {
   box.innerHTML = renderAnalysis(a);
   box.hidden = false;
   if (log) logAnalysis(a, { qid: st.q.question_id, ptype: st.q.prompt_type, target: settings.target });
+  if (log && st.drama && st.drama.qid === st.q.question_id)
+    window.dispatchEvent(new CustomEvent('opic:drama-answer', { detail: { ep: st.drama.ep, q: st.drama.q, text: currentText(), seconds: st.seconds } }));
 }
 let anTimer = null;
 function onTranscriptEdit() {
@@ -397,7 +410,7 @@ function buildCtx() {
 
 function baseAttempt(ctx, provider) {
   return {
-    mode: st.retry ? 'retry' : st.banner ? 'daily' : 'practice',
+    mode: st.retry ? 'retry' : st.drama ? 'drama' : st.banner ? 'daily' : 'practice',
     question_id: st.q.question_id,
     question_text: st.q.question_text,
     prompt_type: st.q.prompt_type,
@@ -440,6 +453,8 @@ async function onGrade() {
   showAnalysis();
   box.innerHTML = renderFeedback(result);
   box.querySelector('[data-action=retry]')?.addEventListener('click', startRetry);
+  if (st.drama && st.drama.qid === st.q.question_id)
+    window.dispatchEvent(new CustomEvent('opic:drama-coach', { detail: { ep: st.drama.ep, q: st.drama.q, label: result?.practice_level_estimate?.label } }));
 }
 
 function startRetry() {
@@ -615,6 +630,10 @@ export function initPractice() {
   $('practice-banner').addEventListener('click', (e) => {
     const b = e.target.closest('[data-combo-nav]');
     if (b) comboNav(b.dataset.comboNav);
+    if (e.target.closest('[data-drama-nav]') && st.drama) {
+      if (st.recording) return toast('Hãy dừng ghi trước đã.');
+      window.dispatchEvent(new CustomEvent('opic:drama-open', { detail: { ep: st.drama.ep, q: st.drama.q } }));
+    }
   });
   $('btn-save-script').addEventListener('click', () => {
     if (st.recording) return toast('Hãy dừng ghi trước đã.');

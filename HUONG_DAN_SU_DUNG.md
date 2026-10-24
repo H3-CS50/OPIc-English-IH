@@ -29,7 +29,7 @@ OPIc OQC là app luyện nói **OPIc tiếng Anh** theo lộ trình **IM → IH 
 
 ## 🎤 Tab Luyện
 
-Đầu tab có 3 chế độ: **🗺️ Lộ trình** (đi từng chặng), **🎤 Luyện tự do** (chọn câu theo bộ lọc) và **💬 Giám khảo AI** (hội thoại với giám khảo AI, xem mục riêng).
+Đầu tab có 4 chế độ: **🗺️ Lộ trình** (đi từng chặng), **🎤 Luyện tự do** (chọn câu theo bộ lọc), **💬 Giám khảo AI** (hội thoại với giám khảo AI, xem mục riêng) và **🎬 Drama** (truyện tranh mở khoá bằng câu trả lời, xem mục riêng).
 
 ## 🗺️ Lộ trình chinh phục
 
@@ -158,6 +158,17 @@ Tab **Luyện → 💬 Giám khảo AI**: luyện theo dạng câu hỏi OPIc v�
 - Mỗi lượt: **🎙️ Nói** → **⏹ Dừng** → sửa chữ nếu cần → **Gửi ➤**. Lời của Ava có **🔊** nghe lại và **VI** xem nghĩa. **🙈 Ẩn chữ** để chỉ nghe như thi thật.
 - Cuối buổi (hoặc bấm **⏹ Kết thúc & nhận xét**): ước tính luyện tập, điểm làm tốt, điểm cần cải thiện, **✏️ Nói hay hơn** có 🔊 và 📜 Lưu.
 - Tốn khoảng 3–5 lượt AI mỗi buổi. Chỉ gửi chữ, không gửi ghi âm.
+
+## 🎬 OPIc Drama
+
+Tab **Luyện → 🎬 Drama**: truyện tranh tuyến **Mina** (10 tập). Kim Mina là kỹ sư chất lượng từ Seoul sang nhà máy 6 tuần; anh là người hướng dẫn cô. Truyện tạo bằng AI, nhân vật hư cấu.
+
+- **Đọc** từ Tập 1. Cuối mỗi tập là một **câu hỏi OPIc** (Tập 10 có 3 câu role-play). Bấm **🎤 Trả lời câu này** → app mở câu đó ở Luyện tự do, có khung điều kiện đạt.
+- **Đạt** là chấm trên máy ngay khi dừng ghi (không tốn lượt AI): đủ số từ, đủ từ nối và điều kiện riêng của tập (ví dụ Tập 2: từ chỉ trình tự first, then, after that…; Tập 4: kể bằng thì quá khứ). Mục nào ✗ thì sửa rồi nói lại.
+- Đạt → **+10 ♥**, mở phần tiếp, nhận **photocard** và mở tập sau. Chưa đạt → hiện cảnh "nói lại" và gợi ý.
+- **🎁 Cảnh thưởng**: bấm **🤖 AI Coach**; ước tính đạt mục tiêu luyện tập (IM / IH / AL trong Cài đặt) là mở, +5 ♥. Mở đủ 5 cảnh thưởng để xem **Epilogue** ở Tập 10.
+- Bấm **📖 Về truyện / Đọc tiếp** trên khung đầu màn Luyện để quay lại đúng chỗ đang đọc.
+- Ngưỡng "đạt" là ngưỡng luyện tập của app, **không phải điểm OPIc chính thức**. Tiến độ lưu trên máy.
 
 ## 📝 Tab Thi thử
 

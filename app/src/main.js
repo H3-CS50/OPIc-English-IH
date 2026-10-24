@@ -15,6 +15,7 @@ import { initLookup, onMyWordsChange } from './lookup.js';
 import { initGroup } from './group.js';
 import { initPron } from './pron.js';
 import { initTalk, stopTalk } from './talk.js';
+import { initDrama } from './drama.js';
 
 const TITLES = { practice: 'Luyện nói', mock: 'Thi thử', vocab: 'Từ vựng', learn: 'Học', progress: 'Tiến bộ', settings: 'Cài đặt' };
 let current = 'practice';
@@ -58,6 +59,7 @@ initIpa();
 initTalk();
 initPron();
 initRoadmap();
+initDrama();
 window.addEventListener('opic:open-question', (e) => openQuestion(e.detail));
 onMyWordsChange(() => current === 'vocab' && refreshVocab());
 initHelp({ navigate: (tab) => showTab(tab), getTab: () => current });

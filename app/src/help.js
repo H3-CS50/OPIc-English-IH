@@ -2,7 +2,7 @@
 import { $, md, store, escapeHtml } from './util.js';
 import { docs, kb } from './data.js';
 
-const WELCOME_VERSION = 7;
+const WELCOME_VERSION = 8;
 const classCount = kb.questions.filter((q) => q.origin_set === 'class').length;
 
 const SLIDES = [
@@ -11,6 +11,7 @@ const SLIDES = [
     title: 'Chào mừng đến OPIc OQC',
     lead: 'App luyện nói OPIc tiếng Anh theo lộ trình IM → IH → AL.',
     items: [
+      ['🎬', '<b>OPIc Drama</b> (Luyện → 🎬 Drama): đọc truyện tranh 10 tập, trả lời câu hỏi OPIc để mở tập tiếp'],
       ['💬', '<b>Giám khảo AI</b> hỏi nối tiếp theo câu bạn vừa nói, đóng vai role-play'],
       ['📊', '<b>Phân tích bài nói</b> ngay sau khi nói · <b>🔍 Soi phát âm</b> từng từ'],
       ['🏆', '<b>Nhóm học</b>: EXP, chuỗi ngày, bảng xếp hạng, Đề của tuần'],
@@ -78,6 +79,7 @@ const QUICK = [
   ['Phân tích', 'Phân tích bài nói'],
   ['Soi phát âm', 'Soi phát âm'],
   ['Giám khảo AI', 'Giám khảo AI'],
+  ['Drama', 'OPIc Drama'],
   ['Thi thử', 'Tab Thi thử'],
   ['Từ vựng', 'Tab Từ vựng'],
   ['Tra từ', 'Tra từ'],

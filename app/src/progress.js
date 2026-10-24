@@ -20,7 +20,7 @@ const CORE_TYPES = [
   'roleplay_ask', 'roleplay_problem', 'roleplay_experience', 'issue_concern', 'news_report',
 ];
 const ORDER = ['below_IM', 'IM', 'IM_IH_borderline', 'IH', 'IH_AL_borderline', 'AL', 'insufficient_evidence'];
-const MODE_LABEL = { practice: 'Luyện', mock: 'Thi thử', daily: 'Điểm yếu', retry: 'Nói lại' };
+const MODE_LABEL = { practice: 'Luyện', mock: 'Thi thử', daily: 'Điểm yếu', retry: 'Nói lại', drama: 'Drama' };
 
 function vocabCard() {
   const v = vocabStats();

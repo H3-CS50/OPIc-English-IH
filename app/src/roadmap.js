@@ -128,6 +128,7 @@ function setView(v) {
   $('practice-road').hidden = v !== 'road';
   $('practice-free').hidden = v !== 'free';
   $('practice-talk').hidden = v !== 'talk';
+  $('practice-drama').hidden = v !== 'drama';
   if (v === 'road') renderRoadmap();
   window.dispatchEvent(new CustomEvent('opic:pview-changed', { detail: v }));
 }
@@ -185,5 +186,5 @@ export function initRoadmap() {
   onRoadmapChange(refresh);
   onMocksChange(refresh);
   onSettingsChange(refresh);
-  setView(['free', 'talk'].includes(ui.view) ? ui.view : 'road');
+  setView(['free', 'talk', 'drama'].includes(ui.view) ? ui.view : 'road');
 }

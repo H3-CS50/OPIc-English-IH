@@ -28,6 +28,8 @@ import { looksEnglish, importRealQuestions, REAL_PACK_NAME } from '../src/data.j
 import * as AN from '../src/analysis.js';
 import { analyze, renderAnalysis, logAnalysis, analysisLog, analysisTrend, clearAnalysisLog } from '../src/analysis-ui.js';
 import { checkPronunciationAI, normalizePron, examinerTurn, examinerFeedback } from '../src/coach.js';
+import * as DR from '../src/drama-core.js';
+import dramaMina from '../www/drama/mina/manifest.json';
 
 let fails = 0;
 const ok = (cond, msg) => {
@@ -605,6 +607,92 @@ async function speechTests() {
   } finally {
     globalThis.fetch = realFetch;
   }
+}
+
+
+// ---------- OPIc Drama: điều kiện mở khoá + tiến độ ----------
+{
+  const M = dramaMina;
+  const E = (n) => M.episodes.find((e) => e.ep === n);
+  ok(M.episodes.length === 10 && M.episodes.every((e) => e.questions.length && e.sections.length), 'drama manifest 10 tập');
+  for (const e of M.episodes) {
+    const keys = e.sections.flatMap((s) => s.panels);
+    ok(keys.every((k) => e.panels[k]), `drama ep${e.ep}: mọi khung có kích thước`);
+    ok(e.questions.every((q) => kbData.questions.some((x) => x.question_id === q.qid)), `drama ep${e.ep}: câu hỏi có trong kho`);
+    ok(e.questions.every((q) => keys.includes(q.card)), `drama ep${e.ep}: có thẻ câu hỏi`);
+    ok(!e.photocard || e.panels[e.photocard.panel], `drama ep${e.ep}: photocard`);
+  }
+  const GOOD = {
+    1: "Hi, my name is Minh and I'm thirty five years old. I work as a quality engineer in an electronics factory, so my job is to check products before shipping. My job is busy but I enjoy it. I'm married and I have two kids, a son and a daughter. In my free time I usually play badminton because it helps me relax. Also I like watching movies with my family on weekends.",
+    2: "Okay, I usually inspect a product step by step. First, I check the outside of the product, such as scratches or dents, because customers notice those right away. Then I turn it on and test the main functions, for example the screen and the buttons. After that, I compare the result with the checklist. If everything is okay, I sign the report. Finally, I put the product back in the box so it is ready for shipping.",
+    3: "My workplace is a big inspection room on the second floor of the factory. It is very bright and clean because we need good light to see small defects. There are long tables in rows, and each table has a computer, a microscope and some measuring tools such as a caliper. Also we wear gloves when we handle products. I think it's a nice place to work, although it is a little noisy sometimes.",
+    4: "Last year, I found a small scratch on a batch of phones that other inspectors had missed. At first I thought it was nothing, but then I checked more samples and saw the same problem. So I reported it to my leader right away and we stopped the shipment. After that, the production team fixed the machine. In the end, the customer didn't receive any bad products, and my leader thanked me. I was really proud that day.",
+    5: "I work with about ten people in my team. My team leader, Mr. Tuan, is very calm and he always listens to us. There is also a coworker named Lan, who is really careful when she checks products. We usually share the work in the morning, and if someone is busy, we help each other. For example, last week I helped Lan with her report. Honestly, I think we are a good team because we trust each other.",
+    6: "Recently we had a problem with a customer complaint. A customer said that some products had loose buttons. First, my leader asked me to check the remaining stock, so I tested about two hundred units and found ten bad ones. Then I talked with the production team and we found the cause together. After that, we added one more check step. In the end, the customer was satisfied, and I learned that fast communication is very important.",
+    7: "I remember one day last December when we had a big order that had to ship before Christmas. It was so busy because two inspectors were sick, so I had to check products almost alone. I skipped lunch and worked until nine at night. Then my coworkers came back to help me in the evening. In the end, we finished everything on time and the truck left at ten. I still remember that day because I was exhausted but really proud.",
+    8: "When I started working ten years ago, we used to check everything by hand. We used to write results on paper, and it took a long time. But now things are very different. These days we use automatic machines and cameras to find defects, so the inspection is much faster. Also, nowadays all the data is saved in a system, which makes it easy to track problems. I think the change is good because we can focus on more important issues.",
+    9: "When a product does not meet customer expectations, the company loses trust, and sometimes it has to pay for returns. For example, if a phone has a bad battery, customers will write bad reviews online and other people will not buy it. So I think companies should check quality more carefully before shipping. They also need to listen to customer feedback and fix problems quickly. In my opinion, quality is the most important thing because one bad product can damage the whole brand.",
+  };
+  for (let n = 1; n <= 9; n++) {
+    const r = DR.evaluateRule(GOOD[n], E(n).questions[0].rule);
+    ok(r.pass, `drama ep${n} bài mẫu đạt ${JSON.stringify(r.items.filter((x) => !x.ok))}`);
+  }
+  const q10 = E(10).questions;
+  const A1 = 'Hi manager, thank you for choosing me for this project. I have a few questions. First, could you tell me when the project starts? Also, who will be on my team? Is there any training I need to take before we begin? And how long will the project last? Thank you.';
+  const A2 = "Hello, this is Minh. I'm calling because the client wants to move the deadline two weeks earlier. I think it's going to be difficult, but we have some options. We could ask two people from another team to help us. Another option is to deliver the main part first and finish the rest later. Or maybe we can work a little overtime next week. What do you think?";
+  const A3 = 'Yes, I have. Two years ago, our team had a problem with a new product because the test machine kept giving wrong results. At first nobody knew why. So I checked the settings one by one and finally found that the software was old. I asked the engineer to update it, and after that the results were correct. In the end we delivered on time and the customer was happy. I learned that staying calm is the key when something goes wrong.';
+  ok(DR.evaluateRule(A1, q10[0].rule).pass, 'drama ep10 q1 đạt');
+  ok(DR.evaluateRule(A1.replace(/\?/g, ''), q10[0].rule).pass, 'drama ep10 q1 đạt khi lời nói không có dấu ?');
+  ok(DR.evaluateRule(A2, q10[1].rule).pass, `drama ep10 q2 đạt ${JSON.stringify(DR.evaluateRule(A2, q10[1].rule).items.filter((x) => !x.ok))}`);
+  ok(DR.evaluateRule(A3, q10[2].rule).pass, `drama ep10 q3 đạt ${JSON.stringify(DR.evaluateRule(A3, q10[2].rule).items.filter((x) => !x.ok))}`);
+  // chưa đạt: thiếu ý / thiếu trình tự / quá ngắn
+  const r1 = DR.evaluateRule('I work as an engineer in a factory, so my job is checking products because quality is important. Also my work is busy but I like it when the team is happy, and I think it is a good company for me and for my future career too.', E(1).questions[0].rule);
+  ok(!r1.pass && r1.items.find((x) => x.key === 'ideas' && !x.ok && /gia đình/.test(x.detail)), 'drama ep1 thiếu ý gia đình, sở thích');
+  ok(!DR.evaluateRule(GOOD[2].replace(/First, |Then |After that, |Finally, /g, ''), E(2).questions[0].rule).pass, 'drama ep2 bỏ từ trình tự thì chưa đạt');
+  ok(!DR.evaluateRule('I found a problem.', E(4).questions[0].rule).pass, 'drama câu quá ngắn chưa đạt');
+  ok(DR.questionCount('When I was young I lived in Hanoi and I worked there.') === 0, 'drama câu kể không bị đếm là câu hỏi');
+  ok(DR.questionCount('could you tell me what time the meeting starts and is there a dress code') === 2, `drama đếm câu hỏi ${DR.questionCount('could you tell me what time the meeting starts and is there a dress code')}`);
+  ok(DR.countMarkers(AN.words('first of all I check then and then after that'), DR.SEQUENCE).n === 4, 'drama đếm cụm dài nhất, không chồng');
+  ok(DR.peopleMentions('Yesterday my coworkers and my manager met Mina.').n === 3, `drama đếm người ${JSON.stringify(DR.peopleMentions('Yesterday my coworkers and my manager met Mina.'))}`);
+  // tiến độ
+  const S = DR.emptyState();
+  ok(DR.isUnlocked(S, M, 1) && !DR.isUnlocked(S, M, 2), 'drama chỉ mở Tập 1 lúc đầu');
+  const e1 = E(1);
+  const sec = (e, id) => e.sections.find((x) => x.id === id);
+  let g = DR.applyAnswer(S, e1, 'q1', DR.evaluateRule('too short', e1.questions[0].rule));
+  ok(!g.newlyPassed && DR.sectionState(S, M, e1, sec(e1, 'retry')) === 'show' && DR.sectionState(S, M, e1, sec(e1, 'good')) === 'locked', 'drama chưa đạt → hiện cảnh nói lại, khoá phần đạt');
+  g = DR.applyAnswer(S, e1, 'q1', DR.evaluateRule(GOOD[1], e1.questions[0].rule));
+  ok(g.newlyPassed && g.completed && g.hearts === 10 && S.hearts === 10, 'drama đạt → +10 tim');
+  ok(DR.sectionState(S, M, e1, sec(e1, 'retry')) === 'hidden' && DR.sectionState(S, M, e1, sec(e1, 'good')) === 'show', 'drama đạt → mở phần đạt, ẩn nói lại');
+  ok(DR.isUnlocked(S, M, 2), 'drama đạt Tập 1 → mở Tập 2');
+  g = DR.applyAnswer(S, e1, 'q1', DR.evaluateRule(GOOD[1], e1.questions[0].rule));
+  ok(!g.newlyPassed && S.hearts === 10, 'drama đạt lại không cộng tim lần nữa');
+  DR.applyAnswer(S, e1, 'q1', DR.evaluateRule('short', e1.questions[0].rule));
+  ok(DR.isCompleted(S, e1) && DR.sectionState(S, M, e1, sec(e1, 'retry')) === 'hidden', 'drama đã đạt thì nói hỏng sau đó không khoá lại');
+  ok(!DR.applyCoach(S, e1, 'IM', 'IH').ok && DR.sectionState(S, M, e1, sec(e1, 'bonus')) === 'locked', 'drama AI Coach dưới mục tiêu → chưa mở cảnh thưởng');
+  g = DR.applyCoach(S, e1, 'IH', 'IH');
+  ok(g.ok && g.bonusOpened && S.hearts === 15 && DR.sectionState(S, M, e1, sec(e1, 'bonus')) === 'show', 'drama AI Coach đạt mục tiêu → cảnh thưởng +5 tim');
+  ok(DR.applyCoach(S, e1, 'AL', 'IH').hearts === 0 && S.hearts === 15, 'drama cảnh thưởng chỉ cộng tim một lần');
+  const e2 = E(2);
+  DR.applyCoach(S, e2, 'IH_AL_borderline', 'IH');
+  ok(DR.sectionState(S, M, e2, sec(e2, 'bonus')) === 'locked', 'drama AI đạt nhưng chưa qua câu → cảnh thưởng vẫn khoá');
+  ok(DR.applyAnswer(S, e2, 'q1', DR.evaluateRule(GOOD[2], e2.questions[0].rule)).hearts === 15, 'drama qua câu sau khi AI đạt → +10 và +5');
+  const e10 = E(10);
+  ok(DR.sectionState(S, M, e10, sec(e10, 'part2')) === 'locked', 'drama Tập 10 phần 2 khoá');
+  DR.applyAnswer(S, e10, 'q1', DR.evaluateRule(A1, q10[0].rule));
+  ok(DR.sectionState(S, M, e10, sec(e10, 'part2')) === 'show' && DR.sectionState(S, M, e10, sec(e10, 'part3')) === 'locked' && !DR.isCompleted(S, e10), 'drama Tập 10 qua câu 1 → mở phần 2');
+  DR.applyAnswer(S, e10, 'q2', DR.evaluateRule('no idea', q10[1].rule));
+  ok(DR.sectionState(S, M, e10, sec(e10, 'retry2')) === 'show' && DR.sectionState(S, M, e10, sec(e10, 'retry1')) === 'hidden', 'drama Tập 10 hỏng câu 2 → cảnh nói lại R2');
+  DR.applyAnswer(S, e10, 'q2', DR.evaluateRule(A2, q10[1].rule));
+  g = DR.applyAnswer(S, e10, 'q3', DR.evaluateRule(A3, q10[2].rule));
+  ok(g.completed && g.hearts === 20 && DR.sectionState(S, M, e10, sec(e10, 'true')) === 'show', 'drama Tập 10 qua câu 3 → true ending +20');
+  ok(DR.sectionState(S, M, e10, sec(e10, 'epilogue')) === 'locked', 'drama epilogue khoá khi chưa đủ 5 cảnh thưởng');
+  for (const n of [3, 4, 5]) {
+    DR.applyAnswer(S, E(n), 'q1', DR.evaluateRule(GOOD[n], E(n).questions[0].rule));
+    DR.applyCoach(S, E(n), 'AL', 'IH');
+  }
+  ok(DR.bonusCount(S, M) === 5 && DR.sectionState(S, M, e10, sec(e10, 'epilogue')) === 'show', 'drama đủ 5 cảnh thưởng → mở epilogue');
+  ok(DR.photocards(S, M).filter((p) => p.owned).length === 6 && DR.photocards(S, M).length === 10, 'drama bộ sưu tập photocard');
 }
 
 templateTests()
